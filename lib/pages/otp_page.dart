@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/elevated_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/icon_widget.dart';
 
-class ResetPasswordPage extends StatelessWidget {
-  const ResetPasswordPage();
+class OtpPage extends StatelessWidget {
+  const OtpPage();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'Reset password',
+        title: 'OTP',
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
-              const SizedBox(
-                height: 50,
-              ),
-              const Icon(
-                Icons.lock_outline_rounded,
-                color: Colors.grey,
-                size: 144.0,
-              ),
-              const SizedBox(
-                height: 50,
+              const IconWidget(
+                icon: Icons.perm_device_information_rounded,
               ),
               const Text(
-                'Reset your Password',
+                'Enter your OTP',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -36,7 +30,7 @@ class ResetPasswordPage extends StatelessWidget {
                 height: 20,
               ),
               const Text(
-                'Enter your phone number below to reset your password',
+                'Enter your OTP below to reset your password',
                 style: TextStyle(
                   color: Colors.grey,
                 ),
@@ -45,9 +39,10 @@ class ResetPasswordPage extends StatelessWidget {
                 height: 50,
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.90,
+                width: MediaQuery.of(context).size.width * 0.75,
                 child: const TextField(
                   cursorColor: Colors.teal,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -55,7 +50,7 @@ class ResetPasswordPage extends StatelessWidget {
                       ),
                     ),
                     label: Text(
-                      'Phone number',
+                      'OTP',
                     ),
                     floatingLabelStyle: TextStyle(
                       color: Colors.teal,
@@ -64,27 +59,38 @@ class ResetPasswordPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Never got the OTP?',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  TextButton(
+                    child: const Text(
+                      'Click here to resend',
+                      style: TextStyle(
+                        color: Colors.teal,
+                      ),
+                    ),
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.all<Color>(
+                        Colors.teal.shade50,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
                 height: 50,
               ),
-              SizedBox(
-                width: 200,
-                height: 50,
-                child: ElevatedButton(
-                  child: const Text(
-                    'SUBMIT',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.teal,
-                    ),
-                  ),
-                ),
+              const ElevatedButtonWidget(
+                data: 'SUBMIT',
               ),
             ],
           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
+import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 
 void main() {
   runApp(
@@ -14,7 +14,7 @@ class _App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const ResetPasswordPage(),
+      home: const OtpPage(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: Colors.teal,
