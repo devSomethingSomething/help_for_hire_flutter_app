@@ -45,11 +45,7 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
                   height: 50,
                 ),
                 ElevatedButton(
-                  onPressed: () => Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => RegistrationSuccess(),
-                    ),
-                  ),
+                  onPressed: () {},
                   child: Text(
                     'Sign in',
                     style: TextStyle(fontSize: 20),
