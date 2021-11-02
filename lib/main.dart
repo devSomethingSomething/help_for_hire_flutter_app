@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 
 void main() {
   runApp(
@@ -14,7 +14,8 @@ class _App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const OtpPage(),
+      initialRoute: RouteManager.otpPage,
+      onGenerateRoute: RouteManager.generateRoute,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: Colors.teal,
