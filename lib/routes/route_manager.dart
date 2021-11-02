@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/pages/new_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
 
 class RouteManager {
   static const resetPasswordPage = '/resetPasswordPage';
   static const otpPage = '/otpPage';
+  static const newPasswordPage = '/newPasswordPage';
 
   const RouteManager._();
 
@@ -19,6 +21,10 @@ class RouteManager {
       case otpPage:
         return MaterialPageRoute(
           builder: (_) => const OtpPage(),
+        );
+      case newPasswordPage:
+        return MaterialPageRoute(
+          builder: (_) => const NewPasswordPage(),
         );
       default:
         throw Exception(

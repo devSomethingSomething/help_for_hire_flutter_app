@@ -18,6 +18,7 @@ class _App extends StatelessWidget {
       onGenerateRoute: RouteManager.generateRoute,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.teal,
           secondary: Colors.teal,
         ),
       ),
