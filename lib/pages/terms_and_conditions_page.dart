@@ -26,8 +26,12 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
-                'BY CHECKING THIS BOX YOU AGREE TO THE ABOVE TERMS AND CONDITIONS',
+              // ignore: prefer_const_constructors
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: const Text(
+                    'BY CHECKING THIS BOX YOU AGREE TO THE ABOVE TERMS AND CONDITIONS',
+                    textAlign: TextAlign.justify),
               ),
               Container(
                 color: Colors.pink,
