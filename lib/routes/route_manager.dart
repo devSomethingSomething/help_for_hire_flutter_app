@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/new_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
+import 'package:help_for_hire_flutter_app/pages/settings_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 
 class RouteManager {
-  static const String loadingPage = '/';
- // static const String homePage = '/homePage';
+  static const String splashPage = '/';
+  // static const String homePage = '/homePage';
   static const resetPasswordPage = '/resetPasswordPage';
   static const otpPage = '/otpPage';
   static const newPasswordPage = '/newPasswordPage';
+  static const settingsPage = '/settingsPage';
 
   const RouteManager._();
 
@@ -17,7 +19,7 @@ class RouteManager {
     RouteSettings settings,
   ) {
     switch (settings.name) {
-      case loadingPage:
+      case splashPage:
         return MaterialPageRoute(
           builder: (context) => SplashPage(),
         );
@@ -37,6 +39,11 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const NewPasswordPage(),
         );
+      case settingsPage:
+        return MaterialPageRoute(
+          builder: (_) => SettingsPage(),
+        );
+
       default:
         throw Exception(
           'Route not found',
