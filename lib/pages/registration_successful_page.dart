@@ -23,7 +23,7 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
                 height: 150,
                 width: 150,
                 image: AssetImage(
-                  'assets/images/Green_Check.png',
+                  'assets/images/green_check.png',
                 ),
               ),
               const SizedBox(
