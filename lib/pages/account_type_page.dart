@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
 
 enum Accounts { worker, employer }
 
@@ -19,12 +20,8 @@ class _AccountTypeState extends State<AccountType> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {},
-          ),
-          title: const Text('Account'),
+        appBar: AppBarWidget(
+          title: 'Account',
         ),
         body: Center(
             child: SingleChildScrollView(
