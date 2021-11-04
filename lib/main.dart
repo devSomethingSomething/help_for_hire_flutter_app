@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/terms_and_conditions_page.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 
 void main() {
   runApp(
@@ -14,9 +15,11 @@ class _App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const TermsAndConditionsPage(),
+      initialRoute: RouteManager.splashPage,
+      onGenerateRoute: RouteManager.generateRoute,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.teal,
           secondary: Colors.teal,
         ),
         unselectedWidgetColor: Colors.white,
