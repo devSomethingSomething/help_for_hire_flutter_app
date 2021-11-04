@@ -14,6 +14,7 @@ class DetailsTextWidget extends StatelessWidget {
       style: const TextStyle(
         color: Colors.grey,
       ),
+      textAlign: TextAlign.center,
     );
   }
 }
