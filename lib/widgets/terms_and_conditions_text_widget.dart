@@ -6,12 +6,13 @@ class TermsAndConditionsTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(
+        16.0,
+      ),
       child: Column(
         children: const [
           Text(
             'THESE TERMS OF USE WERE UPDATED IN OCTOBER 2021\n',
-            textAlign: TextAlign.justify,
           ),
           Text(
               'THESE TERMS OF USE APPLY TO THE USE OF THE (HELP FOR HIRE) MOBILE APPLICATION. '
@@ -39,7 +40,7 @@ class TermsAndConditionsTextWidget extends StatelessWidget {
               'IF YOU DO NOT COMPLY WITH THE PRIVACY POLICY, THAT WILL ALSO BE A BREACH OF THE TERMS OF USE. '
               '(HELP FOR HIRE) AND OTHERS WILL HAVE CLAIMS AND OTHER RIGHTS AGAINST YOU UNDER THE PRIVACY POLICY AND THE TERMS OF USE. '
               'IF THIS PRIVACY POLICY IS GOVERNED BY THE CONSUMER PROTECTION ACT, 68 OF 2008 ("CPA"), THE ELECTRONIC COMMUNICATIONS AND TRANSACTIONS ACT, 25 OF 2002 ("ECTA"), OR THE PROTECTION OF PERSONAL INFORMATION ACT, 4 OF 2013, ("POPI"), NO PROVISION OF THIS PRIVACY POLICY IS INTENDED TO BE IN CONFLICT WITH ANY PROVISION OF THE CPA, ECTA, OR POPI. '
-              'AS A RESULT, ALL SECTIONS OF THIS PRIVACY POLICY MUST BE INTERPRETED WITH CAUTION, TO THE EXTENT NECESSARY, TO ENSURE THAT THE CPA, ECTA, AND POPI ARE FOLLOWED.',
+              'AS A RESULT, ALL SECTIONS OF THIS PRIVACY POLICY MUST BE INTERPRETED WITH CAUTION, TO THE EXTENT NECESSARY, TO ENSURE THAT THE CPA, ECTA, AND POPI ARE FOLLOWED.\n',
               textAlign: TextAlign.justify),
         ],
       ),
