@@ -5,8 +5,9 @@ import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 
 class RouteManager {
-  static const String loadingPage = '/';
- // static const String homePage = '/homePage';
+  static const splashPage = '/';
+  // Uncomment this once the homePage has been added
+  // static const homePage = '/homePage';
   static const resetPasswordPage = '/resetPasswordPage';
   static const otpPage = '/otpPage';
   static const newPasswordPage = '/newPasswordPage';
@@ -17,14 +18,10 @@ class RouteManager {
     RouteSettings settings,
   ) {
     switch (settings.name) {
-      case loadingPage:
+      case splashPage:
         return MaterialPageRoute(
-          builder: (context) => SplashPage(),
+          builder: (_) => const SplashPage(),
         );
-      // case homePage:
-      //   return MaterialPageRoute(
-      //     builder: (context) => SignInSignUpPage(),
-      //   );
       case resetPasswordPage:
         return MaterialPageRoute(
           builder: (_) => const ResetPasswordPage(),
