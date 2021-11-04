@@ -9,6 +9,7 @@ class RouteManager {
   static const splashPage = '/';
   // Uncomment this once the homePage has been added
   // static const homePage = '/homePage';
+  // static const accountTypePage = '/accountTypePage'; // Added - Werner
   static const registrationSuccessPage =
       '/registrationSuccessPage'; // Added - Werner
   static const resetPasswordPage = '/resetPasswordPage';
@@ -25,6 +26,10 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const SplashPage(),
         );
+      // case accountTypePage: // Added - Werner
+      // return MaterialPageRoute(
+      //   builder: (_) => const AccountType(),
+      // );
       case registrationSuccessPage: // Added - Werner
         return MaterialPageRoute(
           builder: (_) => const RegistrationSuccess(),
