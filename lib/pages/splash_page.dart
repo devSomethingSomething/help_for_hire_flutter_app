@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
+import 'package:help_for_hire_flutter_app/widgets/logo_widget.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage();
@@ -24,25 +24,15 @@ class _SplashPageState extends State<SplashPage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(
-                32.0,
-              ),
-              child: Image.asset(
-                'assets/images/help_for_hire_tb.png',
-              ),
-            ),
+          children: const [
+            LogoWidget(),
             Text(
               'Please be patient while loading occurs...',
-              style: GoogleFonts.aladin(
-                fontSize: 20,
-              ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 32,
             ),
-            const CircularProgressIndicator(
+            CircularProgressIndicator(
               color: Colors.teal,
             ),
           ],

@@ -3,12 +3,12 @@ import 'package:help_for_hire_flutter_app/pages/new_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 import 'package:help_for_hire_flutter_app/pages/registration_successful_page.dart';
 import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
+import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 
 class RouteManager {
   static const splashPage = '/';
-  // Uncomment this once the homePage has been added
-  // static const homePage = '/homePage';
+  static const signInRegisterPage = '/signInRegisterPage';
   // static const accountTypePage = '/accountTypePage'; // Added - Werner
   static const registrationSuccessPage =
       '/registrationSuccessPage'; // Added - Werner
@@ -25,6 +25,10 @@ class RouteManager {
       case splashPage:
         return MaterialPageRoute(
           builder: (_) => const SplashPage(),
+        );
+      case signInRegisterPage:
+        return MaterialPageRoute(
+          builder: (_) => const SignInRegisterPage(),
         );
       // case accountTypePage: // Added - Werner
       // return MaterialPageRoute(
