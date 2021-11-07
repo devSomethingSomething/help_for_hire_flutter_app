@@ -10,10 +10,7 @@ class DelayHelper {
       const Duration(
         seconds: 5,
       ),
-      // This needs to change once the homePage gets added
-      // Should change 'homePage' to RouteManager.homePage
-      // Currently will throw an exception if a route is not found
-      () => Navigator.of(context).popAndPushNamed(RouteManager.otpPage),
+      () => Navigator.popAndPushNamed(context, RouteManager.signInRegisterPage),
     );
   }
 }
