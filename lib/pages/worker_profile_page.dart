@@ -338,19 +338,27 @@ class _WorkProfilePageState extends State<WorkProfilePage> {
           ),
           ListTile(
             title: text('Settings'),
-            onTap: () {},
+            onTap: () {
+              // Navigator.pushNamed(context, RouteManager.settingsPage);
+            },
           ),
           ListTile(
             title: text('History'),
-            onTap: () {},
+            onTap: () {
+              // Navigator.pushNamed(context, RouteManager.historyPage);
+            },
           ),
           ListTile(
             title: text('Review'),
-            onTap: () {},
+            onTap: () {
+              // Navigator.pushNamed(context, RouteManager.reviewPage);
+            },
           ),
           ListTile(
             title: text('Report'),
-            onTap: () {},
+            onTap: () {
+              // Navigator.pushNamed(context, RouteManager.reportPage);
+            },
           ),
         ],
       ),
