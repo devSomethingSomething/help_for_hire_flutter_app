@@ -38,6 +38,7 @@ class NewPasswordPage extends StatelessWidget {
               TextFieldWidget(
                 data: 'New password',
                 obscureText: true,
+                icon: true,
               ),
               const SizedBox(
                 height: 20.0,
@@ -45,6 +46,7 @@ class NewPasswordPage extends StatelessWidget {
               TextFieldWidget(
                 data: 'Repeat new password',
                 obscureText: true,
+                icon: true,
               ),
               const SizedBox(
                 height: 50.0,
