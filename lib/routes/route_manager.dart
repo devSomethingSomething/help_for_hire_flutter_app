@@ -18,6 +18,7 @@ class RouteManager {
   // static const workerPage = '/workerPage';
   // static const historyPage = '/historyPage';
   // static const reviewPage = '/reviewPage';
+  // static const reportPage = '/reportPage';
 
   const RouteManager._();
 
@@ -69,6 +70,11 @@ class RouteManager {
         // return MaterialPageRoute(
         //   builder: (_) => const ReviewPage(),
         // );
+        // case reportPage:
+        // return MaterialPageRoute(
+        //   builder: (_) => const ReportPage(),
+        // );
+        
       default:
         throw Exception(
           'Route not found',
