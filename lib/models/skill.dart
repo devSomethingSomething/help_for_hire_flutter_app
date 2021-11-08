@@ -1,39 +1,14 @@
-class Skill{
+import 'package:help_for_hire_flutter_app/models/job.dart';
 
-  int _skillID;
-  //Worker worker;
-  Job _job;
+class Skill {
+  int skillId;
 
-  Skill(this._skillID, this._job);
+  // Worker _worker;
 
-  Job get job => _job;
+  Job job;
 
-  set job(Job value) {
-    _job = value;
-  }
-
-  int get skillID => _skillID;
-
-  set skillID(int value) {
-    _skillID = value;
-  }
-}
-
-class Job{
-  int _jobID;
-  String _Title;
-
-  Job(this._jobID, this._Title);
-
-  String get Title => _Title;
-
-  set Title(String value) {
-    _Title = value;
-  }
-
-  int get jobID => _jobID;
-
-  set jobID(int value) {
-    _jobID = value;
-  }
+  Skill({
+    required this.skillId,
+    required this.job,
+  });
 }
