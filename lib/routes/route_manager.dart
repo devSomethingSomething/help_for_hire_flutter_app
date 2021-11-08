@@ -10,11 +10,14 @@ class RouteManager {
   static const splashPage = '/';
   static const signInRegisterPage = '/signInRegisterPage';
   // static const accountTypePage = '/accountTypePage'; // Added - Werner
-  static const registrationSuccessPage =
-      '/registrationSuccessPage'; // Added - Werner
+  static const registrationSuccessPage = '/registrationSuccessPage'; // Added - Werner
   static const resetPasswordPage = '/resetPasswordPage';
   static const otpPage = '/otpPage';
   static const newPasswordPage = '/newPasswordPage';
+  // static const employerPage = '/employerPage'; 
+  // static const workerPage = '/workerPage';
+  // static const historyPage = '/historyPage';
+  // static const reviewPage = '/reviewPage';
 
   const RouteManager._();
 
@@ -50,6 +53,22 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const NewPasswordPage(),
         );
+        // case employerPage:
+        // return MaterialPageRoute(
+        //   builder: (_) => const EmpProfilePage(),
+        // );
+        // case workerPage:
+        // return MaterialPageRoute(
+        //   builder: (_) => const WorkProfilePage(),
+        // );
+        // case historyPage:
+        // return MaterialPageRoute(
+        //   builder: (_) => const HistoryPage(),
+        // );
+        // case reviewPage:
+        // return MaterialPageRoute(
+        //   builder: (_) => const ReviewPage(),
+        // );
       default:
         throw Exception(
           'Route not found',
