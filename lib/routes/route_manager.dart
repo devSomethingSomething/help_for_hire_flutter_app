@@ -9,12 +9,15 @@ import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 class RouteManager {
   static const splashPage = '/';
   static const signInRegisterPage = '/signInRegisterPage';
+  // static const newUserRegisterPage = '/newUserRegisterPage'; // Added - Werner
   // static const accountTypePage = '/accountTypePage'; // Added - Werner
-  static const registrationSuccessPage = '/registrationSuccessPage'; // Added - Werner
+  // static const workerRegisterPage = '/workerRegisterPage'; // Added - Werner
+  static const registrationSuccessPage =
+      '/registrationSuccessPage'; // Added - Werner
   static const resetPasswordPage = '/resetPasswordPage';
   static const otpPage = '/otpPage';
   static const newPasswordPage = '/newPasswordPage';
-  // static const employerPage = '/employerPage'; 
+  // static const employerPage = '/employerPage';
   // static const workerPage = '/workerPage';
   // static const historyPage = '/historyPage';
   // static const reviewPage = '/reviewPage';
@@ -35,9 +38,17 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const SignInRegisterPage(),
         );
+      // case newUserRegisterPage: // Added - Werner
+      // return MaterialPageRoute(
+      //   builder: (_) => const NewUserRegisterPage(),
+      // );
       // case accountTypePage: // Added - Werner
       // return MaterialPageRoute(
       //   builder: (_) => const AccountType(),
+      // );
+      // case workerRegisterPage: // Added - Werner
+      // return MaterialPageRoute(
+      //   builder: (_) => const WorkerRegisterPage(),
       // );
       case registrationSuccessPage: // Added - Werner
         return MaterialPageRoute(
@@ -55,30 +66,30 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const NewPasswordPage(),
         );
-        // case employerPage:
-        // return MaterialPageRoute(
-        //   builder: (_) => const EmpProfilePage(),
-        // );
-        // case workerPage:
-        // return MaterialPageRoute(
-        //   builder: (_) => const WorkProfilePage(),
-        // );
-        // case historyPage:
-        // return MaterialPageRoute(
-        //   builder: (_) => const HistoryPage(),
-        // );
-        // case reviewPage:
-        // return MaterialPageRoute(
-        //   builder: (_) => const ReviewPage(),
-        // );
-        // case reportPage:
-        // return MaterialPageRoute(
-        //   builder: (_) => const ReportPage(),
-        // );
-        // case settingsPage:
-        // return MaterialPageRoute(
-        //   builder: (_) => const SettingsPage(),
-        // );
+      // case employerPage:
+      // return MaterialPageRoute(
+      //   builder: (_) => const EmpProfilePage(),
+      // );
+      // case workerPage:
+      // return MaterialPageRoute(
+      //   builder: (_) => const WorkProfilePage(),
+      // );
+      // case historyPage:
+      // return MaterialPageRoute(
+      //   builder: (_) => const HistoryPage(),
+      // );
+      // case reviewPage:
+      // return MaterialPageRoute(
+      //   builder: (_) => const ReviewPage(),
+      // );
+      // case reportPage:
+      // return MaterialPageRoute(
+      //   builder: (_) => const ReportPage(),
+      // );
+      // case settingsPage:
+      // return MaterialPageRoute(
+      //   builder: (_) => const SettingsPage(),
+      // );
       default:
         throw Exception(
           'Route not found',
