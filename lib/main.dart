@@ -14,7 +14,7 @@ class _App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: RouteManager.splashPage,
+      initialRoute: RouteManager.listOfWorkers,
       onGenerateRoute: RouteManager.generateRoute,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
