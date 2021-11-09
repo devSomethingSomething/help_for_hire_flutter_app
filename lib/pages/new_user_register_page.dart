@@ -13,6 +13,12 @@ class NewUserRegisterPage extends StatefulWidget {
 }
 
 class _NewUserRegisterPageState extends State<NewUserRegisterPage> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController surnameController = TextEditingController();
+  TextEditingController idNumberController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double paddingbottom = 15;
@@ -47,31 +53,37 @@ class _NewUserRegisterPageState extends State<NewUserRegisterPage> {
                   ),
                   TextFieldWidget(
                     data: 'Name',
+                    controllerData: nameController,
                     obscureText: false,
                     icon: false,
                   ),
                   TextFieldWidget(
                     data: 'Surname',
+                    controllerData: surnameController,
                     obscureText: false,
                     icon: false,
                   ),
                   TextFieldWidget(
                     data: 'ID Number',
+                    controllerData: idNumberController,
                     obscureText: false,
                     icon: false,
                   ),
                   TextFieldWidget(
                     data: 'Phone Number',
+                    controllerData: phoneNumberController,
                     icon: false,
                     obscureText: false,
                   ),
                   TextFieldWidget(
                     data: 'Password',
+                    controllerData: passwordController,
                     obscureText: true,
                     icon: true,
                   ),
                   TextFieldWidget(
                     data: 'Confirm Password',
+                    controllerData: confirmPasswordController,
                     obscureText: true,
                     icon: true,
                   ),
