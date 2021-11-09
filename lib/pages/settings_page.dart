@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
-
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/pages/theme_data.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -14,45 +15,45 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBarWidget(
         title: 'Settings',
       ),
-      body: SettingsList(
-        sections: [
-          SettingsSection(
-            titlePadding: EdgeInsets.all(20),
-            title: 'Section 1',
-            tiles: [
-              SettingsTile(
-                title: 'Language',
-                subtitle: 'English',
-                leading: Icon(Icons.language),
-                onPressed: (BuildContext context) {},
+      body: Consumer<ThemeSettings>(
+        builder: (context, value, child) {
+          return SettingsList(
+            sections: [
+              SettingsSection(
+                titlePadding: EdgeInsets.all(20),
+                title: 'Section 1',
+                tiles: [
+                  SettingsTile(
+                    title: 'Language',
+                    subtitle: 'English',
+                    leading: Icon(Icons.language),
+                    onPressed: (BuildContext context) {},
+                  ),
+                  SettingsTile.switchTile(
+                    title: 'Dark Theme',
+                    leading: Icon(Icons.dark_mode),
+                    switchValue: value.darkTheme,
+                    onToggle: (newValue) {
+                      value.toggleTheme();
+                    },
+                  ),
+                ],
               ),
-              SettingsTile.switchTile(
-                title: 'Use System Theme',
-                leading: Icon(Icons.phone_android),
-                switchValue: isSwitched,
-                onToggle: (value) {},
+              SettingsSection(
+                titlePadding: EdgeInsets.all(20),
+                title: 'Section 2',
+                tiles: [
+                  SettingsTile(
+                    title: 'About',
+                    subtitle: 'Read information about this app',
+                    leading: Icon(Icons.info),
+                    onPressed: (BuildContext context) {},
+                  ),
+                ],
               ),
             ],
-          ),
-          SettingsSection(
-            titlePadding: EdgeInsets.all(20),
-            title: 'Section 2',
-            tiles: [
-              SettingsTile(
-                title: 'Security',
-                subtitle: 'Fingerprint',
-                leading: Icon(Icons.lock),
-                onPressed: (BuildContext context) {},
-              ),
-              SettingsTile.switchTile(
-                title: 'Use fingerprint',
-                leading: Icon(Icons.fingerprint),
-                switchValue: true,
-                onToggle: (value) {},
-              ),
-            ],
-          ),
-        ],
+          );
+        },
       ),
     );
   }

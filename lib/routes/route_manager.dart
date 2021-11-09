@@ -27,6 +27,7 @@ class RouteManager {
       //   return MaterialPageRoute(
       //     builder: (context) => SignInSignUpPage(),
       //   );
+
       case resetPasswordPage:
         return MaterialPageRoute(
           builder: (_) => const ResetPasswordPage(),
@@ -43,7 +44,6 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => SettingsPage(),
         );
-
       default:
         throw Exception(
           'Route not found',
