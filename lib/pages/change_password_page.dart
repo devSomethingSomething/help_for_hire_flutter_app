@@ -33,6 +33,9 @@ class ChangePasswordPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(
+                height: 30,
+              ),
               TextFieldWidget(
                 data: 'Enter old password',
                 obscureText: true,
