@@ -27,7 +27,7 @@ class ChangePasswordPage extends StatelessWidget {
                 height: 50,
               ),
               const Text(
-                'change your Password',
+                'Change your Password',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
