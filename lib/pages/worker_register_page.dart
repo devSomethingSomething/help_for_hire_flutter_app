@@ -14,6 +14,8 @@ class WorkerRegister extends StatefulWidget {
 }
 
 class _WorkerRegisterState extends State<WorkerRegister> {
+  TextEditingController minFeeController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   final jobs = [
     CheckBoxState(title: 'Gardener'),
     CheckBoxState(title: 'House Cleaner'),
@@ -47,6 +49,7 @@ class _WorkerRegisterState extends State<WorkerRegister> {
                   height: 120,
                   child: TextField(
                     maxLines: 5,
+                    controller: descriptionController,
                     decoration: InputDecoration(
                       labelStyle: TextStyle(color: Colors.black),
                       focusedBorder: OutlineInputBorder(
@@ -72,7 +75,7 @@ class _WorkerRegisterState extends State<WorkerRegister> {
                   child: TextField(
                     style: TextStyle(color: Colors.black),
                     cursorColor: Colors.black,
-                    //controller: repeatPasswordController,
+                    controller: minFeeController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelStyle: TextStyle(color: Colors.black),
