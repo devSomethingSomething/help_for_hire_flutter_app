@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
 
 class EmpProfilePage extends StatelessWidget {
@@ -12,7 +13,7 @@ class EmpProfilePage extends StatelessWidget {
         appBar: AppBarWidget(
           title: 'Profile',
         ),
-        drawer: openDrawer(),
+        drawer: openDrawer(context),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -201,7 +202,7 @@ class EmpProfilePage extends StatelessWidget {
     );
   }
 
-  Drawer openDrawer() {
+  Drawer openDrawer(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -231,19 +232,19 @@ class EmpProfilePage extends StatelessWidget {
           ListTile(
             title: text('History'),
             onTap: () {
-              // Navigator.pushNamed(context, RouteManager.historyPage);
+               Navigator.pushNamed(context, RouteManager.historyPage);
             },
           ),
           ListTile(
             title: text('Review'),
             onTap: () {
-              // Navigator.pushNamed(context, RouteManager.reviewPage);
+               Navigator.pushNamed(context, RouteManager.reviewPage);
             },
           ),
           ListTile(
             title: text('Report'),
             onTap: () {
-              // Navigator.pushNamed(context, RouteManager.reportPage);
+               Navigator.pushNamed(context, RouteManager.reportPage);
             },
           ),
         ],
