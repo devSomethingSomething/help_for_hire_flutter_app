@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
 
 class EmpProfilePage extends StatelessWidget {
   @override
@@ -8,23 +9,8 @@ class EmpProfilePage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.grey,
-        appBar: AppBar(
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                icon: Icon(Icons.menu),
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              );
-            },
-          ),
-          title: Text(
-            'Profile',
-          ),
-          backgroundColor: Colors.blue,
-          automaticallyImplyLeading: false,
+        appBar: AppBarWidget(
+          title: 'Profile',
         ),
         drawer: openDrawer(),
         body: SingleChildScrollView(
