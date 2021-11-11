@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/new_password_page.dart';
+import 'package:help_for_hire_flutter_app/pages/change_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 import 'package:help_for_hire_flutter_app/pages/registration_successful_page.dart';
 import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
@@ -15,6 +16,7 @@ class RouteManager {
   static const registrationSuccessPage =
       '/registrationSuccessPage'; // Added - Werner
   static const resetPasswordPage = '/resetPasswordPage';
+  static const changePasswordPage = '/changePasswordPage';
   static const otpPage = '/otpPage';
   static const newPasswordPage = '/newPasswordPage';
   // static const employerPage = '/employerPage';
@@ -57,6 +59,10 @@ class RouteManager {
       case resetPasswordPage:
         return MaterialPageRoute(
           builder: (_) => const ResetPasswordPage(),
+        );
+      case changePasswordPage:
+        return MaterialPageRoute(
+          builder: (_) => const ChangePasswordPage(),
         );
       case otpPage:
         return MaterialPageRoute(
