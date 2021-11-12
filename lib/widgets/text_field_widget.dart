@@ -5,14 +5,17 @@ class TextFieldWidget extends StatefulWidget {
 
   bool _obscureText;
   bool _icon;
+  TextEditingController _controllerData = TextEditingController();
 
   TextFieldWidget({
     required String data,
     required bool obscureText,
     required bool icon,
+    required TextEditingController controllerData,
   })  : _data = data,
         _obscureText = obscureText,
-        _icon = icon;
+        _icon = icon,
+        _controllerData = controllerData;
 
   @override
   _TextFieldWidgetState createState() => _TextFieldWidgetState();
@@ -27,6 +30,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         left: 50.0,
       ),
       child: TextField(
+        controller: widget._controllerData,
         cursorColor: Colors.teal,
         decoration: InputDecoration(
           focusedBorder: const UnderlineInputBorder(

@@ -6,8 +6,15 @@ import 'package:help_for_hire_flutter_app/widgets/heading_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/icon_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_field_widget.dart';
 
-class NewPasswordPage extends StatelessWidget {
-  const NewPasswordPage();
+class NewPasswordPage extends StatefulWidget {
+  @override
+  State<NewPasswordPage> createState() => _NewPasswordPageState();
+}
+
+class _NewPasswordPageState extends State<NewPasswordPage> {
+  TextEditingController newPasswordController = TextEditingController();
+
+  TextEditingController repeatNewPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +44,7 @@ class NewPasswordPage extends StatelessWidget {
               ),
               TextFieldWidget(
                 data: 'New password',
+                controllerData: newPasswordController,
                 obscureText: true,
                 icon: true,
               ),
@@ -45,6 +53,7 @@ class NewPasswordPage extends StatelessWidget {
               ),
               TextFieldWidget(
                 data: 'Repeat new password',
+                controllerData: repeatNewPasswordController,
                 obscureText: true,
                 icon: true,
               ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/employer_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/history_page.dart';
 import 'package:help_for_hire_flutter_app/pages/new_password_page.dart';
+import 'package:help_for_hire_flutter_app/pages/new_user_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/change_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 import 'package:help_for_hire_flutter_app/pages/registration_successful_page.dart';
@@ -45,9 +46,9 @@ class RouteManager {
           builder: (_) => const SignInRegisterPage(),
         );
       // case newUserRegisterPage: // Added - Werner
-      // return MaterialPageRoute(
-      //   builder: (_) => const NewUserRegisterPage(),
-      // );
+      //   return MaterialPageRoute(
+      //     builder: (_) => const NewUserRegisterPage(),
+      //   );
       // case accountTypePage: // Added - Werner
       // return MaterialPageRoute(
       //   builder: (_) => const AccountType(),
@@ -74,7 +75,7 @@ class RouteManager {
         );
       case newPasswordPage:
         return MaterialPageRoute(
-          builder: (_) => const NewPasswordPage(),
+          builder: (_) => NewPasswordPage(),
         );
       case employerPage:
       return MaterialPageRoute(
