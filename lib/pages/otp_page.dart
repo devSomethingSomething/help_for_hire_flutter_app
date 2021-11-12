@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/elevated_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/elevated_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/icon_widget.dart';
 
 class OtpPage extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/details_text_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/expanded_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/expanded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/heading_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/icon_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_field_widget.dart';

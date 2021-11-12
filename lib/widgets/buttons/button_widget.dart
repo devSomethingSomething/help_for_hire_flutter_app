@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 
-class CustomButtonWidget extends StatelessWidget {
+class ButtonWidget extends StatelessWidget {
   final String _data;
 
   final void Function() _onPressed;
 
-  const CustomButtonWidget({
+  const ButtonWidget({
     required String data,
     required void Function() onPressed,
   })  : _data = data,
@@ -27,8 +28,7 @@ class CustomButtonWidget extends StatelessWidget {
           256,
           64,
         ),
-        primary: Colors.teal,
-        shape: const StadiumBorder(),
+        primary: ColorConstants.blue,
       ),
     );
   }
