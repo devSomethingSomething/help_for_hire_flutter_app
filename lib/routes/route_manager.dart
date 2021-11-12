@@ -6,6 +6,8 @@ import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 import 'package:help_for_hire_flutter_app/pages/list_of_workers.dart';
+import 'package:help_for_hire_flutter_app/pages/worker_info_page.dart';
+
 
 class RouteManager {
   static const splashPage = '/';
@@ -16,6 +18,10 @@ class RouteManager {
   static const otpPage = '/otpPage';
   static const newPasswordPage = '/newPasswordPage';
   static const listOfWorkers ='/listOfWorkers';
+  static const workerInfoPage ='/workerInfoPage';
+
+
+
   // static const employerPage = '/employerPage'; 
   // static const workerPage = '/workerPage';
   // static const historyPage = '/historyPage';
@@ -61,6 +67,12 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const ListOfWorkers(),
         );
+      case workerInfoPage:
+        return MaterialPageRoute(
+          builder: (_) => const WorkerInfoPage(),
+        );
+
+
         // case employerPage:
         // return MaterialPageRoute(
         //   builder: (_) => const EmpProfilePage(),
