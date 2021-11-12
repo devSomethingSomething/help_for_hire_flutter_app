@@ -226,7 +226,7 @@ class EmpProfilePage extends StatelessWidget {
           ListTile(
             title: text('Settings'),
             onTap: () {
-              // Navigator.pushNamed(context, RouteManager.settingsPage);
+               Navigator.pushNamed(context, RouteManager.settingsPage);
             },
           ),
           ListTile(
