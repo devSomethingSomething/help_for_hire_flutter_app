@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/pages/employer_profile_page.dart';
+import 'package:help_for_hire_flutter_app/pages/history_page.dart';
 import 'package:help_for_hire_flutter_app/pages/new_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/new_user_register_page.dart';
+import 'package:help_for_hire_flutter_app/pages/change_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 import 'package:help_for_hire_flutter_app/pages/registration_successful_page.dart';
+import 'package:help_for_hire_flutter_app/pages/report_page.dart';
 import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
+import 'package:help_for_hire_flutter_app/pages/review_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 
@@ -16,13 +21,14 @@ class RouteManager {
   static const registrationSuccessPage =
       '/registrationSuccessPage'; // Added - Werner
   static const resetPasswordPage = '/resetPasswordPage';
+  static const changePasswordPage = '/changePasswordPage';
   static const otpPage = '/otpPage';
   static const newPasswordPage = '/newPasswordPage';
-  // static const employerPage = '/employerPage';
+  static const employerPage = '/employerPage';
   // static const workerPage = '/workerPage';
-  // static const historyPage = '/historyPage';
-  // static const reviewPage = '/reviewPage';
-  // static const reportPage = '/reportPage';
+  static const historyPage = '/historyPage';
+  static const reviewPage = '/reviewPage';
+  static const reportPage = '/reportPage';
   // static const settingsPage = '/settingsPage';
 
   const RouteManager._();
@@ -59,6 +65,10 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const ResetPasswordPage(),
         );
+      case changePasswordPage:
+        return MaterialPageRoute(
+          builder: (_) => const ChangePasswordPage(),
+        );
       case otpPage:
         return MaterialPageRoute(
           builder: (_) => const OtpPage(),
@@ -67,26 +77,26 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => NewPasswordPage(),
         );
-      // case employerPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const EmpProfilePage(),
-      // );
+      case employerPage:
+      return MaterialPageRoute(
+        builder: (_) => EmpProfilePage(),
+      );
       // case workerPage:
       // return MaterialPageRoute(
       //   builder: (_) => const WorkProfilePage(),
       // );
-      // case historyPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const HistoryPage(),
-      // );
-      // case reviewPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const ReviewPage(),
-      // );
-      // case reportPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const ReportPage(),
-      // );
+      case historyPage:
+      return MaterialPageRoute(
+        builder: (_) =>  const HistoryPage(),
+      );
+      case reviewPage:
+      return MaterialPageRoute(
+        builder: (_) => const ReviewPage(),
+      );
+      case reportPage:
+      return MaterialPageRoute(
+        builder: (_) => const ReportPage(),
+      );
       // case settingsPage:
       // return MaterialPageRoute(
       //   builder: (_) => const SettingsPage(),
