@@ -9,12 +9,14 @@ import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 import 'package:help_for_hire_flutter_app/pages/registration_successful_page.dart';
 import 'package:help_for_hire_flutter_app/pages/report_page.dart';
 import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
+import 'package:help_for_hire_flutter_app/pages/settings_page.dart';
 import 'package:help_for_hire_flutter_app/pages/review_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
 
 class RouteManager {
+  static const String splashPage = '/';
   static const splashPage = '/';
   static const signInRegisterPage = '/signInRegisterPage';
   static const newUserRegisterPage = '/newUserRegisterPage'; // Added - Werner
@@ -26,6 +28,7 @@ class RouteManager {
   static const changePasswordPage = '/changePasswordPage';
   static const otpPage = '/otpPage';
   static const newPasswordPage = '/newPasswordPage';
+  static const settingsPage = '/settingsPage';
   static const employerPage = '/employerPage';
   // static const workerPage = '/workerPage';
   static const historyPage = '/historyPage';
@@ -99,10 +102,6 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const ReportPage(),
         );
-      // case settingsPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const SettingsPage(),
-      // );
       default:
         throw Exception(
           'Route not found',
