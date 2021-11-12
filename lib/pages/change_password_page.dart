@@ -7,6 +7,10 @@ class ChangePasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController oldPasswordController = TextEditingController();
+    TextEditingController newPasswordController = TextEditingController();
+    TextEditingController confirmNewPasswordController =
+        TextEditingController();
     return Scaffold(
       appBar: const AppBarWidget(
         title: 'Change password',
@@ -40,16 +44,19 @@ class ChangePasswordPage extends StatelessWidget {
                 data: 'Enter old password',
                 obscureText: true,
                 icon: true,
+                controllerData: oldPasswordController,
               ),
               TextFieldWidget(
                 data: 'Enter new password',
                 obscureText: true,
                 icon: true,
+                controllerData: newPasswordController,
               ),
               TextFieldWidget(
                 data: 'Repeat new password',
                 obscureText: true,
                 icon: true,
+                controllerData: confirmNewPasswordController,
               ),
               const SizedBox(
                 height: 50,

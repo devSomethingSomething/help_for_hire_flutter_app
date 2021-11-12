@@ -5,14 +5,14 @@ import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
 
 enum Accounts { worker, employer }
 
-class AccountType extends StatefulWidget {
-  const AccountType({Key? key}) : super(key: key);
+class AccountTypePage extends StatefulWidget {
+  const AccountTypePage({Key? key}) : super(key: key);
 
   @override
-  _AccountTypeState createState() => _AccountTypeState();
+  _AccountTypePageState createState() => _AccountTypePageState();
 }
 
-class _AccountTypeState extends State<AccountType> {
+class _AccountTypePageState extends State<AccountTypePage> {
   Accounts? _account = Accounts.employer;
 
   @override

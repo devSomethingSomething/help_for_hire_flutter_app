@@ -6,14 +6,14 @@ import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
 
 enum AmountTime { full, part }
 
-class WorkerRegister extends StatefulWidget {
-  const WorkerRegister({Key? key}) : super(key: key);
+class WorkerRegisterPage extends StatefulWidget {
+  const WorkerRegisterPage({Key? key}) : super(key: key);
 
   @override
-  _WorkerRegisterState createState() => _WorkerRegisterState();
+  _WorkerRegisterPageState createState() => _WorkerRegisterPageState();
 }
 
-class _WorkerRegisterState extends State<WorkerRegister> {
+class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
   TextEditingController minFeeController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   final jobs = [
