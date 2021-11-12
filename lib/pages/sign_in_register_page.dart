@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/custom_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/logo_widget.dart';
 
@@ -25,7 +26,7 @@ class SignInRegisterPage extends StatelessWidget {
             CustomButtonWidget(
               data: 'REGISTER',
               onPressed: () {
-                // Navigator.pushNamed(context, RouteManager.registerPage);
+                Navigator.pushNamed(context, RouteManager.newUserRegisterPage);
               },
             ),
           ],

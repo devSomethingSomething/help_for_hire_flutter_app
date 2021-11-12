@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unused_element, deprecated_member_use, prefer_const_literals_to_create_immutables, duplicate_ignore
 
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dropdown_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_field_widget.dart';
@@ -126,7 +127,7 @@ class _NewUserRegisterPageState extends State<NewUserRegisterPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // Push to Account Type Page
+                      Navigator.pushNamed(context, RouteManager.accountTypePage);
                     },
                     child: Text(
                       'Submit and Continue',
