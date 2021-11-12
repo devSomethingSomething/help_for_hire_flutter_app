@@ -1,0 +1,3 @@
+Please always keep names in lowercase with an _ between words
+
+You can commit pubspec changes for images
