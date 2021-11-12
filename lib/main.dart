@@ -14,13 +14,14 @@ class _App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: RouteManager.otpPage,
+      initialRoute: RouteManager.splashPage,
       onGenerateRoute: RouteManager.generateRoute,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: Colors.teal,
           secondary: Colors.teal,
         ),
+        unselectedWidgetColor: Colors.white,
       ),
     );
   }

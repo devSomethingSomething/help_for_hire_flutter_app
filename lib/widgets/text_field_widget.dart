@@ -4,12 +4,15 @@ class TextFieldWidget extends StatefulWidget {
   final String _data;
 
   bool _obscureText;
+  bool _icon;
 
   TextFieldWidget({
     required String data,
     required bool obscureText,
+    required bool icon,
   })  : _data = data,
-        _obscureText = obscureText;
+        _obscureText = obscureText,
+        _icon = icon;
 
   @override
   _TextFieldWidgetState createState() => _TextFieldWidgetState();
@@ -37,14 +40,18 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           label: Text(
             widget._data,
           ),
-          suffixIcon: IconButton(
-            icon: Icon(
-              widget._obscureText ? Icons.visibility : Icons.visibility_off,
-            ),
-            onPressed: () => setState(
-              () => widget._obscureText = !widget._obscureText,
-            ),
-          ),
+          suffix: widget._icon
+              ? IconButton(
+                  icon: Icon(
+                    widget._obscureText
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                  ),
+                  onPressed: () => setState(
+                    () => widget._obscureText = !widget._obscureText,
+                  ),
+                )
+              : null,
         ),
         obscureText: widget._obscureText,
       ),
