@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 
 enum Select { job1, job2 }
 enum AmountTime { full, part }
@@ -345,19 +346,25 @@ class _WorkProfilePageState extends State<WorkProfilePage> {
           ListTile(
             title: text('History'),
             onTap: () {
-              // Navigator.pushNamed(context, RouteManager.historyPage);
+               Navigator.pushNamed(context, RouteManager.historyPage);
             },
           ),
           ListTile(
             title: text('Review'),
             onTap: () {
-              // Navigator.pushNamed(context, RouteManager.reviewPage);
+               Navigator.pushNamed(context, RouteManager.reviewPage);
             },
           ),
           ListTile(
             title: text('Report'),
             onTap: () {
-              // Navigator.pushNamed(context, RouteManager.reportPage);
+               Navigator.pushNamed(context, RouteManager.reportPage);
+            },
+          ),
+          ListTile(
+            title: text('Change Password'),
+            onTap: (){
+              Navigator.pushNamed(context, RouteManager.changePasswordPage);
             },
           ),
         ],

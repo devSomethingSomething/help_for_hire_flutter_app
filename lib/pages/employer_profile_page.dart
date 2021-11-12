@@ -247,6 +247,12 @@ class EmpProfilePage extends StatelessWidget {
                Navigator.pushNamed(context, RouteManager.reportPage);
             },
           ),
+          ListTile(
+            title: text('Change Password'),
+            onTap: (){
+              Navigator.pushNamed(context, RouteManager.changePasswordPage);
+            },
+          ),
         ],
       ),
     );
