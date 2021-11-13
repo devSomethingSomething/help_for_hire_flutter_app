@@ -30,7 +30,7 @@ class _WorkerRegisterState extends State<WorkerRegister> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBarWidget(
-          title: 'Worker Register',
+          data: 'Worker Register',
         ),
         body: Center(
           child: SingleChildScrollView(

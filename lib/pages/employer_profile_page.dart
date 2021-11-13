@@ -11,7 +11,7 @@ class EmpProfilePage extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.grey,
         appBar: AppBarWidget(
-          title: 'Profile',
+          data: 'Profile',
         ),
         drawer: openDrawer(context),
         body: SingleChildScrollView(

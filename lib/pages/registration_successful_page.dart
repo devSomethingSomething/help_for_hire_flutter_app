@@ -13,7 +13,7 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'Registration successful',
+        data: 'Registration successful',
       ),
       body: SingleChildScrollView(
         child: Center(

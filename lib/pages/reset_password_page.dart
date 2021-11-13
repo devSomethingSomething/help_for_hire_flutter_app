@@ -19,7 +19,7 @@ class ResetPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'Reset password',
+        data: 'Reset password',
       ),
       body: SingleChildScrollView(
         child: Center(

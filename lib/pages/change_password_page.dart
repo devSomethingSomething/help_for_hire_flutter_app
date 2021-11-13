@@ -9,7 +9,7 @@ class ChangePasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'Change password',
+        data: 'Change password',
       ),
       body: SingleChildScrollView(
         child: Center(

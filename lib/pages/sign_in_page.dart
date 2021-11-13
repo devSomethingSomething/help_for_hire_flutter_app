@@ -26,7 +26,7 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'Sign in',
+        data: 'Sign in',
       ),
       body: SingleChildScrollView(
         child: Center(

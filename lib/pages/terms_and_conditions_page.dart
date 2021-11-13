@@ -16,7 +16,7 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'Terms and conditions',
+        data: 'Terms and conditions',
       ),
       body: SingleChildScrollView(
         child: Center(

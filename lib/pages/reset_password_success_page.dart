@@ -2,60 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/buttons/text_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/icons/icon_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text/details_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
 
-class OtpPage extends StatelessWidget {
-  final _otpController = TextEditingController();
-
-  OtpPage();
+class ResetPasswordSuccessPage extends StatelessWidget {
+  const ResetPasswordSuccessPage();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        data: 'OTP',
+        data: 'Reset password success',
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.all(
+          16.0,
+        ),
         child: Center(
           child: Column(
             children: [
               const IconWidget(
-                icon: Icons.perm_device_information_rounded,
+                icon: Icons.check_circle,
               ),
               const HeadingTextWidget(
-                data: 'Enter your OTP',
+                data: 'Reset Password Successfully',
               ),
               const SmallSpacerWidget(),
               const DetailsTextWidget(
-                data: 'Enter your OTP below to reset your password',
-              ),
-              const MediumSpacerWidget(),
-              TextFieldWidget(
-                data: 'OTP',
-                keyboardType: TextInputType.number,
-                controller: _otpController,
+                data:
+                    'You have successfully reset your password and may now sign in',
               ),
               const LargeSpacerWidget(),
               ButtonWidget(
-                data: 'SUBMIT',
+                data: 'SIGN IN',
                 onPressed: () {
-                  Navigator.pushNamed(
+                  Navigator.pushNamedAndRemoveUntil(
                     context,
-                    RouteManager.newPasswordPage,
+                    RouteManager.signInPage,
+                    (_) => false,
                   );
                 },
-              ),
-              const SmallSpacerWidget(),
-              TextButtonWidget(
-                data: 'Click to resend OTP',
-                onPressed: () {},
               ),
             ],
           ),

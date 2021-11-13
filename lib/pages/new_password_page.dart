@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/icons/icon_widget.dart';
@@ -19,7 +20,7 @@ class NewPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'New password',
+        data: 'New password',
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -51,7 +52,12 @@ class NewPasswordPage extends StatelessWidget {
               const LargeSpacerWidget(),
               ButtonWidget(
                 data: 'SUBMIT',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouteManager.resetPasswordSuccessPage,
+                  );
+                },
               ),
             ],
           ),
