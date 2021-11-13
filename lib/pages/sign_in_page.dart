@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/text_button_widget.dart';
@@ -41,7 +42,9 @@ class SignInPage extends StatelessWidget {
               const MediumSpacerWidget(),
               ButtonWidget(
                 data: 'SUBMIT',
-                onPressed: () {},
+                onPressed: () {
+                  ConnectionHelper.checkConnection(context);
+                },
               ),
               const SmallSpacerWidget(),
               TextButtonWidget(
