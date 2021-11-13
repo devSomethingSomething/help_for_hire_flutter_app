@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/text_button_widget.dart';
@@ -44,7 +45,12 @@ class OtpPage extends StatelessWidget {
               const LargeSpacerWidget(),
               ButtonWidget(
                 data: 'SUBMIT',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouteManager.newPasswordPage,
+                  );
+                },
               ),
               const SmallSpacerWidget(),
               TextButtonWidget(

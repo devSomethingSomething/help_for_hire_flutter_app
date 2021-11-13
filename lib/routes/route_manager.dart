@@ -80,7 +80,7 @@ class RouteManager {
         );
       case newPasswordPage:
         return MaterialPageRoute(
-          builder: (_) => const NewPasswordPage(),
+          builder: (_) => NewPasswordPage(),
         );
       case employerPage:
         return MaterialPageRoute(
