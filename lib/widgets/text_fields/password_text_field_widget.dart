@@ -8,11 +8,15 @@ class PasswordTextFieldWidget extends StatelessWidget {
 
   final TextInputType _keyboardType;
 
+  final TextEditingController _controller;
+
   const PasswordTextFieldWidget({
     required String data,
     required TextInputType keyboardType,
+    required TextEditingController controller,
   })  : _data = data,
-        _keyboardType = keyboardType;
+        _keyboardType = keyboardType,
+        _controller = controller;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,7 @@ class PasswordTextFieldWidget extends StatelessWidget {
         selector: (_, formModel) => formModel.obscureText,
         builder: (_, obscureText, __) {
           return TextField(
+            controller: _controller,
             cursorColor: ColorConstants.blue,
             decoration: InputDecoration(
               floatingLabelStyle: TextStyle(

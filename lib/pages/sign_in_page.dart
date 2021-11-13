@@ -11,7 +11,10 @@ import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_fiel
 import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage();
+  final TextEditingController _idNumberController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  SignInPage();
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +33,16 @@ class SignInPage extends StatelessWidget {
                 data: 'Sign In',
               ),
               const MediumSpacerWidget(),
-              const TextFieldWidget(
+              TextFieldWidget(
                 data: 'ID number',
                 keyboardType: TextInputType.number,
+                controller: _idNumberController,
               ),
               const SmallSpacerWidget(),
-              const PasswordTextFieldWidget(
+              PasswordTextFieldWidget(
                 data: 'Password',
                 keyboardType: TextInputType.text,
+                controller: _passwordController,
               ),
               const MediumSpacerWidget(),
               ButtonWidget(

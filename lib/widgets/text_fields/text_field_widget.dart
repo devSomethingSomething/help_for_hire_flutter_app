@@ -6,11 +6,15 @@ class TextFieldWidget extends StatelessWidget {
 
   final TextInputType _keyboardType;
 
+  final TextEditingController _controller;
+
   const TextFieldWidget({
     required String data,
     required TextInputType keyboardType,
+    required TextEditingController controller,
   })  : _data = data,
-        _keyboardType = keyboardType;
+        _keyboardType = keyboardType,
+        _controller = controller;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +24,7 @@ class TextFieldWidget extends StatelessWidget {
         right: 32.0,
       ),
       child: TextField(
+        controller: _controller,
         cursorColor: ColorConstants.blue,
         decoration: InputDecoration(
           floatingLabelStyle: TextStyle(

@@ -48,7 +48,7 @@ class RouteManager {
         );
       case signInPage:
         return MaterialPageRoute(
-          builder: (_) => const SignInPage(),
+          builder: (_) => SignInPage(),
         );
       // case newUserRegisterPage: // Added - Werner
       // return MaterialPageRoute(
