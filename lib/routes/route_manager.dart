@@ -76,7 +76,7 @@ class RouteManager {
         );
       case otpPage:
         return MaterialPageRoute(
-          builder: (_) => const OtpPage(),
+          builder: (_) => OtpPage(),
         );
       case newPasswordPage:
         return MaterialPageRoute(
