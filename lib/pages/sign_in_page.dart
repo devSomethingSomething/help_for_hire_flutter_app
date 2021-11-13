@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/text_button_widget.dart';
@@ -47,18 +49,34 @@ class SignInPage extends StatelessWidget {
               const MediumSpacerWidget(),
               ButtonWidget(
                 data: 'SUBMIT',
-                onPressed: () {
-                  ConnectionHelper.checkConnection(context);
+                onPressed: () async {
+                  final hasConnection =
+                      await ConnectionHelper.checkConnection(context);
+
+                  if (hasConnection) {
+                    FirebaseService.signInUser(
+                      context: context,
+                      id: '0002245275082',
+                      password: '12345678',
+                    );
+                  }
                 },
               ),
               const SmallSpacerWidget(),
               TextButtonWidget(
                 data: 'Reset password',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouteManager.resetPasswordPage,
+                  );
+                },
               ),
               TextButtonWidget(
                 data: 'Register',
-                onPressed: () {},
+                onPressed: () {
+                  // Navigator.pushNamed(context, RouteManager.registrationPage);
+                },
               ),
             ],
           ),

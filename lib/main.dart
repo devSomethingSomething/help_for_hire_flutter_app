@@ -23,7 +23,7 @@ class _App extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: RouteManager.signInPage,
+        initialRoute: RouteManager.splashPage,
         onGenerateRoute: RouteManager.generateRoute,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(

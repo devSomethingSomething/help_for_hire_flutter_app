@@ -13,9 +13,9 @@ import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 
 class RouteManager {
-  // static const splashPage = '/';
+  static const splashPage = '/';
   static const signInRegisterPage = '/signInRegisterPage';
-  static const signInPage = '/';
+  static const signInPage = '/signInPage';
   // static const newUserRegisterPage = '/newUserRegisterPage'; // Added - Werner
   // static const accountTypePage = '/accountTypePage'; // Added - Werner
   // static const workerRegisterPage = '/workerRegisterPage'; // Added - Werner
@@ -38,10 +38,10 @@ class RouteManager {
     RouteSettings settings,
   ) {
     switch (settings.name) {
-      // case splashPage:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const SplashPage(),
-      //   );
+      case splashPage:
+        return MaterialPageRoute(
+          builder: (_) => const SplashPage(),
+        );
       case signInRegisterPage:
         return MaterialPageRoute(
           builder: (_) => const SignInRegisterPage(),

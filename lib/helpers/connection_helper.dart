@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 class ConnectionHelper {
   const ConnectionHelper._();
 
-  static void checkConnection(BuildContext context) async {
+  static Future<bool> checkConnection(BuildContext context) async {
     try {
       await InternetAddress.lookup(
         'google.com',
       );
+
+      // Indicates that a connection exists
+      return true;
     } on SocketException catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -18,6 +21,9 @@ class ConnectionHelper {
           ),
         ),
       );
+
+      // Indicates no connection
+      return false;
     }
   }
 }
