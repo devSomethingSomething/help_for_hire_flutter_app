@@ -13,6 +13,10 @@ import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_fiel
 import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
 
 class SignInPage extends StatelessWidget {
+  // This page requires validation logic for the text fields
+  // ID validation
+  // Password validation
+  // Put these methods in the validation helper class
   final TextEditingController _idNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -53,11 +57,15 @@ class SignInPage extends StatelessWidget {
                   final hasConnection =
                       await ConnectionHelper.checkConnection(context);
 
+                  // Requires check for correct login so that the app knows
+                  // to move on to the next page
+                  // Will require changing the firebase services sign in
+                  // method
                   if (hasConnection) {
                     FirebaseService.signInUser(
                       context: context,
-                      id: '0002245275082',
-                      password: '12345678',
+                      id: _idNumberController.text,
+                      password: _passwordController.text,
                     );
                   }
                 },
