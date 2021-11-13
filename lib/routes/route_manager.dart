@@ -68,7 +68,7 @@ class RouteManager {
         );
       case resetPasswordPage:
         return MaterialPageRoute(
-          builder: (_) => const ResetPasswordPage(),
+          builder: (_) => ResetPasswordPage(),
         );
       case changePasswordPage:
         return MaterialPageRoute(

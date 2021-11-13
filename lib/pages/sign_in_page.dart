@@ -17,8 +17,8 @@ class SignInPage extends StatelessWidget {
   // ID validation
   // Password validation
   // Put these methods in the validation helper class
-  final TextEditingController _idNumberController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final _idNumberController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   SignInPage();
 
