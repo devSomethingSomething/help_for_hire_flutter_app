@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/details_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/expanded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/heading_text_widget.dart';

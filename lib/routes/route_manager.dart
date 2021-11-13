@@ -8,12 +8,14 @@ import 'package:help_for_hire_flutter_app/pages/registration_successful_page.dar
 import 'package:help_for_hire_flutter_app/pages/report_page.dart';
 import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/review_page.dart';
+import 'package:help_for_hire_flutter_app/pages/sign_in_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 
 class RouteManager {
-  static const splashPage = '/';
+  // static const splashPage = '/';
   static const signInRegisterPage = '/signInRegisterPage';
+  static const signInPage = '/';
   // static const newUserRegisterPage = '/newUserRegisterPage'; // Added - Werner
   // static const accountTypePage = '/accountTypePage'; // Added - Werner
   // static const workerRegisterPage = '/workerRegisterPage'; // Added - Werner
@@ -36,13 +38,17 @@ class RouteManager {
     RouteSettings settings,
   ) {
     switch (settings.name) {
-      case splashPage:
-        return MaterialPageRoute(
-          builder: (_) => const SplashPage(),
-        );
+      // case splashPage:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const SplashPage(),
+      //   );
       case signInRegisterPage:
         return MaterialPageRoute(
           builder: (_) => const SignInRegisterPage(),
+        );
+      case signInPage:
+        return MaterialPageRoute(
+          builder: (_) => const SignInPage(),
         );
       // case newUserRegisterPage: // Added - Werner
       // return MaterialPageRoute(
@@ -77,25 +83,25 @@ class RouteManager {
           builder: (_) => const NewPasswordPage(),
         );
       case employerPage:
-      return MaterialPageRoute(
-        builder: (_) => EmpProfilePage(),
-      );
+        return MaterialPageRoute(
+          builder: (_) => EmpProfilePage(),
+        );
       // case workerPage:
       // return MaterialPageRoute(
       //   builder: (_) => const WorkProfilePage(),
       // );
       case historyPage:
-      return MaterialPageRoute(
-        builder: (_) =>  const HistoryPage(),
-      );
+        return MaterialPageRoute(
+          builder: (_) => const HistoryPage(),
+        );
       case reviewPage:
-      return MaterialPageRoute(
-        builder: (_) => const ReviewPage(),
-      );
+        return MaterialPageRoute(
+          builder: (_) => const ReviewPage(),
+        );
       case reportPage:
-      return MaterialPageRoute(
-        builder: (_) => const ReportPage(),
-      );
+        return MaterialPageRoute(
+          builder: (_) => const ReportPage(),
+        );
       // case settingsPage:
       // return MaterialPageRoute(
       //   builder: (_) => const SettingsPage(),

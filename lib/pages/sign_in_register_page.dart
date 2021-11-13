@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/logos/logo_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
@@ -17,7 +18,7 @@ class SignInRegisterPage extends StatelessWidget {
             ButtonWidget(
               data: 'SIGN IN',
               onPressed: () {
-                // Navigator.pushNamed(context, RouteManager.signInPage);
+                Navigator.pushNamed(context, RouteManager.signInPage);
               },
             ),
             const SmallSpacerWidget(),
