@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/text_button_widget.dart';
@@ -11,6 +10,11 @@ import 'package:help_for_hire_flutter_app/widgets/text/details_text_widget.dart'
 import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
 
+@Deprecated(
+  'Removed as the firebase OTP system requires that the OTP be handled '
+  'in one go, it does not seem possible to split up the process. Currently '
+  'the OTP process is handled from within the reset password page',
+)
 class OtpPage extends StatelessWidget {
   final _otpController = TextEditingController();
 
@@ -45,12 +49,7 @@ class OtpPage extends StatelessWidget {
               const LargeSpacerWidget(),
               ButtonWidget(
                 data: 'SUBMIT',
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    RouteManager.newPasswordPage,
-                  );
-                },
+                onPressed: () {},
               ),
               const SmallSpacerWidget(),
               TextButtonWidget(
