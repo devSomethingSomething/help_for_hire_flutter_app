@@ -12,16 +12,17 @@ import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/review_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
+import 'package:help_for_hire_flutter_app/pages/terms_and_conditions_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
 
 class RouteManager {
   static const splashPage = '/';
   static const signInRegisterPage = '/signInRegisterPage';
-  static const newUserRegisterPage = '/newUserRegisterPage'; 
-  static const accountTypePage = '/accountTypePage'; 
-  static const workerRegisterPage = '/workerRegisterPage'; 
-  static const registrationSuccessPage ='/registrationSuccessPage'; 
+  static const newUserRegisterPage = '/newUserRegisterPage';
+  static const accountTypePage = '/accountTypePage';
+  static const workerRegisterPage = '/workerRegisterPage';
+  static const registrationSuccessPage = '/registrationSuccessPage';
   static const resetPasswordPage = '/resetPasswordPage';
   static const changePasswordPage = '/changePasswordPage';
   static const otpPage = '/otpPage';
@@ -32,7 +33,8 @@ class RouteManager {
   static const historyPage = '/historyPage';
   static const reviewPage = '/reviewPage';
   static const reportPage = '/reportPage';
-  
+  static const termsAndConditions = '/termsAndConditions';
+
   const RouteManager._();
 
   static Route<MaterialPageRoute> generateRoute(
@@ -47,19 +49,19 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const SignInRegisterPage(),
         );
-      case newUserRegisterPage: 
+      case newUserRegisterPage:
         return MaterialPageRoute(
           builder: (_) => const NewUserRegisterPage(),
         );
-      case accountTypePage: 
+      case accountTypePage:
         return MaterialPageRoute(
           builder: (_) => const AccountTypePage(),
         );
-      case workerRegisterPage: 
+      case workerRegisterPage:
         return MaterialPageRoute(
           builder: (_) => const WorkerRegisterPage(),
         );
-      case registrationSuccessPage: 
+      case registrationSuccessPage:
         return MaterialPageRoute(
           builder: (_) => const RegistrationSuccess(),
         );
@@ -84,9 +86,9 @@ class RouteManager {
           builder: (_) => EmpProfilePage(),
         );
       case workerPage:
-      return MaterialPageRoute(
-        builder: (_) =>  WorkProfilePage(),
-      );
+        return MaterialPageRoute(
+          builder: (_) => WorkProfilePage(),
+        );
       case historyPage:
         return MaterialPageRoute(
           builder: (_) => const HistoryPage(),
@@ -98,6 +100,10 @@ class RouteManager {
       case reportPage:
         return MaterialPageRoute(
           builder: (_) => const ReportPage(),
+        );
+      case termsAndConditions:
+        return MaterialPageRoute(
+          builder: (_) => const TermsAndConditionsPage(),
         );
       default:
         throw Exception(
