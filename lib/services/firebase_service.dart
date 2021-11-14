@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 
 class FirebaseService {
   const FirebaseService._();
@@ -89,5 +90,56 @@ class FirebaseService {
           break;
       }
     }
+  }
+
+  static void handleOtp({
+    required BuildContext context,
+    required String phoneNumber,
+  }) async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: '+27${phoneNumber.substring(1)}',
+      codeSent: (_verificationId, _) async {
+        final _otpController = TextEditingController();
+
+        showDialog(
+          barrierDismissible: false,
+          builder: (_) => AlertDialog(
+            actions: [
+              TextButton(
+                child: const Text(
+                  'SUBMIT',
+                ),
+                onPressed: () {
+                  final _smsCode = _otpController.text;
+
+                  final credential = PhoneAuthProvider.credential(
+                    verificationId: _verificationId,
+                    smsCode: _smsCode,
+                  );
+
+                  FirebaseAuth.instance.signInWithCredential(credential).then(
+                        (_) => Navigator.popAndPushNamed(
+                          context,
+                          RouteManager.newPasswordPage,
+                        ),
+                      );
+                },
+              ),
+            ],
+            content: TextField(
+              controller: _otpController,
+              keyboardType: TextInputType.number,
+            ),
+            title: const Text(
+              'Enter OTP',
+            ),
+          ),
+          context: context,
+        );
+      },
+      codeAutoRetrievalTimeout: (_) {},
+      verificationCompleted: (_) {},
+      verificationFailed: (_) {},
+    );
   }
 }

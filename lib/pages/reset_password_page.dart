@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/models/form_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/icons/icon_widget.dart';
@@ -9,6 +11,7 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.da
 import 'package:help_for_hire_flutter_app/widgets/text/details_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
+import 'package:provider/provider.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   final _phoneNumberController = TextEditingController();
@@ -45,9 +48,9 @@ class ResetPasswordPage extends StatelessWidget {
               ButtonWidget(
                 data: 'SUBMIT',
                 onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    RouteManager.otpPage,
+                  FirebaseService.handleOtp(
+                    context: context,
+                    phoneNumber: _phoneNumberController.text,
                   );
                 },
               ),
