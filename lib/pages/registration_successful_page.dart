@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
 
 class RegistrationSuccess extends StatefulWidget {
@@ -52,7 +53,9 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
                     fontSize: 20,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  //Navigator.pushNamed(context, RouteManager.signIn);
+                },
               ),
             ],
           ),
