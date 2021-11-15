@@ -27,13 +27,13 @@ class LoginPage extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.text,
                 controller: userNameController,
-                decoration: InputDecoration(hintText: 'user name'),
+                decoration: InputDecoration(hintText: 'User Name'),
                 style: TextStyle(fontSize: 20),
               ),
               TextField(
                 keyboardType: TextInputType.visiblePassword,
                 controller: userPasswordController,
-                decoration: InputDecoration(hintText: 'password'),
+                decoration: InputDecoration(hintText: 'Password'),
                 style: TextStyle(fontSize: 20),
               ),
               SizedBox(
@@ -82,7 +82,7 @@ class LoginPage extends StatelessWidget {
                     Navigator.pushNamed(context, RouteManager.resetPasswordPage);
                   },
                   child: Text(
-                    'forgot password?',
+                    'Forgot Password?',
                     style: TextStyle(
                       fontSize: 20,
                     ),
