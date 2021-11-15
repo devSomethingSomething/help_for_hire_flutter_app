@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/pages/login_page.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 
 enum Select { job1, job2 }
@@ -20,24 +21,59 @@ class _WorkProfilePageState extends State<WorkProfilePage> {
       home: Scaffold(
         backgroundColor: Colors.grey,
         appBar: AppBar(
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                icon: Icon(Icons.menu),
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              );
-            },
-          ),
-          title: Text(
-            'Profile',
-          ),
-          backgroundColor: Colors.blue,
-          automaticallyImplyLeading: false,
+          title: Text('Profile'),
+          actions: [           
+            PopupMenuButton(
+              icon: Icon(Icons.menu),
+              color: Colors.blue,
+              itemBuilder: (context) => [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Text(
+                    'Settings',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 1,
+                  child: Text(
+                    'History',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 2,
+                  child: Text(
+                    'Review',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 3,
+                  child: Text(
+                    'Report',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 4,
+                  child: Text(
+                    'Change Password',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 5,
+                  child: Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+              onSelected: (item) => SelectedItem(context, item),
+            ),
+          ],
         ),
-        drawer: openDrawer(),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -316,62 +352,6 @@ class _WorkProfilePageState extends State<WorkProfilePage> {
     );
   }
 
-  Drawer openDrawer() {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(50),
-              child: Text(
-                'Profile Settings',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-          ),
-          ListTile(
-            title: text('Settings'),
-            onTap: () {
-               Navigator.pushNamed(context, RouteManager.settingsPage);
-            },
-          ),
-          ListTile(
-            title: text('History'),
-            onTap: () {
-               Navigator.pushNamed(context, RouteManager.historyPage);
-            },
-          ),
-          ListTile(
-            title: text('Review'),
-            onTap: () {
-               Navigator.pushNamed(context, RouteManager.reviewPage);
-            },
-          ),
-          ListTile(
-            title: text('Report'),
-            onTap: () {
-               Navigator.pushNamed(context, RouteManager.reportPage);
-            },
-          ),
-          ListTile(
-            title: text('Change Password'),
-            onTap: (){
-              Navigator.pushNamed(context, RouteManager.changePasswordPage);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
   Text text(String txt) {
     return Text(
       txt,
@@ -380,5 +360,30 @@ class _WorkProfilePageState extends State<WorkProfilePage> {
         fontSize: 15,
       ),
     );
+  }
+
+  void SelectedItem(BuildContext context, item) {
+    switch (item) {
+      case 0:
+        Navigator.pushNamed(context, RouteManager.settingsPage);
+        break;
+      case 1:
+        Navigator.pushNamed(context, RouteManager.historyPage);
+        break;
+      case 2:
+        Navigator.pushNamed(context, RouteManager.reviewPage);
+        break;
+      case 3:
+        Navigator.pushNamed(context, RouteManager.reportPage);
+        break;
+      case 4:
+        Navigator.pushNamed(context, RouteManager.changePasswordPage);
+        break;
+      case 5:
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => LoginPage()),
+            (route) => false);
+        break;
+    }
   }
 }

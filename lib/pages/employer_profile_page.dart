@@ -11,7 +11,7 @@ class EmpProfilePage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.grey,
-               appBar: AppBar(
+        appBar: AppBar(
           title: Text('Profile'),
           actions: [
             new IconButton(
@@ -19,8 +19,7 @@ class EmpProfilePage extends StatelessWidget {
                 tooltip: 'Search',
                 onPressed: () {}),
             PopupMenuButton(
-              icon:
-                  Icon(Icons.menu), 
+              icon: Icon(Icons.menu),
               color: Colors.blue,
               itemBuilder: (context) => [
                 PopupMenuItem<int>(
@@ -69,7 +68,7 @@ class EmpProfilePage extends StatelessWidget {
               onSelected: (item) => SelectedItem(context, item),
             ),
           ],
-        ),      
+        ),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -268,7 +267,7 @@ class EmpProfilePage extends StatelessWidget {
     );
   }
 
-void SelectedItem(BuildContext context, item) {
+  void SelectedItem(BuildContext context, item) {
     switch (item) {
       case 0:
         Navigator.pushNamed(context, RouteManager.settingsPage);
@@ -286,10 +285,10 @@ void SelectedItem(BuildContext context, item) {
         Navigator.pushNamed(context, RouteManager.changePasswordPage);
         break;
       case 5:
-        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>LoginPage()), (route) => false);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => LoginPage()),
+            (route) => false);
         break;
     }
   }
 }
-
-
