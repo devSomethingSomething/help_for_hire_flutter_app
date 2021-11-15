@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -45,7 +46,10 @@ class LoginPage extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {},
-                      style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.only(left: 35,right: 35),)),
+                      style: ButtonStyle(
+                          padding: MaterialStateProperty.all(
+                        EdgeInsets.only(left: 35, right: 35),
+                      )),
                       child: Text(
                         'Log In',
                         style: TextStyle(
@@ -54,8 +58,14 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.only(left: 20,right: 20),)),
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, RouteManager.newUserRegisterPage);
+                      },
+                      style: ButtonStyle(
+                          padding: MaterialStateProperty.all(
+                        EdgeInsets.only(left: 20, right: 20),
+                      )),
                       child: Text(
                         'Register',
                         style: TextStyle(
@@ -68,7 +78,9 @@ class LoginPage extends StatelessWidget {
               ),
 
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteManager.resetPasswordPage);
+                  },
                   child: Text(
                     'forgot password?',
                     style: TextStyle(

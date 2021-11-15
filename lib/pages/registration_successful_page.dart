@@ -54,7 +54,7 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
                   ),
                 ),
                 onPressed: () {
-                  //Navigator.pushNamed(context, RouteManager.signIn);
+                  Navigator.pushNamed(context, RouteManager.loginPage);
                 },
               ),
             ],
