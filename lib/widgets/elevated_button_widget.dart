@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 
 class ElevatedButtonWidget extends StatelessWidget {
   final String _data;
@@ -20,7 +21,9 @@ class ElevatedButtonWidget extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, RouteManager.loginPage);
+        },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(
             Colors.teal,
