@@ -11,6 +11,7 @@ import 'package:help_for_hire_flutter_app/pages/registration_successful_page.dar
 import 'package:help_for_hire_flutter_app/pages/report_page.dart';
 import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/review_page.dart';
+import 'package:help_for_hire_flutter_app/pages/settings_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 import 'package:help_for_hire_flutter_app/pages/terms_and_conditions_page.dart';
@@ -29,7 +30,6 @@ class RouteManager {
   static const otpPage = '/otpPage';
   static const newPasswordPage = '/newPasswordPage';
   static const loginPage = '/loginPage';
-  // static const employerPage = '/employerPage';
   static const settingsPage = '/settingsPage';
   static const employerPage = '/employerPage';
   static const workerPage = '/workerPage';
@@ -88,10 +88,10 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const LoginPage(),
         );
-      // case employerPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const EmpProfilePage(),
-      // );
+      case settingsPage:
+      return MaterialPageRoute(
+        builder: (_) =>  SettingsPage(),
+      );
       case employerPage:
         return MaterialPageRoute(
           builder: (_) => EmpProfilePage(),
