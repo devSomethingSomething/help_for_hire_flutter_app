@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/classes/checkbox_state.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
 
 enum AmountTime { full, part }
@@ -122,7 +123,9 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {                   
+                    Navigator.pushNamed(context, RouteManager.registrationSuccessPage);
+                  },
                   child: Text(
                     'Submit and Continue',
                     style: TextStyle(fontSize: 20),

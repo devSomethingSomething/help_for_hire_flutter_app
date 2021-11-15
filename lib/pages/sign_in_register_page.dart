@@ -17,7 +17,7 @@ class SignInRegisterPage extends StatelessWidget {
             CustomButtonWidget(
               data: 'SIGN IN',
               onPressed: () {
-                // Navigator.pushNamed(context, RouteManager.signInPage);
+                 Navigator.pushNamed(context, RouteManager.loginPage);
               },
             ),
             const SizedBox(
