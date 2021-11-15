@@ -14,10 +14,10 @@ import 'package:help_for_hire_flutter_app/pages/review_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
+import 'package:help_for_hire_flutter_app/pages/invites_page.dart';
 
 class RouteManager {
-  static const String splashPage = '/';
-  static const splashPage = '/';
+  static const splashPage = '/splashPage';
   static const signInRegisterPage = '/signInRegisterPage';
   static const newUserRegisterPage = '/newUserRegisterPage'; // Added - Werner
   static const accountTypePage = '/accountTypePage'; // Added - Werner
@@ -30,11 +30,11 @@ class RouteManager {
   static const newPasswordPage = '/newPasswordPage';
   static const settingsPage = '/settingsPage';
   static const employerPage = '/employerPage';
-  // static const workerPage = '/workerPage';
+  static const workerPage = '/workerPage';
   static const historyPage = '/historyPage';
   static const reviewPage = '/reviewPage';
   static const reportPage = '/reportPage';
-  // static const settingsPage = '/settingsPage';
+  static const invitesPage = '/';
 
   const RouteManager._();
 
@@ -93,6 +93,10 @@ class RouteManager {
       case historyPage:
         return MaterialPageRoute(
           builder: (_) => const HistoryPage(),
+        );
+      case invitesPage:
+        return MaterialPageRoute(
+          builder: (_) => const InvitesPage(),
         );
       case reviewPage:
         return MaterialPageRoute(
