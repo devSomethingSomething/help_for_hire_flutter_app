@@ -60,6 +60,4 @@ class UserData with ChangeNotifier {
       ),
     );
   }
-
-
 }

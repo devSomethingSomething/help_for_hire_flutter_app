@@ -23,32 +23,36 @@ class _WorkerCardState extends State<WorkerCard> {
         },
         splashColor: Colors.blue,
         child: Card(
-            elevation: 3,
-            child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Container(
-                  child: Row(
+          elevation: 3,
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: Container(
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.image,
+                    size: 75,
+                  ),
+                  Column(
                     children: [
-                      Icon(
-                        Icons.image,
-                        size: 75,
+                      Text(
+                        widget.worker.name,
+                        style: TextStyle(fontSize: 20),
                       ),
-                      Column(children: [
-                        Text(
-                          widget.worker.name,
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'rating',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ])
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Rating',
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ],
                   ),
-                ))),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
