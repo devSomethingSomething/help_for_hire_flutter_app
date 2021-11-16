@@ -2,19 +2,19 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/models/location_model.dart';
+import 'package:help_for_hire_flutter_app/models/job_model.dart';
 import 'package:http/http.dart';
 
-class LocationService with ChangeNotifier {
-  var locations = <LocationModel>[];
+class JobService with ChangeNotifier {
+  var jobs = <JobModel>[];
 
   var _jsons = [];
 
-  static const _controllerRoute = '/api/location/';
+  static const _controllerRoute = '/api/job/';
 
-  LocationService();
+  JobService();
 
-  Future<void> getLocations() async {
+  Future<void> getJobs() async {
     final response = await get(
       Uri.parse(
         'https://192.168.101.166:5001${_controllerRoute}all',
@@ -26,8 +26,8 @@ class LocationService with ChangeNotifier {
         _jsons = jsonDecode(response.body);
 
         for (var json in _jsons) {
-          locations.add(
-            LocationModel.fromJson(
+          jobs.add(
+            JobModel.fromJson(
               json: json,
             ),
           );

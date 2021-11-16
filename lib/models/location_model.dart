@@ -9,8 +9,9 @@ class LocationModel {
     required this.city,
   });
 
-  LocationModel.fromJson(Map<String, dynamic> json)
-      : locationId = json['locationId'],
+  LocationModel.fromJson({
+    required Map<String, dynamic> json,
+  })  : locationId = json['locationId'],
         province = json['province'],
         city = json['city'];
 

@@ -1,11 +1,11 @@
-import 'package:help_for_hire_flutter_app/models/job.dart';
+import 'package:help_for_hire_flutter_app/models/job_model.dart';
 
 class Skill {
   int skillId;
 
   // Worker _worker;
 
-  Job job;
+  JobModel job;
 
   Skill({
     required this.skillId,
