@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names
+
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/login_page.dart';
@@ -22,7 +24,7 @@ class _WorkProfilePageState extends State<WorkProfilePage> {
         backgroundColor: Colors.grey,
         appBar: AppBar(
           title: Text('Profile'),
-          actions: [           
+          actions: [
             PopupMenuButton(
               icon: Icon(Icons.menu),
               color: Colors.blue,

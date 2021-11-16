@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_init_to_null
 
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
@@ -14,9 +14,9 @@ class AccountTypePage extends StatefulWidget {
 }
 
 class _AccountTypePageState extends State<AccountTypePage> {
-  Accounts? _account ;
-  bool? accountType = null; 
-  
+  Accounts? _account;
+  bool? accountType = null;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,7 +41,7 @@ class _AccountTypePageState extends State<AccountTypePage> {
                   onChanged: (Accounts? value) {
                     setState(() {
                       _account = value;
-                      accountType=true;
+                      accountType = true;
                     });
                   },
                   activeColor: Colors.blue,
@@ -66,10 +66,12 @@ class _AccountTypePageState extends State<AccountTypePage> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (accountType == true) {
-                      Navigator.pushNamed(context, RouteManager.workerRegisterPage);
-                    } else if(accountType == false) {
-                      Navigator.pushNamed(context, RouteManager.registrationSuccessPage);
-                    }                 
+                      Navigator.pushNamed(
+                          context, RouteManager.workerRegisterPage);
+                    } else if (accountType == false) {
+                      Navigator.pushNamed(
+                          context, RouteManager.registrationSuccessPage);
+                    }
                   },
                   child: Text(
                     'Submit and Continue',

@@ -1,4 +1,4 @@
-
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,8 @@ class DropDownWidget extends StatefulWidget {
 List<DropdownMenuItem<String>> get dropdownItems {
   List<DropdownMenuItem<String>> menuItems = [
     DropdownMenuItem(child: Text("Select Reason"), value: "Select"),
-    DropdownMenuItem(child: Text("Inappropriate Behaviour"), value: "Inappropriate"),
+    DropdownMenuItem(
+        child: Text("Inappropriate Behaviour"), value: "Inappropriate"),
     DropdownMenuItem(child: Text("Unethical"), value: "Unethical"),
     DropdownMenuItem(child: Text("Fraud"), value: "Fraud"),
     DropdownMenuItem(child: Text("Abusive"), value: "Abusive"),
