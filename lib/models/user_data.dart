@@ -4,14 +4,23 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/worker.dart';
 import 'package:help_for_hire_flutter_app/models/user.dart';
+import 'package:help_for_hire_flutter_app/models/employer.dart';
 
 class UserData with ChangeNotifier {
   var _workerList = List<Worker>.empty(growable: true);
-  String _skillToSearch='';
+  /*static var employer = Employer(
+    ID: 1,
+    user: User(
+      name: 'one',
+      phoneNumber: '11111',
+      surname: 'first',
+      userId: '111111',
+    ),
+  );*/
+  String _skillToSearch = '';
 
   List<Worker> get workerList => _workerList;
-  String get skillToSearch=>_skillToSearch;
-
+  String get skillToSearch => _skillToSearch;
 
   set skillToSearch(String value) {
     _skillToSearch = value;
@@ -51,4 +60,6 @@ class UserData with ChangeNotifier {
       ),
     );
   }
+
+
 }

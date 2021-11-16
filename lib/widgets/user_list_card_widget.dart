@@ -16,33 +16,39 @@ class _WorkerCardState extends State<WorkerCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(40),
+      padding: EdgeInsets.all(10),
       child: InkWell(
-        onTap: (){Navigator.pushNamed(context, RouteManager.workerInfoPage);},
-        splashColor: Colors.black,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey,
-            boxShadow: [BoxShadow(color: Colors.black)],
-          ),
-          child: Row(
-            children: [
-              Icon(
-                Icons.image,
-                size: 50,
-              ),
-              Text(
-                widget.worker.name,
-                style: TextStyle(fontSize: 20),
-              ),
-              SizedBox(width: 10,),
-              Text(
-                'rating',
-                style: TextStyle(fontSize: 20),
-              ),
-            ],
-          ),
-        ),
+        onTap: () {
+          Navigator.pushNamed(context, RouteManager.workerInfoPage);
+        },
+        splashColor: Colors.blue,
+        child: Card(
+            elevation: 3,
+            child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Container(
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.image,
+                        size: 75,
+                      ),
+                      Column(children: [
+                        Text(
+                          widget.worker.name,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'rating',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ])
+                    ],
+                  ),
+                ))),
       ),
     );
   }
