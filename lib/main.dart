@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/models/form_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/services/employer_service.dart';
 import 'package:help_for_hire_flutter_app/services/job_service.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,9 @@ class _App extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => JobService(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EmployerService(),
         ),
       ],
       child: MaterialApp(
