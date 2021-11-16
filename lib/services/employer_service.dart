@@ -97,4 +97,32 @@ class EmployerService with ChangeNotifier {
       // Handle other errors
     }
   }
+
+  Future<void> putEmployer({
+    required String id,
+    required EmployerModel employer,
+  }) async {
+    final response = await put(
+      Uri.parse(
+        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+      ),
+      body: jsonEncode(employer),
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json",
+      },
+    );
+
+    if (response.statusCode == HttpStatus.noContent) {
+      try {
+        // Request worked code
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle bad request
+    } else {
+      // Handle other errors
+    }
+  }
 }

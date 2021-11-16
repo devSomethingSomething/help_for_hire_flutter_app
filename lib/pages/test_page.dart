@@ -9,11 +9,12 @@ class TestPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<EmployerService>().postEmployer(
+    context.read<EmployerService>().putEmployer(
+          id: '2222222222222',
           employer: EmployerModel(
             user: UserModel(
               userId: '2222222222222',
-              name: 'Mark',
+              name: 'John',
               surname: 'Jones',
               phoneNumber: '2222222222',
               locationId: 'ilySl6HTh1mPgI6Chzbn',
