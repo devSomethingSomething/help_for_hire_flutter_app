@@ -1,6 +1,6 @@
-import 'package:help_for_hire_flutter_app/models/user.dart';
+import 'package:help_for_hire_flutter_app/models/user_model.dart';
 
-class Worker extends User {
+class Worker extends UserModel {
   int workerId;
   int minimumFee;
 
@@ -17,11 +17,12 @@ class Worker extends User {
     required this.description,
     required this.fullTime,
     required this.partTime,
-    required User user,
+    required UserModel user,
   }) : super(
           userId: user.userId,
           name: user.name,
           surname: user.surname,
           phoneNumber: user.phoneNumber,
+          locationId: user.locationId,
         );
 }
