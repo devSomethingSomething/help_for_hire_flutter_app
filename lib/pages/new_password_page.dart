@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/details_text_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/expanded_button_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/heading_text_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/icon_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_field_widget.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/icons/icon_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text/details_text_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_field_widget.dart';
 
 class NewPasswordPage extends StatelessWidget {
-  const NewPasswordPage();
+  final _newPasswordController = TextEditingController();
+  final _repeatNewPasswordController = TextEditingController();
+
+  NewPasswordPage();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'New password',
+        data: 'New password',
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -25,35 +32,32 @@ class NewPasswordPage extends StatelessWidget {
               const HeadingTextWidget(
                 data: 'Enter your New Password',
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
+              const SmallSpacerWidget(),
               const DetailsTextWidget(
-                data: '''Enter your new password below to complete
-                the password reset process''',
+                data:
+                    'Enter your new password below to\ncomplete the password reset process',
               ),
-              const SizedBox(
-                height: 50.0,
-              ),
-              TextFieldWidget(
+              const MediumSpacerWidget(),
+              PasswordTextFieldWidget(
                 data: 'New password',
-                obscureText: true,
+                keyboardType: TextInputType.text,
+                controller: _newPasswordController,
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              TextFieldWidget(
+              const SmallSpacerWidget(),
+              PasswordTextFieldWidget(
                 data: 'Repeat new password',
-                obscureText: true,
+                keyboardType: TextInputType.text,
+                controller: _repeatNewPasswordController,
               ),
-              const SizedBox(
-                height: 50.0,
-              ),
-              const ExpandedButtonWidget(
+              const LargeSpacerWidget(),
+              ButtonWidget(
                 data: 'SUBMIT',
-              ),
-              const SizedBox(
-                height: 20.0,
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouteManager.resetPasswordSuccessPage,
+                  );
+                },
               ),
             ],
           ),

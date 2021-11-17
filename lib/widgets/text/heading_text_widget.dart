@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class DetailsTextWidget extends StatelessWidget {
+class HeadingTextWidget extends StatelessWidget {
   final String _data;
 
-  const DetailsTextWidget({
+  const HeadingTextWidget({
     required String data,
   }) : _data = data;
 
@@ -12,8 +12,10 @@ class DetailsTextWidget extends StatelessWidget {
     return Text(
       _data,
       style: const TextStyle(
-        color: Colors.grey,
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
       ),
+      textAlign: TextAlign.center,
     );
   }
 }

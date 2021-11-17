@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/elevated_button_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/icon_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/text_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/icons/icon_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text/details_text_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
 
+@Deprecated(
+  'Removed as the firebase OTP system requires that the OTP be handled '
+  'in one go, it does not seem possible to split up the process. Currently '
+  'the OTP process is handled from within the reset password page',
+)
 class OtpPage extends StatelessWidget {
-  const OtpPage();
+  final _otpController = TextEditingController();
+
+  OtpPage();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'OTP',
+        data: 'OTP',
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -19,78 +33,28 @@ class OtpPage extends StatelessWidget {
               const IconWidget(
                 icon: Icons.perm_device_information_rounded,
               ),
-              const Text(
-                'Enter your OTP',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                ),
+              const HeadingTextWidget(
+                data: 'Enter your OTP',
               ),
-              const SizedBox(
-                height: 20,
+              const SmallSpacerWidget(),
+              const DetailsTextWidget(
+                data: 'Enter your OTP below to reset your password',
               ),
-              const Text(
-                'Enter your OTP below to reset your password',
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
+              const MediumSpacerWidget(),
+              TextFieldWidget(
+                data: 'OTP',
+                keyboardType: TextInputType.number,
+                controller: _otpController,
               ),
-              const SizedBox(
-                height: 50,
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.75,
-                child: const TextField(
-                  cursorColor: Colors.teal,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.teal,
-                      ),
-                    ),
-                    label: Text(
-                      'OTP',
-                    ),
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.teal,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Never got the OTP?',
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  TextButton(
-                    child: const Text(
-                      'Click here to resend',
-                      style: TextStyle(
-                        color: Colors.teal,
-                      ),
-                    ),
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.all<Color>(
-                        Colors.teal.shade50,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              const ElevatedButtonWidget(
+              const LargeSpacerWidget(),
+              ButtonWidget(
                 data: 'SUBMIT',
+                onPressed: () {},
+              ),
+              const SmallSpacerWidget(),
+              TextButtonWidget(
+                data: 'Click to resend OTP',
+                onPressed: () {},
               ),
             ],
           ),

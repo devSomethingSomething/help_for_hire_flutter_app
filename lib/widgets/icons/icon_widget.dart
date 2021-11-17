@@ -10,14 +10,13 @@ class IconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 50.0,
-        bottom: 50.0,
+      padding: const EdgeInsets.all(
+        16.0,
       ),
       child: Icon(
         _icon,
         color: Colors.grey,
-        size: 150.0,
+        size: 128.0,
       ),
     );
   }

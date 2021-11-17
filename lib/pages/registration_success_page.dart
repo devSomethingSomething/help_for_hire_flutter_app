@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
-class RegistrationSuccess extends StatefulWidget {
-  const RegistrationSuccess();
+class RegistrationSuccessPage extends StatefulWidget {
+  const RegistrationSuccessPage();
 
   @override
-  _RegistrationSuccessState createState() => _RegistrationSuccessState();
+  _RegistrationSuccessPageState createState() =>
+      _RegistrationSuccessPageState();
 }
 
-class _RegistrationSuccessState extends State<RegistrationSuccess> {
+class _RegistrationSuccessPageState extends State<RegistrationSuccessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'Registration successful',
+        data: 'Registration successful',
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -23,11 +25,11 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
                 height: 150,
                 width: 150,
                 image: AssetImage(
-                  'assets/images/green_check.png',
+                  'assets/images/Green_Check.png',
                 ),
               ),
               const SizedBox(
-                height: 100,
+                height: 50,
               ),
               const Text(
                 'You have successfully registered for Help for Hire!',
@@ -37,7 +39,7 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
                 ),
               ),
               const SizedBox(
-                height: 100,
+                height: 50,
               ),
               const Text(
                 'Sign in below in order to start using the application',
@@ -52,7 +54,9 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
                     fontSize: 20,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteManager.signInPage);
+                },
               ),
             ],
           ),

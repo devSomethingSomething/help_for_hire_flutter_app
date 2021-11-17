@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CustomButtonWidget extends StatelessWidget {
+class TextButtonWidget extends StatelessWidget {
   final String _data;
 
   final void Function() _onPressed;
 
-  const CustomButtonWidget({
+  const TextButtonWidget({
     required String data,
     required void Function() onPressed,
   })  : _data = data,
@@ -13,22 +13,17 @@ class CustomButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return TextButton(
       child: Text(
         _data,
-        style: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
       ),
       onPressed: _onPressed,
-      style: ElevatedButton.styleFrom(
+      style: TextButton.styleFrom(
         minimumSize: const Size(
           256,
-          64,
+          48,
         ),
-        primary: Colors.teal,
-        shape: const StadiumBorder(),
+        primary: Colors.black,
       ),
     );
   }

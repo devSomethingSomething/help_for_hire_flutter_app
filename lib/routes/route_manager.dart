@@ -1,31 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/pages/account_type_page.dart';
+import 'package:help_for_hire_flutter_app/pages/change_password_page.dart';
+import 'package:help_for_hire_flutter_app/pages/employer_profile_page.dart';
+import 'package:help_for_hire_flutter_app/pages/history_page.dart';
 import 'package:help_for_hire_flutter_app/pages/new_password_page.dart';
-import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
-import 'package:help_for_hire_flutter_app/pages/registration_successful_page.dart';
+import 'package:help_for_hire_flutter_app/pages/register_page.dart';
+import 'package:help_for_hire_flutter_app/pages/registration_success_page.dart';
+import 'package:help_for_hire_flutter_app/pages/report_page.dart';
 import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
+import 'package:help_for_hire_flutter_app/pages/reset_password_success_page.dart';
+import 'package:help_for_hire_flutter_app/pages/review_page.dart';
+import 'package:help_for_hire_flutter_app/pages/settings_page.dart';
+import 'package:help_for_hire_flutter_app/pages/sign_in_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
+import 'package:help_for_hire_flutter_app/pages/terms_and_conditions_page.dart';
+import 'package:help_for_hire_flutter_app/pages/worker_profile_page.dart';
+import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
+// Check this later
 import 'package:help_for_hire_flutter_app/pages/list_of_workers.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_info_page.dart';
 
 class RouteManager {
   static const splashPage = '/';
   static const signInRegisterPage = '/signInRegisterPage';
-  // static const accountTypePage = '/accountTypePage'; // Added - Werner
-  static const registrationSuccessPage =
-      '/registrationSuccessPage'; // Added - Werner
+  static const signInPage = '/signInPage';
   static const resetPasswordPage = '/resetPasswordPage';
-  static const otpPage = '/otpPage';
   static const newPasswordPage = '/newPasswordPage';
-  static const listOfWorkers = '/listOfWorkers';
-  static const workerInfoPage = '/workerInfoPage';
-
-  // static const employerPage = '/employerPage';
-  // static const workerPage = '/workerPage';
-  // static const historyPage = '/historyPage';
-  // static const reviewPage = '/reviewPage';
-  // static const reportPage = '/reportPage';
-  // static const settingsPage = '/settingsPage';
+  static const resetPasswordSuccessPage = '/resetPasswordSuccessPage';
+  static const registerPage = '/registerPage';
+  static const accountTypePage = '/accountTypePage';
+  static const workerRegisterPage = '/workerRegisterPage';
+  static const termsAndConditionsPage = '/termsAndConditionsPage';
+  static const registrationSuccessPage = '/registrationSuccessPage';
+  static const employerProfilePage = '/employerProfilePage';
+  static const changePasswordPage = '/changePasswordPage';
+  static const workerProfilePage = '/workerProfilePage';
+  static const reportPage = '/reportPage';
+  static const reviewPage = '/reviewPage';
+  static const historyPage = '/historyPage';
+  static const settingsPage = '/settingsPage';
 
   const RouteManager._();
 
@@ -41,59 +55,70 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const SignInRegisterPage(),
         );
-      // case accountTypePage: // Added - Werner
-      // return MaterialPageRoute(
-      //   builder: (_) => const AccountType(),
-      // );
-      case registrationSuccessPage: // Added - Werner
+      case signInPage:
         return MaterialPageRoute(
-          builder: (_) => const RegistrationSuccess(),
+          builder: (_) => SignInPage(),
         );
       case resetPasswordPage:
         return MaterialPageRoute(
-          builder: (_) => const ResetPasswordPage(),
-        );
-      case otpPage:
-        return MaterialPageRoute(
-          builder: (_) => const OtpPage(),
+          builder: (_) => ResetPasswordPage(),
         );
       case newPasswordPage:
         return MaterialPageRoute(
-          builder: (_) => const NewPasswordPage(),
+          builder: (_) => NewPasswordPage(),
         );
-      case listOfWorkers:
+      case resetPasswordSuccessPage:
         return MaterialPageRoute(
-          builder: (_) => const ListOfWorkers(),
+          builder: (_) => const ResetPasswordSuccessPage(),
         );
-      case workerInfoPage:
+      case registerPage:
         return MaterialPageRoute(
-          builder: (_) => const WorkerInfoPage(),
+          builder: (_) => const RegisterPage(),
         );
-
-      // case employerPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const EmpProfilePage(),
-      // );
-      // case workerPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const WorkProfilePage(),
-      // );
-      // case historyPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const HistoryPage(),
-      // );
-      // case reviewPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const ReviewPage(),
-      // );
-      // case reportPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const ReportPage(),
-      // );
-      // case settingsPage:
-      // return MaterialPageRoute(
-      //   builder: (_) => const SettingsPage(),
-      // );
+      case accountTypePage:
+        return MaterialPageRoute(
+          builder: (_) => const AccountTypePage(),
+        );
+      case workerRegisterPage:
+        return MaterialPageRoute(
+          builder: (_) => const WorkerRegisterPage(),
+        );
+      case termsAndConditionsPage:
+        return MaterialPageRoute(
+          builder: (_) => const TermsAndConditionsPage(),
+        );
+      case registrationSuccessPage:
+        return MaterialPageRoute(
+          builder: (_) => const RegistrationSuccessPage(),
+        );
+      case employerProfilePage:
+        return MaterialPageRoute(
+          builder: (_) => EmployerProfilePage(),
+        );
+      case changePasswordPage:
+        return MaterialPageRoute(
+          builder: (_) => const ChangePasswordPage(),
+        );
+      case workerProfilePage:
+        return MaterialPageRoute(
+          builder: (_) => WorkerProfilePage(),
+        );
+      case reportPage:
+        return MaterialPageRoute(
+          builder: (_) => const ReportPage(),
+        );
+      case reviewPage:
+        return MaterialPageRoute(
+          builder: (_) => const ReviewPage(),
+        );
+      case historyPage:
+        return MaterialPageRoute(
+          builder: (_) => const HistoryPage(),
+        );
+      case settingsPage:
+        return MaterialPageRoute(
+          builder: (_) => SettingsPage(),
+        );
       default:
         throw Exception(
           'Route not found',

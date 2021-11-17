@@ -8,7 +8,7 @@ class LogoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(
-        32.0,
+        16.0,
       ),
       child: Image.asset(
         ImageConstants.logo,

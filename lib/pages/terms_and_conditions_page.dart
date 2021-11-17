@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/terms_and_conditions_text_widget.dart';
 
 class TermsAndConditionsPage extends StatefulWidget {
@@ -16,7 +16,7 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'Terms and conditions',
+        data: 'Terms and conditions',
       ),
       body: SingleChildScrollView(
         child: Center(
