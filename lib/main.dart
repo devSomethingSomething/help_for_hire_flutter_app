@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/form_model.dart';
 import 'package:help_for_hire_flutter_app/pages/theme_data.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:provider/provider.dart';
+import 'package:help_for_hire_flutter_app/models/user_data.dart';
 import 'package:help_for_hire_flutter_app/services/employer_service.dart';
 import 'package:help_for_hire_flutter_app/services/job_service.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
@@ -38,6 +40,9 @@ class _App extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ThemeSettings(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => UserModel(),
         ),
       ],
       // Review this later on

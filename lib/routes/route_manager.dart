@@ -17,6 +17,9 @@ import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 import 'package:help_for_hire_flutter_app/pages/terms_and_conditions_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
+// Check this later
+import 'package:help_for_hire_flutter_app/pages/list_of_workers.dart';
+import 'package:help_for_hire_flutter_app/pages/worker_info_page.dart';
 
 class RouteManager {
   static const splashPage = '/';
