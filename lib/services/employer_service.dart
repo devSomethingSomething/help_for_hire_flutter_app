@@ -5,6 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:http/http.dart';
 
+// This service should be able to
+// - Post
+// - Get
+// - Get(All)
+// - Put
+// - Get(Query)
 class EmployerService with ChangeNotifier {
   var employers = <EmployerModel>[];
 
