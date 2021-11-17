@@ -7,6 +7,8 @@ import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/employer_service.dart';
 import 'package:help_for_hire_flutter_app/services/job_service.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
+import 'package:help_for_hire_flutter_app/pages/theme_data.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -36,18 +38,19 @@ class _App extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => EmployerService(),
         ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: RouteManager.testPage,
-        onGenerateRoute: RouteManager.generateRoute,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: ColorConstants.blue,
-            secondary: ColorConstants.blue,
-          ),
-          unselectedWidgetColor: Colors.white,
+        ChangeNotifierProvider(
+          create: (_) => ThemeSettings(),
         ),
+      ],
+      child: Consumer<ThemeSettings>(
+        builder: (context, value, child) {
+          return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              initialRoute: RouteManager.splashPage,
+              onGenerateRoute: RouteManager.generateRoute,
+              theme: value.darkTheme ? darkTheme : lightTheme,
+              );
+        },
       ),
     );
   }

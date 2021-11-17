@@ -23,11 +23,11 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
                 height: 150,
                 width: 150,
                 image: AssetImage(
-                  'assets/images/green_check.png',
+                  'assets/images/Green_Check.png',
                 ),
               ),
               const SizedBox(
-                height: 100,
+                height: 50,
               ),
               const Text(
                 'You have successfully registered for Help for Hire!',
@@ -37,7 +37,7 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
                 ),
               ),
               const SizedBox(
-                height: 100,
+                height: 50,
               ),
               const Text(
                 'Sign in below in order to start using the application',
@@ -52,7 +52,9 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
                     fontSize: 20,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteManager.loginPage);
+                },
               ),
             ],
           ),

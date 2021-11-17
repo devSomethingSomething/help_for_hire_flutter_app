@@ -1,14 +1,23 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_new, sized_box_for_whitespace, non_constant_identifier_names, unused_local_variable
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names
 
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/login_page.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
-class EmpProfilePage extends StatelessWidget {
+enum Select { job1, job2 }
+enum AmountTime { full, part }
+
+class WorkProfilePage extends StatefulWidget {
+  @override
+  State<WorkProfilePage> createState() => _WorkProfilePageState();
+}
+
+class _WorkProfilePageState extends State<WorkProfilePage> {
+  Select? _char = Select.job1;
+  AmountTime? _time = AmountTime.part;
   @override
   Widget build(BuildContext context) {
-    String txt = '';
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -16,10 +25,6 @@ class EmpProfilePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Profile'),
           actions: [
-            new IconButton(
-                icon: new Icon(Icons.search),
-                tooltip: 'Search',
-                onPressed: () {}),
             PopupMenuButton(
               icon: Icon(Icons.menu),
               color: Colors.blue,
@@ -128,6 +133,15 @@ class EmpProfilePage extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8),
+                    child: Stack(
+                      children: [
+                        _container('Description'),
+                        _row(),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
                     child: _container('Name'),
                   ),
                   Padding(
@@ -172,6 +186,87 @@ class EmpProfilePage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      tileColor: Colors.grey.shade300,
+                      title: Text('Job 1'),
+                      leading: Radio<Select>(
+                        value: Select.job1,
+                        groupValue: _char,
+                        onChanged: (Select? value) {
+                          setState(() {
+                            _char = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      tileColor: Colors.grey.shade300,
+                      title: Text('Job 2'),
+                      leading: Radio<Select>(
+                        value: Select.job2,
+                        groupValue: _char,
+                        onChanged: (Select? value) {
+                          setState(() {
+                            _char = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Stack(
+                      children: [
+                        _container('Minimum Fee'),
+                        _row(),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      tileColor: Colors.grey.shade300,
+                      title: Text('Full Time'),
+                      leading: Radio<AmountTime>(
+                        value: AmountTime.full,
+                        groupValue: _time,
+                        onChanged: (AmountTime? value) {
+                          setState(() {
+                            _time = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      tileColor: Colors.grey.shade300,
+                      title: Text('Part Time'),
+                      leading: Radio<AmountTime>(
+                        value: AmountTime.part,
+                        groupValue: _time,
+                        onChanged: (AmountTime? value) {
+                          setState(() {
+                            _time = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.white,
@@ -212,7 +307,7 @@ class EmpProfilePage extends StatelessWidget {
         Radius.circular(20),
       ),
       border: Border.all(
-        width: 2.0,
+        width: 1.0,
         color: Colors.black,
       ),
     );
@@ -256,56 +351,6 @@ class EmpProfilePage extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Drawer openDrawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(50),
-              child: Text(
-                'Profile Settings',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-          ),
-          ListTile(
-            title: text('Settings'),
-            onTap: () {
-              // Navigator.pushNamed(context, RouteManager.settingsPage);
-            },
-          ),
-          ListTile(
-            title: text('History'),
-            onTap: () {
-              Navigator.pushNamed(context, RouteManager.historyPage);
-            },
-          ),
-          ListTile(
-            title: text('Review'),
-            onTap: () {
-              Navigator.pushNamed(context, RouteManager.reviewPage);
-            },
-          ),
-          ListTile(
-            title: text('Report'),
-            onTap: () {
-              Navigator.pushNamed(context, RouteManager.reportPage);
-            },
-          ),
-        ],
-      ),
     );
   }
 
