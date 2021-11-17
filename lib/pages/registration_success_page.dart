@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
-class RegistrationSuccess extends StatefulWidget {
-  const RegistrationSuccess();
+class RegistrationSuccessPage extends StatefulWidget {
+  const RegistrationSuccessPage();
 
   @override
-  _RegistrationSuccessState createState() => _RegistrationSuccessState();
+  _RegistrationSuccessPageState createState() =>
+      _RegistrationSuccessPageState();
 }
 
-class _RegistrationSuccessState extends State<RegistrationSuccess> {
+class _RegistrationSuccessPageState extends State<RegistrationSuccessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

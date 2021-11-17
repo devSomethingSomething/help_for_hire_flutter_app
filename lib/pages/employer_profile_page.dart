@@ -5,7 +5,7 @@ import 'package:help_for_hire_flutter_app/pages/login_page.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
-class EmpProfilePage extends StatelessWidget {
+class EmployerProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String txt = '';

@@ -8,12 +8,12 @@ import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 enum Select { job1, job2 }
 enum AmountTime { full, part }
 
-class WorkProfilePage extends StatefulWidget {
+class WorkerProfilePage extends StatefulWidget {
   @override
-  State<WorkProfilePage> createState() => _WorkProfilePageState();
+  State<WorkerProfilePage> createState() => _WorkerProfilePageState();
 }
 
-class _WorkProfilePageState extends State<WorkProfilePage> {
+class _WorkerProfilePageState extends State<WorkerProfilePage> {
   Select? _char = Select.job1;
   AmountTime? _time = AmountTime.part;
   @override
