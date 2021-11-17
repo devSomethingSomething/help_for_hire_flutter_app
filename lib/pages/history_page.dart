@@ -10,7 +10,6 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  int _rating = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

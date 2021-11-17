@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/theme_data.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -13,7 +13,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        title: 'Settings',
+        data: 'Settings',
       ),
       body: Consumer<ThemeSettings>(
         builder: (context, value, child) {

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
 enum Accounts { worker, employer }
 
@@ -22,7 +22,7 @@ class _AccountTypePageState extends State<AccountTypePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBarWidget(
-          title: 'Account',
+          data: 'Account type',
         ),
         body: Center(
             child: SingleChildScrollView(

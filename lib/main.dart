@@ -1,14 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/models/form_model.dart';
+import 'package:help_for_hire_flutter_app/pages/theme_data.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/employer_service.dart';
 import 'package:help_for_hire_flutter_app/services/job_service.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
-import 'package:help_for_hire_flutter_app/pages/theme_data.dart';
-import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -42,14 +40,16 @@ class _App extends StatelessWidget {
           create: (_) => ThemeSettings(),
         ),
       ],
+      // Review this later on
       child: Consumer<ThemeSettings>(
-        builder: (context, value, child) {
+        builder: (_, value, __) {
           return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              initialRoute: RouteManager.splashPage,
-              onGenerateRoute: RouteManager.generateRoute,
-              theme: value.darkTheme ? darkTheme : lightTheme,
-              );
+            debugShowCheckedModeBanner: false,
+            initialRoute: RouteManager.splashPage,
+            onGenerateRoute: RouteManager.generateRoute,
+            // Needs review as well
+            theme: value.darkTheme ? darkTheme : lightTheme,
+          );
         },
       ),
     );

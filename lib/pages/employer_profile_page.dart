@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/login_page.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
 class EmployerProfilePage extends StatelessWidget {
   @override

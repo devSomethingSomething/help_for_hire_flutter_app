@@ -2,18 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dropdown_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_field_widget.dart';
 
-class NewUserRegisterPage extends StatefulWidget {
-  const NewUserRegisterPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<NewUserRegisterPage> createState() => _NewUserRegisterPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _NewUserRegisterPageState extends State<NewUserRegisterPage> {
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController surnameController = TextEditingController();
   TextEditingController idNumberController = TextEditingController();
@@ -30,7 +30,7 @@ class _NewUserRegisterPageState extends State<NewUserRegisterPage> {
       home: SafeArea(
         child: Scaffold(
           appBar: AppBarWidget(
-            title: 'Register',
+            data: 'Register',
           ),
           body: Center(
             child: SingleChildScrollView(
@@ -127,7 +127,8 @@ class _NewUserRegisterPageState extends State<NewUserRegisterPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, RouteManager.accountTypePage);
+                      Navigator.pushNamed(
+                          context, RouteManager.accountTypePage);
                     },
                     child: Text(
                       'Submit and Continue',

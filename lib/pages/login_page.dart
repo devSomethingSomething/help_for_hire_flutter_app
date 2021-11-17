@@ -61,8 +61,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(
-                            context, RouteManager.newUserRegisterPage);
+                        Navigator.pushNamed(context, RouteManager.registerPage);
                       },
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(
