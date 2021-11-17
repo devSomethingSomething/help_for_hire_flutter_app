@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/models/employer.dart';
+import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 
 class SelectedEmployerPage extends StatelessWidget {
-  final Employer employer;
+  final EmployerModel employer;
   const SelectedEmployerPage({Key? key, required this.employer})
       : super(key: key);
 

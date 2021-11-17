@@ -40,6 +40,7 @@ class RouteManager {
   static const reviewPage = '/reviewPage';
   static const historyPage = '/historyPage';
   static const settingsPage = '/settingsPage';
+  static const workerInfoPage = '/workerInfoPage';
 
   const RouteManager._();
 
@@ -118,6 +119,10 @@ class RouteManager {
       case settingsPage:
         return MaterialPageRoute(
           builder: (_) => SettingsPage(),
+        );
+      case workerInfoPage:
+        return MaterialPageRoute(
+          builder: (_) => WorkerInfoPage(),
         );
       default:
         throw Exception(

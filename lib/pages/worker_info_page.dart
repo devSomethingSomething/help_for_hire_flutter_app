@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_container_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
 class WorkerInfoPage extends StatelessWidget {
   const WorkerInfoPage({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class WorkerInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(title: 'Worker Info'),
+      appBar: AppBarWidget(data: 'Worker Info'),
       body: Padding(
         padding: EdgeInsets.only(left: 10, right: 10),
         child:Column(

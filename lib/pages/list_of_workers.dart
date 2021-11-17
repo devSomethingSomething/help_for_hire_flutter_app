@@ -10,7 +10,7 @@ class ListOfWorkers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('build again');
-    context.read<UserData>().fetchInfo();
+   // context.read<UserData>().fetchInfo();
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -67,18 +67,18 @@ class ListOfWorkers extends StatelessWidget {
                 ),
               ],
             ),
-            Consumer<UserData>(builder: (context, value, child) {
-              return SizedBox(
-                height: 500,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: value.workerList.length,
-                  itemBuilder: (context, index) {
-                    return WorkerCard(worker: value.workerList[index]);
-                  },
-                ),
-              );
-            }),
+            // Consumer<UserData>(builder: (context, value, child) {
+            //   return SizedBox(
+            //     height: 500,
+            //     child: ListView.builder(
+            //       shrinkWrap: true,
+            //       itemCount: value.workerList.length,
+            //       itemBuilder: (context, index) {
+            //         return WorkerCard(worker: value.workerList[index]);
+            //       },
+            //     ),
+            //   );
+            // }),
           ],
         ),
       ),

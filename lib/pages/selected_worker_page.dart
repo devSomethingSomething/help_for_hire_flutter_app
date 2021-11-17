@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/worker.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
 class WorkerProfile extends StatelessWidget {
   final Worker worker;
@@ -13,7 +13,7 @@ class WorkerProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        title: 'Profile',
+        data: 'Profile',
       ),
       body: Center(
         child: Column(

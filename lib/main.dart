@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/form_model.dart';
 import 'package:help_for_hire_flutter_app/pages/theme_data.dart';
@@ -41,9 +40,9 @@ class _App extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ThemeSettings(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => UserModel(),
-        ),
+        // ChangeNotifierProvider(
+        //   create: (_) => UserModel(),
+        // ),
       ],
       // Review this later on
       child: Consumer<ThemeSettings>(
