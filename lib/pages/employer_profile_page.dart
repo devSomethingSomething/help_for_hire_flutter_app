@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/login_page.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
 class EmpProfilePage extends StatelessWidget {
   @override
@@ -256,6 +256,56 @@ class EmpProfilePage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Drawer openDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(50),
+              child: Text(
+                'Profile Settings',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: text('Settings'),
+            onTap: () {
+              // Navigator.pushNamed(context, RouteManager.settingsPage);
+            },
+          ),
+          ListTile(
+            title: text('History'),
+            onTap: () {
+              Navigator.pushNamed(context, RouteManager.historyPage);
+            },
+          ),
+          ListTile(
+            title: text('Review'),
+            onTap: () {
+              Navigator.pushNamed(context, RouteManager.reviewPage);
+            },
+          ),
+          ListTile(
+            title: text('Report'),
+            onTap: () {
+              Navigator.pushNamed(context, RouteManager.reportPage);
+            },
+          ),
+        ],
+      ),
     );
   }
 

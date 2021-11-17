@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
 class RegistrationSuccess extends StatefulWidget {
   const RegistrationSuccess();
@@ -14,7 +13,7 @@ class _RegistrationSuccessState extends State<RegistrationSuccess> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'Registration successful',
+        data: 'Registration successful',
       ),
       body: SingleChildScrollView(
         child: Center(

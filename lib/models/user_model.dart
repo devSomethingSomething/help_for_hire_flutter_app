@@ -1,15 +1,15 @@
-class User {
+class UserModel {
   String userId;
   String name;
   String surname;
   String phoneNumber;
-  // Image profilePicture;
-  // Location location;
+  String locationId;
 
-  User({
+  UserModel({
     required this.userId,
     required this.name,
     required this.surname,
     required this.phoneNumber,
+    required this.locationId,
   });
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_field_widget.dart';
 
 class ChangePasswordPage extends StatelessWidget {
@@ -13,7 +13,7 @@ class ChangePasswordPage extends StatelessWidget {
         TextEditingController();
     return Scaffold(
       appBar: const AppBarWidget(
-        title: 'Change password',
+        data: 'Change password',
       ),
       body: SingleChildScrollView(
         child: Center(

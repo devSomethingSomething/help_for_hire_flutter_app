@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/classes/checkbox_state.dart';
-import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
 enum AmountTime { full, part }
 
@@ -31,7 +30,7 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBarWidget(
-          title: 'Worker Register',
+          data: 'Worker Register',
         ),
         body: Center(
           child: SingleChildScrollView(
@@ -123,8 +122,9 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {                   
-                    Navigator.pushNamed(context, RouteManager.registrationSuccessPage);
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, RouteManager.registrationSuccessPage);
                   },
                   child: Text(
                     'Submit and Continue',
