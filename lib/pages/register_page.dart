@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dropdown_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -54,39 +55,33 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   TextFieldWidget(
                     data: 'Name',
-                    controllerData: nameController,
-                    obscureText: false,
-                    icon: false,
+                    keyboardType: TextInputType.text,
+                    controller: nameController,
                   ),
                   TextFieldWidget(
                     data: 'Surname',
-                    controllerData: surnameController,
-                    obscureText: false,
-                    icon: false,
+                    keyboardType: TextInputType.text,
+                    controller: surnameController,
                   ),
                   TextFieldWidget(
                     data: 'ID Number',
-                    controllerData: idNumberController,
-                    obscureText: false,
-                    icon: false,
+                    keyboardType: TextInputType.text,
+                    controller: idNumberController,
                   ),
                   TextFieldWidget(
                     data: 'Phone Number',
-                    controllerData: phoneNumberController,
-                    icon: false,
-                    obscureText: false,
+                    keyboardType: TextInputType.number,
+                    controller: phoneNumberController,
                   ),
-                  TextFieldWidget(
+                  PasswordTextFieldWidget(
                     data: 'Password',
-                    controllerData: passwordController,
-                    obscureText: true,
-                    icon: true,
+                    keyboardType: TextInputType.text,
+                    controller: passwordController,
                   ),
-                  TextFieldWidget(
+                  PasswordTextFieldWidget(
                     data: 'Confirm Password',
-                    controllerData: confirmPasswordController,
-                    obscureText: true,
-                    icon: true,
+                    keyboardType: TextInputType.text,
+                    controller: confirmPasswordController,
                   ),
                   SizedBox(
                     height: 20,

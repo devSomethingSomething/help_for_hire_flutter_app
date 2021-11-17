@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_field_widget.dart';
 
 class ChangePasswordPage extends StatelessWidget {
   const ChangePasswordPage();
@@ -40,23 +40,20 @@ class ChangePasswordPage extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              TextFieldWidget(
+              PasswordTextFieldWidget(
                 data: 'Enter old password',
-                obscureText: true,
-                icon: true,
-                controllerData: oldPasswordController,
+                keyboardType: TextInputType.text,
+                controller: oldPasswordController,
               ),
-              TextFieldWidget(
+              PasswordTextFieldWidget(
                 data: 'Enter new password',
-                obscureText: true,
-                icon: true,
-                controllerData: newPasswordController,
+                keyboardType: TextInputType.text,
+                controller: newPasswordController,
               ),
-              TextFieldWidget(
+              PasswordTextFieldWidget(
                 data: 'Repeat new password',
-                obscureText: true,
-                icon: true,
-                controllerData: confirmNewPasswordController,
+                keyboardType: TextInputType.text,
+                controller: confirmNewPasswordController,
               ),
               const SizedBox(
                 height: 50,
