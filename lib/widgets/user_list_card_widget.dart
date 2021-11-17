@@ -18,9 +18,7 @@ class _WorkerCardState extends State<WorkerCard> {
     return Padding(
       padding: EdgeInsets.all(10),
       child: InkWell(
-        onTap: () {
-          Navigator.pushNamed(context, RouteManager.workerInfoPage);
-        },
+        onTap: () {},
         splashColor: Colors.blue,
         child: Card(
           elevation: 3,

@@ -4,13 +4,14 @@ import 'package:help_for_hire_flutter_app/models/user_data.dart';
 import 'package:provider/provider.dart';
 import 'package:help_for_hire_flutter_app/widgets/custom_dropdown_button.dart';
 
-class ListOfWorkers extends StatelessWidget {
-  const ListOfWorkers({Key? key}) : super(key: key); //will add const again
+class ProfileDiscoveryPage extends StatelessWidget {
+  const ProfileDiscoveryPage({Key? key})
+      : super(key: key); //will add const again
 
   @override
   Widget build(BuildContext context) {
     print('build again');
-   // context.read<UserData>().fetchInfo();
+    // context.read<UserData>().fetchInfo();
     return Scaffold(
       appBar: AppBar(),
       body: Padding(

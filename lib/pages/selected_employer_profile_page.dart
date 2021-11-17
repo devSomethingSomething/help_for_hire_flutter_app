@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 
-class SelectedEmployerPage extends StatelessWidget {
+class SelectedEmployerProfilePage extends StatelessWidget {
   final EmployerModel employer;
-  const SelectedEmployerPage({Key? key, required this.employer})
+  const SelectedEmployerProfilePage({Key? key, required this.employer})
       : super(key: key);
 
   @override
