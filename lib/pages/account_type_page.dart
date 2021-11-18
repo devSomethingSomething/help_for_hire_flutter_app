@@ -36,7 +36,7 @@ class _AccountTypePageState extends State<AccountTypePage> {
             Expanded(
               flex: 6,
               child: AccountTypeCard(
-                text: 'worker',
+                text: 'Worker',
                 color: Colors.white,
                 isEmployer: false,
                 image: ImageConstants.worker,
@@ -45,7 +45,7 @@ class _AccountTypePageState extends State<AccountTypePage> {
             Expanded(
               flex: 6,
               child: AccountTypeCard(
-                text: 'employer',
+                text: 'Employer',
                 color: Colors.white,
                 isEmployer: true,
                 image: ImageConstants.employer,
@@ -89,6 +89,7 @@ class AccountTypeCard extends StatelessWidget {
           },
           child: Center(
               child: Row(
+                mainAxisAlignment:MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
                 width: 200,
@@ -98,7 +99,7 @@ class AccountTypeCard extends StatelessWidget {
               Text(
                 text,
                 style: TextStyle(
-                  fontSize: 40,
+                  fontSize: 30,
                   //color: Colors.white,
                 ),
               ),
