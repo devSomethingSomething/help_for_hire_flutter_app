@@ -1,137 +1,127 @@
-// ignore_for_file: prefer_const_constructors, unused_element, deprecated_member_use, prefer_const_literals_to_create_immutables, duplicate_ignore
-
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/dropdown_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_field_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage();
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController surnameController = TextEditingController();
-  TextEditingController idNumberController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  final _key = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    double paddingbottom = 15;
-    double paddingLeft = 20;
-    double paddingRight = 20;
-
-    return MaterialApp(
-      home: SafeArea(
-        child: Scaffold(
-          appBar: AppBarWidget(
-            data: 'Register',
+    return Scaffold(
+      backgroundColor: Colors.blue[900],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(
+            16.0,
           ),
-          body: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20, top: 20),
+          child: Center(
+            child: Column(
+              children: [
+                const HeaderWidget(
+                  data: 'Register',
+                ),
+                const SmallSpacerWidget(),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      4.0,
+                    ),
+                    color: Colors.white,
+                  ),
+                  height: 4.0,
+                  width: 256.0,
+                ),
+                const SmallSpacerWidget(),
+                const Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Create an account with\nHelp For Hire!',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28.0,
+                    ),
+                  ),
+                ),
+                // Start of form
+                Padding(
+                  padding: const EdgeInsets.all(
+                    16.0,
+                  ),
+                  child: Form(
+                    key: _key,
+                    child: Column(
+                      children: [
+                        const TextFormFieldWidget(
+                          labelText: 'ID Number',
+                          icon: Icons.person,
+                          keyboardType: TextInputType.number,
+                        ),
+                        const SmallSpacerWidget(),
+                        const TextFormFieldWidget(
+                          labelText: 'Name',
+                          icon: Icons.text_format,
+                          keyboardType: TextInputType.text,
+                        ),
+                        const SmallSpacerWidget(),
+                        const TextFormFieldWidget(
+                          labelText: 'Surname',
+                          icon: Icons.text_fields,
+                          keyboardType: TextInputType.text,
+                        ),
+                        const SmallSpacerWidget(),
+                        const TextFormFieldWidget(
+                          labelText: 'Phone Number',
+                          icon: Icons.phone,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SmallSpacerWidget(),
+                ButtonWidget(
+                  data: 'CONTINUE',
+                  onPressed: () {},
+                ),
+                const SmallSpacerWidget(),
+                const Text(
+                  'Already have an account?',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                TextButton(
+                  child: const Padding(
+                    padding: EdgeInsets.all(
+                      8.0,
+                    ),
                     child: Text(
-                      'Register',
+                      'Sign in',
                       style: TextStyle(
-                        fontSize: 30,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20, top: 20),
-                    child: Text(
-                      'Please complete the below information',
-                    ),
-                  ),
-                  TextFieldWidget(
-                    data: 'Name',
-                    keyboardType: TextInputType.text,
-                    controller: nameController,
-                  ),
-                  TextFieldWidget(
-                    data: 'Surname',
-                    keyboardType: TextInputType.text,
-                    controller: surnameController,
-                  ),
-                  TextFieldWidget(
-                    data: 'ID Number',
-                    keyboardType: TextInputType.text,
-                    controller: idNumberController,
-                  ),
-                  TextFieldWidget(
-                    data: 'Phone Number',
-                    keyboardType: TextInputType.number,
-                    controller: phoneNumberController,
-                  ),
-                  PasswordTextFieldWidget(
-                    data: 'Password',
-                    keyboardType: TextInputType.text,
-                    controller: passwordController,
-                  ),
-                  PasswordTextFieldWidget(
-                    data: 'Confirm Password',
-                    keyboardType: TextInputType.text,
-                    controller: confirmPasswordController,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  DropDownWidget(
-                    paddingbottom: paddingbottom,
-                    paddingLeft: paddingLeft,
-                    paddingRight: paddingRight,
-                    hint: 'Province',
-                    items: [
-                      'Free State',
-                      'Eastern Cape',
-                      'Western Cape',
-                      'Nothern Cape',
-                      'North West',
-                      'Limpopo',
-                      'Gauteng',
-                      'Mpumalanga',
-                      'KwaZulu-Natal',
-                    ],
-                  ),
-                  DropDownWidget(
-                    paddingbottom: paddingbottom,
-                    paddingLeft: paddingLeft,
-                    paddingRight: paddingRight,
-                    hint: 'City',
-                    items: [
-                      'Bloemfontein',
-                      'Cape Town',
-                      'Bhisho',
-                      'Johannesburg',
-                      'Pietermaritzburg',
-                      'Polokwane',
-                      'Mbombela',
-                      'Kimberley',
-                      'Mahikeng',
-                    ],
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                          context, RouteManager.accountTypePage);
-                    },
-                    child: Text(
-                      'Submit and Continue',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ],
-              ),
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteManager.accountTypePage,
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ),
