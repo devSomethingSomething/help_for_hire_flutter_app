@@ -97,7 +97,7 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
                   ),
                 )),
             Flexible(
-              flex: 2,
+              flex: 3,
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Column(
@@ -139,10 +139,10 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
                     ),
                     _displayErrorText
                         ? const Text(
-                            'please read the Terms and accept to continue.',
+                            'please accept the terms and conditions.',
                             style: TextStyle(
                               color: Colors.red,
-                              fontSize: 10,
+                              fontSize: 20,
                             ),
                           )
                         : Container(),
