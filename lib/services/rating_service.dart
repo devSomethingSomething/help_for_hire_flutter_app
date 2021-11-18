@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
-class SkillData with ChangeNotifier {
+class RatingService with ChangeNotifier {
   bool _error = false;
 
   String _errorMessage = '';
 
-  Map<String, dynamic> _mapSkill = {};
+  Map<String, dynamic> _mapRating = {};
 
   Future<void> get fetchData async {
     final Response response = await get(
@@ -16,28 +16,28 @@ class SkillData with ChangeNotifier {
     );
     if (response.statusCode == HttpStatus.ok) {
       try {
-        _mapSkill = jsonDecode(response.body);
+        _mapRating = jsonDecode(response.body);
       } catch (e) {
         _error = true;
         _errorMessage = e.toString();
-        _mapSkill = {};
+        _mapRating = {};
       }
     } else {
       _error = true;
       _errorMessage = 'Error';
-      _mapSkill = {};
+      _mapRating = {};
     }
     notifyListeners();
   }
 
   void initialiseValues() {
-    _mapSkill = {};
+    _mapRating = {};
     _error = false;
     _errorMessage = '';
     notifyListeners();
   }
 
-  Map<String, dynamic> get mapSkill => _mapSkill;
+  Map<String, dynamic> get mapRating => _mapRating;
 
   bool get error => _error;
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/widgets/user_list_card_widget.dart';
-import 'package:help_for_hire_flutter_app/models/user_data.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:provider/provider.dart';
 import 'package:help_for_hire_flutter_app/widgets/custom_dropdown_button.dart';
 

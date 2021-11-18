@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
-class InviteData with ChangeNotifier {
+class UserService with ChangeNotifier {
   bool _error = false;
 
   String _errorMessage = '';
 
-  Map<String, dynamic> _mapInvite = {};
+  Map<String, dynamic> _mapUser = {};
 
   Future<void> get fetchData async {
     final Response response = await get(
@@ -16,31 +16,30 @@ class InviteData with ChangeNotifier {
     );
     if (response.statusCode == HttpStatus.ok) {
       try {
-        _mapInvite = jsonDecode(response.body);
+        _mapUser = jsonDecode(response.body);
       } catch (e) {
         _error = true;
         _errorMessage = e.toString();
-        _mapInvite = {};
+        _mapUser = {};
       }
     } else {
       _error = true;
       _errorMessage = 'Error';
-      _mapInvite = {};
+      _mapUser = {};
     }
     notifyListeners();
   }
 
   void initialiseValues() {
-    _mapInvite = {};
+    _mapUser = {};
     _error = false;
     _errorMessage = '';
     notifyListeners();
   }
 
-  Map<String, dynamic> get mapInvite => _mapInvite;
+  Map<String, dynamic> get mapUser => _mapUser;
 
   bool get error => _error;
 
   String get errorMessage => _errorMessage;
 }
-
