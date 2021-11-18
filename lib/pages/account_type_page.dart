@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/constants/image_constants.dart';
 
 class AccountTypePage extends StatefulWidget {
   const AccountTypePage({Key? key}) : super(key: key);
@@ -36,16 +37,18 @@ class _AccountTypePageState extends State<AccountTypePage> {
               flex: 6,
               child: AccountTypeCard(
                 text: 'worker',
-                color: Colors.blue,
+                color: Colors.white,
                 isEmployer: false,
+                image: ImageConstants.worker,
               ),
             ),
             Expanded(
               flex: 6,
               child: AccountTypeCard(
                 text: 'employer',
-                color: Colors.blueAccent,
+                color: Colors.white,
                 isEmployer: true,
+                image: ImageConstants.employer,
               ),
             ),
           ],
@@ -59,12 +62,14 @@ class AccountTypeCard extends StatelessWidget {
   final text;
   final color;
   final isEmployer;
-  const AccountTypeCard(
-      {Key? key,
-      required this.text,
-      required this.color,
-      required this.isEmployer})
-      : super(key: key);
+  final image;
+  const AccountTypeCard({
+    Key? key,
+    required this.text,
+    required this.color,
+    required this.isEmployer,
+    required this.image,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -83,14 +88,22 @@ class AccountTypeCard extends StatelessWidget {
             }
           },
           child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 40,
-                color: Colors.white,
+              child: Row(
+            children: [
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: Image.asset(image),
               ),
-            ),
-          ),
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize: 40,
+                  //color: Colors.white,
+                ),
+              ),
+            ],
+          )),
         ),
       ),
     );
