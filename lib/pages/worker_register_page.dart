@@ -125,7 +125,7 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(
-                        context, RouteManager.registrationSuccessPage);
+                        context, RouteManager.termsAndConditionsPage);
                   },
                   child: Text(
                     'Submit and Continue',
