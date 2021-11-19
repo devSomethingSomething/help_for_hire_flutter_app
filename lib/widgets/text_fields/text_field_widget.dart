@@ -25,15 +25,18 @@ class TextFieldWidget extends StatelessWidget {
       ),
       child: TextField(
         controller: _controller,
-        cursorColor: ColorConstants.blue,
+        cursorColor: Colors.white, //ColorConstants.blue,
         decoration: InputDecoration(
           floatingLabelStyle: TextStyle(
-            color: ColorConstants.blue,
+            color: Colors.white, //ColorConstants.blue,
           ),
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: ColorConstants.blue,
+              color: Colors.white, //ColorConstants.blue,
             ),
+          ),
+          labelStyle: TextStyle(
+            color: Colors.white,
           ),
           label: Text(
             _data,

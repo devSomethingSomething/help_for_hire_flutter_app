@@ -49,9 +49,9 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.blue[800],
+        backgroundColor: Colors.blue[900],
         appBar: AppBarWidget(
-          data: 'Worker Register',
+          data: 'Worker Registration',
         ),
         body: Center(
           child: SingleChildScrollView(
@@ -60,11 +60,12 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
               children: [
                 SmallSpacerWidget(),
                 Text(
-                  'Complete the below in order to continue',
+                  'You are registering as a worker!\nComplete the below in order to continue',
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 MediumSpacerWidget(),
                 Padding(
@@ -189,6 +190,12 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                         ),
                         SmallSpacerWidget(),
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 8.0,
+                            onPrimary: Colors.blue[900],
+                            primary: Colors.white,
+                            shape: const StadiumBorder(),
+                          ),
                           onPressed: () {
                             if (descriptionController.text.isEmpty ||
                                 _key.currentState!.validate() == false ||
