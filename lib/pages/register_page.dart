@@ -53,29 +53,36 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Form(
                     key: _key,
                     child: Column(
-                      children: const [
+                      children: [
                         TextFormFieldWidget(
                           labelText: 'ID Number',
                           icon: Icons.person,
                           keyboardType: TextInputType.number,
                         ),
-                        SmallSpacerWidget(),
+                        const SmallSpacerWidget(),
                         TextFormFieldWidget(
                           labelText: 'Name',
                           icon: Icons.text_format,
                           keyboardType: TextInputType.text,
                         ),
-                        SmallSpacerWidget(),
+                        const SmallSpacerWidget(),
                         TextFormFieldWidget(
                           labelText: 'Surname',
                           icon: Icons.text_fields,
                           keyboardType: TextInputType.text,
                         ),
-                        SmallSpacerWidget(),
+                        const SmallSpacerWidget(),
                         TextFormFieldWidget(
                           labelText: 'Phone Number',
                           icon: Icons.phone,
                           keyboardType: TextInputType.number,
+                        ),
+                        const SmallSpacerWidget(),
+                        TextFormFieldWidget(
+                          labelText: 'Password',
+                          icon: Icons.password,
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
                         ),
                         // DropdownButton(
                         //   dropdownColor: Colors.blue[900],
