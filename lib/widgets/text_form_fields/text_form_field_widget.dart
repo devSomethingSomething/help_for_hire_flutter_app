@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class TextFormFieldWidget extends StatelessWidget {
+  final TextEditingController _controller;
+
   final String _labelText;
 
   final IconData _icon;
@@ -14,17 +16,23 @@ class TextFormFieldWidget extends StatelessWidget {
 
   bool _obscureText;
 
+  final String? Function(String?)? _validator;
+
   TextFormFieldWidget({
+    required TextEditingController controller,
     required String labelText,
     required IconData icon,
     required TextInputType keyboardType,
     int maxLength = 32,
     bool obscureText = false,
-  })  : _labelText = labelText,
+    String? Function(String?)? validator,
+  })  : _controller = controller,
+        _labelText = labelText,
         _icon = icon,
         _keyboardType = keyboardType,
         _maxLength = maxLength,
-        _obscureText = obscureText {
+        _obscureText = obscureText,
+        _validator = validator {
     _showIcon = obscureText ? true : false;
   }
 
@@ -34,6 +42,7 @@ class TextFormFieldWidget extends StatelessWidget {
       builder: (_, setState) {
         return TextFormField(
           cursorColor: Colors.white,
+          controller: _controller,
           decoration: InputDecoration(
             counterText: '',
             enabledBorder: const UnderlineInputBorder(
@@ -41,7 +50,20 @@ class TextFormFieldWidget extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
+            errorBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.white,
+              ),
+            ),
+            errorStyle: const TextStyle(
+              color: Colors.white,
+            ),
             focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.white,
+              ),
+            ),
+            focusedErrorBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.white,
               ),
@@ -72,6 +94,7 @@ class TextFormFieldWidget extends StatelessWidget {
           style: const TextStyle(
             color: Colors.white,
           ),
+          validator: _validator,
         );
       },
     );

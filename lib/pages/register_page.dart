@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
@@ -15,6 +16,23 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _key = GlobalKey<FormState>();
+
+  final _idNumberController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _surnameController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _idNumberController.dispose();
+    _nameController.dispose();
+    _surnameController.dispose();
+    _phoneNumberController.dispose();
+    _passwordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Column(
                       children: [
                         TextFormFieldWidget(
+                          controller: _idNumberController,
                           labelText: 'ID Number',
                           icon: Icons.person,
                           keyboardType: TextInputType.number,
@@ -61,18 +80,22 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SmallSpacerWidget(),
                         TextFormFieldWidget(
+                          controller: _nameController,
                           labelText: 'Name',
                           icon: Icons.text_format,
                           keyboardType: TextInputType.text,
+                          validator: ValidationHelper.validateText,
                         ),
                         const SmallSpacerWidget(),
                         TextFormFieldWidget(
+                          controller: _surnameController,
                           labelText: 'Surname',
                           icon: Icons.text_fields,
                           keyboardType: TextInputType.text,
                         ),
                         const SmallSpacerWidget(),
                         TextFormFieldWidget(
+                          controller: _phoneNumberController,
                           labelText: 'Phone Number',
                           icon: Icons.phone,
                           keyboardType: TextInputType.number,
@@ -80,6 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SmallSpacerWidget(),
                         TextFormFieldWidget(
+                          controller: _passwordController,
                           labelText: 'Password',
                           icon: Icons.password,
                           keyboardType: TextInputType.text,
@@ -117,7 +141,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SmallSpacerWidget(),
                 RoundedButtonWidget(
                   data: 'SUBMIT',
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_key.currentState!.validate()) {}
+                  },
                 ),
                 const SmallSpacerWidget(),
                 const Text(
