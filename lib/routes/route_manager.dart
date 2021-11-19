@@ -18,13 +18,13 @@ import 'package:help_for_hire_flutter_app/pages/worker_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
 
 class RouteManager {
-  //static const splashPage = '/';
+  // static const splashPage = '/';
   static const signInRegisterPage = '/signInRegisterPage';
   static const signInPage = '/signInPage';
   static const resetPasswordPage = '/resetPasswordPage';
   static const newPasswordPage = '/newPasswordPage';
-  static const resetPasswordSuccessPage = '/resetPasswordSuccessPage';
-  static const registerPage = '/';
+  static const resetPasswordSuccessPage = '/';
+  // static const registerPage = '/';
   static const accountTypePage = '/accountTypePage';
   static const workerRegisterPage = '/workerRegisterPage';
   static const termsAndConditionsPage = '/termsAndConditionsPage';
@@ -67,10 +67,10 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const ResetPasswordSuccessPage(),
         );
-      case registerPage:
-        return MaterialPageRoute(
-          builder: (_) => const RegisterPage(),
-        );
+      // case registerPage:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const RegisterPage(),
+      //   );
       case accountTypePage:
         return MaterialPageRoute(
           builder: (_) => const AccountTypePage(),

@@ -61,30 +61,54 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Form(
                     key: _key,
                     child: Column(
-                      children: [
-                        const TextFormFieldWidget(
+                      children: const [
+                        TextFormFieldWidget(
                           labelText: 'ID Number',
                           icon: Icons.person,
                           keyboardType: TextInputType.number,
                         ),
-                        const SmallSpacerWidget(),
-                        const TextFormFieldWidget(
+                        SmallSpacerWidget(),
+                        TextFormFieldWidget(
                           labelText: 'Name',
                           icon: Icons.text_format,
                           keyboardType: TextInputType.text,
                         ),
-                        const SmallSpacerWidget(),
-                        const TextFormFieldWidget(
+                        SmallSpacerWidget(),
+                        TextFormFieldWidget(
                           labelText: 'Surname',
                           icon: Icons.text_fields,
                           keyboardType: TextInputType.text,
                         ),
-                        const SmallSpacerWidget(),
-                        const TextFormFieldWidget(
+                        SmallSpacerWidget(),
+                        TextFormFieldWidget(
                           labelText: 'Phone Number',
                           icon: Icons.phone,
                           keyboardType: TextInputType.number,
                         ),
+                        // DropdownButton(
+                        //   dropdownColor: Colors.blue[900],
+                        //   iconEnabledColor: Colors.white,
+                        //   isExpanded: true,
+                        //   items: [
+                        //     'Province',
+                        //     'Bloemfontein',
+                        //     'Welkom',
+                        //   ]
+                        //       .map(
+                        //         (value) => DropdownMenuItem(
+                        //           value: value,
+                        //           child: Text(
+                        //             value,
+                        //             style: const TextStyle(
+                        //               color: Colors.white,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       )
+                        //       .toList(),
+                        //   onChanged: (value) {},
+                        //   value: 'Province',
+                        // ),
                       ],
                     ),
                   ),
