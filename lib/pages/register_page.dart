@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
@@ -58,6 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           labelText: 'ID Number',
                           icon: Icons.person,
                           keyboardType: TextInputType.number,
+                          maxLength: 13,
                         ),
                         const SmallSpacerWidget(),
                         TextFormFieldWidget(
@@ -76,12 +76,14 @@ class _RegisterPageState extends State<RegisterPage> {
                           labelText: 'Phone Number',
                           icon: Icons.phone,
                           keyboardType: TextInputType.number,
+                          maxLength: 10,
                         ),
                         const SmallSpacerWidget(),
                         TextFormFieldWidget(
                           labelText: 'Password',
                           icon: Icons.password,
                           keyboardType: TextInputType.text,
+                          maxLength: 24,
                           obscureText: true,
                         ),
                         // DropdownButton(

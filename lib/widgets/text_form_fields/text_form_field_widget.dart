@@ -8,6 +8,8 @@ class TextFormFieldWidget extends StatelessWidget {
 
   final TextInputType _keyboardType;
 
+  final int _maxLength;
+
   late final bool _showIcon;
 
   bool _obscureText;
@@ -16,10 +18,12 @@ class TextFormFieldWidget extends StatelessWidget {
     required String labelText,
     required IconData icon,
     required TextInputType keyboardType,
+    int maxLength = 32,
     bool obscureText = false,
   })  : _labelText = labelText,
         _icon = icon,
         _keyboardType = keyboardType,
+        _maxLength = maxLength,
         _obscureText = obscureText {
     _showIcon = obscureText ? true : false;
   }
@@ -31,6 +35,7 @@ class TextFormFieldWidget extends StatelessWidget {
         return TextFormField(
           cursorColor: Colors.white,
           decoration: InputDecoration(
+            counterText: '',
             enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.white,
@@ -62,6 +67,7 @@ class TextFormFieldWidget extends StatelessWidget {
                 : null,
           ),
           keyboardType: _keyboardType,
+          maxLength: _maxLength,
           obscureText: _obscureText,
           style: const TextStyle(
             color: Colors.white,
