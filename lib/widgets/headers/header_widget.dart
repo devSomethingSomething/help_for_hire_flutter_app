@@ -16,7 +16,7 @@ class HeaderWidget extends StatelessWidget {
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.white,
-            size: 32.0,
+            size: 24.0,
           ),
           onPressed: () => Navigator.pop(context),
           padding: EdgeInsets.zero,
@@ -25,7 +25,7 @@ class HeaderWidget extends StatelessWidget {
           _data,
           style: const TextStyle(
             color: Colors.white,
-            fontSize: 32.0,
+            fontSize: 24.0,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -33,7 +33,7 @@ class HeaderWidget extends StatelessWidget {
         const IconButton(
           icon: Icon(
             null,
-            size: 32.0,
+            size: 24.0,
           ),
           onPressed: null,
         ),

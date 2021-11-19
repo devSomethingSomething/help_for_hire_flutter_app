@@ -44,7 +44,7 @@ class _App extends StatelessWidget {
         builder: (_, value, __) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: RouteManager.resetPasswordSuccessPage,
+            initialRoute: RouteManager.registerPage,
             onGenerateRoute: RouteManager.generateRoute,
             theme: value.darkTheme ? darkTheme : lightTheme,
           );

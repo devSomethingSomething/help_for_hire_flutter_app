@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 
@@ -32,28 +33,19 @@ class _RegisterPageState extends State<RegisterPage> {
                   data: 'Register',
                 ),
                 const SmallSpacerWidget(),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      4.0,
-                    ),
-                    color: Colors.white,
-                  ),
+                const DividerWidget(
                   height: 4.0,
                   width: 256.0,
                 ),
                 const SmallSpacerWidget(),
-                const Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Create an account with\nHelp For Hire!',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28.0,
-                    ),
+                const Text(
+                  'Create an account with\nHelp For Hire!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
                   ),
+                  textAlign: TextAlign.center,
                 ),
-                // Start of form
                 Padding(
                   padding: const EdgeInsets.all(
                     16.0,
@@ -114,8 +106,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 const SmallSpacerWidget(),
-                ButtonWidget(
-                  data: 'CONTINUE',
+                RoundedButtonWidget(
+                  data: 'SUBMIT',
                   onPressed: () {},
                 ),
                 const SmallSpacerWidget(),
@@ -126,24 +118,17 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 TextButton(
-                  child: const Padding(
-                    padding: EdgeInsets.all(
-                      8.0,
-                    ),
-                    child: Text(
-                      'Sign in',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  child: const Text(
+                    'Sign in',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      RouteManager.accountTypePage,
-                    );
-                  },
+                  onPressed: () => Navigator.popAndPushNamed(
+                    context,
+                    RouteManager.signInPage,
+                  ),
                 ),
               ],
             ),
