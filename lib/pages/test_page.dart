@@ -22,5 +22,29 @@ class TestPage extends StatelessWidget {
           ),
         );
     return const Scaffold();
+    // DropdownButton(
+    //   dropdownColor: Colors.blue[900],
+    //   iconEnabledColor: Colors.white,
+    //   isExpanded: true,
+    //   items: [
+    //     'Province',
+    //     'Bloemfontein',
+    //     'Welkom',
+    //   ]
+    //       .map(
+    //         (value) => DropdownMenuItem(
+    //           value: value,
+    //           child: Text(
+    //             value,
+    //             style: const TextStyle(
+    //               color: Colors.white,
+    //             ),
+    //           ),
+    //         ),
+    //       )
+    //       .toList(),
+    //   onChanged: (value) {},
+    //   value: 'Province',
+    // ),
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ButtonWidget extends StatelessWidget {
+class RoundedButtonWidget extends StatelessWidget {
   final String _data;
 
   final void Function() _onPressed;
 
-  const ButtonWidget({
+  const RoundedButtonWidget({
     required String data,
     required void Function() onPressed,
   })  : _data = data,
@@ -15,8 +15,9 @@ class ButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       child: Padding(
-        padding: const EdgeInsets.all(
-          8.0,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 32.0,
+          vertical: 16.0,
         ),
         child: Text(
           _data,
@@ -31,6 +32,7 @@ class ButtonWidget extends StatelessWidget {
         elevation: 8.0,
         onPrimary: Colors.blue[900],
         primary: Colors.white,
+        shape: const StadiumBorder(),
       ),
     );
   }
