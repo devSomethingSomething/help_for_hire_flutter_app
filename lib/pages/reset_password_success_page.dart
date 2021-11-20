@@ -28,6 +28,7 @@ class ResetPasswordSuccessPage extends StatelessWidget {
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.center,
               ),
               const MediumSpacerWidget(),
               const Text(
