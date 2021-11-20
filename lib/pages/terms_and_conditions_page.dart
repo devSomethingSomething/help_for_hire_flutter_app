@@ -1,156 +1,160 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/terms_and_conditions_text_widget.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 
-class TermsAndConditionsPage extends StatefulWidget {
+class TermsAndConditionsPage extends StatelessWidget {
   const TermsAndConditionsPage();
-
-  @override
-  State<TermsAndConditionsPage> createState() => _TermsAndConditionsPageState();
-}
-
-class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
-  bool _isClicked = false;
-  bool _displayErrorText = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(
-        data: 'Terms and conditions',
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Flexible(
-                flex: 10,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+      backgroundColor: Colors.blue[900],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(
+            16.0,
+          ),
+          child: Center(
+            child: Column(
+              children: [
+                const HeaderWidget(
+                  data: 'T&Cs',
+                ),
+                const DividerWidget(
+                  height: 4.0,
+                  width: 256.0,
+                ),
+                const SmallSpacerWidget(),
+                Container(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.65,
                     child: ListView(
-                      children: [
-                        const TermsAndConditionsTextWidget(),
-                        const SizedBox(
-                          height: 20,
+                      children: const [
+                        // T&Cs need to be reviewed before they are added in
+                        // For now leave it as placeholder text until we are
+                        // sure that the T&Cs are correct
+                        Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+                          'Praesent at erat metus. Morbi congue orci ut pellentesque aliquet. '
+                          'Mauris bibendum dolor ultricies aliquet egestas. '
+                          'Donec pulvinar eu nulla non pretium. '
+                          'Duis sed nulla nec turpis pulvinar vehicula. '
+                          'Mauris vehicula quam sit amet purus pharetra vehicula. '
+                          'Morbi eu eros pharetra, dictum dolor ac, sollicitudin sem. '
+                          'Nulla condimentum id massa sit amet tempus.',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.justify,
                         ),
-                        const Padding(
-                          padding: EdgeInsets.all(
-                            16.0,
+                        SmallSpacerWidget(),
+                        Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+                          'Praesent at erat metus. Morbi congue orci ut pellentesque aliquet. '
+                          'Mauris bibendum dolor ultricies aliquet egestas. '
+                          'Donec pulvinar eu nulla non pretium. '
+                          'Duis sed nulla nec turpis pulvinar vehicula. '
+                          'Mauris vehicula quam sit amet purus pharetra vehicula. '
+                          'Morbi eu eros pharetra, dictum dolor ac, sollicitudin sem. '
+                          'Nulla condimentum id massa sit amet tempus.',
+                          style: TextStyle(
+                            color: Colors.white,
                           ),
-                          child: Text(
-                              'BY CHECKING THIS BOX YOU AGREE TO THE ABOVE TERMS AND CONDITIONS\n',
-                              textAlign: TextAlign.justify),
+                          textAlign: TextAlign.justify,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
-                            color: Colors.blue.shade900,
+                        SmallSpacerWidget(),
+                        Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+                          'Praesent at erat metus. Morbi congue orci ut pellentesque aliquet. '
+                          'Mauris bibendum dolor ultricies aliquet egestas. '
+                          'Donec pulvinar eu nulla non pretium. '
+                          'Duis sed nulla nec turpis pulvinar vehicula. '
+                          'Mauris vehicula quam sit amet purus pharetra vehicula. '
+                          'Morbi eu eros pharetra, dictum dolor ac, sollicitudin sem. '
+                          'Nulla condimentum id massa sit amet tempus.',
+                          style: TextStyle(
+                            color: Colors.white,
                           ),
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                activeColor: Colors.white,
-                                checkColor: Colors.blue.shade900,
-                                value: _isClicked,
-                                onChanged: (_) {
-                                  setState(() {
-                                    _isClicked = !_isClicked;
-                                  });
-
-                                  // if (_isClicked) {
-                                  //   ScaffoldMessenger.of(context).showSnackBar(
-                                  //     const SnackBar(
-                                  //       content: Text(
-                                  //         'ACCEPTED',
-                                  //       ),
-                                  //     ),
-                                  //   );
-                                  // } else {
-                                  //   ScaffoldMessenger.of(context).showSnackBar(
-                                  //     const SnackBar(
-                                  //       content: Text(
-                                  //         'DECLINED',
-                                  //       ),
-                                  //     ),
-                                  //   );
-                                  // }
-                                },
-                              ),
-                              const Text(
-                                'I ACCEPT THE TERMS AND CONDITIONS',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
+                          textAlign: TextAlign.justify,
+                        ),
+                        SmallSpacerWidget(),
+                        Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+                          'Praesent at erat metus. Morbi congue orci ut pellentesque aliquet. '
+                          'Mauris bibendum dolor ultricies aliquet egestas. '
+                          'Donec pulvinar eu nulla non pretium. '
+                          'Duis sed nulla nec turpis pulvinar vehicula. '
+                          'Mauris vehicula quam sit amet purus pharetra vehicula. '
+                          'Morbi eu eros pharetra, dictum dolor ac, sollicitudin sem. '
+                          'Nulla condimentum id massa sit amet tempus.',
+                          style: TextStyle(
+                            color: Colors.white,
                           ),
+                          textAlign: TextAlign.justify,
+                        ),
+                        SmallSpacerWidget(),
+                        Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+                          'Praesent at erat metus. Morbi congue orci ut pellentesque aliquet. '
+                          'Mauris bibendum dolor ultricies aliquet egestas. '
+                          'Donec pulvinar eu nulla non pretium. '
+                          'Duis sed nulla nec turpis pulvinar vehicula. '
+                          'Mauris vehicula quam sit amet purus pharetra vehicula. '
+                          'Morbi eu eros pharetra, dictum dolor ac, sollicitudin sem. '
+                          'Nulla condimentum id massa sit amet tempus.',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.justify,
                         ),
                       ],
                     ),
                   ),
-                )),
-            Flexible(
-              flex: 3,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 2.0,
+                    ),
+                  ),
+                  padding: const EdgeInsets.all(
+                    16.0,
+                  ),
+                ),
+                const MediumSpacerWidget(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Colors.blue.shade900),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
+                    RoundedButtonWidget(
+                      data: 'DECLINE',
+                      // There should be some kind of popup to ask the user if
+                      // they really wish to decline the T&Cs
+                      onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        RouteManager.signInRegisterPage,
+                        (_) => false,
                       ),
-                      onPressed: () {
-                        if (_isClicked) {
-                          Navigator.pushNamed(
-                              context, RouteManager.registrationSuccessPage);
-                        } else {
-                          setState(
-                            () {
-                              _displayErrorText = true;
-                            },
-                          );
-                        }
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.only(top: 20, bottom: 20),
-                        child: Text(
-                          'submit',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
+                      reduceSize: true,
                     ),
                     const SizedBox(
-                      height: 5,
+                      width: 16.0,
                     ),
-                    _displayErrorText
-                        ? const Text(
-                            'please accept the terms and conditions.',
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 20,
-                            ),
-                          )
-                        : Container(),
+                    RoundedButtonWidget(
+                      data: 'ACCEPT',
+                      onPressed: () => Navigator.pushNamed(
+                        context,
+                        RouteManager.registrationSuccessPage,
+                      ),
+                      reduceSize: true,
+                    ),
                   ],
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

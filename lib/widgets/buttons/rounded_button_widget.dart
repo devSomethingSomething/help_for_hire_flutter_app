@@ -7,26 +7,30 @@ class RoundedButtonWidget extends StatelessWidget {
 
   final bool _invertColors;
 
+  final bool _reduceSize;
+
   const RoundedButtonWidget({
     required String data,
     required void Function() onPressed,
     bool invertColors = false,
+    bool reduceSize = false,
   })  : _data = data,
         _onPressed = onPressed,
-        _invertColors = invertColors;
+        _invertColors = invertColors,
+        _reduceSize = reduceSize;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 32.0,
-          vertical: 16.0,
+        padding: EdgeInsets.symmetric(
+          horizontal: _reduceSize ? 16.0 : 32.0,
+          vertical: _reduceSize ? 8.0 : 16.0,
         ),
         child: Text(
           _data,
-          style: const TextStyle(
-            fontSize: 24.0,
+          style: TextStyle(
+            fontSize: _reduceSize ? 20.0 : 24.0,
             fontWeight: FontWeight.bold,
           ),
         ),
