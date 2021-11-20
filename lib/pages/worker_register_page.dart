@@ -2,11 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/classes/job.dart';
+import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/jobs_dropdown_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_fields/description_text_field.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_fields/text_from_field_widget.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 enum AmountTime { full, part }
@@ -19,8 +26,8 @@ class WorkerRegisterPage extends StatefulWidget {
 }
 
 class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
-  TextEditingController minFeeController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  /*TextEditingController*/ final _minFeeController = TextEditingController();
+  final _descriptionController = TextEditingController();
 
   final _jobsList = [
     Job(id: 1, jobName: 'Gardener'),
@@ -41,23 +48,29 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
     Job(id: 15, jobName: 'Scaffolder'),
   ].map((job) => MultiSelectItem<Job>(job, job.jobName)).toList();
 
-  List<Job> _selectedJobs = [];
+  // List<Job> _selectedJobs = [];
   final _key = GlobalKey<FormState>();
   AmountTime? _time;
 
   @override
+  void dispose() {
+    _minFeeController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.blue[900],
-        appBar: AppBarWidget(
-          data: 'Worker Registration',
-        ),
-        body: Center(
-          child: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: Colors.blue[900],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16),
+          child: Center(
             child: Column(
               // ignore: prefer_const_literals_to_create_immutables
               children: [
+                HeaderWidget(data: 'Worker Registration'),
                 SmallSpacerWidget(),
                 Text(
                   'You are registering as a worker!\nComplete the below in order to continue',
@@ -74,82 +87,21 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                     key: _key,
                     child: Column(
                       children: [
-                        TextField(
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          textCapitalization: TextCapitalization.sentences,
-                          maxLines: 3,
-                          controller: descriptionController,
-                          decoration: InputDecoration(
-                            labelStyle: TextStyle(
-                              color: Colors.white,
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Colors.white,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: Colors.white,
-                              ),
-                            ),
-                            labelText: 'Description',
-                          ),
+                        DescriptionTextbox(
+                          descriptionController: _descriptionController,
                         ),
                         MediumSpacerWidget(),
-                        MultiSelectDialogField(
-                          items: _jobsList,
-                          title: Text("Jobs"),
-                          selectedColor: Colors.blue,
-                          searchable: true,
-                          validator: (values) {
-                            if (values == null || values.isEmpty) {
-                              return 'Required*';
-                            }
-                            return null;
-                          },
-                          chipDisplay: MultiSelectChipDisplay(
-                            onTap: (value) {
-                              setState(() {
-                                _selectedJobs.remove(value);
-                              });
-                              _key.currentState!.validate();
-                            },
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(40)),
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 2,
-                            ),
-                          ),
-                          buttonText: Text(
-                            "Select one or more job(s)",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                          buttonIcon: Icon(
-                            Icons.arrow_downward,
-                            color: Colors.white,
-                          ),
-                          onConfirm: (results) {
-                            setState(() {
-                              _selectedJobs = results.cast<Job>();
-                            });
-                            _key.currentState!.validate();
-                          },
+                        JobsDropdownWidget(
+                          jobsList: _jobsList,
+                          globalKey: _key,
                         ),
                         MediumSpacerWidget(),
-                        TextFieldWidget(
-                          data: 'Minimum fee',
+                        TextFormFieldWidget(
+                          labelText: 'Minimum fee',
                           keyboardType: TextInputType.number,
-                          controller: minFeeController,
+                          controller: _minFeeController,
+                          icon: Icons.attach_money,
+                          validator: ValidationHelper.validateFee,
                         ),
                         MediumSpacerWidget(),
                         ListTile(
@@ -189,29 +141,21 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                           ),
                         ),
                         SmallSpacerWidget(),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            elevation: 8.0,
-                            onPrimary: Colors.blue[900],
-                            primary: Colors.white,
-                            shape: const StadiumBorder(),
-                          ),
+                        RoundedButtonWidget(
+                          data: 'Submit and Continue',
                           onPressed: () {
-                            if (descriptionController.text.isEmpty ||
+                            // Not sure how to validate the enums
+                            if (_descriptionController.text.isEmpty ||
                                 _key.currentState!.validate() == false ||
-                                minFeeController.text.isEmpty) {
-                              // Not sure how to validate the enums
-                              // Need to add pop up notification
-                              print('Please complete all fields');
+                                _minFeeController.text.isEmpty) {
+                              SnackBarHelper.showSnackBar(
+                                  context: context,
+                                  data: 'Please complete all fields');
                             } else {
                               Navigator.pushNamed(context,
                                   RouteManager.registrationSuccessPage);
                             }
                           },
-                          child: Text(
-                            'Submit and Continue',
-                            style: TextStyle(fontSize: 20),
-                          ),
                         ),
                       ],
                     ),
