@@ -130,6 +130,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 RoundedButtonWidget(
                   data: 'SUBMIT',
                   onPressed: () async {
+                    // This needs to be cleaned up later on
                     if (_key.currentState!.validate()) {
                       if (await ConnectionHelper.hasConnection()) {
                         if (FirebaseService.isNotExistingUser(
