@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
+import 'package:help_for_hire_flutter_app/models/user_model.dart';
 
 class UserService with ChangeNotifier {
   bool _error = false;
@@ -9,6 +10,8 @@ class UserService with ChangeNotifier {
   String _errorMessage = '';
 
   Map<String, dynamic> _mapUser = {};
+
+  var currentUser=null;
 
   Future<void> get fetchData async {
     final Response response = await get(
