@@ -6,7 +6,7 @@ class MediumSpacerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      height: 32,
+      height: 32.0,
     );
   }
 }

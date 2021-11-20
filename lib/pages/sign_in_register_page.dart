@@ -31,7 +31,7 @@ class SignInRegisterPage extends StatelessWidget {
             ButtonWidget(
               data: 'REGISTER',
               onPressed: () {
-                Navigator.pushNamed(context, RouteManager.registerPage);
+                // Navigator.pushNamed(context, RouteManager.registerPage);
               },
             ),
             const SizedBox(

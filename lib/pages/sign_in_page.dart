@@ -54,8 +54,7 @@ class SignInPage extends StatelessWidget {
               ButtonWidget(
                 data: 'SUBMIT',
                 onPressed: () async {
-                  final hasConnection =
-                      await ConnectionHelper.checkConnection(context);
+                  final hasConnection = await ConnectionHelper.hasConnection();
 
                   // Requires check for correct login so that the app knows
                   // to move on to the next page

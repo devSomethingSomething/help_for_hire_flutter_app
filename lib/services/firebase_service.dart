@@ -12,6 +12,24 @@ class FirebaseService {
     await Firebase.initializeApp();
   }
 
+  static bool isNotExistingUser({
+    required String id,
+    required String password,
+  }) {
+    try {
+      FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: '$id${DomainConstants.emailSuffix}',
+        password: password,
+      );
+
+      // Indicates that the user does not exist
+      return true;
+    } catch (_) {
+      // Indicates that the user does exist, duplicate user details
+      return false;
+    }
+  }
+
   static Future<void> createUser({
     required BuildContext context,
     required String id,
