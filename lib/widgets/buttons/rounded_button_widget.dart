@@ -5,11 +5,15 @@ class RoundedButtonWidget extends StatelessWidget {
 
   final void Function() _onPressed;
 
+  final bool _invertColors;
+
   const RoundedButtonWidget({
     required String data,
     required void Function() onPressed,
+    bool invertColors = false,
   })  : _data = data,
-        _onPressed = onPressed;
+        _onPressed = onPressed,
+        _invertColors = invertColors;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +34,8 @@ class RoundedButtonWidget extends StatelessWidget {
       onPressed: _onPressed,
       style: ElevatedButton.styleFrom(
         elevation: 8.0,
-        onPrimary: Colors.blue[900],
-        primary: Colors.white,
+        onPrimary: _invertColors ? Colors.white : Colors.blue[900],
+        primary: _invertColors ? Colors.blue[900] : Colors.white,
         shape: const StadiumBorder(),
       ),
     );

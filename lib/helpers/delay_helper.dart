@@ -10,7 +10,10 @@ class DelayHelper {
       const Duration(
         seconds: 5,
       ),
-      () => Navigator.popAndPushNamed(context, RouteManager.signInRegisterPage),
+      () => Navigator.popAndPushNamed(
+        context,
+        RouteManager.signInRegisterPage,
+      ),
     );
   }
 }

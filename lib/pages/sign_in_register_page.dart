@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/image_constants.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/logos/logo_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 
 class SignInRegisterPage extends StatelessWidget {
   const SignInRegisterPage();
@@ -9,38 +11,39 @@ class SignInRegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Image(
-              image: AssetImage('assets/images/deco_up.png'),
-              height: 100,
-              width: 500,
+            Image.asset(
+              ImageConstants.decoUp,
+              height: 100.0,
+              width: 500.0,
             ),
             const LogoWidget(),
-            ButtonWidget(
+            RoundedButtonWidget(
               data: 'SIGN IN',
-              onPressed: () {
-                Navigator.pushNamed(context, RouteManager.signInPage);
-              },
+              invertColors: true,
+              onPressed: () => Navigator.pushNamed(
+                context,
+                RouteManager.signInPage,
+              ),
             ),
-            const SizedBox(
-              height: 15,
-            ),
-            ButtonWidget(
+            const SmallSpacerWidget(),
+            RoundedButtonWidget(
               data: 'REGISTER',
-              onPressed: () {
-                // Navigator.pushNamed(context, RouteManager.registerPage);
-              },
+              invertColors: true,
+              onPressed: () => Navigator.pushNamed(
+                context,
+                RouteManager.registerPage,
+              ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Image(
-              image: AssetImage('assets/images/deco_down.png'),
-              height: 100,
-              width: 500,
+            const SmallSpacerWidget(),
+            Image.asset(
+              ImageConstants.decoDown,
+              height: 100.0,
+              width: 500.0,
             ),
           ],
         ),
