@@ -144,6 +144,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             phoneNumber: _phoneNumberController.text,
                             locationId: '',
                           );
+
+                          // Add navigation logic here
                         } else {
                           SnackBarHelper.showSnackBar(
                             context: context,
