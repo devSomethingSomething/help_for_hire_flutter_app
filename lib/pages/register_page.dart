@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
+import 'package:help_for_hire_flutter_app/models/user_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage();
@@ -71,6 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     key: _key,
                     child: Column(
                       children: [
+                        // This field requires validation
                         TextFormFieldWidget(
                           controller: _idNumberController,
                           labelText: 'ID Number',
@@ -79,6 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           maxLength: 13,
                         ),
                         const SmallSpacerWidget(),
+                        // Needs better validation
                         TextFormFieldWidget(
                           controller: _nameController,
                           labelText: 'Name',
@@ -87,11 +95,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           validator: ValidationHelper.validateText,
                         ),
                         const SmallSpacerWidget(),
+                        // Needs better validation
                         TextFormFieldWidget(
                           controller: _surnameController,
                           labelText: 'Surname',
                           icon: Icons.text_fields,
                           keyboardType: TextInputType.text,
+                          validator: ValidationHelper.validateText,
                         ),
                         const SmallSpacerWidget(),
                         TextFormFieldWidget(
@@ -100,8 +110,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           icon: Icons.phone,
                           keyboardType: TextInputType.number,
                           maxLength: 10,
+                          validator: ValidationHelper.validatePhoneNumber,
                         ),
                         const SmallSpacerWidget(),
+                        // This field requires validation
                         TextFormFieldWidget(
                           controller: _passwordController,
                           labelText: 'Password',
@@ -110,30 +122,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           maxLength: 24,
                           obscureText: true,
                         ),
-                        // DropdownButton(
-                        //   dropdownColor: Colors.blue[900],
-                        //   iconEnabledColor: Colors.white,
-                        //   isExpanded: true,
-                        //   items: [
-                        //     'Province',
-                        //     'Bloemfontein',
-                        //     'Welkom',
-                        //   ]
-                        //       .map(
-                        //         (value) => DropdownMenuItem(
-                        //           value: value,
-                        //           child: Text(
-                        //             value,
-                        //             style: const TextStyle(
-                        //               color: Colors.white,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       )
-                        //       .toList(),
-                        //   onChanged: (value) {},
-                        //   value: 'Province',
-                        // ),
                       ],
                     ),
                   ),
@@ -141,8 +129,38 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SmallSpacerWidget(),
                 RoundedButtonWidget(
                   data: 'SUBMIT',
-                  onPressed: () {
-                    if (_key.currentState!.validate()) {}
+                  onPressed: () async {
+                    if (_key.currentState!.validate()) {
+                      if (await ConnectionHelper.hasConnection()) {
+                        if (FirebaseService.isNotExistingUser(
+                          id: _idNumberController.text,
+                          password: _passwordController.text,
+                        )) {
+                          context.read<UserService>().currentUser = UserModel(
+                            userId: _idNumberController.text,
+                            name: _nameController.text,
+                            surname: _surnameController.text,
+                            phoneNumber: _phoneNumberController.text,
+                            locationId: '',
+                          );
+                        } else {
+                          SnackBarHelper.showSnackBar(
+                            context: context,
+                            data: 'Duplicate user details',
+                          );
+                        }
+                      } else {
+                        SnackBarHelper.showSnackBar(
+                          context: context,
+                          data: 'No internet connection',
+                        );
+                      }
+                    } else {
+                      SnackBarHelper.showSnackBar(
+                        context: context,
+                        data: 'Some fields are invalid',
+                      );
+                    }
                   },
                 ),
                 const SmallSpacerWidget(),

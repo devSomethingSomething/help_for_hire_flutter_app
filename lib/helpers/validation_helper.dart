@@ -10,4 +10,16 @@ class ValidationHelper {
 
     return null;
   }
+
+  static String? validatePhoneNumber(
+    String? text,
+  ) {
+    if (text == null || text.isEmpty) {
+      return 'Text is empty';
+    } else if (text.contains('.') || text.contains(',')) {
+      return 'Text cannot contain decimal points';
+    }
+
+    return null;
+  }
 }
