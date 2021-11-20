@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/constants/image_constants.dart';
+import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/cards/account_type_card_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:provider/provider.dart';
 
 class AccountTypePage extends StatelessWidget {
   const AccountTypePage();
@@ -46,10 +47,20 @@ class AccountTypePage extends StatelessWidget {
                 // Need an image here
                 AccountTypeCardWidget(
                   data: 'Employer',
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    RouteManager.termsAndConditionsPage,
-                  ),
+                  onTap: () {
+                    // Since the employer account type does not have a register
+                    // page this code is needed
+                    // Ensures that when the account is created, it is the
+                    // correct type
+                    context.read<UserService>().currentUser = EmployerModel(
+                      user: context.read<UserService>().currentUser,
+                    );
+
+                    Navigator.pushNamed(
+                      context,
+                      RouteManager.termsAndConditionsPage,
+                    );
+                  },
                 ),
                 const SmallSpacerWidget(),
                 const DividerWidget(
