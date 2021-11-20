@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/logos/logo_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage();
@@ -28,17 +27,21 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const LogoWidget(),
-            const Text(
+            Text(
               'Please be patient while loading occurs...',
+              style: GoogleFonts.lobster(fontSize: 20),
             ),
-            const SmallSpacerWidget(),
-            CircularProgressIndicator(
-              color: ColorConstants.blue,
+            const SizedBox(
+              height: 30,
+            ),
+            const CircularProgressIndicator(
+              color: Colors.blue,
             ),
           ],
         ),
