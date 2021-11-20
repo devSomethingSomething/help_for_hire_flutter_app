@@ -21,31 +21,34 @@ class _RegistrationSuccessPageState extends State<RegistrationSuccessPage> {
         child: Center(
           child: Column(
             children: [
+              const SizedBox(
+                height: 35,
+              ),
               const Image(
-                height: 150,
-                width: 150,
+                height: 200,
+                width: 200,
                 image: AssetImage(
                   'assets/images/Green_Check.png',
                 ),
               ),
               const SizedBox(
-                height: 50,
+                height: 70,
               ),
               const Text(
-                'You have successfully registered for Help for Hire!',
+                'You are successfully registered',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(
-                height: 50,
+                height: 40,
               ),
               const Text(
-                'Sign in below in order to start using the application',
+                'Sign in below to start using the application',
               ),
               const SizedBox(
-                height: 50,
+                height: 25,
               ),
               ElevatedButton(
                 child: const Text(
