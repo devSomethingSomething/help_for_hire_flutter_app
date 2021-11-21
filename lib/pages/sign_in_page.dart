@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
@@ -14,6 +16,7 @@ import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart'
 import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_field_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage();
@@ -76,6 +79,14 @@ class _SignInPageState extends State<SignInPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    const SmallSpacerWidget(),
+                    const Text(
+                      'Please sign in to continue',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      ),
+                    ),
                     const MediumSpacerWidget(),
                     Padding(
                       padding: const EdgeInsets.all(
@@ -106,22 +117,43 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                     const LargeSpacerWidget(),
+                    // Make text transparent
                     RoundedButtonWidget(
                       data: 'SUBMIT',
                       horizontal: 64.0,
                       onPressed: () async {
-                        final hasConnection =
-                            await ConnectionHelper.hasConnection();
+                        if (_key.currentState!.validate()) {
+                          if (await ConnectionHelper.hasConnection()) {
+                            // This should work now, perhaps there is a better
+                            // way of doing it but this approach seems to work
+                            final signedIn = await FirebaseService.signInUser(
+                              context: context,
+                              id: _idNumberController.text,
+                              password: _passwordController.text,
+                            );
 
-                        // Requires check for correct login so that the app knows
-                        // to move on to the next page
-                        // Will require changing the firebase services sign in
-                        // method
-                        if (hasConnection) {
-                          FirebaseService.signInUser(
+                            if (signedIn) {
+                              // Set a reference to the user with a specific ID
+                              // Allows us to get their details in the next page
+                              context.read<UserService>().currentUser.userId =
+                                  _idNumberController.text;
+
+                              // Add navigation logic here
+                              SnackBarHelper.showSnackBar(
+                                context: context,
+                                data: 'Sign in works',
+                              );
+                            }
+                          } else {
+                            SnackBarHelper.showSnackBar(
+                              context: context,
+                              data: 'No internet connection',
+                            );
+                          }
+                        } else {
+                          SnackBarHelper.showSnackBar(
                             context: context,
-                            id: _idNumberController.text,
-                            password: _passwordController.text,
+                            data: 'Some fields are invalid',
                           );
                         }
                       },
@@ -130,7 +162,7 @@ class _SignInPageState extends State<SignInPage> {
                     TextButton(
                       child: const Padding(
                         padding: EdgeInsets.all(
-                          16.0,
+                          8.0,
                         ),
                         child: Text(
                           'Forgot your password?',
