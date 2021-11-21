@@ -10,7 +10,7 @@ class HistoryService with ChangeNotifier {
   var _jsons = <Map<String, dynamic>>[];
   var _json = <String, dynamic>{};
 
-  static const _controllerRoute = '/api/employer/';
+  static const _controllerRoute = '/api/history/';
 
   HistoryService();
 
