@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
@@ -59,8 +61,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(
-                            context, RouteManager.newUserRegisterPage);
+                        // Navigator.pushNamed(context, RouteManager.registerPage);
                       },
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(
@@ -79,7 +80,8 @@ class LoginPage extends StatelessWidget {
 
               ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, RouteManager.resetPasswordPage);
+                    Navigator.pushNamed(
+                        context, RouteManager.resetPasswordPage);
                   },
                   child: Text(
                     'Forgot Password?',

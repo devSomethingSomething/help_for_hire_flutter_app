@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/widgets/drop_down_widget.dart';
 
@@ -56,32 +58,32 @@ class _ReportPageState extends State<ReportPage> {
                   children: [_container("Extra Information")],
                 ),
               ),
-               Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.blue.shade100,
-                        elevation: 10,
-                        shadowColor: Colors.blue,
-                      ),
-                      onPressed: () {},
-                      child: Container(
-                        height: 40,
-                        width: 150,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            'Submit Review',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue.shade100,
+                    elevation: 10,
+                    shadowColor: Colors.blue,
+                  ),
+                  onPressed: () {},
+                  child: Container(
+                    height: 40,
+                    width: 150,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        'Submit Review',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
+                ),
+              ),
             ],
           ),
         ),

@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+// ignore_for_file: prefer_const_constructors, unnecessary_new, sized_box_for_whitespace, non_constant_identifier_names, unused_local_variable
 
-class EmpProfilePage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/pages/login_page.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+
+class EmployerProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String txt = '';
@@ -10,10 +12,64 @@ class EmpProfilePage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.grey,
-        appBar: AppBarWidget(
-          title: 'Profile',
+        appBar: AppBar(
+          title: Text('Profile'),
+          actions: [
+            new IconButton(
+                icon: new Icon(Icons.search),
+                tooltip: 'Search',
+                onPressed: () {}),
+            PopupMenuButton(
+              icon: Icon(Icons.menu),
+              color: Colors.blue,
+              itemBuilder: (context) => [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Text(
+                    'Settings',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 1,
+                  child: Text(
+                    'History',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 2,
+                  child: Text(
+                    'Review',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 3,
+                  child: Text(
+                    'Report',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 4,
+                  child: Text(
+                    'Change Password',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                PopupMenuItem<int>(
+                  value: 5,
+                  child: Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+              onSelected: (item) => SelectedItem(context, item),
+            ),
+          ],
         ),
-        drawer: openDrawer(context),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -226,31 +282,25 @@ class EmpProfilePage extends StatelessWidget {
           ListTile(
             title: text('Settings'),
             onTap: () {
-               Navigator.pushNamed(context, RouteManager.settingsPage);
+              // Navigator.pushNamed(context, RouteManager.settingsPage);
             },
           ),
           ListTile(
             title: text('History'),
             onTap: () {
-               Navigator.pushNamed(context, RouteManager.historyPage);
+              Navigator.pushNamed(context, RouteManager.historyPage);
             },
           ),
           ListTile(
             title: text('Review'),
             onTap: () {
-               Navigator.pushNamed(context, RouteManager.reviewPage);
+              Navigator.pushNamed(context, RouteManager.reviewPage);
             },
           ),
           ListTile(
             title: text('Report'),
             onTap: () {
-               Navigator.pushNamed(context, RouteManager.reportPage);
-            },
-          ),
-          ListTile(
-            title: text('Change Password'),
-            onTap: (){
-              Navigator.pushNamed(context, RouteManager.changePasswordPage);
+              Navigator.pushNamed(context, RouteManager.reportPage);
             },
           ),
         ],
@@ -266,5 +316,30 @@ class EmpProfilePage extends StatelessWidget {
         fontSize: 15,
       ),
     );
+  }
+
+  void SelectedItem(BuildContext context, item) {
+    switch (item) {
+      case 0:
+        Navigator.pushNamed(context, RouteManager.settingsPage);
+        break;
+      case 1:
+        Navigator.pushNamed(context, RouteManager.historyPage);
+        break;
+      case 2:
+        Navigator.pushNamed(context, RouteManager.reviewPage);
+        break;
+      case 3:
+        Navigator.pushNamed(context, RouteManager.reportPage);
+        break;
+      case 4:
+        Navigator.pushNamed(context, RouteManager.changePasswordPage);
+        break;
+      case 5:
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => LoginPage()),
+            (route) => false);
+        break;
+    }
   }
 }

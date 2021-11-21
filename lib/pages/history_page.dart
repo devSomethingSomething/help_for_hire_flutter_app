@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields, prefer_const_constructors, avoid_returning_null_for_void, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -8,7 +10,6 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  int _rating = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,8 +39,10 @@ class _HistoryPageState extends State<HistoryPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        _cardAccount('You reviewed Jane Dawsons Profile on \n\t ${DateTime.now()}'),
-                        _cardAccount('You reviewed Janes Profile on \n\t${DateTime.now()}')
+                        _cardAccount(
+                            'You reviewed Jane Dawsons Profile on \n\t ${DateTime.now()}'),
+                        _cardAccount(
+                            'You reviewed Janes Profile on \n\t${DateTime.now()}')
                       ],
                     ),
                   ),
@@ -65,10 +68,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   body: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
-                      children: [
-                        _cardOther('John Doe')
-                        
-                      ],
+                      children: [_cardOther('John Doe')],
                     ),
                   ),
                 ),
@@ -126,7 +126,7 @@ class _HistoryPageState extends State<HistoryPage> {
     );
   }
 
-    Card _cardOther(String txt) {
+  Card _cardOther(String txt) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -140,23 +140,30 @@ class _HistoryPageState extends State<HistoryPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(txt),    
+            Text(txt),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                  Text('Reviews'),
-                  SizedBox(height: 10,),
-                  Text('Get Number of Reviews'),
-                  SizedBox(height: 10,),
-                  Text('Get Number of Contacts'),
-                  SizedBox(height: 10,),
+                Text('Reviews'),
+                SizedBox(
+                  height: 10,
+                ),
+                Text('Get Number of Reviews'),
+                SizedBox(
+                  height: 10,
+                ),
+                Text('Get Number of Contacts'),
+                SizedBox(
+                  height: 10,
+                ),
               ],
-            )     
+            )
           ],
         ),
       ),
     );
   }
+
   Card _cardAccount(String txt) {
     return Card(
       shape: RoundedRectangleBorder(
@@ -171,9 +178,10 @@ class _HistoryPageState extends State<HistoryPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-              
             Text(txt),
-            SizedBox(height: 10,)     
+            SizedBox(
+              height: 10,
+            )
           ],
         ),
       ),

@@ -1,85 +1,85 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/widgets/cards/account_type_card_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:provider/provider.dart';
 
-enum Accounts { worker, employer }
+class AccountTypePage extends StatelessWidget {
+  const AccountTypePage();
 
-class AccountTypePage extends StatefulWidget {
-  const AccountTypePage({Key? key}) : super(key: key);
-
-  @override
-  _AccountTypePageState createState() => _AccountTypePageState();
-}
-
-class _AccountTypePageState extends State<AccountTypePage> {
-  Accounts? _account ;
-  bool? accountType = null; 
-  
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBarWidget(
-          title: 'Account',
-        ),
-        body: Center(
-            child: SingleChildScrollView(
-          child: Column(
-            // ignore: prefer_const_literals_to_create_immutables
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Text('Choose account type'),
-              ),
-              ListTile(
-                title: Text('Worker'),
-                leading: Radio<Accounts>(
-                  value: Accounts.worker,
-                  groupValue: _account,
-                  onChanged: (Accounts? value) {
-                    setState(() {
-                      _account = value;
-                      accountType=true;
-                    });
-                  },
-                  activeColor: Colors.blue,
+    return Scaffold(
+      backgroundColor: Colors.blue[900],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(
+            16.0,
+          ),
+          child: Center(
+            child: Column(
+              children: [
+                const HeaderWidget(
+                  data: 'Account Type',
                 ),
-              ),
-              ListTile(
-                title: Text('Employer'),
-                leading: Radio<Accounts>(
-                  value: Accounts.employer,
-                  groupValue: _account,
-                  onChanged: (Accounts? value) {
-                    setState(() {
-                      _account = value;
-                      accountType = false;
-                    });
-                  },
-                  activeColor: Colors.blue,
+                const SmallSpacerWidget(),
+                const DividerWidget(
+                  height: 4.0,
+                  width: 256.0,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (accountType == true) {
-                      Navigator.pushNamed(context, RouteManager.workerRegisterPage);
-                    } else if(accountType == false) {
-                      Navigator.pushNamed(context, RouteManager.registrationSuccessPage);
-                    }                 
-                  },
+                const SmallSpacerWidget(),
+                const Align(
+                  alignment: Alignment.topLeft,
                   child: Text(
-                    'Submit and Continue',
-                    style: TextStyle(fontSize: 20),
+                    'Select\nan account type',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32.0,
+                    ),
                   ),
                 ),
-              ),
-            ],
+                const LargeSpacerWidget(),
+                // Need an image here
+                AccountTypeCardWidget(
+                  data: 'Employer',
+                  onTap: () {
+                    // Since the employer account type does not have a register
+                    // page this code is needed
+                    // Ensures that when the account is created, it is the
+                    // correct type
+                    context.read<UserService>().currentUser = EmployerModel(
+                      user: context.read<UserService>().currentUser,
+                    );
+
+                    Navigator.pushNamed(
+                      context,
+                      RouteManager.termsAndConditionsPage,
+                    );
+                  },
+                ),
+                const SmallSpacerWidget(),
+                const DividerWidget(
+                  height: 4.0,
+                  width: 192.0,
+                ),
+                const SmallSpacerWidget(),
+                // Need an image here
+                AccountTypeCardWidget(
+                  data: 'Worker',
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    RouteManager.workerRegisterPage,
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ),
     );
   }
