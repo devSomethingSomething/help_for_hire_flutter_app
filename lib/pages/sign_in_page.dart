@@ -82,7 +82,7 @@ class SignInPage extends StatelessWidget {
               TextButtonWidget(
                 data: 'Register',
                 onPressed: () {
-                  // Navigator.pushNamed(context, RouteManager.registrationPage);
+                   Navigator.pushNamed(context, RouteManager.registerPage);
                 },
               ),
             ],
