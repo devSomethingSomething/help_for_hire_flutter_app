@@ -4,7 +4,7 @@ import 'package:help_for_hire_flutter_app/models/worker.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 
 class WorkerCard extends StatefulWidget {
-  final Worker worker;
+  final WorkerModel worker;
 
   const WorkerCard({Key? key, required this.worker}) : super(key: key);
 
