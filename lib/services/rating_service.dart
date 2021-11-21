@@ -1,45 +1,151 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 import 'package:http/http.dart';
 
 class RatingService with ChangeNotifier {
-  bool _error = false;
+  var rating = <RatingModel>[];
 
-  String _errorMessage = '';
+  var _jsons = <Map<String, dynamic>>[];
+  var _json = <String, dynamic>{};
 
-  Map<String, dynamic> _mapRating = {};
+  static const _controllerRoute = '/api/rating';
 
-  Future<void> get fetchData async {
-    final Response response = await get(
+  RatingService();
+
+  Future<void> postRating({
+    required RatingModel rating,
+  }) async {
+    final response = await post(
       Uri.parse(''),
+      body: jsonEncode(rating),
+      headers: { 
+        "Accept": "application/json",
+        "content-type": "application/json",
+      },
     );
+    if (response.statusCode == HttpStatus.created) {
+      try {
+        // Request worked code
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.badRequest) {
+      // Handle bad request
+    } else {
+      // Handle other errors
+    }
+  }
+Future<void> getRating({
+    required String id,
+  }) async {
+    final response = await get(
+      Uri.parse(
+        '',
+      ),
+    );
+
     if (response.statusCode == HttpStatus.ok) {
       try {
-        _mapRating = jsonDecode(response.body);
-      } catch (e) {
-        _error = true;
-        _errorMessage = e.toString();
-        _mapRating = {};
+        _json = jsonDecode(response.body);
+
+        rating.add(
+          RatingModel.fromJson(
+            json: _json,
+          ),
+        );
+      } catch (_) {
+        // Handle fail
       }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
     } else {
-      _error = true;
-      _errorMessage = 'Error';
-      _mapRating = {};
+      // Handle other errors
     }
-    notifyListeners();
   }
 
-  void initialiseValues() {
-    _mapRating = {};
-    _error = false;
-    _errorMessage = '';
-    notifyListeners();
+  Future<void> getRatings() async {
+    final response = await get(
+      Uri.parse(
+        '',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _jsons = jsonDecode(response.body);
+
+        for (var json in _jsons) {
+          rating.add(
+            RatingModel.fromJson(
+              json: json,
+            ),
+          );
+        }
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
+    } else {
+      // Handle other errors
+    }
   }
 
-  Map<String, dynamic> get mapRating => _mapRating;
+  Future<void> putRatings({
+    required String id,
+    required RatingModel rating,
+  }) async {
+    final response = await put(
+      Uri.parse(
+        '',
+      ),
+      body: jsonEncode(rating),
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json",
+      },
+    );
 
-  bool get error => _error;
+    if (response.statusCode == HttpStatus.noContent) {
+      try {
+        // Request worked code
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle bad request
+    } else {
+      // Handle other errors
+    }
+  }
 
-  String get errorMessage => _errorMessage;
+  // Future<void> deleteRating({
+  //   required String id,
+  // }) async {
+  //   final response = await put(
+  //     Uri.parse(
+  //       '',
+  //     ),
+  //     body: jsonEncode(rating),
+  //     headers: {
+  //       "Accept": "application/json",
+  //       "content-type": "application/json",
+  //     },
+  //   );
+
+  //   if (response.statusCode == HttpStatus.noContent) {
+  //     try {
+  //       // Request worked code
+  //     } catch (_) {
+  //       // Handle fail
+  //     }
+  //   } else if (response.statusCode == HttpStatus.notFound) {
+  //     // Handle bad request
+  //   } else {
+  //     // Handle other errors
+  //   }
+  // }
 }
+
