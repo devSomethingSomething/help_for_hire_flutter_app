@@ -30,6 +30,46 @@ class FirebaseService {
     }
   }
 
+  static Future<bool> signInUser({
+    required BuildContext context,
+    required String id,
+    required String password,
+  }) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: '$id${DomainConstants.emailSuffix}',
+        password: password,
+      );
+
+      // Indicates successful sign in
+      return Future<bool>.value(true);
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'invalid-email':
+          SnackBarHelper.showSnackBar(
+            context: context,
+            data: 'Invalid ID number',
+          );
+          break;
+        case 'user-not-found':
+          SnackBarHelper.showSnackBar(
+            context: context,
+            data: 'User not found',
+          );
+          break;
+        case 'wrong-password':
+          SnackBarHelper.showSnackBar(
+            context: context,
+            data: 'Wrong password',
+          );
+          break;
+      }
+
+      // Indicates failed sign in
+      return Future<bool>.value(false);
+    }
+  }
+
   static Future<void> createUser({
     required BuildContext context,
     required String id,
@@ -64,46 +104,6 @@ class FirebaseService {
           SnackBarHelper.showSnackBar(
             context: context,
             data: 'Weak password',
-          );
-          break;
-      }
-    }
-  }
-
-  static Future<void> signInUser({
-    required BuildContext context,
-    required String id,
-    required String password,
-  }) async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: '$id${DomainConstants.emailSuffix}',
-        password: password,
-      );
-    } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'invalid-email':
-          SnackBarHelper.showSnackBar(
-            context: context,
-            data: 'Invalid email',
-          );
-          break;
-        case 'user-disabled':
-          SnackBarHelper.showSnackBar(
-            context: context,
-            data: 'User disabled',
-          );
-          break;
-        case 'user-not-found':
-          SnackBarHelper.showSnackBar(
-            context: context,
-            data: 'User not found',
-          );
-          break;
-        case 'wrong-password':
-          SnackBarHelper.showSnackBar(
-            context: context,
-            data: 'Wrong password',
           );
           break;
       }
