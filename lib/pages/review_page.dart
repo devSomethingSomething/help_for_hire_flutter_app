@@ -1,7 +1,9 @@
 // ignore_for_file: unused_field, prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/widget_controller/review_rating.dart';
+import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage({Key? key}) : super(key: key);
@@ -19,26 +21,31 @@ class _ReviewPageState extends State<ReviewPage> {
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          title: Text('Review'),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () => (null),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+              size: 24.0,
+            ),
+            onPressed: () => Navigator.pop(context),
+            padding: EdgeInsets.zero,
           ),
-          title: Text(
-            'Review',
-          ),
-          backgroundColor: Colors.blue,
-          automaticallyImplyLeading: false,
+          backgroundColor: ColorConstants.blue,
         ),
         body: Padding(
           padding: const EdgeInsets.only(top: 30),
           child: Center(
             child: Column(
               children: [
-                Text('Review'),
+                HeadingTextWidget(
+                  data: 'Report',
+                ),
                 SizedBox(
                   height: 30,
                 ),
-                Text('Page Details'),
+                //want to retrieve reviewed account details
+                Text('reviewed account details'),
                 SizedBox(
                   height: 30,
                 ),
