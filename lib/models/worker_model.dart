@@ -1,20 +1,18 @@
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
 
 class WorkerModel extends UserModel {
-  int workerId;
-  int minimumFee;
-
   String description;
+
+  int minimumFee;
 
   bool fullTime;
   bool partTime;
 
-  // List<Skill> skills;
+  // Need to store jobs or skills that a worker can do
 
   WorkerModel({
-    required this.workerId,
-    required this.minimumFee,
     required this.description,
+    required this.minimumFee,
     required this.fullTime,
     required this.partTime,
     required UserModel user,
@@ -28,9 +26,8 @@ class WorkerModel extends UserModel {
 
   WorkerModel.fromJson({
     required Map<String, dynamic> json,
-  })  : workerId = json['workerId'],
+  })  : description = json['description'],
         minimumFee = json['minimumFee'],
-        description = json['description'],
         fullTime = json['fullTime'],
         partTime = json['partTime'],
         super(
@@ -42,10 +39,14 @@ class WorkerModel extends UserModel {
         );
 
   Map<String, dynamic> toJson() => {
-        'workerId': workerId,
-        'minimumFee': minimumFee,
         'description': description,
+        'minimumFee': minimumFee,
         'fullTime': fullTime,
         'partTime': partTime,
+        'userId': userId,
+        'name': name,
+        'surname': surname,
+        'phoneNumber': phoneNumber,
+        'locationId': locationId,
       };
 }

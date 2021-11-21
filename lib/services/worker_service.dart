@@ -1,13 +1,19 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
-import 'package:help_for_hire_flutter_app/models/worker.dart';
+import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:http/http.dart';
 
+// This service should be able to
+// - Post
+// - Get
+// - Get(All)
+// - Put
+// - Get(Query)
 class WorkerService with ChangeNotifier {
   var workers = <WorkerModel>[];
+
   var _jsons = <Map<String, dynamic>>[];
   var _json = <String, dynamic>{};
 
@@ -15,7 +21,6 @@ class WorkerService with ChangeNotifier {
 
   WorkerService();
 
-  // Post
   Future<void> postWorker({
     required WorkerModel worker,
   }) async {
@@ -37,24 +42,26 @@ class WorkerService with ChangeNotifier {
     } else if (response.statusCode == HttpStatus.badRequest) {
       // Handle bad request
     } else {
-      // handle other errors
+      // Handle other errors
     }
   }
 
-  // Get id
   Future<void> getWorker({
     required String id,
   }) async {
-    final response = await post(
+    final response = await get(
       Uri.parse(''), // Need to add the link
     );
+
     if (response.statusCode == HttpStatus.ok) {
       try {
         _json = jsonDecode(response.body);
 
-        workers.add(WorkerModel.fromJson(
-          json: _json,
-        ));
+        workers.add(
+          WorkerModel.fromJson(
+            json: _json,
+          ),
+        );
       } catch (_) {
         // Handle fail
       }
@@ -65,11 +72,11 @@ class WorkerService with ChangeNotifier {
     }
   }
 
-  // Get all
   Future<void> getWorkers() async {
     final response = await get(
       Uri.parse(''), // Need to add the link
     );
+
     if (response.statusCode == HttpStatus.ok) {
       try {
         _jsons = jsonDecode(response.body);
@@ -91,7 +98,6 @@ class WorkerService with ChangeNotifier {
     }
   }
 
-  // Put
   Future<void> putWorker({
     required String id,
     required WorkerModel worker,
@@ -104,9 +110,10 @@ class WorkerService with ChangeNotifier {
         "content-type": "application/json",
       },
     );
+
     if (response.statusCode == HttpStatus.noContent) {
       try {
-        // Reqeust worker code
+        // Request worked code
       } catch (_) {
         // Handle fail
       }
