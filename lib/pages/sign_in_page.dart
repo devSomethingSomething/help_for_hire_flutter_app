@@ -4,17 +4,11 @@ import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/buttons/text_button_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/icons/icon_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_field_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -43,25 +37,48 @@ class _SignInPageState extends State<SignInPage> {
     super.dispose();
   }
 
+  /// Handles logic for when the submit button is pressed
+  /// Includes things like checking the internet connection or making sure that
+  /// text fields have valid values
+  void _onPressed() async {
+    if (_key.currentState!.validate()) {
+      if (await ConnectionHelper.hasConnection()) {
+        // This should work now, perhaps there is a better
+        // way of doing it but this approach seems to work
+        final signedIn = await FirebaseService.signInUser(
+          context: context,
+          id: _idNumberController.text,
+          password: _passwordController.text,
+        );
+
+        if (signedIn) {
+          // Set a reference to the user with a specific ID
+          // Allows us to get their details in the next page
+          context.read<UserService>().currentUser.userId =
+              _idNumberController.text;
+
+          // Add navigation logic here
+        }
+      } else {
+        SnackBarHelper.showSnackBar(
+          context: context,
+          data: 'No internet connection',
+        );
+      }
+    } else {
+      SnackBarHelper.showSnackBar(
+        context: context,
+        data: 'Some fields are invalid',
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          SizedBox.expand(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  colors: [
-                    Colors.blue.shade900,
-                    Colors.blue.shade600,
-                  ],
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-            ),
-          ),
+          const BlueGradientWidget(),
           SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(
@@ -117,46 +134,10 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                     const LargeSpacerWidget(),
-                    // Make text transparent
                     RoundedButtonWidget(
                       data: 'SUBMIT',
                       horizontal: 64.0,
-                      onPressed: () async {
-                        if (_key.currentState!.validate()) {
-                          if (await ConnectionHelper.hasConnection()) {
-                            // This should work now, perhaps there is a better
-                            // way of doing it but this approach seems to work
-                            final signedIn = await FirebaseService.signInUser(
-                              context: context,
-                              id: _idNumberController.text,
-                              password: _passwordController.text,
-                            );
-
-                            if (signedIn) {
-                              // Set a reference to the user with a specific ID
-                              // Allows us to get their details in the next page
-                              context.read<UserService>().currentUser.userId =
-                                  _idNumberController.text;
-
-                              // Add navigation logic here
-                              SnackBarHelper.showSnackBar(
-                                context: context,
-                                data: 'Sign in works',
-                              );
-                            }
-                          } else {
-                            SnackBarHelper.showSnackBar(
-                              context: context,
-                              data: 'No internet connection',
-                            );
-                          }
-                        } else {
-                          SnackBarHelper.showSnackBar(
-                            context: context,
-                            data: 'Some fields are invalid',
-                          );
-                        }
-                      },
+                      onPressed: _onPressed,
                     ),
                     const SmallSpacerWidget(),
                     TextButton(
