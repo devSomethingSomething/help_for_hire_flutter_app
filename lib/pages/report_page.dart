@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/drop_down_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
 
 class ReportPage extends StatefulWidget {
   const ReportPage({Key? key}) : super(key: key);
@@ -18,72 +21,59 @@ class _ReportPageState extends State<ReportPage> {
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          title: Text('Report'),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () => (null),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+              size: 24.0,
+            ),
+            onPressed: () => Navigator.pop(context),
+            padding: EdgeInsets.zero,
           ),
-          title: Text(
-            'Report',
-          ),
-          backgroundColor: Colors.blue,
-          automaticallyImplyLeading: false,
+          backgroundColor: ColorConstants.blue,
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Image.asset(
-                'assets/images/default.jpg',
-                width: 150,
-                height: 150,
+              HeadingTextWidget(
+                data: 'Report',
               ),
-              Text(
-                'Report',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                'Page Details',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
+              //want to retrieve reported account details
+              Text('reported account details'),
               DropDownWidget(),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [_container("Extra Information")],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue.shade100,
-                    elevation: 10,
-                    shadowColor: Colors.blue,
-                  ),
-                  onPressed: () {},
-                  child: Container(
-                    height: 40,
-                    width: 150,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        'Submit Review',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Other reasons',
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 20.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.lightBlueAccent, width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.lightBlueAccent, width: 2.0),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
                       ),
+                      maxLines: 5,
                     ),
-                  ),
+                  ],
                 ),
               ),
+              ButtonWidget(data: 'Submit Report', onPressed: () {}),
             ],
           ),
         ),
