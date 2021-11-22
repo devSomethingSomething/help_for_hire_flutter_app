@@ -5,7 +5,7 @@ import 'package:help_for_hire_flutter_app/classes/job.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/amount_time_tile_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/amount_time_checkbox_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/jobs_dropdown_widget.dart';
@@ -15,8 +15,6 @@ import 'package:help_for_hire_flutter_app/widgets/text_fields/description_text_f
 import 'package:help_for_hire_flutter_app/widgets/text_fields/text_from_field_widget.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-enum AmountTime { full, part }
-
 class WorkerRegisterPage extends StatefulWidget {
   const WorkerRegisterPage({Key? key}) : super(key: key);
 
@@ -25,7 +23,7 @@ class WorkerRegisterPage extends StatefulWidget {
 }
 
 class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
-  /*TextEditingController*/ final _minFeeController = TextEditingController();
+  final _minFeeController = TextEditingController();
   final _descriptionController = TextEditingController();
 
   final _jobsList = [
@@ -47,9 +45,10 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
     Job(id: 15, jobName: 'Scaffolder'),
   ].map((job) => MultiSelectItem<Job>(job, job.jobName)).toList();
 
-  // List<Job> _selectedJobs = [];
   final _key = GlobalKey<FormState>();
-  AmountTime? _time;
+
+  bool _fullTime = false;
+  bool _partTime = false;
 
   @override
   void dispose() {
@@ -104,23 +103,23 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                           validator: ValidationHelper.validateFee,
                         ),
                         MediumSpacerWidget(),
-                        AmountTimeTileWidget(
-                          time: _time,
+                        AmountTimeCheckBox(
                           data: 'Full Time',
-                          value: AmountTime.full,
-                          onChange: (AmountTime? value) {
+                          time: _fullTime,
+                          onChanged: (value) {
                             setState(() {
-                              _time = value;
+                              _fullTime = value!;
+                              _partTime = false;
                             });
                           },
                         ),
-                        AmountTimeTileWidget(
-                          time: _time,
+                        AmountTimeCheckBox(
                           data: 'Part Time',
-                          value: AmountTime.part,
-                          onChange: (AmountTime? value) {
+                          time: _partTime,
+                          onChanged: (value) {
                             setState(() {
-                              _time = value;
+                              _partTime = value!;
+                              _fullTime = false;
                             });
                           },
                         ),
@@ -128,10 +127,10 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                         RoundedButtonWidget(
                           data: 'Submit and Continue',
                           onPressed: () {
-                            // Not sure how to validate the enums
                             if (_descriptionController.text.isEmpty ||
                                 _key.currentState!.validate() == false ||
-                                _minFeeController.text.isEmpty) {
+                                _minFeeController.text.isEmpty ||
+                                _fullTime == false && _partTime == false) {
                               SnackBarHelper.showSnackBar(
                                   context: context,
                                   data: 'Please complete all fields');
