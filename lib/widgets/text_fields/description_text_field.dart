@@ -6,10 +6,13 @@ class DescriptionTextbox extends StatelessWidget {
   const DescriptionTextbox({
     Key? key,
     required TextEditingController descriptionController,
+    required String data,
   })  : _descriptionController = descriptionController,
+        _data = data,
         super(key: key);
 
   final TextEditingController _descriptionController;
+  final String _data;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class DescriptionTextbox extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        labelText: 'Description',
+        labelText: _data,
       ),
     );
   }

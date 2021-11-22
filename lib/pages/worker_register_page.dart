@@ -5,14 +5,13 @@ import 'package:help_for_hire_flutter_app/classes/job.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/amount_time_tile_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/jobs_dropdown_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_fields/description_text_field.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_fields/text_from_field_widget.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
@@ -89,6 +88,7 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                       children: [
                         DescriptionTextbox(
                           descriptionController: _descriptionController,
+                          data: 'Description',
                         ),
                         MediumSpacerWidget(),
                         JobsDropdownWidget(
@@ -104,41 +104,25 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                           validator: ValidationHelper.validateFee,
                         ),
                         MediumSpacerWidget(),
-                        ListTile(
-                          title: Text(
-                            'Full time',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          leading: Radio<AmountTime>(
-                            value: AmountTime.full,
-                            groupValue: _time,
-                            onChanged: (AmountTime? value) {
-                              setState(() {
-                                _time = value;
-                              });
-                            },
-                            activeColor: Colors.orange,
-                          ),
+                        AmountTimeTileWidget(
+                          time: _time,
+                          data: 'Full Time',
+                          value: AmountTime.full,
+                          onChange: (AmountTime? value) {
+                            setState(() {
+                              _time = value;
+                            });
+                          },
                         ),
-                        ListTile(
-                          title: Text(
-                            'Part time',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          leading: Radio<AmountTime>(
-                            value: AmountTime.part,
-                            groupValue: _time,
-                            onChanged: (AmountTime? value) {
-                              setState(() {
-                                _time = value;
-                              });
-                            },
-                            activeColor: Colors.orange,
-                          ),
+                        AmountTimeTileWidget(
+                          time: _time,
+                          data: 'Part Time',
+                          value: AmountTime.part,
+                          onChange: (AmountTime? value) {
+                            setState(() {
+                              _time = value;
+                            });
+                          },
                         ),
                         SmallSpacerWidget(),
                         RoundedButtonWidget(
