@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/services/invite_service.dart';
+import 'package:help_for_hire_flutter_app/widgets/cards/invite_card_widget.dart';
+import 'package:provider/provider.dart';
 
 class InvitesPage extends StatelessWidget {
   const InvitesPage();
 
   @override
   Widget build(BuildContext context) {
+    // Need to call the correct method based on the type of the current user
+    // who is signed in
+    // Update here
+    context.read<InviteService>().getInvitesForEmployer(
+          id: '0002245275082',
+        );
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -14,7 +23,11 @@ class InvitesPage extends StatelessWidget {
               size: 28.0,
             ),
             // Needs to get the invites again when clicked
-            onPressed: () {},
+            onPressed: () =>
+                // Need to call the correct method based on user type
+                context.read<InviteService>().getInvitesForEmployer(
+                      id: '0002245275082',
+                    ),
             splashRadius: 28.0,
           ),
         ],
@@ -23,72 +36,22 @@ class InvitesPage extends StatelessWidget {
           'Invites',
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(
-          8.0,
-        ),
-        child: Center(
-          child: ListView(
-            children: [
-              Card(
-                elevation: 4.0,
-                child: ListTile(
-                  tileColor: Colors.grey[100],
-                  leading: const SizedBox(
-                    child: Placeholder(
-                      color: Colors.black,
-                    ),
-                    height: 48.0,
-                    width: 48.0,
-                  ),
-                  title: const Text(
-                    'John Doe',
-                  ),
-                  subtitle: const Text(
-                    'Pending',
-                  ),
-                  trailing: Row(
-                    children: [
-                      ElevatedButton(
-                        child: const Text(
-                          'Contact',
-                        ),
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          elevation: 2.0,
-                          primary: Colors.green,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8.0,
-                      ),
-                      ElevatedButton(
-                        child: const Text(
-                          'Delete',
-                        ),
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          elevation: 2.0,
-                          primary: Colors.red,
-                        ),
-                      ),
-                    ],
-                    mainAxisSize: MainAxisSize.min,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      8.0,
-                    ),
-                  ),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    8.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
+      body: Center(
+        child: Consumer<InviteService>(
+          builder: (_, inviteService, __) {
+            return inviteService.invites.isEmpty
+                ? CircularProgressIndicator(
+                    color: Colors.blue[900],
+                  )
+                : ListView.builder(
+                    itemCount: inviteService.invites.length,
+                    itemBuilder: (_, index) {
+                      return InviteCardWidget(
+                        invite: inviteService.invites[index],
+                      );
+                    },
+                  );
+          },
         ),
       ),
       // Needs to be the same between pages

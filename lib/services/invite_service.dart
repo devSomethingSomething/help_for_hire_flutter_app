@@ -8,7 +8,7 @@ import 'package:http/http.dart';
 class InviteService with ChangeNotifier {
   var invites = <InviteModel>[];
 
-  var _jsons = <Map<String, dynamic>>[];
+  var _jsons = [];
   var _json = <String, dynamic>{};
 
   static const _controllerRoute = '/api/invite/';
@@ -136,16 +136,17 @@ class InviteService with ChangeNotifier {
     );
 
     if (response.statusCode == HttpStatus.noContent) {
-      try {
-        // Request worked code
-      } catch (_) {
-        // Handle fail
-      }
+      // Request worked
+      invites.removeWhere(
+        (invite) => invite.inviteId == id,
+      );
     } else if (response.statusCode == HttpStatus.notFound) {
       // Handle bad request
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 
   Future<void> getInvitesForEmployer({
@@ -153,20 +154,24 @@ class InviteService with ChangeNotifier {
   }) async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001${_controllerRoute}employer/?id=$id',
+        'https://192.168.101.166:5001${_controllerRoute}employer/?employerid=$id',
       ),
     );
 
     if (response.statusCode == HttpStatus.ok) {
       try {
-        _json = jsonDecode(response.body);
+        _jsons = jsonDecode(response.body);
 
-        invites.add(
-          InviteModel.fromJson(
-            json: _json,
-          ),
-        );
-      } catch (_) {
+        invites.clear();
+
+        for (var json in _jsons) {
+          invites.add(
+            InviteModel.fromJson(
+              json: json,
+            ),
+          );
+        }
+      } catch (e) {
         // Handle fail
       }
     } else if (response.statusCode == HttpStatus.notFound) {
@@ -174,8 +179,11 @@ class InviteService with ChangeNotifier {
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 
+  // Needs to match the employer method above
   Future<void> getInvitesForWorker({
     required String id,
   }) async {
