@@ -1,22 +1,26 @@
-class HistoryModel {
-  String historyId;
+class ReportModel {
+  String reportId;
+  String reportType;
   String description;
   String userId;
 
-  HistoryModel({
-    required this.historyId,
+  ReportModel({
+    required this.reportId,
+    required this.reportType,
     required this.description,
     required this.userId,
   });
 
-  HistoryModel.fromJson({
+  ReportModel.fromJson({
     required Map<String, dynamic> json,
-  })  : historyId = json['historyId'],
+  })  : reportId = json['reportId'],
+        reportType = json['reportType'],
         description = json['description'],
         userId = json['userId'];
 
   Map<String, dynamic> toJson() => {
-        'historyId': historyId,
+        'reportId': reportId,
+        'reportType': reportType,
         'description': description,
         'userId': userId,
       };
