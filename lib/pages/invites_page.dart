@@ -1,56 +1,89 @@
 import 'package:flutter/material.dart';
 
-class InvitesPage extends StatefulWidget {
-  const InvitesPage({Key? key}) : super(key: key);
+class InvitesPage extends StatelessWidget {
+  const InvitesPage();
 
-  @override
-  _InvitesPageState createState() => _InvitesPageState();
-}
-
-class _InvitesPageState extends State<InvitesPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Invites'),
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.refresh,
+              size: 28.0,
+            ),
+            // Needs to get the invites again when clicked
+            onPressed: () {},
+            splashRadius: 28.0,
           ),
-          body: TabBarView(
+        ],
+        backgroundColor: Colors.blue[900],
+        title: const Text(
+          'Invites',
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(
+          8.0,
+        ),
+        child: Center(
+          child: ListView(
             children: [
-              Center(
-                child: Scaffold(
-                  body: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [Text("Profile_page")],
+              Card(
+                elevation: 4.0,
+                child: ListTile(
+                  tileColor: Colors.grey[100],
+                  leading: const SizedBox(
+                    child: Placeholder(
+                      color: Colors.black,
+                    ),
+                    height: 48.0,
+                    width: 48.0,
+                  ),
+                  title: const Text(
+                    'John Doe',
+                  ),
+                  subtitle: const Text(
+                    'Pending',
+                  ),
+                  trailing: Row(
+                    children: [
+                      ElevatedButton(
+                        child: const Text(
+                          'Contact',
+                        ),
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          elevation: 2.0,
+                          primary: Colors.green,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 8.0,
+                      ),
+                      ElevatedButton(
+                        child: const Text(
+                          'Delete',
+                        ),
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          elevation: 2.0,
+                          primary: Colors.red,
+                        ),
+                      ),
+                    ],
+                    mainAxisSize: MainAxisSize.min,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      8.0,
                     ),
                   ),
                 ),
-              ),
-              Center(
-                child: Scaffold(
-                  body: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        _card('John Doe', 'Delete', 'Contact'),
-                        _card('Jane Dawson', 'Delete', 'Contact'),
-                        _card('Mike Row', 'Delete', 'Contact'),
-                        _card('Tamlin', 'Delete', 'Contact'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Scaffold(
-                  body: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [Text("Other_page")],
-                    ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    8.0,
                   ),
                 ),
               ),
@@ -58,109 +91,9 @@ class _InvitesPageState extends State<InvitesPage> {
           ),
         ),
       ),
-    );
-  }
-
-  Color _getColor(String status) {
-    Color _bg;
-    if (status == 'Delete') {
-      _bg = Colors.red;
-    } else {
-      _bg = Colors.green;
-    }
-
-    return _bg;
-  }
-
-  Card _card(String txt, String status, String status2) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.2),
-          width: 1,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset(
-              'assets/images/default.jpg',
-              height: 80,
-              width: 80,
-            ),
-            Text(txt),
-            ElevatedButton(
-              child: Text(status),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                  _getColor(status),
-                ),
-              ),
-              onPressed: () {},
-            ),
-            ElevatedButton(
-              child: Text(status2),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                  _getColor(status2),
-                ),
-              ),
-              onPressed: () {},
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Card _cardOther(String txt) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.2),
-          width: 1,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(txt),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Card _cardAccount(String txt) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.2),
-          width: 1,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(txt),
-            SizedBox(
-              height: 10,
-            )
-          ],
-        ),
-      ),
+      // Needs to be the same between pages
+      drawer: const Drawer(),
+      drawerEnableOpenDragGesture: false,
     );
   }
 }
