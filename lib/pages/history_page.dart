@@ -84,7 +84,26 @@ class HistoryPage extends StatelessWidget {
                     ],
                   )
                 : ListView(
-                    children: const [],
+                    children: [
+                      Card(
+                        color: Colors.grey[100],
+                        child: Row(
+                          children: const [
+                            // Continue here
+                            // Need cards for history
+                            // Should be able to have an icon,
+                            // some text as a description,
+                            // Perhaps some kind of button if relevant
+                            // Such as for viewing a specific profile
+                          ],
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            8.0,
+                          ),
+                        ),
+                      )
+                    ],
                   );
           },
         ),
