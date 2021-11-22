@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_fields, prefer_const_constructors, avoid_returning_null_for_void, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -12,12 +13,12 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: DefaultTabController(
+    return SafeArea(
+      child: DefaultTabController(
         length: 3,
         child: Scaffold(
           appBar: AppBar(
+            backgroundColor: ColorConstants.blue,
             bottom: const TabBar(
               tabs: [
                 Tab(text: ('Account')),
@@ -33,9 +34,9 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
           body: TabBarView(
             children: [
-              Center(
-                child: Scaffold(
-                  body: Padding(
+              SingleChildScrollView(
+                child: Column(children: [
+                  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
@@ -46,7 +47,7 @@ class _HistoryPageState extends State<HistoryPage> {
                       ],
                     ),
                   ),
-                ),
+                ]),
               ),
               Center(
                 child: Scaffold(
@@ -106,7 +107,7 @@ class _HistoryPageState extends State<HistoryPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
-              'assets/images/default.jpg',
+              'assets/images/placeholder.jpg',
               height: 80,
               width: 80,
             ),
@@ -174,13 +175,13 @@ class _HistoryPageState extends State<HistoryPage> {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(txt),
             SizedBox(
-              height: 10,
+              height: 45,
             )
           ],
         ),
