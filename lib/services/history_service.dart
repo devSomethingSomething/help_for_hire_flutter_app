@@ -19,7 +19,7 @@ class HistoryService with ChangeNotifier {
   }) async {
     final response = await post(
       Uri.parse(
-        '',
+        'https://192.168.101.166:5001$_controllerRoute',
       ),
       body: jsonEncode(history),
       headers: {
@@ -46,7 +46,7 @@ class HistoryService with ChangeNotifier {
   }) async {
     final response = await get(
       Uri.parse(
-        '',
+        'https://192.168.101.166:5001$_controllerRoute?id=$id',
       ),
     );
 
@@ -72,7 +72,7 @@ class HistoryService with ChangeNotifier {
   Future<void> getHistories() async {
     final response = await get(
       Uri.parse(
-        '',
+        'https://192.168.101.166:5001${_controllerRoute}all',
       ),
     );
 
@@ -103,7 +103,7 @@ class HistoryService with ChangeNotifier {
   }) async {
     final response = await put(
       Uri.parse(
-        '',
+        'https://192.168.101.166:5001$_controllerRoute?id=$id',
       ),
       body: jsonEncode(history),
       headers: {
