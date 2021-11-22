@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/services/history_service.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/flat_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -51,7 +52,8 @@ class HistoryPage extends StatelessWidget {
       body: Center(
         child: Consumer<HistoryService>(
           builder: (_, service, __) {
-            return service.histories.isEmpty
+            // Change this back to is empty
+            return service.histories.isNotEmpty
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
@@ -85,24 +87,33 @@ class HistoryPage extends StatelessWidget {
                   )
                 : ListView(
                     children: [
-                      Card(
-                        color: Colors.grey[100],
-                        child: Row(
-                          children: const [
-                            // Continue here
-                            // Need cards for history
-                            // Should be able to have an icon,
-                            // some text as a description,
-                            // Perhaps some kind of button if relevant
-                            // Such as for viewing a specific profile
-                          ],
+                      // Need to extract this out so that we can dynamically
+                      // create multiple tiles with the listview builder method
+                      Padding(
+                        padding: const EdgeInsets.all(
+                          8.0,
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                            8.0,
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.insert_invitation,
+                            size: 32.0,
+                          ),
+                          minVerticalPadding: 16.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              8.0,
+                            ),
+                          ),
+                          tileColor: Colors.grey[200],
+                          title: const Text(
+                            'You received an invite on 2021/01/01 from John Doe',
+                          ),
+                          trailing: const Icon(
+                            Icons.exit_to_app,
+                            size: 32.0,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   );
           },
