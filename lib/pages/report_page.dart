@@ -35,7 +35,7 @@ class _ReportPageState extends State<ReportPage> {
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               HeadingTextWidget(
                 data: 'Report',
@@ -77,33 +77,6 @@ class _ReportPageState extends State<ReportPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Container _container(String txt) {
-    return Container(
-      height: 60,
-      child: Align(
-        alignment: Alignment.center,
-        child: Text(
-          txt,
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      decoration: _boxDecoration(),
-    );
-  }
-
-  BoxDecoration _boxDecoration() {
-    return BoxDecoration(
-      borderRadius: BorderRadius.zero,
-      border: Border.all(
-        width: 1.0,
-        color: Colors.black,
       ),
     );
   }
