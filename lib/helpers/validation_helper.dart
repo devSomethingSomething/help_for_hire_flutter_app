@@ -20,4 +20,13 @@ class ValidationHelper {
     }
     return null;
   }
+
+  static String? validateDescription(
+    String? text,
+  ) {
+    if (text == null || text.isEmpty) {
+      return 'Text is empty';
+    }
+    return null;
+  }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class AmountTimeCheckBox extends StatelessWidget {
@@ -20,7 +22,12 @@ class AmountTimeCheckBox extends StatelessWidget {
     return CheckboxListTile(
       controlAffinity: ListTileControlAffinity.leading,
       activeColor: Colors.orange,
-      title: Text(_data),
+      title: Text(
+        _data,
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
       value: _time,
       onChanged: _onChanged,
     );

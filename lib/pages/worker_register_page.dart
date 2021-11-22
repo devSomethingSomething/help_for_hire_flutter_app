@@ -12,7 +12,7 @@ import 'package:help_for_hire_flutter_app/widgets/jobs_dropdown_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_fields/description_text_field.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_fields/text_from_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_fields/text_form_field_widget.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class WorkerRegisterPage extends StatefulWidget {
@@ -88,6 +88,9 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                         DescriptionTextbox(
                           descriptionController: _descriptionController,
                           data: 'Description',
+                          keyboardType: TextInputType.text,
+                          maxLines: 5,
+                          validator: ValidationHelper.validateDescription,
                         ),
                         MediumSpacerWidget(),
                         JobsDropdownWidget(
