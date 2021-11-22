@@ -147,4 +147,60 @@ class InviteService with ChangeNotifier {
       // Handle other errors
     }
   }
+
+  Future<void> getInvitesForEmployer({
+    required String id,
+  }) async {
+    final response = await get(
+      Uri.parse(
+        'https://192.168.101.166:5001${_controllerRoute}employer/?id=$id',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _json = jsonDecode(response.body);
+
+        invites.add(
+          InviteModel.fromJson(
+            json: _json,
+          ),
+        );
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
+    } else {
+      // Handle other errors
+    }
+  }
+
+  Future<void> getInvitesForWorker({
+    required String id,
+  }) async {
+    final response = await get(
+      Uri.parse(
+        'https://192.168.101.166:5001${_controllerRoute}worker/?id=$id',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _json = jsonDecode(response.body);
+
+        invites.add(
+          InviteModel.fromJson(
+            json: _json,
+          ),
+        );
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
+    } else {
+      // Handle other errors
+    }
+  }
 }
