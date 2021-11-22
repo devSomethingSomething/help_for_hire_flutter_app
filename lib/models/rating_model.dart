@@ -2,15 +2,15 @@ class RatingModel {
   String ratingId;
   int value;
   String description;
-  String worker;
-  String employer;
+  String employerId;
+  String workerId;
 
   RatingModel({
     required this.ratingId,
     required this.value,
     required this.description,
-    required this.worker,
-    required this.employer,
+    required this.employerId,
+    required this.workerId,
   });
 
   RatingModel.fromJson({
@@ -18,14 +18,14 @@ class RatingModel {
   })  : ratingId = json['ratingId'],
         value = json['value'],
         description = json['description'],
-        worker = json['worker'],
-        employer = json['employer'];
+        employerId = json['employerId'],
+        workerId = json['workerId'];
 
   Map<String, dynamic> toJson() => {
         'ratingId': ratingId,
         'value': value,
         'description': description,
-        'worker': worker,
-        'employer': employer,
+        'employerId': employerId,
+        'workerId': workerId,
       };
 }
