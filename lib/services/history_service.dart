@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/history_model.dart';
 import 'package:http/http.dart';
 
 class HistoryService with ChangeNotifier {
-  var history = <HistoryModel>[];
+  var histories = <HistoryModel>[];
 
-  var _jsons = <Map<String, dynamic>>[];
+  var _jsons = [];
   var _json = <String, dynamic>{};
 
   static const _controllerRoute = '/api/history/';
@@ -30,7 +31,7 @@ class HistoryService with ChangeNotifier {
 
     if (response.statusCode == HttpStatus.created) {
       try {
-        // code
+        histories.add(history);
       } catch (_) {
         // Handle fail
       }
@@ -39,6 +40,8 @@ class HistoryService with ChangeNotifier {
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 
   Future<void> getHistory({
@@ -54,7 +57,7 @@ class HistoryService with ChangeNotifier {
       try {
         _json = jsonDecode(response.body);
 
-        history.add(
+        histories.add(
           HistoryModel.fromJson(
             json: _json,
           ),
@@ -81,7 +84,7 @@ class HistoryService with ChangeNotifier {
         _jsons = jsonDecode(response.body);
 
         for (var json in _jsons) {
-          history.add(
+          histories.add(
             HistoryModel.fromJson(
               json: json,
             ),
@@ -97,34 +100,31 @@ class HistoryService with ChangeNotifier {
     }
   }
 
-  Future<void> putHistory({
+  Future<void> getHistoryByUser({
     required String id,
-    required HistoryModel history,
   }) async {
-    final response = await put(
+    final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+        'https://192.168.101.166:5001${_controllerRoute}user/?userid=$id',
       ),
-      body: jsonEncode(history),
-      headers: {
-        "Accept": "application/json",
-        "content-type": "application/json",
-      },
     );
 
-    if (response.statusCode == HttpStatus.noContent) {
+    if (response.statusCode == HttpStatus.ok) {
       try {
-        // Request worked code
+        _json = jsonDecode(response.body);
+
+        histories.add(
+          HistoryModel.fromJson(
+            json: _json,
+          ),
+        );
       } catch (_) {
         // Handle fail
       }
     } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle bad request
+      // Handle not found
     } else {
       // Handle other errors
     }
   }
-
-//delete history
-//get by user id
 }
