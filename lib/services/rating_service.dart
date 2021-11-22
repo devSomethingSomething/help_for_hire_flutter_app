@@ -18,7 +18,7 @@ class RatingService with ChangeNotifier {
     required RatingModel rating,
   }) async {
     final response = await post(
-      Uri.parse(''),
+      Uri.parse('https://192.168.101.166:5001$_controllerRoute'),
       body: jsonEncode(rating),
       headers: { 
         "Accept": "application/json",
@@ -42,7 +42,7 @@ Future<void> getRating({
   }) async {
     final response = await get(
       Uri.parse(
-        '',
+        'https://192.168.101.166:5001$_controllerRoute?id=$id',
       ),
     );
 
@@ -68,7 +68,7 @@ Future<void> getRating({
   Future<void> getRatings() async {
     final response = await get(
       Uri.parse(
-        '',
+        'https://192.168.101.166:5001${_controllerRoute}all',
       ),
     );
 
@@ -93,13 +93,13 @@ Future<void> getRating({
     }
   }
 
-  Future<void> putRatings({
+  Future<void> putRating({
     required String id,
     required RatingModel rating,
   }) async {
     final response = await put(
       Uri.parse(
-        '',
+        'https://192.168.101.166:5001$_controllerRoute?id=$id',
       ),
       body: jsonEncode(rating),
       headers: {
@@ -120,6 +120,8 @@ Future<void> getRating({
       // Handle other errors
     }
   }
+
+//Need to look into delete a bit more
 
   // Future<void> deleteRating({
   //   required String id,
