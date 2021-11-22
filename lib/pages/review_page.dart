@@ -39,7 +39,7 @@ class _ReviewPageState extends State<ReviewPage> {
             child: Column(
               children: [
                 HeadingTextWidget(
-                  data: 'Report',
+                  data: 'Review',
                 ),
                 SizedBox(
                   height: 30,
