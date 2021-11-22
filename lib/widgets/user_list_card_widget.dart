@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/models/worker.dart';
+import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 
 class WorkerCard extends StatefulWidget {
-  final Worker worker;
+  final WorkerModel worker;
 
   const WorkerCard({Key? key, required this.worker}) : super(key: key);
 

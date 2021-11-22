@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String _data;
@@ -15,20 +14,23 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      child: Text(
-        _data,
-        style: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+      child: Padding(
+        padding: const EdgeInsets.all(
+          8.0,
+        ),
+        child: Text(
+          _data,
+          style: const TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       onPressed: _onPressed,
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size(
-          256,
-          64,
-        ),
-        primary: ColorConstants.blue,
+        elevation: 8.0,
+        onPrimary: Colors.blue[900],
+        primary: Colors.white,
       ),
     );
   }

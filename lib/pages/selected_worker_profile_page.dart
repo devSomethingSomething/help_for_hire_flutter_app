@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/models/worker.dart';
+import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
 class SelectedWorkerProfilePage extends StatelessWidget {
-  final Worker worker;
+  final WorkerModel worker;
   const SelectedWorkerProfilePage({
     Key? key,
     required this.worker,

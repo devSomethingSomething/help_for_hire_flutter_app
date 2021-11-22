@@ -1,62 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
+import 'package:provider/provider.dart';
 
-class RegistrationSuccessPage extends StatefulWidget {
+class RegistrationSuccessPage extends StatelessWidget {
   const RegistrationSuccessPage();
 
   @override
-  _RegistrationSuccessPageState createState() =>
-      _RegistrationSuccessPageState();
-}
-
-class _RegistrationSuccessPageState extends State<RegistrationSuccessPage> {
-  @override
   Widget build(BuildContext context) {
+    context.read<UserService>().registerUser(
+          context: context,
+        );
     return Scaffold(
-      appBar: const AppBarWidget(
-        data: 'Registration successful',
-      ),
-      body: SingleChildScrollView(
-        child: Center(
+      backgroundColor: Colors.blue[900],
+      body: Center(
+        child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Image(
-                height: 150,
-                width: 150,
-                image: AssetImage(
-                  'assets/images/Green_Check.png',
-                ),
+              const Icon(
+                Icons.check_circle_rounded,
+                color: Colors.white,
+                size: 192.0,
               ),
-              const SizedBox(
-                height: 50,
-              ),
+              const MediumSpacerWidget(),
               const Text(
-                'You have successfully registered for Help for Hire!',
+                'Registration Completed Successfully!',
                 style: TextStyle(
-                  fontSize: 16,
+                  color: Colors.white,
+                  fontSize: 24.0,
                   fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.center,
               ),
-              const SizedBox(
-                height: 50,
-              ),
+              const MediumSpacerWidget(),
               const Text(
-                'Sign in below in order to start using the application',
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              ElevatedButton(
-                child: const Text(
-                  'SIGN IN',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
+                'You have successfully registered\nand may now proceed to sign in',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
                 ),
-                onPressed: () {
-                  Navigator.pushNamed(context, RouteManager.signInPage);
-                },
+                textAlign: TextAlign.center,
+              ),
+              const MediumSpacerWidget(),
+              const MediumSpacerWidget(),
+              RoundedButtonWidget(
+                data: 'SIGN IN',
+                onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  RouteManager.signInPage,
+                  (_) => false,
+                ),
               ),
             ],
           ),

@@ -1,48 +1,36 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
-import 'package:http/http.dart';
+
+import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
+import 'package:help_for_hire_flutter_app/services/employer_service.dart';
+import 'package:provider/provider.dart';
 
 class UserService with ChangeNotifier {
-  bool _error = false;
+  UserModel currentUser = UserModel(
+    userId: '',
+    name: '',
+    surname: '',
+    phoneNumber: '',
+    locationId: '',
+  );
 
-  String _errorMessage = '';
+  UserService();
 
-  Map<String, dynamic> _mapUser = {};
-
-  var currentUser=null;
-
-  Future<void> get fetchData async {
-    final Response response = await get(
-      Uri.parse(''),
-    );
-    if (response.statusCode == HttpStatus.ok) {
-      try {
-        _mapUser = jsonDecode(response.body);
-      } catch (e) {
-        _error = true;
-        _errorMessage = e.toString();
-        _mapUser = {};
-      }
+  // This method will need work as the services are completed
+  // Will handle the registration of the new user
+  void registerUser({
+    required BuildContext context,
+  }) {
+    if (currentUser is EmployerModel) {
+      context.read<EmployerService>().postEmployer(
+            employer: currentUser as EmployerModel,
+          );
     } else {
-      _error = true;
-      _errorMessage = 'Error';
-      _mapUser = {};
+      // Needs to be done once the worker model and service are complete
+      // if (currentUser is WorkerModel) {
+      // context.read<WorkerService>().postWorker(
+      // worker: currentUser as WorkerModel,
+      // );
     }
-    notifyListeners();
   }
-
-  void initialiseValues() {
-    _mapUser = {};
-    _error = false;
-    _errorMessage = '';
-    notifyListeners();
-  }
-
-  Map<String, dynamic> get mapUser => _mapUser;
-
-  bool get error => _error;
-
-  String get errorMessage => _errorMessage;
 }

@@ -11,7 +11,7 @@ class LogoWidget extends StatelessWidget {
         16.0,
       ),
       child: Image.asset(
-        ImageConstants.logo,
+        ImageConstants.logoLight,
       ),
     );
   }

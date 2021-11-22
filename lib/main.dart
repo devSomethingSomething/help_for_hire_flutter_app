@@ -37,6 +37,9 @@ class _App extends StatelessWidget {
           create: (_) => UserService(),
         ),
         ChangeNotifierProvider(
+          create: (_) => UserService(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => ThemeSettings(),
         ),
       ],

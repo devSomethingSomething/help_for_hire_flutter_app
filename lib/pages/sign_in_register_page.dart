@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/image_constants.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/logos/logo_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 
@@ -10,23 +11,39 @@ class SignInRegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+              ImageConstants.decoUp,
+              height: 100.0,
+              width: 500.0,
+            ),
             const LogoWidget(),
-            ButtonWidget(
+            RoundedButtonWidget(
               data: 'SIGN IN',
-              onPressed: () {
-                Navigator.pushNamed(context, RouteManager.signInPage);
-              },
+              invertColors: true,
+              onPressed: () => Navigator.pushNamed(
+                context,
+                RouteManager.signInPage,
+              ),
             ),
             const SmallSpacerWidget(),
-            ButtonWidget(
+            RoundedButtonWidget(
               data: 'REGISTER',
-              onPressed: () {
-                Navigator.pushNamed(context, RouteManager.registerPage);
-              },
+              invertColors: true,
+              onPressed: () => Navigator.pushNamed(
+                context,
+                RouteManager.registerPage,
+              ),
+            ),
+            const SmallSpacerWidget(),
+            Image.asset(
+              ImageConstants.decoDown,
+              height: 100.0,
+              width: 500.0,
             ),
           ],
         ),

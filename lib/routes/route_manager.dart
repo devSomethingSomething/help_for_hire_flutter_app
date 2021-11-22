@@ -18,9 +18,14 @@ import 'package:help_for_hire_flutter_app/pages/terms_and_conditions_page.dart';
 import 'package:help_for_hire_flutter_app/pages/update_user_info_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/profile_discovery_page.dart';
+import 'package:help_for_hire_flutter_app/pages/invites_page.dart';
 
 class RouteManager {
+
+  
+
   static const splashPage = '/';
+
   static const signInRegisterPage = '/signInRegisterPage';
   static const signInPage = '/signInPage';
   static const resetPasswordPage = '/resetPasswordPage';
@@ -34,11 +39,13 @@ class RouteManager {
   static const loggedInUserProfile = '/loggedInUserProfile';
   static const changePasswordPage = '/changePasswordPage';
   static const reportPage = '/reportPage';
+  static const invitesPage = '/invitesPage';
   static const reviewPage = '/reviewPage';
   static const historyPage = '/historyPage';
   static const settingsPage = '/settingsPage';
   static const profileDiscoveryPage = '/profileDiscoveryPage';
   static const updateUserInfoPage='/updateUserInfoPage';
+
 
   const RouteManager._();
 
@@ -101,6 +108,10 @@ class RouteManager {
       case reportPage:
         return MaterialPageRoute(
           builder: (_) => const ReportPage(),
+        );
+      case invitesPage:
+        return MaterialPageRoute(
+          builder: (_) => const InvitesPage(),
         );
       case reviewPage:
         return MaterialPageRoute(
