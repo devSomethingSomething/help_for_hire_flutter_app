@@ -2,17 +2,16 @@
 // this is the profile of the user that has logged into the app. formerly 'employer profile' and 'worker profile'
 // needs to be updated accordingly after the user service has been updated.
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/pages/employer_info_page.dart';
-import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:provider/provider.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/pages/update_user_info_page.dart';
 import 'package:help_for_hire_flutter_app/widgets/bottom_navigation.dart';
-import 'package:help_for_hire_flutter_app/pages/sign_in_page.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/complex_app_bar.dart';
 
 class LoggedInUserProfile extends StatelessWidget {
   bool isEmployer = false;
+
   @override
   Widget build(BuildContext context) {
     String txt = '';
@@ -20,46 +19,7 @@ class LoggedInUserProfile extends StatelessWidget {
       //isEmployer=value.isEmployer;
       return Scaffold(
         //backgroundColor: Colors.grey,
-        appBar: AppBar(
-          title: Text('Profile'),
-          actions: [
-            new IconButton(
-              icon: new Icon(Icons.search),
-              tooltip: 'Search',
-              onPressed: () {
-                Navigator.pushNamed(context, RouteManager.profileDiscoveryPage);
-              },
-            ),
-            PopupMenuButton(
-              icon: Icon(Icons.menu),
-              color: ColorConstants.blue,
-              itemBuilder: (context) => [
-                PopupMenuItem<int>(
-                  value: 0,
-                  child: Text(
-                    'Settings',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                PopupMenuItem<int>(
-                  value: 4,
-                  child: Text(
-                    'Change Password',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                PopupMenuItem<int>(
-                  value: 5,
-                  child: Text(
-                    'Logout',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-              onSelected: (item) => SelectedItem(context, item),
-            ),
-          ],
-        ),
+        appBar:ComplexAppBar(),
         bottomNavigationBar: BottomNavigation(
           userIsEmployer: true,
         ),
@@ -84,11 +44,10 @@ class LoggedInUserProfile extends StatelessWidget {
                         child: CircleAvatar(
                           radius: 100,
                           child: ClipOval(
-                            child: Image.asset(
-                              'assets/images/default.jpg',
-                              height: 200,
-                              width: 200,
-                              fit: BoxFit.cover,
+                            child: Icon(
+                              Icons.account_circle_rounded,
+                              size: 200,
+                              //fit: BoxFit.cover,
                             ),
                           ),
                         ),
@@ -130,26 +89,26 @@ class LoggedInUserProfile extends StatelessWidget {
                 isEmployer
                     ? Container()
                     : Padding(
-                        padding: EdgeInsets.only(
-                          top: 50,
-                          left: 20,
-                          right: 20,
+                  padding: EdgeInsets.only(
+                    top: 50,
+                    left: 20,
+                    right: 20,
+                  ),
+                  child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 1),
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(20))),
+                      height: 100,
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: ListView(
+                          children: [
+                            Text('description'),
+                          ],
                         ),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(width: 1),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                            height: 100,
-                            child: Padding(
-                              padding: EdgeInsets.all(10),
-                              child: ListView(
-                                children: [
-                                  Text('description'),
-                                ],
-                              ),
-                            )),
-                      ),
+                      )),
+                ),
                 textWidget('phone number', 'data'),
                 textWidget('rating', 'data'),
                 textWidget('location', 'data'),
@@ -213,22 +172,6 @@ class LoggedInUserProfile extends StatelessWidget {
         fontSize: 15,
       ),
     );
-  }
-
-  void SelectedItem(BuildContext context, item) {
-    switch (item) {
-      case 0:
-        Navigator.pushNamed(context, RouteManager.settingsPage);
-        break;
-      case 1:
-        Navigator.pushNamed(context, RouteManager.changePasswordPage);
-        break;
-      case 2:
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => SignInPage()),
-            (route) => false);
-        break;
-    }
   }
 }
 // ElevatedButton(
