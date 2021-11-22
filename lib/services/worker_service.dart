@@ -50,13 +50,17 @@ class WorkerService with ChangeNotifier {
     required String id,
   }) async {
     final response = await get(
-      Uri.parse(''), // Need to add the link
+      Uri.parse(
+        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+      ),
     );
 
     if (response.statusCode == HttpStatus.ok) {
       try {
         _json = jsonDecode(response.body);
 
+        // Need to handle null values cause from broken update methods in the web
+        // api, should not merge but should add on instead
         workers.add(
           WorkerModel.fromJson(
             json: _json,
@@ -70,6 +74,8 @@ class WorkerService with ChangeNotifier {
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 
   Future<void> getWorkers() async {
