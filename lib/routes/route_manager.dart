@@ -16,6 +16,7 @@ import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 import 'package:help_for_hire_flutter_app/pages/terms_and_conditions_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
+import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 import 'package:help_for_hire_flutter_app/pages/profile_discovery_page.dart';
 import 'package:help_for_hire_flutter_app/pages/invites_page.dart';
 
@@ -38,8 +39,10 @@ class RouteManager {
   static const reviewPage = '/reviewPage';
   static const historyPage = '/historyPage';
   static const settingsPage = '/settingsPage';
+  static const otpPage = '/otpPage';
   static const profileDiscoveryPage = '/profileDiscoveryPage';
   static const updateUserInfoPage = '/updateUserInfoPage';
+
 
   const RouteManager._();
 
@@ -119,11 +122,14 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => SettingsPage(),
         );
+      case otpPage:
+        return MaterialPageRoute(
+          builder: (_) => OtpPage(),
+        );
       case profileDiscoveryPage:
         return MaterialPageRoute(
           builder: (_) => const ProfileDiscoveryPage(),
         );
-
       default:
         throw Exception(
           'Route not found',
