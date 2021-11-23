@@ -42,7 +42,6 @@ class _SignInPageState extends State<SignInPage> {
   /// text fields have valid values
   void _onPressed() async {
 
-    Navigator.pushNamed(context, RouteManager.loggedInUserProfile);
 
     /*if (_key.currentState!.validate()) {
       if (await ConnectionHelper.hasConnection()) {
@@ -73,7 +72,7 @@ class _SignInPageState extends State<SignInPage> {
         context: context,
         data: 'Some fields are invalid',
       );
-    }*/
+    }
   }
 
   @override
