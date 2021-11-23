@@ -43,7 +43,8 @@ class _SignInPageState extends State<SignInPage> {
   void _onPressed() async {
 
 
-    /*if (_key.currentState!.validate()) {
+
+    if (_key.currentState!.validate()) {
       if (await ConnectionHelper.hasConnection()) {
         // This should work now, perhaps there is a better
         // way of doing it but this approach seems to work
