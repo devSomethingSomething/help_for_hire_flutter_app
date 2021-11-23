@@ -12,12 +12,13 @@ class FirebaseService {
     await Firebase.initializeApp();
   }
 
-  static bool isNotExistingUser({
+  static Future<bool> isNotExistingUser({
+    required BuildContext context,
     required String id,
     required String password,
-  }) {
+  }) async {
     try {
-      FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: '$id${DomainConstants.emailSuffix}',
         password: password,
       );
