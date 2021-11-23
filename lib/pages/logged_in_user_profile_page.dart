@@ -2,22 +2,38 @@
 // this is the profile of the user that has logged into the app. formerly 'employer profile' and 'worker profile'
 // needs to be updated accordingly after the user service has been updated.
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/services/employer_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:provider/provider.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/pages/update_user_info_page.dart';
 import 'package:help_for_hire_flutter_app/widgets/bottom_navigation.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/complex_app_bar.dart';
+import 'package:help_for_hire_flutter_app/models/employer_model.dart';
+import 'package:help_for_hire_flutter_app/models/worker_model.dart';
+import 'package:help_for_hire_flutter_app/classes/logged_in_user_profile_class.dart';
+
 
 class LoggedInUserProfile extends StatelessWidget {
 
   bool isEmployer = false;
+  EmployerModel? employer;
+  var worker;
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserService>().currentUser;
+
     String txt = '';
-    return Consumer<UserService>(builder: (context, value, child) {
-      //isEmployer=value.isEmployer;
+    return Consumer3<UserService,EmployerService,WorkerService>(builder: (context, userService,employerService,workerService, child) {
+      isEmployer=userService.currentUser is EmployerModel;
+      /*if(isEmployer){
+        employer=value.currentUser as EmployerModel;
+      }else{
+        worker=  value.currentUser as WorkerModel;
+      }*/
+
       return Scaffold(
         //backgroundColor: Colors.grey,
         appBar:ComplexAppBar(),
@@ -57,7 +73,7 @@ class LoggedInUserProfile extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Positioned(
+                      /*Positioned(
                         right: 1,
                         bottom: 1,
                         child: ElevatedButton(
@@ -78,12 +94,12 @@ class LoggedInUserProfile extends StatelessWidget {
                               shape: CircleBorder(),
                               padding: EdgeInsets.all(2),
                             )),
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
                 Text(
-                  'name surname',
+                  '${userService.currentUser.name} ${userService.currentUser.surname}',
                   style: TextStyle(fontSize: 30),
                 )
               ],
@@ -108,16 +124,17 @@ class LoggedInUserProfile extends StatelessWidget {
                       height: 100,
                       child: Padding(
                         padding: EdgeInsets.all(10),
-                        child: ListView(
+                        child: isEmployer? Container():ListView(
                           children: [
-                            Text('description'),
+                            Text('${workerService.currentUser.description}'),
                           ],
                         ),
                       )),
                 ),
-                textWidget('phone number', 'data'),
+                textWidget('phone number', '${userService.currentUser.phoneNumber}'),
                 textWidget('rating', 'data'),
                 textWidget('location', 'data'),
+                isEmployer ? Container() : textWidget('Working hours', UserProfile().getWorkTimeString(workerService.currentUser.partTime, workerService.currentUser.fullTime)),
                 isEmployer ? Container() : textWidget('jobs/skill', 'data'),
                 textWidget('active employments', 'data'),
                 textWidget('finished employments', 'data'),

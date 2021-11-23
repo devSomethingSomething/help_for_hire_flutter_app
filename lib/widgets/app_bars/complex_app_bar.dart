@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/models/user_model.dart';
 import 'package:side_sheet/side_sheet.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_page.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:provider/provider.dart';
+import 'package:help_for_hire_flutter_app/models/employer_model.dart';
+import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 
 class ComplexAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ComplexAppBar({Key? key}) : super(key: key);
@@ -25,10 +28,8 @@ class ComplexAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           onPressed: () {
             SideSheet.right(
-              body:
-             Consumer<UserService>(builder: (context, value, child) {
-              return
-                Column(
+              body: Consumer<UserService>(builder: (context, value, child) {
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
@@ -71,7 +72,7 @@ class ComplexAppBar extends StatelessWidget implements PreferredSizeWidget {
                             height: 10,
                           ),
                           Text(
-                            'name surname',
+                            '${value.currentUser.name} ${value.currentUser.surname}',
                             style: TextStyle(
                                 fontSize: 20, color: ColorConstants.blue),
                           ),
@@ -96,11 +97,9 @@ class ComplexAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ],
                       ),
                     ),
-
                   ],
                 );
-            }),
-
+              }),
               context: context,
             );
           },
