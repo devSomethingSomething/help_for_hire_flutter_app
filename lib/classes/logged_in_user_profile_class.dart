@@ -1,4 +1,4 @@
-import 'package:help_for_hire_flutter_app/models/rating.dart';
+import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 import 'package:help_for_hire_flutter_app/services/rating_service.dart';
 
 class UserProfile{
@@ -21,12 +21,12 @@ class UserProfile{
     return outPut;
   }
 
-  double getAvgRating(String userID){
+  double getAvgRating(String userID,List<RatingModel> ratings){
     double num=0;
-    for(int i=0;i<RatingService.ratings.length;i++){
-      num=num+RatingService.ratings[i].value;
+    for(int i=0;i<ratings.length;i++){
+      num=num+ratings[i].value;
     }
-    return num/RatingService.ratings.length;
+    return num/ratings.length;
   }
 
 }
