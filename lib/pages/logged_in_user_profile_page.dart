@@ -10,6 +10,7 @@ import 'package:help_for_hire_flutter_app/widgets/bottom_navigation.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/complex_app_bar.dart';
 
 class LoggedInUserProfile extends StatelessWidget {
+
   bool isEmployer = false;
 
   @override
@@ -22,6 +23,7 @@ class LoggedInUserProfile extends StatelessWidget {
         appBar:ComplexAppBar(),
         bottomNavigationBar: BottomNavigation(
           userIsEmployer: true,
+          pageID: 0,
         ),
         body: ListView(
           children: [
@@ -34,6 +36,7 @@ class LoggedInUserProfile extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         decoration: BoxDecoration(
+                          color: Colors.white,
                           shape: BoxShape.circle,
                           border: Border.all(
                             color: Colors.black,
@@ -43,9 +46,11 @@ class LoggedInUserProfile extends StatelessWidget {
                         ),
                         child: CircleAvatar(
                           radius: 100,
+                          backgroundColor: Colors.white,
                           child: ClipOval(
                             child: Icon(
                               Icons.account_circle_rounded,
+                              color: Colors.grey,
                               size: 200,
                               //fit: BoxFit.cover,
                             ),
@@ -62,11 +67,12 @@ class LoggedInUserProfile extends StatelessWidget {
                               width: 40,
                               child: Icon(
                                 Icons.add_a_photo,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                              primary: ColorConstants.blue,
+
+                              primary: Colors.white,
                               shadowColor: Colors.black,
                               elevation: 5,
                               shape: CircleBorder(),
@@ -115,28 +121,7 @@ class LoggedInUserProfile extends StatelessWidget {
                 isEmployer ? Container() : textWidget('jobs/skill', 'data'),
                 textWidget('active employments', 'data'),
                 textWidget('finished employments', 'data'),
-                Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20, left: 10, right: 10, bottom: 10),
-                    child: InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          border: Border.all(color: ColorConstants.blue),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Update Profile',
-                            style: TextStyle(
-                              color: ColorConstants.blue,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )),
+               SizedBox(height: 30,)
               ],
             ),
           ],

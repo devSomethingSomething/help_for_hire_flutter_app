@@ -3,6 +3,8 @@ import 'package:side_sheet/side_sheet.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_page.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:provider/provider.dart';
 
 class ComplexAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ComplexAppBar({Key? key}) : super(key: key);
@@ -20,53 +22,129 @@ class ComplexAppBar extends StatelessWidget implements PreferredSizeWidget {
             Navigator.pushNamed(context, RouteManager.profileDiscoveryPage);
           },
         ),
-        PopupMenuButton(
+        IconButton(
+          onPressed: () {
+            SideSheet.right(
+              body:
+             Consumer<UserService>(builder: (context, value, child) {
+              return
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.vertical(
+                            bottom: Radius.elliptical(1000, 250),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: (Colors.black),
+                              offset: Offset(0, 4),
+                              spreadRadius: 1,
+                              blurRadius: 10,
+                            )
+                          ]),
+                      width: MediaQuery.of(context).size.width - 24,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.black,
+                                style: BorderStyle.solid,
+                                width: 2,
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.account_circle_rounded,
+                              color: Colors.grey,
+                              size: 125,
+                              //fit: BoxFit.cover,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'name surname',
+                            style: TextStyle(
+                                fontSize: 20, color: ColorConstants.blue),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          containerButton('Change Password', context, 1),
+                          containerButton('Settings', context, 2),
+                          containerButton('Update Profile', context, 3),
+                          containerButton('Log Out', context, 0)
+                        ],
+                      ),
+                    ),
+
+                  ],
+                );
+            }),
+
+              context: context,
+            );
+          },
           icon: Icon(Icons.menu),
-          color: ColorConstants.blue,
-          itemBuilder: (context) => [
-            PopupMenuItem<int>(
-              value: 0,
-              child: Text(
-                'Settings',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            PopupMenuItem<int>(
-              value: 4,
-              child: Text(
-                'Change Password',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            PopupMenuItem<int>(
-              value: 5,
-              child: Text(
-                'Logout',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ],
-          onSelected: (item) => SelectedItem(context, item),
         ),
       ],
     );
   }
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-void SelectedItem(BuildContext context, item) {
-  switch (item) {
-    case 0:
-      Navigator.pushNamed(context, RouteManager.settingsPage);
-      break;
-    case 1:
-      Navigator.pushNamed(context, RouteManager.changePasswordPage);
-      break;
-    case 2:
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => SignInPage()),
-              (route) => false);
-      break;
-  }
+Container containerButton(String text, BuildContext context, item) {
+  return Container(
+    decoration: BoxDecoration(
+        border: Border(
+            bottom: BorderSide(
+      color: Colors.grey,
+      width: 1,
+    ))),
+    child: InkWell(
+      onTap: () {
+        switch (item) {
+          case 0:
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => SignInPage()),
+                (route) => false);
+            break;
+          case 1:
+            Navigator.pushNamed(context, RouteManager.changePasswordPage);
+            break;
+          case 2:
+            Navigator.pushNamed(context, RouteManager.settingsPage);
+            break;
+          case 3:
+            Navigator.pushNamed(context, RouteManager.settingsPage);
+            break;
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Text(text),
+      ),
+    ),
+  );
 }
