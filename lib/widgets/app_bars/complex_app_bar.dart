@@ -90,10 +90,16 @@ class ComplexAppBar extends StatelessWidget implements PreferredSizeWidget {
                           SizedBox(
                             height: 20,
                           ),
+                          containerButton('Profile', context, 0),
                           containerButton('Change Password', context, 1),
                           containerButton('Settings', context, 2),
-                          containerButton('Update Profile', context, 3),
-                          containerButton('Log Out', context, 0)
+                          containerButton('Report', context, 3),
+                          containerButton('Review', context, 4),
+                          containerButton('Invite', context, 5),
+                          containerButton('Reset Password', context, 6),
+                          containerButton('History', context, 7),
+                          containerButton('Update Profile', context, 8),
+                          containerButton('Log Out', context, 9)
                         ],
                       ),
                     ),
@@ -125,9 +131,7 @@ Container containerButton(String text, BuildContext context, item) {
       onTap: () {
         switch (item) {
           case 0:
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => SignInPage()),
-                (route) => false);
+            Navigator.pushNamed(context, RouteManager.loggedInUserProfile);
             break;
           case 1:
             Navigator.pushNamed(context, RouteManager.changePasswordPage);
@@ -136,7 +140,27 @@ Container containerButton(String text, BuildContext context, item) {
             Navigator.pushNamed(context, RouteManager.settingsPage);
             break;
           case 3:
-            Navigator.pushNamed(context, RouteManager.settingsPage);
+            Navigator.pushNamed(context, RouteManager.reportPage);
+            break;
+          case 4:
+            Navigator.pushNamed(context, RouteManager.reviewPage);
+            break;
+          case 5:
+            Navigator.pushNamed(context, RouteManager.invitesPage);
+            break;
+          case 6:
+            Navigator.pushNamed(context, RouteManager.resetPasswordPage);
+            break;
+          case 7:
+            Navigator.pushNamed(context, RouteManager.historyPage);
+            break;
+          case 8:
+            Navigator.pushNamed(context, RouteManager.updateUserInfoPage);
+            break;
+          case 9:
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => SignInPage()),
+                (route) => false);
             break;
         }
       },
