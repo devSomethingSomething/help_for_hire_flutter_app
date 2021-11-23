@@ -7,10 +7,16 @@ class ValidationHelper {
     if (text == null || text.isEmpty) {
       return 'Text is empty';
     }
+
     return null;
   }
 
   static String? validateFee(
+    return null;
+  }
+
+  static String? validatePhoneNumber(
+
     String? text,
   ) {
     if (text == null || text.isEmpty) {
@@ -18,6 +24,7 @@ class ValidationHelper {
     } else if (text.contains('.') || text.contains(',')) {
       return 'Text cannot contain decimal points';
     }
+
     return null;
   }
 
@@ -27,6 +34,7 @@ class ValidationHelper {
     if (text == null || text.isEmpty) {
       return 'Text is empty';
     }
+
     return null;
   }
 }

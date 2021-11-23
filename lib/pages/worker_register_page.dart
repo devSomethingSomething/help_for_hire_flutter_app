@@ -147,6 +147,42 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                     ),
                   ),
                 ),
+                ListTile(
+                  title: Text('Full time'),
+                  leading: Radio<AmountTime>(
+                    value: AmountTime.full,
+                    groupValue: _time,
+                    onChanged: (AmountTime? value) {
+                      setState(() {
+                        _time = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                  ),
+                ),
+                ListTile(
+                  title: Text('Part time'),
+                  leading: Radio<AmountTime>(
+                    value: AmountTime.part,
+                    groupValue: _time,
+                    onChanged: (AmountTime? value) {
+                      setState(() {
+                        _time = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, RouteManager.termsAndConditionsPage);
+                  },
+                  child: Text(
+                    'Submit and Continue',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
               ],
             ),
           ),
