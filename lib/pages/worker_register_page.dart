@@ -12,7 +12,7 @@ import 'package:help_for_hire_flutter_app/widgets/jobs_dropdown_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_fields/description_text_field.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_fields/text_form_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class WorkerRegisterPage extends StatefulWidget {
@@ -103,7 +103,6 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                           keyboardType: TextInputType.number,
                           controller: _minFeeController,
                           icon: Icons.attach_money,
-                          validator: ValidationHelper.validateFee,
                         ),
                         MediumSpacerWidget(),
                         AmountTimeCheckBox(
@@ -147,32 +146,32 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                     ),
                   ),
                 ),
-                ListTile(
-                  title: Text('Full time'),
-                  leading: Radio<AmountTime>(
-                    value: AmountTime.full,
-                    groupValue: _time,
-                    onChanged: (AmountTime? value) {
-                      setState(() {
-                        _time = value;
-                      });
-                    },
-                    activeColor: Colors.blue,
-                  ),
-                ),
-                ListTile(
-                  title: Text('Part time'),
-                  leading: Radio<AmountTime>(
-                    value: AmountTime.part,
-                    groupValue: _time,
-                    onChanged: (AmountTime? value) {
-                      setState(() {
-                        _time = value;
-                      });
-                    },
-                    activeColor: Colors.blue,
-                  ),
-                ),
+                // ListTile(
+                //   title: Text('Full time'),
+                //   leading: Radio<AmountTime>(
+                //     value: AmountTime.full,
+                //     groupValue: _time,
+                //     onChanged: (AmountTime? value) {
+                //       setState(() {
+                //         _time = value;
+                //       });
+                //     },
+                //     activeColor: Colors.blue,
+                //   ),
+                // ),
+                // ListTile(
+                //   title: Text('Part time'),
+                //   leading: Radio<AmountTime>(
+                //     value: AmountTime.part,
+                //     groupValue: _time,
+                //     onChanged: (AmountTime? value) {
+                //       setState(() {
+                //         _time = value;
+                //       });
+                //     },
+                //     activeColor: Colors.blue,
+                //   ),
+                // ),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(

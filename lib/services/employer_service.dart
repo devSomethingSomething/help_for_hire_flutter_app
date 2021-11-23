@@ -13,6 +13,7 @@ import 'package:http/http.dart';
 // - Get(Query)
 class EmployerService with ChangeNotifier {
   var employers = <EmployerModel>[];
+  EmployerModel? employer;
 
   var _jsons = <Map<String, dynamic>>[];
   var _json = <String, dynamic>{};
@@ -61,11 +62,7 @@ class EmployerService with ChangeNotifier {
       try {
         _json = jsonDecode(response.body);
 
-        employers.add(
-          EmployerModel.fromJson(
-            json: _json,
-          ),
-        );
+        employer = EmployerModel.fromJson(json: _json);
       } catch (_) {
         // Handle fail
       }
@@ -74,6 +71,8 @@ class EmployerService with ChangeNotifier {
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 
   Future<void> getEmployers() async {

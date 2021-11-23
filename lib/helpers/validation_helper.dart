@@ -11,12 +11,11 @@ class ValidationHelper {
     return null;
   }
 
-  static String? validateFee(
+  static String? validateFee() {
     return null;
   }
 
   static String? validatePhoneNumber(
-
     String? text,
   ) {
     if (text == null || text.isEmpty) {
@@ -27,7 +26,6 @@ class ValidationHelper {
 
     return null;
   }
-
 
   static String? validateOtp(
     String? text,

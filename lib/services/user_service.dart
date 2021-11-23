@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
+import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:help_for_hire_flutter_app/services/employer_service.dart';
+import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:provider/provider.dart';
 
 class UserService with ChangeNotifier {
@@ -22,16 +24,31 @@ class UserService with ChangeNotifier {
   void registerUser({
     required BuildContext context,
   }) {
-    if (currentUser is EmployerModel) {
+    if (isEmployer) {
       context.read<EmployerService>().postEmployer(
             employer: currentUser as EmployerModel,
           );
     } else {
-      // Needs to be done once the worker model and service are complete
-      // if (currentUser is WorkerModel) {
-      // context.read<WorkerService>().postWorker(
-      // worker: currentUser as WorkerModel,
-      // );
+      context.read<WorkerService>().postWorker(
+            worker: currentUser as WorkerModel,
+          );
     }
+  }
+
+  // Loads the correct user information
+  // Could clean this up a bit
+  void loadUser({
+    required BuildContext context,
+  }) async {
+    await context.read<EmployerService>().getEmployer(
+          id: currentUser.userId,
+        );
+    await context.read<WorkerService>().getWorker(
+          id: currentUser.userId,
+        );
+
+    currentUser = context.read<EmployerService>().employer != null
+        ? context.read<EmployerService>().employer as EmployerModel
+        : context.read<WorkerService>().worker as WorkerModel;
   }
 }

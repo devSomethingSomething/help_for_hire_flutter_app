@@ -13,6 +13,7 @@ import 'package:http/http.dart';
 // - Get(Query)
 class WorkerService with ChangeNotifier {
   var workers = <WorkerModel>[];
+  WorkerModel? worker;
 
   var _jsons = <Map<String, dynamic>>[];
   var _json = <String, dynamic>{};
@@ -59,13 +60,7 @@ class WorkerService with ChangeNotifier {
       try {
         _json = jsonDecode(response.body);
 
-        // Need to handle null values cause from broken update methods in the web
-        // api, should not merge but should add on instead
-        workers.add(
-          WorkerModel.fromJson(
-            json: _json,
-          ),
-        );
+        worker = WorkerModel.fromJson(json: _json);
       } catch (_) {
         // Handle fail
       }
