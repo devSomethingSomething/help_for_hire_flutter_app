@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 import 'package:http/http.dart';
-import 'package:help_for_hire_flutter_app/models/rating.dart';
+import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 
 class RatingService with ChangeNotifier {
 
