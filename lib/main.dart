@@ -7,6 +7,7 @@ import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/job_service.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -37,7 +38,7 @@ class _App extends StatelessWidget {
           create: (_) => UserService(),
         ),
         ChangeNotifierProvider(
-          create: (_) => UserService(),
+          create: (_) => WorkerService(),
         ),
         ChangeNotifierProvider(
           create: (_) => ThemeSettings(),

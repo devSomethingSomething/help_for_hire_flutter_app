@@ -12,6 +12,9 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.da
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
+
+import 'package:help_for_hire_flutter_app/pages/profile_discovery_page.dart';
+
 class SignInPage extends StatefulWidget {
   const SignInPage();
 
@@ -41,7 +44,12 @@ class _SignInPageState extends State<SignInPage> {
   /// Includes things like checking the internet connection or making sure that
   /// text fields have valid values
   void _onPressed() async {
-    if (_key.currentState!.validate()) {
+    Navigator.pushNamed(
+      context,
+      RouteManager.profileDiscoveryPage,
+    );
+
+    /*if (_key.currentState!.validate()) {
       if (await ConnectionHelper.hasConnection()) {
         // This should work now, perhaps there is a better
         // way of doing it but this approach seems to work
@@ -70,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
         context: context,
         data: 'Some fields are invalid',
       );
-    }
+    }*/
   }
 
   @override

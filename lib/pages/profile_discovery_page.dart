@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/widgets/user_list_card_widget.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:provider/provider.dart';
 import 'package:help_for_hire_flutter_app/widgets/custom_dropdown_button.dart';
 
 class ProfileDiscoveryPage extends StatelessWidget {
+
   const ProfileDiscoveryPage({Key? key})
       : super(key: key); //will add const again
 
   @override
   Widget build(BuildContext context) {
-    print('build again');
-    // context.read<UserData>().fetchInfo();
+
+    context.read<WorkerService>().getWorkers();
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -29,16 +31,16 @@ class ProfileDiscoveryPage extends StatelessWidget {
                   allVal: <String>[
                     'Male',
                     'Female',
-                    'gender',
+                    'Gender',//no gender constraints
                   ],
                 ),
                 SizedBox(
-                  width: 20,
+                  width: 10,
                 ),
                 CustomDropdownButton(
                   initialVal: 'Province',
                   allVal: <String>[
-                    'Province',
+                    'Province',//no province constraints
                     'Free State',
                     'Limpopo',
                     'Gauteng',
@@ -46,12 +48,12 @@ class ProfileDiscoveryPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  width: 20,
+                  width: 10,
                 ),
                 CustomDropdownButton(
                   initialVal: 'Rating',
                   allVal: <String>[
-                    'rating',
+                    'Rating',//no rating constraints
                     '1',
                     '2',
                     '3',
@@ -60,7 +62,7 @@ class ProfileDiscoveryPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  width: 15,
+                  width: 10,
                 ),
                 ElevatedButton(
                   onPressed: () {},
@@ -68,18 +70,18 @@ class ProfileDiscoveryPage extends StatelessWidget {
                 ),
               ],
             ),
-            // Consumer<UserData>(builder: (context, value, child) {
-            //   return SizedBox(
-            //     height: 500,
-            //     child: ListView.builder(
-            //       shrinkWrap: true,
-            //       itemCount: value.workerList.length,
-            //       itemBuilder: (context, index) {
-            //         return WorkerCard(worker: value.workerList[index]);
-            //       },
-            //     ),
-            //   );
-            // }),
+            Consumer<WorkerService>(builder: (context, value, child) {
+              return SizedBox(
+                height: 500,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: value.workers.length,
+                  itemBuilder: (context, index) {
+                    return WorkerCard(worker: value.workers[index]);
+                  },
+                ),
+              );
+            }),
           ],
         ),
       ),
