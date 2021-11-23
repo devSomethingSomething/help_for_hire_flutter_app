@@ -3,14 +3,17 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 import 'package:http/http.dart';
+import 'package:help_for_hire_flutter_app/models/rating.dart';
 
 class RatingService with ChangeNotifier {
+
   var rating = <RatingModel>[];
 
   var _jsons = <Map<String, dynamic>>[];
   var _json = <String, dynamic>{};
 
   static const _controllerRoute = '/api/rating';
+
 
   RatingService();
 

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:http/http.dart';
+import 'package:help_for_hire_flutter_app/models/user_model.dart';
 
 // This service should be able to
 // - Post
@@ -12,11 +13,24 @@ import 'package:http/http.dart';
 // - Put
 // - Get(Query)
 class WorkerService with ChangeNotifier {
+  WorkerModel currentUser = WorkerModel(
+      description: '',
+      minimumFee: 100,
+      fullTime: true,
+      partTime: true,
+      user: UserModel(
+        userId: '',
+        name: 'john',
+        surname: 'doe',
+        phoneNumber: '',
+        locationId: '4m5uZ9oQtmXLPgyEwXIM',
+      ));
   // Remove if unneeded
   // For filtering in search
   // var locationID;
   // For filtering in search
   // var rating;
+
 
   var workers = <WorkerModel>[];
   WorkerModel? worker;

@@ -5,15 +5,10 @@ import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:help_for_hire_flutter_app/services/employer_service.dart';
 import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:provider/provider.dart';
+import 'worker_service.dart';
 
 class UserService with ChangeNotifier {
-  UserModel currentUser = UserModel(
-    userId: '',
-    name: '',
-    surname: '',
-    phoneNumber: '',
-    locationId: '',
-  );
+  UserModel currentUser = WorkerService().currentUser as UserModel;
 
   bool get isEmployer => currentUser is EmployerModel;
 
