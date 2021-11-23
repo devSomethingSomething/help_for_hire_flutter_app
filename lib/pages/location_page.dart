@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/location_constants.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
@@ -176,6 +177,10 @@ class _LocationPageState extends State<LocationPage> {
                                     .locationId;
 
                             // Add navigation logic
+                            Navigator.pushNamed(
+                              context,
+                              RouteManager.accountTypePage,
+                            );
                           } else {
                             SnackBarHelper.showSnackBar(
                               context: context,

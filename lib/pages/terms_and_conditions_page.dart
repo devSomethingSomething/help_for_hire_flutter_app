@@ -144,6 +144,9 @@ class TermsAndConditionsPage extends StatelessWidget {
                     ),
                     RoundedButtonWidget(
                       data: 'ACCEPT',
+                      // Should actually be the OTP page but since it does not
+                      // work on virtual devices, we have to leave it out for
+                      // now
                       onPressed: () => Navigator.pushNamed(
                         context,
                         RouteManager.registrationSuccessPage,

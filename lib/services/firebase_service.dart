@@ -116,7 +116,8 @@ class FirebaseService {
     required String phoneNumber,
   }) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+27${phoneNumber.substring(1)}',
+      phoneNumber:
+          '${DomainConstants.phoneNumberPrefix}${phoneNumber.substring(1)}',
       codeSent: (_verificationId, _) async {
         final _otpController = TextEditingController();
 
