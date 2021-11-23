@@ -13,6 +13,8 @@ class UserService with ChangeNotifier {
     locationId: '',
   );
 
+  bool get isEmployer => currentUser is EmployerModel;
+
   UserService();
 
   // This method will need work as the services are completed

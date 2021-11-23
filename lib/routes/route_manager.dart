@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/account_type_page.dart';
 import 'package:help_for_hire_flutter_app/pages/change_password_page.dart';
-import 'package:help_for_hire_flutter_app/pages/employer_profile_page.dart';
+import 'package:help_for_hire_flutter_app/pages/logged_in_user_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/history_page.dart';
 import 'package:help_for_hire_flutter_app/pages/new_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/register_page.dart';
@@ -15,12 +15,13 @@ import 'package:help_for_hire_flutter_app/pages/sign_in_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 import 'package:help_for_hire_flutter_app/pages/terms_and_conditions_page.dart';
-import 'package:help_for_hire_flutter_app/pages/worker_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
+import 'package:help_for_hire_flutter_app/pages/profile_discovery_page.dart';
+import 'package:help_for_hire_flutter_app/pages/invites_page.dart';
 
 class RouteManager {
-  static const splashPage = '/splashPage';
+  static const splashPage = '/';
   static const signInRegisterPage = '/signInRegisterPage';
   static const signInPage = '/signInPage';
   static const resetPasswordPage = '/resetPasswordPage';
@@ -31,14 +32,17 @@ class RouteManager {
   static const workerRegisterPage = '/workerRegisterPage';
   static const termsAndConditionsPage = '/termsAndConditionsPage';
   static const registrationSuccessPage = '/registrationSuccessPage';
-  static const employerProfilePage = '/employerProfilePage';
+  static const loggedInUserProfile = '/loggedInUserProfile';
   static const changePasswordPage = '/changePasswordPage';
-  static const workerProfilePage = '/workerProfilePage';
   static const reportPage = '/reportPage';
+  static const invitesPage = '/invitesPage';
   static const reviewPage = '/reviewPage';
   static const historyPage = '/historyPage';
   static const settingsPage = '/settingsPage';
-  static const otpPage = '/';
+  static const otpPage = '/otpPage';
+  static const profileDiscoveryPage = '/profileDiscoveryPage';
+  static const updateUserInfoPage = '/updateUserInfoPage';
+
 
   const RouteManager._();
 
@@ -56,7 +60,7 @@ class RouteManager {
         );
       case signInPage:
         return MaterialPageRoute(
-          builder: (_) => SignInPage(),
+          builder: (_) => const SignInPage(),
         );
       case resetPasswordPage:
         return MaterialPageRoute(
@@ -90,21 +94,21 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const RegistrationSuccessPage(),
         );
-      case employerProfilePage:
+      case loggedInUserProfile:
         return MaterialPageRoute(
-          builder: (_) => EmployerProfilePage(),
+          builder: (_) => LoggedInUserProfile(),
         );
       case changePasswordPage:
         return MaterialPageRoute(
           builder: (_) => const ChangePasswordPage(),
         );
-      case workerProfilePage:
-        return MaterialPageRoute(
-          builder: (_) => WorkerProfilePage(),
-        );
       case reportPage:
         return MaterialPageRoute(
           builder: (_) => const ReportPage(),
+        );
+      case invitesPage:
+        return MaterialPageRoute(
+          builder: (_) => const InvitesPage(),
         );
       case reviewPage:
         return MaterialPageRoute(
@@ -121,6 +125,10 @@ class RouteManager {
       case otpPage:
         return MaterialPageRoute(
           builder: (_) => OtpPage(),
+        );
+      case profileDiscoveryPage:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileDiscoveryPage(),
         );
       default:
         throw Exception(

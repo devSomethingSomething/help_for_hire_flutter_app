@@ -1,45 +1,130 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/models/history_model.dart';
 import 'package:http/http.dart';
 
 class HistoryService with ChangeNotifier {
-  bool _error = false;
+  var histories = <HistoryModel>[];
 
-  String _errorMessage = '';
+  var _jsons = [];
+  var _json = <String, dynamic>{};
 
-  Map<String, dynamic> _mapHistory = {};
+  static const _controllerRoute = '/api/history/';
 
-  Future<void> get fetchData async {
-    final Response response = await get(
-      Uri.parse(''),
+  HistoryService();
+
+  Future<void> postHistory({
+    required HistoryModel history,
+  }) async {
+    final response = await post(
+      Uri.parse(
+        'https://192.168.101.166:5001$_controllerRoute',
+      ),
+      body: jsonEncode(history),
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json",
+      },
     );
+
+    if (response.statusCode == HttpStatus.created) {
+      try {
+        histories.add(history);
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.badRequest) {
+      // Handle bad request
+    } else {
+      // Handle other errors
+    }
+
+    notifyListeners();
+  }
+
+  Future<void> getHistory({
+    required String id,
+  }) async {
+    final response = await get(
+      Uri.parse(
+        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+      ),
+    );
+
     if (response.statusCode == HttpStatus.ok) {
       try {
-        _mapHistory = jsonDecode(response.body);
-      } catch (e) {
-        _error = true;
-        _errorMessage = e.toString();
-        _mapHistory = {};
+        _json = jsonDecode(response.body);
+
+        histories.add(
+          HistoryModel.fromJson(
+            json: _json,
+          ),
+        );
+      } catch (_) {
+        // Handle fail
       }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
     } else {
-      _error = true;
-      _errorMessage = 'Error';
-      _mapHistory = {};
+      // Handle other errors
     }
-    notifyListeners();
   }
 
-  void initialiseValues() {
-    _mapHistory = {};
-    _error = false;
-    _errorMessage = '';
-    notifyListeners();
+  Future<void> getHistories() async {
+    final response = await get(
+      Uri.parse(
+        'https://192.168.101.166:5001${_controllerRoute}all',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _jsons = jsonDecode(response.body);
+
+        for (var json in _jsons) {
+          histories.add(
+            HistoryModel.fromJson(
+              json: json,
+            ),
+          );
+        }
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
+    } else {
+      // Handle other errors
+    }
   }
 
-  Map<String, dynamic> get mapHistory => _mapHistory;
+  Future<void> getHistoryByUser({
+    required String id,
+  }) async {
+    final response = await get(
+      Uri.parse(
+        'https://192.168.101.166:5001${_controllerRoute}user/?userid=$id',
+      ),
+    );
 
-  bool get error => _error;
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _json = jsonDecode(response.body);
 
-  String get errorMessage => _errorMessage;
+        histories.add(
+          HistoryModel.fromJson(
+            json: _json,
+          ),
+        );
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
+    } else {
+      // Handle other errors
+    }
+  }
 }

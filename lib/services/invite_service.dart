@@ -1,46 +1,214 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/models/invite_model.dart';
 import 'package:http/http.dart';
 
 class InviteService with ChangeNotifier {
-  bool _error = false;
+  var invites = <InviteModel>[];
 
-  String _errorMessage = '';
+  var _jsons = [];
+  var _json = <String, dynamic>{};
 
-  Map<String, dynamic> _mapInvite = {};
+  static const _controllerRoute = '/api/invite/';
 
-  Future<void> get fetchData async {
-    final Response response = await get(
-      Uri.parse(''),
+  InviteService();
+
+  Future<void> postInvite({
+    required InviteModel invite,
+  }) async {
+    final response = await post(
+      Uri.parse(
+        'https://192.168.101.166:5001$_controllerRoute',
+      ),
+      body: jsonEncode(invite),
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json",
+      },
     );
+
+    if (response.statusCode == HttpStatus.created) {
+      try {
+        invites.add(invite);
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.badRequest) {
+      // Handle bad request
+    } else {
+      // Handle other errors
+    }
+  }
+
+  Future<void> getInvite({
+    required String id,
+  }) async {
+    final response = await get(
+      Uri.parse(
+        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+      ),
+    );
+
     if (response.statusCode == HttpStatus.ok) {
       try {
-        _mapInvite = jsonDecode(response.body);
-      } catch (e) {
-        _error = true;
-        _errorMessage = e.toString();
-        _mapInvite = {};
+        _json = jsonDecode(response.body);
+
+        invites.add(
+          InviteModel.fromJson(
+            json: _json,
+          ),
+        );
+      } catch (_) {
+        // Handle fail
       }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
     } else {
-      _error = true;
-      _errorMessage = 'Error';
-      _mapInvite = {};
+      // Handle other errors
     }
+  }
+
+  Future<void> getInvites() async {
+    final response = await get(
+      Uri.parse(
+        'https://192.168.101.166:5001${_controllerRoute}all',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _jsons = jsonDecode(response.body);
+
+        for (var json in _jsons) {
+          invites.add(
+            InviteModel.fromJson(
+              json: json,
+            ),
+          );
+        }
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
+    } else {
+      // Handle other errors
+    }
+  }
+
+  Future<void> putInvite({
+    required String id,
+    required InviteModel invite,
+  }) async {
+    final response = await put(
+      Uri.parse(
+        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+      ),
+      body: jsonEncode(invite),
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json",
+      },
+    );
+
+    if (response.statusCode == HttpStatus.noContent) {
+      try {
+        // Request worked code
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle bad request
+    } else {
+      // Handle other errors
+    }
+  }
+
+  Future<void> deleteInvite({
+    required String id,
+  }) async {
+    final response = await delete(
+      Uri.parse(
+        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.noContent) {
+      // Request worked
+      invites.removeWhere(
+        (invite) => invite.inviteId == id,
+      );
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle bad request
+    } else {
+      // Handle other errors
+    }
+
     notifyListeners();
   }
 
-  void initialiseValues() {
-    _mapInvite = {};
-    _error = false;
-    _errorMessage = '';
+  Future<void> getInvitesForEmployer({
+    required String id,
+  }) async {
+    final response = await get(
+      Uri.parse(
+        'https://192.168.101.166:5001${_controllerRoute}employer/?employerid=$id',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _jsons = jsonDecode(response.body);
+
+        invites.clear();
+
+        for (var json in _jsons) {
+          invites.add(
+            InviteModel.fromJson(
+              json: json,
+            ),
+          );
+        }
+      } catch (e) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
+    } else {
+      // Handle other errors
+    }
+
     notifyListeners();
   }
 
-  Map<String, dynamic> get mapInvite => _mapInvite;
+  // Needs to match the employer method above
+  Future<void> getInvitesForWorker({
+    required String id,
+  }) async {
+    final response = await get(
+      Uri.parse(
+        'https://192.168.101.166:5001${_controllerRoute}worker/?id=$id',
+      ),
+    );
 
-  bool get error => _error;
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _json = jsonDecode(response.body);
 
-  String get errorMessage => _errorMessage;
+        invites.add(
+          InviteModel.fromJson(
+            json: _json,
+          ),
+        );
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
+    } else {
+      // Handle other errors
+    }
+  }
 }
-

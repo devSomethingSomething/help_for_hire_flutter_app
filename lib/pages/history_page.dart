@@ -1,190 +1,126 @@
-// ignore_for_file: prefer_final_fields, prefer_const_constructors, avoid_returning_null_for_void, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/services/history_service.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/flat_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:provider/provider.dart';
 
-class HistoryPage extends StatefulWidget {
-  const HistoryPage({Key? key}) : super(key: key);
+class HistoryPage extends StatelessWidget {
+  const HistoryPage();
 
-  @override
-  _HistoryPageState createState() => _HistoryPageState();
-}
-
-class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: const TabBar(
-              tabs: [
-                Tab(text: ('Account')),
-                Tab(text: ('Invites')),
-                Tab(text: ('Other')),
-              ],
+    // Get history for user
+    context.read<HistoryService>().getHistoryByUser(
+          // Update to current user
+          id: '0002245275082',
+        );
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.refresh,
+              size: 28.0,
             ),
-            title: const Text('History'),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => null,
-            ),
+            onPressed: () => context.read<HistoryService>().getHistoryByUser(
+                  // Update to current user
+                  id: '0002245275082',
+                ),
+            splashRadius: 28.0,
           ),
-          body: TabBarView(
-            children: [
-              Center(
-                child: Scaffold(
-                  body: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        _cardAccount(
-                            'You reviewed Jane Dawsons Profile on \n\t ${DateTime.now()}'),
-                        _cardAccount(
-                            'You reviewed Janes Profile on \n\t${DateTime.now()}')
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Scaffold(
-                  body: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        _card('John Doe', 'Declined'),
-                        _card('Jane Dawson', 'Accepted'),
-                        _card('Mike Row', 'Declined'),
-                        _card('Tamlin', 'Accepted'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Scaffold(
-                  body: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [_cardOther('John Doe')],
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          IconButton(
+            icon: const Icon(
+              Icons.delete_forever,
+              size: 28.0,
+            ),
+            onPressed: () {
+              // Should have a popup which asks if the user wants to clear their
+              // history
+              // The popup should call a method
+              // context.read<HistoryService>().deleteAllUserHistory(id: id);
+              // This method needs to be added to the history service and to
+              // the history controller in the web api
+            },
+            splashRadius: 28.0,
           ),
+        ],
+        backgroundColor: Colors.blue[900],
+        title: const Text(
+          'History',
         ),
       ),
-    );
-  }
-
-  Color _getColor(String status) {
-    Color _bg;
-    if (status == 'Declined') {
-      _bg = Colors.red;
-    } else {
-      _bg = Colors.green;
-    }
-
-    return _bg;
-  }
-
-  Card _card(String txt, String status) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.2),
-          width: 1,
+      body: Center(
+        child: Consumer<HistoryService>(
+          builder: (_, service, __) {
+            // Change this back to is empty
+            return service.histories.isNotEmpty
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.warning,
+                        color: Colors.grey,
+                        size: 128.0,
+                      ),
+                      SmallSpacerWidget(),
+                      Text(
+                        'No history to display',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SmallSpacerWidget(),
+                      Text(
+                        'Possible causes\n'
+                        '\u2022 No internet connection\n'
+                        '\u2022 Slow network speed\n'
+                        '\u2022 No in app activity',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 20.0,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  )
+                : ListView(
+                    children: [
+                      // Need to extract this out so that we can dynamically
+                      // create multiple tiles with the listview builder method
+                      Padding(
+                        padding: const EdgeInsets.all(
+                          8.0,
+                        ),
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.insert_invitation,
+                            size: 32.0,
+                          ),
+                          minVerticalPadding: 16.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              8.0,
+                            ),
+                          ),
+                          tileColor: Colors.grey[200],
+                          title: const Text(
+                            'You received an invite on 2021/01/01 from John Doe',
+                          ),
+                          trailing: const Icon(
+                            Icons.exit_to_app,
+                            size: 32.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+          },
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset(
-              'assets/images/default.jpg',
-              height: 80,
-              width: 80,
-            ),
-            Text(txt),
-            ElevatedButton(
-              child: Text(status),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                  _getColor(status),
-                ),
-              ),
-              onPressed: () {},
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Card _cardOther(String txt) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.2),
-          width: 1,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(txt),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Reviews'),
-                SizedBox(
-                  height: 10,
-                ),
-                Text('Get Number of Reviews'),
-                SizedBox(
-                  height: 10,
-                ),
-                Text('Get Number of Contacts'),
-                SizedBox(
-                  height: 10,
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Card _cardAccount(String txt) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.2),
-          width: 1,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(txt),
-            SizedBox(
-              height: 10,
-            )
-          ],
-        ),
-      ),
+      drawer: const Drawer(),
+      drawerEnableOpenDragGesture: false,
     );
   }
 }

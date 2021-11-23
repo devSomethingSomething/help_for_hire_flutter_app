@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/form_model.dart';
 import 'package:help_for_hire_flutter_app/pages/theme_data.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/services/employer_service.dart';
+import 'package:help_for_hire_flutter_app/services/history_service.dart';
+import 'package:help_for_hire_flutter_app/services/invite_service.dart';
 import 'package:help_for_hire_flutter_app/services/job_service.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -29,16 +31,22 @@ class _App extends StatelessWidget {
           create: (_) => FormModel(),
         ),
         ChangeNotifierProvider(
-          create: (_) => LocationService(),
+          create: (_) => HistoryService(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => InviteService(),
         ),
         ChangeNotifierProvider(
           create: (_) => JobService(),
         ),
         ChangeNotifierProvider(
-          create: (_) => EmployerService(),
+          create: (_) => LocationService(),
         ),
         ChangeNotifierProvider(
           create: (_) => UserService(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => WorkerService(),
         ),
         ChangeNotifierProvider(
           create: (_) => ThemeSettings(),

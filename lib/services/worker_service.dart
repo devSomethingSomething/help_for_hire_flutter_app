@@ -1,33 +1,41 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
-import 'package:help_for_hire_flutter_app/models/rating_model.dart';
+
+import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:http/http.dart';
 
-class RatingService with ChangeNotifier {
-  var rating = <RatingModel>[];
+// This service should be able to
+// - Post
+// - Get
+// - Get(All)
+// - Put
+// - Get(Query)
+class WorkerService with ChangeNotifier {
+  var workers = <WorkerModel>[];
 
   var _jsons = <Map<String, dynamic>>[];
   var _json = <String, dynamic>{};
 
-  static const _controllerRoute = '/api/rating';
+  static const _controllerRoute = '/api/worker/';
 
-  RatingService();
+  WorkerService();
 
-  Future<void> postRating({
-    required RatingModel rating,
+  Future<void> postWorker({
+    required WorkerModel worker,
   }) async {
     final response = await post(
-      Uri.parse('https://192.168.101.166:5001$_controllerRoute'),
-      body: jsonEncode(rating),
-      headers: { 
+      Uri.parse(''), // Need to add the link
+      body: jsonEncode(worker),
+      headers: {
         "Accept": "application/json",
         "content-type": "application/json",
       },
     );
+
     if (response.statusCode == HttpStatus.created) {
       try {
-        // Request worked code
+        workers.add(worker);
       } catch (_) {
         // Handle fail
       }
@@ -37,7 +45,8 @@ class RatingService with ChangeNotifier {
       // Handle other errors
     }
   }
-Future<void> getRating({
+
+  Future<void> getWorker({
     required String id,
   }) async {
     final response = await get(
@@ -50,8 +59,10 @@ Future<void> getRating({
       try {
         _json = jsonDecode(response.body);
 
-        rating.add(
-          RatingModel.fromJson(
+        // Need to handle null values cause from broken update methods in the web
+        // api, should not merge but should add on instead
+        workers.add(
+          WorkerModel.fromJson(
             json: _json,
           ),
         );
@@ -63,13 +74,13 @@ Future<void> getRating({
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 
-  Future<void> getRatings() async {
+  Future<void> getWorkers() async {
     final response = await get(
-      Uri.parse(
-        'https://192.168.101.166:5001${_controllerRoute}all',
-      ),
+      Uri.parse(''), // Need to add the link
     );
 
     if (response.statusCode == HttpStatus.ok) {
@@ -77,8 +88,8 @@ Future<void> getRating({
         _jsons = jsonDecode(response.body);
 
         for (var json in _jsons) {
-          rating.add(
-            RatingModel.fromJson(
+          workers.add(
+            WorkerModel.fromJson(
               json: json,
             ),
           );
@@ -93,15 +104,13 @@ Future<void> getRating({
     }
   }
 
-  Future<void> putRating({
+  Future<void> putWorker({
     required String id,
-    required RatingModel rating,
+    required WorkerModel worker,
   }) async {
     final response = await put(
-      Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute?id=$id',
-      ),
-      body: jsonEncode(rating),
+      Uri.parse(''), // Need to add the link
+      body: jsonEncode(worker),
       headers: {
         "Accept": "application/json",
         "content-type": "application/json",
@@ -120,34 +129,4 @@ Future<void> getRating({
       // Handle other errors
     }
   }
-
-//Need to look into delete a bit more
-
-  // Future<void> deleteRating({
-  //   required String id,
-  // }) async {
-  //   final response = await put(
-  //     Uri.parse(
-  //       '',
-  //     ),
-  //     body: jsonEncode(rating),
-  //     headers: {
-  //       "Accept": "application/json",
-  //       "content-type": "application/json",
-  //     },
-  //   );
-
-  //   if (response.statusCode == HttpStatus.noContent) {
-  //     try {
-  //       // Request worked code
-  //     } catch (_) {
-  //       // Handle fail
-  //     }
-  //   } else if (response.statusCode == HttpStatus.notFound) {
-  //     // Handle bad request
-  //   } else {
-  //     // Handle other errors
-  //   }
-  // }
 }
-
