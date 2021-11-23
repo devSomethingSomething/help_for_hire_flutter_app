@@ -1,166 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/services/invite_service.dart';
+import 'package:help_for_hire_flutter_app/widgets/cards/invite_card_widget.dart';
+import 'package:provider/provider.dart';
 
-class InvitesPage extends StatefulWidget {
-  const InvitesPage({Key? key}) : super(key: key);
+class InvitesPage extends StatelessWidget {
+  const InvitesPage();
 
-  @override
-  _InvitesPageState createState() => _InvitesPageState();
-}
-
-class _InvitesPageState extends State<InvitesPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Invites'),
+    // Need to call the correct method based on the type of the current user
+    // who is signed in
+    // Update here
+    context.read<InviteService>().getInvitesForEmployer(
+          id: '0002245275082',
+        );
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.refresh,
+              size: 28.0,
+            ),
+            // Needs to get the invites again when clicked
+            onPressed: () =>
+                // Need to call the correct method based on user type
+                context.read<InviteService>().getInvitesForEmployer(
+                      id: '0002245275082',
+                    ),
+            splashRadius: 28.0,
           ),
-          body: TabBarView(
-            children: [
-              Center(
-                child: Scaffold(
-                  body: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [Text("Profile_page")],
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Scaffold(
-                  body: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        _card('John Doe', 'Delete', 'Contact'),
-                        _card('Jane Dawson', 'Delete', 'Contact'),
-                        _card('Mike Row', 'Delete', 'Contact'),
-                        _card('Tamlin', 'Delete', 'Contact'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Scaffold(
-                  body: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [Text("Other_page")],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        ],
+        backgroundColor: Colors.blue[900],
+        title: const Text(
+          'Invites',
         ),
       ),
-    );
-  }
-
-  Color _getColor(String status) {
-    Color _bg;
-    if (status == 'Delete') {
-      _bg = Colors.red;
-    } else {
-      _bg = Colors.green;
-    }
-
-    return _bg;
-  }
-
-  Card _card(String txt, String status, String status2) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.2),
-          width: 1,
+      body: Center(
+        child: Consumer<InviteService>(
+          builder: (_, inviteService, __) {
+            return inviteService.invites.isEmpty
+                ? CircularProgressIndicator(
+                    color: Colors.blue[900],
+                  )
+                : ListView.builder(
+                    itemCount: inviteService.invites.length,
+                    itemBuilder: (_, index) {
+                      return InviteCardWidget(
+                        invite: inviteService.invites[index],
+                      );
+                    },
+                  );
+          },
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset(
-              'assets/images/default.jpg',
-              height: 80,
-              width: 80,
-            ),
-            Text(txt),
-            ElevatedButton(
-              child: Text(status),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                  _getColor(status),
-                ),
-              ),
-              onPressed: () {},
-            ),
-            ElevatedButton(
-              child: Text(status2),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                  _getColor(status2),
-                ),
-              ),
-              onPressed: () {},
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Card _cardOther(String txt) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.2),
-          width: 1,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(txt),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Card _cardAccount(String txt) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.2),
-          width: 1,
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(txt),
-            SizedBox(
-              height: 10,
-            )
-          ],
-        ),
-      ),
+      // Needs to be the same between pages
+      drawer: const Drawer(),
+      drawerEnableOpenDragGesture: false,
     );
   }
 }

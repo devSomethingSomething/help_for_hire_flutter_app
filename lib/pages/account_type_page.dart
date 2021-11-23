@@ -71,6 +71,8 @@ class AccountTypePage extends StatelessWidget {
                 // Need an image here
                 AccountTypeCardWidget(
                   data: 'Worker',
+                  // This logic is fine for now as the worker register page
+                  // will setup the current user as a worker
                   onTap: () => Navigator.pushNamed(
                     context,
                     RouteManager.workerRegisterPage,

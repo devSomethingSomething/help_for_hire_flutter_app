@@ -12,12 +12,13 @@ class FirebaseService {
     await Firebase.initializeApp();
   }
 
-  static bool isNotExistingUser({
+  static Future<bool> isNotExistingUser({
+    required BuildContext context,
     required String id,
     required String password,
-  }) {
+  }) async {
     try {
-      FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: '$id${DomainConstants.emailSuffix}',
         password: password,
       );
@@ -115,7 +116,8 @@ class FirebaseService {
     required String phoneNumber,
   }) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+27${phoneNumber.substring(1)}',
+      phoneNumber:
+          '${DomainConstants.phoneNumberPrefix}${phoneNumber.substring(1)}',
       codeSent: (_verificationId, _) async {
         final _otpController = TextEditingController();
 

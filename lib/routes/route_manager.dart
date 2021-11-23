@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/account_type_page.dart';
 import 'package:help_for_hire_flutter_app/pages/change_password_page.dart';
+import 'package:help_for_hire_flutter_app/pages/location_page.dart';
 import 'package:help_for_hire_flutter_app/pages/logged_in_user_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/history_page.dart';
 import 'package:help_for_hire_flutter_app/pages/new_password_page.dart';
@@ -15,23 +16,20 @@ import 'package:help_for_hire_flutter_app/pages/sign_in_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 import 'package:help_for_hire_flutter_app/pages/terms_and_conditions_page.dart';
-import 'package:help_for_hire_flutter_app/pages/update_user_info_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
+import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 import 'package:help_for_hire_flutter_app/pages/profile_discovery_page.dart';
 import 'package:help_for_hire_flutter_app/pages/invites_page.dart';
 
 class RouteManager {
-
-  
-
   static const splashPage = '/';
-
   static const signInRegisterPage = '/signInRegisterPage';
   static const signInPage = '/signInPage';
   static const resetPasswordPage = '/resetPasswordPage';
   static const newPasswordPage = '/newPasswordPage';
   static const resetPasswordSuccessPage = '/resetPasswordSuccessPage';
   static const registerPage = '/registerPage';
+  static const locationPage = '/locationPage';
   static const accountTypePage = '/accountTypePage';
   static const workerRegisterPage = '/workerRegisterPage';
   static const termsAndConditionsPage = '/termsAndConditionsPage';
@@ -43,9 +41,9 @@ class RouteManager {
   static const reviewPage = '/reviewPage';
   static const historyPage = '/historyPage';
   static const settingsPage = '/settingsPage';
+  static const otpPage = '/otpPage';
   static const profileDiscoveryPage = '/profileDiscoveryPage';
-  static const updateUserInfoPage='/updateUserInfoPage';
-
+  static const updateUserInfoPage = '/updateUserInfoPage';
 
   const RouteManager._();
 
@@ -63,7 +61,7 @@ class RouteManager {
         );
       case signInPage:
         return MaterialPageRoute(
-          builder: (_) => SignInPage(),
+          builder: (_) => const SignInPage(),
         );
       case resetPasswordPage:
         return MaterialPageRoute(
@@ -80,6 +78,10 @@ class RouteManager {
       case registerPage:
         return MaterialPageRoute(
           builder: (_) => const RegisterPage(),
+        );
+      case locationPage:
+        return MaterialPageRoute(
+          builder: (_) => const LocationPage(),
         );
       case accountTypePage:
         return MaterialPageRoute(
@@ -125,11 +127,14 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => SettingsPage(),
         );
+      case otpPage:
+        return MaterialPageRoute(
+          builder: (_) => OtpPage(),
+        );
       case profileDiscoveryPage:
         return MaterialPageRoute(
           builder: (_) => const ProfileDiscoveryPage(),
         );
-
       default:
         throw Exception(
           'Route not found',

@@ -25,8 +25,15 @@ class WorkerService with ChangeNotifier {
         phoneNumber: '',
         locationId: '4m5uZ9oQtmXLPgyEwXIM',
       ));
+  // Remove if unneeded
+  // For filtering in search
+  // var locationID;
+  // For filtering in search
+  // var rating;
+
 
   var workers = <WorkerModel>[];
+  WorkerModel? worker;
 
   var _jsons = <Map<String, dynamic>>[];
   var _json = <String, dynamic>{};
@@ -64,18 +71,16 @@ class WorkerService with ChangeNotifier {
     required String id,
   }) async {
     final response = await get(
-      Uri.parse(''), // Need to add the link
+      Uri.parse(
+        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+      ),
     );
 
     if (response.statusCode == HttpStatus.ok) {
       try {
         _json = jsonDecode(response.body);
 
-        workers.add(
-          WorkerModel.fromJson(
-            json: _json,
-          ),
-        );
+        worker = WorkerModel.fromJson(json: _json);
       } catch (_) {
         // Handle fail
       }
@@ -84,6 +89,8 @@ class WorkerService with ChangeNotifier {
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 
   Future<void> getWorkers() async {

@@ -56,11 +56,19 @@ class _SignInPageState extends State<SignInPage> {
 
         if (signedIn) {
           // Set a reference to the user with a specific ID
-          // Allows us to get their details in the next page
+          // Allows us to get their details
           context.read<UserService>().currentUser.userId =
               _idNumberController.text;
 
-          // Add navigation logic here
+          // Load the user
+          context.read<UserService>().loadUser(context: context);
+
+          // Go to first page
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            RouteManager.invitesPage,
+            (_) => false,
+          );
         }
       } else {
         SnackBarHelper.showSnackBar(
@@ -191,6 +199,7 @@ class _SignInPageState extends State<SignInPage> {
           ),
         ],
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }
