@@ -25,6 +25,8 @@ class LocationService with ChangeNotifier {
       try {
         _jsons = jsonDecode(response.body);
 
+        locations.clear();
+
         for (var json in _jsons) {
           locations.add(
             LocationModel.fromJson(
@@ -40,5 +42,7 @@ class LocationService with ChangeNotifier {
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 }
