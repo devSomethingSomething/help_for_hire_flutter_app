@@ -5,6 +5,7 @@
 // needs to be updated accordingly after the rating service has been updated.
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/services/employer_service.dart';
+import 'package:help_for_hire_flutter_app/services/rating_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:provider/provider.dart';
@@ -140,8 +141,12 @@ class LoggedInUserProfile extends StatelessWidget {
                       ),
                 textWidget(
                     'phone number', '${userService.currentUser.phoneNumber}'),
+                Consumer<RatingService>(
+                  builder: (context, value, child) {
+                    return textWidget('rating', '${UserProfile().getAvgRating(userService.currentUser.userId,value.rating)}');
+                  },
+                ),
 
-                textWidget('rating', '${UserProfile().getAvgRating(userService.currentUser.userId)}'),
                 Consumer<LocationService>(
                   builder: (context, value, child) {
                     return textWidget('location', '${value.location?.city} ${value.location?.province}');
