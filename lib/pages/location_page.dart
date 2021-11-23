@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/location_constants.dart';
-import 'package:help_for_hire_flutter_app/models/location_model.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
@@ -22,7 +21,6 @@ class _LocationPageState extends State<LocationPage> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<LocationService>().getLocations();
     return Scaffold(
       body: Stack(
         children: [
@@ -57,88 +55,97 @@ class _LocationPageState extends State<LocationPage> {
                       padding: const EdgeInsets.all(
                         16.0,
                       ),
-                      child: Form(
-                        key: _key,
-                        child: Column(
-                          children: [
-                            Container(
-                              child: DropdownButtonFormField(
-                                decoration: const InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  labelText: 'Province',
-                                ),
-                                iconSize: 28.0,
-                                items: LocationConstants.provinces
-                                    .map(
-                                      (value) => DropdownMenuItem(
-                                        value: value,
-                                        child: Text(
-                                          value,
+                      child: Consumer<LocationService>(
+                        builder: (_, service, __) {
+                          return Form(
+                            key: _key,
+                            child: Column(
+                              children: [
+                                Container(
+                                  child: DropdownButtonFormField<String>(
+                                    decoration: const InputDecoration(
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white,
                                         ),
                                       ),
-                                    )
-                                    .toList(),
-                                onChanged: (value) {},
-                              ),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    8.0,
-                                  ),
-                                ),
-                                color: Colors.white,
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                                vertical: 8.0,
-                              ),
-                            ),
-                            const MediumSpacerWidget(),
-                            Container(
-                              child: DropdownButtonFormField(
-                                decoration: const InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Colors.white,
+                                      labelText: 'Province',
                                     ),
+                                    iconSize: 28.0,
+                                    items: LocationConstants.provinces
+                                        .map(
+                                          (value) => DropdownMenuItem(
+                                            value: value,
+                                            child: Text(
+                                              value,
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
+                                    onChanged: (province) {
+                                      service.getCitiesInProvince(
+                                        province: province.toString(),
+                                      );
+                                    },
                                   ),
-                                  labelText: 'City',
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                        8.0,
+                                      ),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0,
+                                    vertical: 8.0,
+                                  ),
                                 ),
-                                iconSize: 28.0,
-                                items: context
-                                    .read<LocationService>()
-                                    .locations
-                                    .map(
-                                      (value) => DropdownMenuItem(
-                                        // Need this otherwise it breaks
-                                        value: value.city,
-                                        child: Text(
-                                          value.city,
+                                const MediumSpacerWidget(),
+                                Container(
+                                  child: DropdownButtonFormField(
+                                    decoration: const InputDecoration(
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white,
                                         ),
                                       ),
-                                    )
-                                    .toList(),
-                                onChanged: (value) {},
-                              ),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    8.0,
+                                      labelText: 'City',
+                                    ),
+                                    iconSize: 28.0,
+                                    items: service.locations
+                                        .map(
+                                          (value) => DropdownMenuItem(
+                                            // Need this otherwise it breaks
+                                            value: value.city,
+                                            child: Text(
+                                              value.city,
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
+                                    onChanged: (value) {},
+                                    // Just need to make sure that there is
+                                    // now a city in each province
+                                    value: service.locations.first.city,
+                                  ),
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                        8.0,
+                                      ),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0,
+                                    vertical: 8.0,
                                   ),
                                 ),
-                                color: Colors.white,
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                                vertical: 8.0,
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
                     ),
                     const MediumSpacerWidget(),
