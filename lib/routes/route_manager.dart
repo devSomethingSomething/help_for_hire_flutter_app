@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/models/employer_model.dart';
+import 'package:help_for_hire_flutter_app/models/user_model.dart';
 import 'package:help_for_hire_flutter_app/pages/account_type_page.dart';
 import 'package:help_for_hire_flutter_app/pages/change_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/logged_in_user_profile_page.dart';
@@ -10,6 +12,7 @@ import 'package:help_for_hire_flutter_app/pages/report_page.dart';
 import 'package:help_for_hire_flutter_app/pages/reset_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/reset_password_success_page.dart';
 import 'package:help_for_hire_flutter_app/pages/review_page.dart';
+import 'package:help_for_hire_flutter_app/pages/selected_employer_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/settings_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
@@ -21,9 +24,6 @@ import 'package:help_for_hire_flutter_app/pages/profile_discovery_page.dart';
 import 'package:help_for_hire_flutter_app/pages/invites_page.dart';
 
 class RouteManager {
-
-  
-
   static const splashPage = '/';
 
   static const signInRegisterPage = '/signInRegisterPage';
@@ -44,8 +44,8 @@ class RouteManager {
   static const historyPage = '/historyPage';
   static const settingsPage = '/settingsPage';
   static const profileDiscoveryPage = '/profileDiscoveryPage';
-  static const updateUserInfoPage='/updateUserInfoPage';
-
+  static const updateUserInfoPage = '/updateUserInfoPage';
+  static const selectedEmployerProfilePage = '/selectedEmployerProfilePage';
 
   const RouteManager._();
 
@@ -128,6 +128,10 @@ class RouteManager {
       case profileDiscoveryPage:
         return MaterialPageRoute(
           builder: (_) => const ProfileDiscoveryPage(),
+        );
+      case selectedEmployerProfilePage:
+        return MaterialPageRoute(
+          builder: (_) => SelectedEmployerProfilePage(),
         );
 
       default:

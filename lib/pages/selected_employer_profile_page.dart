@@ -1,15 +1,33 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/employer_model.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 
-class SelectedEmployerProfilePage extends StatelessWidget {
-  final EmployerModel employer;
-  const SelectedEmployerProfilePage({Key? key, required this.employer})
-      : super(key: key);
+// This page is currently broken
+class SelectedEmployerProfilePage extends StatefulWidget {
+  SelectedEmployerProfilePage({
+    Key? key,
+    this.employer,
+  }) : super(
+          key: key,
+        );
+  final EmployerModel? employer;
 
+  @override
+  State<SelectedEmployerProfilePage> createState() =>
+      _SelectedEmployerProfilePageState();
+}
+
+class _SelectedEmployerProfilePageState
+    extends State<SelectedEmployerProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBarWidget(
+        data: 'Profile',
+      ),
       body: Center(
         child: Padding(
           padding: EdgeInsets.only(left: 25, right: 25),
@@ -29,22 +47,30 @@ class SelectedEmployerProfilePage extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  '${employer.name} ${employer.surname}',
+                  //'Name Surname',
+                  '${widget.employer!.name} ${widget.employer!.surname}',
                   style: TextStyle(
                     fontSize: 20,
                   ),
                 ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                padding: EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  top: 10,
+                  bottom: 10,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SizedBox(
                       width: 150,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.popAndPushNamed(
+                          context,
+                          RouteManager.reviewPage,
+                        ),
                         child: Text(
                           'Rate user',
                         ),
@@ -53,7 +79,10 @@ class SelectedEmployerProfilePage extends StatelessWidget {
                     SizedBox(
                       width: 150,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.popAndPushNamed(
+                          context,
+                          RouteManager.reportPage,
+                        ),
                         child: Text(
                           'Report user',
                         ),
@@ -67,6 +96,7 @@ class SelectedEmployerProfilePage extends StatelessWidget {
               ),
               Text(
                 'Location',
+                //'${widget.employer.location}',
                 style: TextStyle(
                   fontSize: 20,
                 ),
@@ -75,7 +105,7 @@ class SelectedEmployerProfilePage extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                'and so on...',
+                '',
                 style: TextStyle(
                   fontSize: 20,
                 ),
@@ -83,9 +113,12 @@ class SelectedEmployerProfilePage extends StatelessWidget {
               SizedBox(
                 width: 150,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.popAndPushNamed(
+                    context,
+                    RouteManager.historyPage,
+                  ),
                   child: Text(
-                    'View this users History',
+                    'View this users History ',
                   ),
                 ),
               ),
