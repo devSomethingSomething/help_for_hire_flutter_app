@@ -12,10 +12,11 @@ import 'package:http/http.dart';
 // - Put
 // - Get(Query)
 class WorkerService with ChangeNotifier {
-  var locationID;//for filtering in search
-  var rating;//for filtering in search
-  var gender;//for filtering in search
-
+  // Remove if unneeded
+  // For filtering in search
+  // var locationID;
+  // For filtering in search
+  // var rating;
 
   var workers = <WorkerModel>[];
   WorkerModel? worker;

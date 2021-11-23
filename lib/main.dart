@@ -47,7 +47,7 @@ class _App extends StatelessWidget {
           create: (_) => LocationService(),
         ),
         ChangeNotifierProvider(
-          create: (_) => WorkerService(),
+          create: (_) => UserService(),
         ),
         ChangeNotifierProvider(
           create: (_) => WorkerService(),
