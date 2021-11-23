@@ -23,7 +23,7 @@ class WorkerService with ChangeNotifier {
         name: 'john',
         surname: 'doe',
         phoneNumber: '',
-        locationId: '',
+        locationId: '4m5uZ9oQtmXLPgyEwXIM',
       ));
 
   var workers = <WorkerModel>[];
