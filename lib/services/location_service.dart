@@ -7,9 +7,11 @@ import 'package:http/http.dart';
 
 class LocationService with ChangeNotifier {
   var locations = <LocationModel>[];
-  LocationModel? location;
-  var _json = <String, dynamic>{};
+
   var _jsons = [];
+
+  // LocationModel? location;
+  // var _json = <String, dynamic>{};
 
   static const _controllerRoute = '/api/location/';
 
@@ -18,7 +20,7 @@ class LocationService with ChangeNotifier {
   Future<void> getLocations() async {
     final response = await get(
       Uri.parse(
-        'https://192.168.8.101:5001${_controllerRoute}all',
+        'https://192.168.101.166:5001${_controllerRoute}all',
       ),
     );
 
@@ -83,29 +85,29 @@ class LocationService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getLocation({required String id}) async {
-    final response = await get(
-      Uri.parse(
-        'https://192.168.8.101:5001$_controllerRoute?id=$id',
-      ),
-    );
+  // Future<void> getLocation({required String id}) async {
+  //   final response = await get(
+  //     Uri.parse(
+  //       'https://192.168.8.101:5001$_controllerRoute?id=$id',
+  //     ),
+  //   );
 
-    if (response.statusCode == HttpStatus.ok) {
-      try {
-        _json = jsonDecode(response.body);
+  //   if (response.statusCode == HttpStatus.ok) {
+  //     try {
+  //       _json = jsonDecode(response.body);
 
-        for (var json in _jsons) {
-          location = LocationModel.fromJson(
-            json: json,
-          );
-        }
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
-  }
+  //       for (var json in _jsons) {
+  //         location = LocationModel.fromJson(
+  //           json: json,
+  //         );
+  //       }
+  //     } catch (_) {
+  //       // Handle fail
+  //     }
+  //   } else if (response.statusCode == HttpStatus.notFound) {
+  //     // Handle not found
+  //   } else {
+  //     // Handle other errors
+  //   }
+  // }
 }

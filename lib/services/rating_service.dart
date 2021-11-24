@@ -3,17 +3,14 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 import 'package:http/http.dart';
-import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 
 class RatingService with ChangeNotifier {
-
   var rating = <RatingModel>[];
 
   var _jsons = <Map<String, dynamic>>[];
   var _json = <String, dynamic>{};
 
   static const _controllerRoute = '/api/rating';
-
 
   RatingService();
 
@@ -23,7 +20,7 @@ class RatingService with ChangeNotifier {
     final response = await post(
       Uri.parse('https://192.168.101.166:5001$_controllerRoute'),
       body: jsonEncode(rating),
-      headers: { 
+      headers: {
         "Accept": "application/json",
         "content-type": "application/json",
       },
@@ -40,7 +37,8 @@ class RatingService with ChangeNotifier {
       // Handle other errors
     }
   }
-Future<void> getRating({
+
+  Future<void> getRating({
     required String id,
   }) async {
     final response = await get(
@@ -153,4 +151,3 @@ Future<void> getRating({
   //   }
   // }
 }
-

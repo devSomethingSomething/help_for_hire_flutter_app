@@ -8,7 +8,13 @@ import 'package:provider/provider.dart';
 import 'worker_service.dart';
 
 class UserService with ChangeNotifier {
-  UserModel currentUser = WorkerService().currentUser as UserModel;
+  UserModel currentUser = UserModel(
+    userId: '',
+    name: '',
+    surname: '',
+    phoneNumber: '',
+    locationId: '',
+  );
 
   bool get isEmployer => currentUser is EmployerModel;
 
