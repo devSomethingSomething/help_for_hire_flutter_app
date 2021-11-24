@@ -12,7 +12,7 @@ class DetailsTextWidget extends StatelessWidget {
     return Text(
       _data,
       style: const TextStyle(
-        color: Colors.grey,
+        color: Colors.white,
       ),
       textAlign: TextAlign.center,
     );
