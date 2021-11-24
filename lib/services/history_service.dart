@@ -100,6 +100,24 @@ class HistoryService with ChangeNotifier {
     }
   }
 
+  Future<void> deleteAllHistoryForUser({
+    required String userId,
+  }) async {
+    final response = await delete(
+      Uri.parse(
+        'https://192.168.101.166:5001${_controllerRoute}all/?userid=$userId',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.noContent) {
+      histories.clear();
+    } else {
+      // Handle other errors
+    }
+
+    notifyListeners();
+  }
+
   Future<void> getHistoryByUser({
     required String id,
   }) async {

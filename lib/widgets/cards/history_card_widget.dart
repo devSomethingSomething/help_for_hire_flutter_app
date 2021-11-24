@@ -9,6 +9,57 @@ class HistoryCard extends StatelessWidget {
     required HistoryModel history,
   }) : _history = history;
 
+  // Should add viewed
+  // In the future should store by date
+  // Allows us to sort by data then
+  IconData _getIconFromDescription() {
+    final options = {
+      'invited': Icons.insert_invitation,
+      'reviewed': Icons.reviews,
+      'registered': Icons.app_registration,
+      'reported': Icons.report,
+      'updated': Icons.update,
+    };
+
+    for (var option in options.entries) {
+      if (_history.description.toLowerCase().contains(option.key)) {
+        return option.value;
+      }
+    }
+
+    return Icons.grid_view_sharp;
+  }
+
+  Widget _getButtonFromDescription() {
+    final options = {
+      'invited': FlatButtonWidget(
+        data: 'VIEW',
+        onPressed: () {},
+        primary: Colors.orange,
+      ),
+      'reviewed': FlatButtonWidget(
+        data: 'VIEW',
+        onPressed: () {},
+        primary: Colors.orange,
+      ),
+      'registered': Container(),
+      'reported': FlatButtonWidget(
+        data: 'VIEW',
+        onPressed: () {},
+        primary: Colors.orange,
+      ),
+      'updated': Container(),
+    };
+
+    for (var option in options.entries) {
+      if (_history.description.toLowerCase().contains(option.key)) {
+        return option.value;
+      }
+    }
+
+    return Container();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -19,9 +70,8 @@ class HistoryCard extends StatelessWidget {
         ),
         child: ListTile(
           leading: Icon(
-            _history.description.contains('invite')
-                ? Icons.insert_invitation
-                : Icons.grid_view_sharp,
+            _getIconFromDescription(),
+            color: Colors.blue[900],
             size: 32.0,
           ),
           title: Text(
@@ -33,11 +83,7 @@ class HistoryCard extends StatelessWidget {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              FlatButtonWidget(
-                data: 'PROFILE',
-                onPressed: () {},
-                primary: Colors.blue.shade900,
-              ),
+              _getButtonFromDescription(),
             ],
           ),
         ),
