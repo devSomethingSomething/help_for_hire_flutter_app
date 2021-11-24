@@ -25,6 +25,8 @@ class JobService with ChangeNotifier {
       try {
         _jsons = jsonDecode(response.body);
 
+        jobs.clear();
+
         for (var json in _jsons) {
           jobs.add(
             JobModel.fromJson(
@@ -40,5 +42,7 @@ class JobService with ChangeNotifier {
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 }

@@ -43,7 +43,9 @@ class WorkerService with ChangeNotifier {
     required WorkerModel worker,
   }) async {
     final response = await post(
-      Uri.parse(''), // Need to add the link
+      Uri.parse(
+        'https://192.168.101.166:5001$_controllerRoute',
+      ),
       body: jsonEncode(worker),
       headers: {
         "Accept": "application/json",
