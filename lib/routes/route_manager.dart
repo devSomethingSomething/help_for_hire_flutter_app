@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/account_type_page.dart';
 import 'package:help_for_hire_flutter_app/pages/change_password_page.dart';
+import 'package:help_for_hire_flutter_app/pages/employer_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/location_page.dart';
 import 'package:help_for_hire_flutter_app/pages/logged_in_user_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/history_page.dart';
@@ -16,6 +17,7 @@ import 'package:help_for_hire_flutter_app/pages/sign_in_page.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/splash_page.dart';
 import 'package:help_for_hire_flutter_app/pages/terms_and_conditions_page.dart';
+import 'package:help_for_hire_flutter_app/pages/worker_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 import 'package:help_for_hire_flutter_app/pages/profile_discovery_page.dart';
@@ -46,6 +48,8 @@ class RouteManager {
   static const profileDiscoveryPage = '/profileDiscoveryPage';
   static const updateUserInfoPage = '/updateUserInfoPage';
   static const loginPage = '/loginPage';
+  static const workerProfile = '/workerProfile';
+  static const employerProfile = '/employerProfile';
 
   const RouteManager._();
 
@@ -140,6 +144,14 @@ class RouteManager {
       case loginPage:
         return MaterialPageRoute(
           builder: (_) => const LoginPage(),
+        );
+      case workerProfile:
+        return MaterialPageRoute(
+          builder: (_) => const WorkerProfile(),
+        );
+      case employerProfile:
+        return MaterialPageRoute(
+          builder: (_) => const EmployerProfile(),
         );
       default:
         throw Exception(
