@@ -23,9 +23,9 @@ import 'package:help_for_hire_flutter_app/pages/invites_page.dart';
 import 'package:help_for_hire_flutter_app/pages/login_page.dart';
 
 class RouteManager {
-  static const splashPage = '/';
+  static const splashPage = '/splashPage';
   static const signInRegisterPage = '/signInRegisterPage';
-  static const signInPage = '/signInPage';
+  static const signInPage = '/';
   static const resetPasswordPage = '/resetPasswordPage';
   static const newPasswordPage = '/newPasswordPage';
   static const resetPasswordSuccessPage = '/resetPasswordSuccessPage';
