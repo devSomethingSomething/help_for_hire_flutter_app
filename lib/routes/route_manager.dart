@@ -20,6 +20,7 @@ import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/otp_page.dart';
 import 'package:help_for_hire_flutter_app/pages/profile_discovery_page.dart';
 import 'package:help_for_hire_flutter_app/pages/invites_page.dart';
+import 'package:help_for_hire_flutter_app/pages/login_page.dart';
 
 class RouteManager {
   static const splashPage = '/';
@@ -44,6 +45,7 @@ class RouteManager {
   static const otpPage = '/otpPage';
   static const profileDiscoveryPage = '/profileDiscoveryPage';
   static const updateUserInfoPage = '/updateUserInfoPage';
+  static const loginPage = '/loginPage';
 
   const RouteManager._();
 
@@ -134,6 +136,10 @@ class RouteManager {
       case profileDiscoveryPage:
         return MaterialPageRoute(
           builder: (_) => const ProfileDiscoveryPage(),
+        );
+      case loginPage:
+        return MaterialPageRoute(
+          builder: (_) => const LoginPage(),
         );
       default:
         throw Exception(

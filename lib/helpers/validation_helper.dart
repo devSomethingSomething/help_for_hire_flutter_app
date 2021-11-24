@@ -48,7 +48,7 @@ class ValidationHelper {
       return 'Password should be at least 8 characters long please try again';
     } else if (text.length > 11) {
       return 'Password cant be more than 11 characters please try again';
-    } else if (!text.contains(RegExp(r'[A-Z]')) &&
+    } else if (!text.contains(RegExp(r'[A-Z]')) ||
         !text.contains(RegExp(r'[a-z]'))) {
       return 'Password must contain uppercase and lowercase';
     } else if (text.contains(RegExp(r'[A-Z]')) &&
