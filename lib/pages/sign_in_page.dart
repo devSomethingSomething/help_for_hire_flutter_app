@@ -58,12 +58,13 @@ class _SignInPageState extends State<SignInPage> {
               _idNumberController.text;
 
           // Load the user
-          context.read<UserService>().loadUser(context: context);
+          await context.read<UserService>().loadUser(context: context);
 
           // Go to first page
           Navigator.pushNamedAndRemoveUntil(
             context,
-            RouteManager.invitesPage,
+            // Change this back to invites later
+            RouteManager.profileDiscoveryPage,
             (_) => false,
           );
         }

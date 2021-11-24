@@ -32,7 +32,7 @@ class WorkerService with ChangeNotifier {
   var workers = <WorkerModel>[];
   WorkerModel? worker;
 
-  var _jsons = <Map<String, dynamic>>[];
+  var _jsons = [];
   var _json = <String, dynamic>{};
 
   static const _controllerRoute = '/api/worker/';
@@ -92,12 +92,16 @@ class WorkerService with ChangeNotifier {
 
   Future<void> getWorkers() async {
     final response = await get(
-      Uri.parse(''), // Need to add the link
+      Uri.parse(
+        'https://192.168.101.166:5001${_controllerRoute}all',
+      ),
     );
 
     if (response.statusCode == HttpStatus.ok) {
       try {
         _jsons = jsonDecode(response.body);
+
+        workers.clear();
 
         for (var json in _jsons) {
           workers.add(
@@ -114,6 +118,8 @@ class WorkerService with ChangeNotifier {
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 
   Future<void> putWorker({
@@ -140,5 +146,40 @@ class WorkerService with ChangeNotifier {
     } else {
       // Handle other errors
     }
+  }
+
+  Future<void> getWorkersInCity({
+    required String locationId,
+  }) async {
+    final response = await get(
+      Uri.parse(
+        'https://192.168.101.166:5001${_controllerRoute}cities/?locationid=$locationId',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _jsons = jsonDecode(response.body);
+
+        workers.clear();
+
+        for (var json in _jsons) {
+          workers.add(
+            WorkerModel.fromJson(
+              json: json,
+            ),
+          );
+        }
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
+    } else {
+      // Handle other errors
+
+    }
+
+    notifyListeners();
   }
 }

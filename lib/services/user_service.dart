@@ -38,7 +38,7 @@ class UserService with ChangeNotifier {
 
   // Loads the correct user information
   // Could clean this up a bit
-  void loadUser({
+  Future<void> loadUser({
     required BuildContext context,
   }) async {
     await context.read<EmployerService>().getEmployer(
