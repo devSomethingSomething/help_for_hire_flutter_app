@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/icons/icon_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
@@ -19,6 +20,7 @@ class NewPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: const AppBarWidget(
         data: 'New password',
       ),
@@ -50,7 +52,7 @@ class NewPasswordPage extends StatelessWidget {
                 controller: _repeatNewPasswordController,
               ),
               const LargeSpacerWidget(),
-              ButtonWidget(
+              RoundedButtonWidget(
                 data: 'SUBMIT',
                 onPressed: () {
                   Navigator.pushNamed(
@@ -58,6 +60,7 @@ class NewPasswordPage extends StatelessWidget {
                     RouteManager.resetPasswordSuccessPage,
                   );
                 },
+                invertColors: true,
               ),
             ],
           ),

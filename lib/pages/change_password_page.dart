@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_field_widget.dart';
 
 class ChangePasswordPage extends StatelessWidget {
@@ -12,6 +13,7 @@ class ChangePasswordPage extends StatelessWidget {
     TextEditingController confirmNewPasswordController =
         TextEditingController();
     return Scaffold(
+     // backgroundColor: Colors.white,
       appBar: const AppBarWidget(
         data: 'Change password',
       ),
@@ -24,7 +26,6 @@ class ChangePasswordPage extends StatelessWidget {
               ),
               const Icon(
                 Icons.lock_outline_rounded,
-                color: Colors.grey,
                 size: 144.0,
               ),
               const SizedBox(
@@ -58,25 +59,13 @@ class ChangePasswordPage extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
-              SizedBox(
-                width: 200,
+              RoundedButtonWidget(
+                data: 'Submit',
+                onPressed: () {},
+                invertColors: true,
+              ),
+              const SizedBox(
                 height: 50,
-                child: ElevatedButton(
-                  child: const Text(
-                    'SUBMIT',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.teal,
-                    ),
-                  ),
-                ),
               ),
             ],
           ),
