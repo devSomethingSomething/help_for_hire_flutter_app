@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/history_service.dart';
-import 'package:help_for_hire_flutter_app/widgets/buttons/flat_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/cards/history_card_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -86,6 +89,7 @@ class HistoryPage extends StatelessWidget {
                     ],
                   )
                 : ListView(
+                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       // Need to extract this out so that we can dynamically
                       // create multiple tiles with the listview builder method
@@ -93,25 +97,10 @@ class HistoryPage extends StatelessWidget {
                         padding: const EdgeInsets.all(
                           8.0,
                         ),
-                        child: ListTile(
-                          leading: const Icon(
-                            Icons.insert_invitation,
-                            size: 32.0,
-                          ),
-                          minVerticalPadding: 16.0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              8.0,
-                            ),
-                          ),
-                          tileColor: Colors.grey[200],
-                          title: const Text(
-                            'You received an invite on 2021/01/01 from John Doe',
-                          ),
-                          trailing: const Icon(
-                            Icons.exit_to_app,
-                            size: 32.0,
-                          ),
+                        child: HistoryCard(
+                          icon: Icons.insert_invitation,
+                          title:
+                              'You received an invite on 2021/01/01 from John Doe',
                         ),
                       ),
                     ],
