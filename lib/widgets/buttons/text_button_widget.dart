@@ -23,7 +23,7 @@ class TextButtonWidget extends StatelessWidget {
           256,
           48,
         ),
-        primary: Colors.black,
+        primary: Colors.white,
       ),
     );
   }
