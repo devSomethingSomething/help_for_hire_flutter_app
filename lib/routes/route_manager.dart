@@ -99,10 +99,10 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const RegistrationSuccessPage(),
         );
-      case loggedInUserProfile:
-        return MaterialPageRoute(
-          builder: (_) => LoggedInUserProfile(),
-        );
+      // case loggedInUserProfile:
+      //   return MaterialPageRoute(
+      //     builder: (_) => LoggedInUserProfile(),
+      //   );
       case changePasswordPage:
         return MaterialPageRoute(
           builder: (_) => const ChangePasswordPage(),

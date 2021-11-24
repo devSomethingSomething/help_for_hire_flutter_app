@@ -59,6 +59,22 @@ class ProfileDiscoveryPage extends StatelessWidget {
             },
             splashRadius: 28.0,
           ),
+          IconButton(
+            icon: const Icon(
+              Icons.filter_list,
+              size: 28.0,
+            ),
+            onPressed: () {},
+            splashRadius: 28.0,
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.sort,
+              size: 28.0,
+            ),
+            onPressed: () {},
+            splashRadius: 28.0,
+          ),
         ],
         backgroundColor: Colors.blue[900],
         title: const Text(
@@ -113,10 +129,10 @@ class ProfileDiscoveryPage extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Placeholder(
-                                color: Colors.black,
-                                fallbackHeight: 56.0,
-                                fallbackWidth: 56.0,
+                              // Will be a profile picture later on
+                              const Icon(
+                                Icons.person,
+                                size: 56.0,
                               ),
                               Column(
                                 children: [
@@ -168,6 +184,43 @@ class ProfileDiscoveryPage extends StatelessWidget {
       ),
       drawer: const Drawer(),
       drawerEnableOpenDragGesture: false,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue[900],
+        child: const Icon(
+          Icons.history,
+          size: 28.0,
+        ),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                actions: [
+                  TextButton(
+                    child: Text(
+                      'Close',
+                      style: TextStyle(
+                        color: Colors.blue[900],
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+                // Viewed accounts will appear here
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [],
+                ),
+                title: const Text(
+                  'Viewed Accounts',
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
