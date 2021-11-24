@@ -177,7 +177,6 @@ class WorkerService with ChangeNotifier {
       // Handle not found
     } else {
       // Handle other errors
-
     }
 
     notifyListeners();

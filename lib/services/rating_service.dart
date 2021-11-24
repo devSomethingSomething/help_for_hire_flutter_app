@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 import 'package:http/http.dart';
 
 class RatingService with ChangeNotifier {
-  var rating = <RatingModel>[];
+  var ratings = <RatingModel>[];
 
-  var _jsons = <Map<String, dynamic>>[];
+  var _jsons = [];
   var _json = <String, dynamic>{};
 
   static const _controllerRoute = '/api/rating';
@@ -51,7 +52,7 @@ class RatingService with ChangeNotifier {
       try {
         _json = jsonDecode(response.body);
 
-        rating.add(
+        ratings.add(
           RatingModel.fromJson(
             json: _json,
           ),
@@ -78,7 +79,7 @@ class RatingService with ChangeNotifier {
         _jsons = jsonDecode(response.body);
 
         for (var json in _jsons) {
-          rating.add(
+          ratings.add(
             RatingModel.fromJson(
               json: json,
             ),
@@ -121,33 +122,4 @@ class RatingService with ChangeNotifier {
       // Handle other errors
     }
   }
-
-//Need to look into delete a bit more
-
-  // Future<void> deleteRating({
-  //   required String id,
-  // }) async {
-  //   final response = await put(
-  //     Uri.parse(
-  //       '',
-  //     ),
-  //     body: jsonEncode(rating),
-  //     headers: {
-  //       "Accept": "application/json",
-  //       "content-type": "application/json",
-  //     },
-  //   );
-
-  //   if (response.statusCode == HttpStatus.noContent) {
-  //     try {
-  //       // Request worked code
-  //     } catch (_) {
-  //       // Handle fail
-  //     }
-  //   } else if (response.statusCode == HttpStatus.notFound) {
-  //     // Handle bad request
-  //   } else {
-  //     // Handle other errors
-  //   }
-  // }
 }

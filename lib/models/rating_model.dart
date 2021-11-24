@@ -1,6 +1,8 @@
 class RatingModel {
   String ratingId;
+
   int value;
+
   String description;
   String employerId;
   String workerId;

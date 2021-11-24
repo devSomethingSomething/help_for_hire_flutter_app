@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
@@ -6,6 +8,35 @@ import 'package:provider/provider.dart';
 
 class ProfileDiscoveryPage extends StatelessWidget {
   const ProfileDiscoveryPage();
+
+  // Remove this later, just for testing until we complete the rating side of
+  // the app
+  List<Icon> _getRandomRating() {
+    var randomLength = Random().nextInt(5) + 1;
+
+    var length = 5 - randomLength;
+
+    var filledStars = List.generate(
+      randomLength,
+      (_) => const Icon(
+        Icons.star,
+        color: Colors.orange,
+        size: 20.0,
+      ),
+    );
+
+    var unfilledStars = List.generate(
+      length,
+      (_) => const Icon(
+        Icons.star,
+        size: 20.0,
+      ),
+    );
+
+    filledStars.addAll(unfilledStars);
+
+    return filledStars;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,33 +136,10 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                 ],
                               ),
                               // Needs to be dynamic
+                              // Needs to somehow get the average rating for
+                              // each user and return that here
                               Row(
-                                children: const [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 20.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 20.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 20.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 20.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    size: 20.0,
-                                  ),
-                                ],
+                                children: _getRandomRating(),
                               ),
                               IconButton(
                                 icon: const Icon(
