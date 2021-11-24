@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/widget_controller/review_rating.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
 
 class ReviewPage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _ReviewPageState extends State<ReviewPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey.shade100,
         appBar: AppBar(
           title: Text('Review'),
           leading: IconButton(
@@ -41,7 +42,7 @@ class _ReviewPageState extends State<ReviewPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 HeadingTextWidget(
-                  data: 'Review',
+                  data: 'Review Details',
                 ),
                 //want to retrieve reviewed account details
                 Text('reviewed account details'),
@@ -49,7 +50,7 @@ class _ReviewPageState extends State<ReviewPage> {
                   setState(() {
                     _rating = rating;
                   });
-                }),             
+                }),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(
@@ -58,7 +59,7 @@ class _ReviewPageState extends State<ReviewPage> {
                     children: [
                       TextField(
                         decoration: InputDecoration(
-                          hintText: 'Other reasons',
+                          hintText: 'Please leave a comment for the review',
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 20.0),
                           border: OutlineInputBorder(
@@ -80,7 +81,11 @@ class _ReviewPageState extends State<ReviewPage> {
                     ],
                   ),
                 ),
-                ButtonWidget(data: 'Submit Report', onPressed: () {}),
+                RoundedButtonWidget(
+                  data: 'Submit Review',
+                  onPressed: () {},
+                  invertColors: true,
+                ),
               ],
             ),
           ),

@@ -16,6 +16,8 @@ class HistoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 3,
+      shadowColor: Colors.blue.shade900,
       child: Column(
         children: [
           ListTile(
