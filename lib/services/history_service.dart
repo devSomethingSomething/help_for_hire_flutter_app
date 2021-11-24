@@ -111,14 +111,18 @@ class HistoryService with ChangeNotifier {
 
     if (response.statusCode == HttpStatus.ok) {
       try {
-        _json = jsonDecode(response.body);
+        _jsons = jsonDecode(response.body);
 
-        histories.add(
-          HistoryModel.fromJson(
-            json: _json,
-          ),
-        );
-      } catch (_) {
+        histories.clear();
+
+        for (var json in _jsons) {
+          histories.add(
+            HistoryModel.fromJson(
+              json: json,
+            ),
+          );
+        }
+      } catch (e) {
         // Handle fail
       }
     } else if (response.statusCode == HttpStatus.notFound) {
@@ -126,5 +130,7 @@ class HistoryService with ChangeNotifier {
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 }

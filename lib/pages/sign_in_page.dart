@@ -64,7 +64,7 @@ class _SignInPageState extends State<SignInPage> {
           Navigator.pushNamedAndRemoveUntil(
             context,
             // Change this back to invites later
-            RouteManager.profileDiscoveryPage,
+            RouteManager.historyPage,
             (_) => false,
           );
         }
