@@ -1,3 +1,7 @@
+// ignore_for_file: unnecessary_this, unnecessary_new
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/classes/job.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
@@ -18,6 +22,8 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.d
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_fields/description_text_field.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -61,6 +67,32 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
     _descriptionController.dispose();
 
     super.dispose();
+  }
+
+  static const _controllerRoute = '/api/job/';
+
+  String jobid = 'EaDa3RhhQcafJva0dJEk';
+  List _job = [];
+  Future<String> job() async {
+    final response = await get(
+      Uri.parse(
+        'https://192.168.2.18:5001${_controllerRoute}all',
+      ),
+    );
+
+    var resbody = json.decode(response.body);
+
+    setState(() {
+      _job = resbody;
+    });
+
+    throw Exception();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.job();
   }
 
   @override
@@ -113,22 +145,39 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                               validator: ValidationHelper.validateDescription,
                             ),
                             const MediumSpacerWidget(),
-                            // Need to somehow get the jobs from the dropdown here
-                            Consumer<JobService>(
-                              builder: (_, service, __) {
-                                return JobsDropdownWidget(
-                                  jobsList: service.jobs
-                                      .map(
-                                        (job) => MultiSelectItem<JobModel>(
-                                          job,
-                                          job.title,
-                                        ),
-                                      )
-                                      .toList(),
-                                  globalKey: _key,
+                            //Need to somehow get the jobs from the dropdown here
+                            DropdownButton(
+                              items: _job.map((item) {
+                                return new DropdownMenuItem(
+                                  child: Text(
+                                    item['title'],
+                                  ),
+                                  value: item['jobId'].toString(),
                                 );
+                              }).toList(),
+                              onChanged: (val) {
+                                setState(() {
+                                  jobid = val.toString();
+                                  print(jobid.toString());
+                                });
                               },
+                              value: jobid,
                             ),
+                            // Consumer<JobService>(
+                            //   builder: (_, service, __) {
+                            //     return JobsDropdownWidget(
+                            //       jobsList: service.jobs
+                            //           .map(
+                            //             (job) => MultiSelectItem<JobModel>(
+                            //               job,
+                            //               job.title,
+                            //             ),
+                            //           )
+                            //           .toList(),
+                            //       globalKey: _key,
+                            //     );
+                            //   },
+                            // ),
                             const MediumSpacerWidget(),
                             TextFormFieldWidget(
                               labelText: 'Minimum Fee',
