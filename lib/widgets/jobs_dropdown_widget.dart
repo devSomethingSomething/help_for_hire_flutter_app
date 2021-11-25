@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/job_model.dart';
+import 'package:help_for_hire_flutter_app/services/job_service.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:provider/provider.dart';
 
 class JobsDropdownWidget extends StatefulWidget {
   final List<MultiSelectItem<JobModel>> _jobsList;
@@ -82,6 +84,8 @@ class _JobsDropdownWidgetState extends State<JobsDropdownWidget> {
             _selectedJobs = results.cast<JobModel>();
           },
         );
+
+        context.read<JobService>().selectedJobs = _selectedJobs;
 
         widget._globalKey.currentState!.validate();
       },

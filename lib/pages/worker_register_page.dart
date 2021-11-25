@@ -173,7 +173,13 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                               ),
                               fullTime: _fullTime,
                               partTime: _partTime,
-                              jobIds: [],
+                              jobIds: context
+                                  .read<JobService>()
+                                  .selectedJobs
+                                  .map(
+                                    (job) => job.jobId,
+                                  )
+                                  .toList(),
                               user: context.read<UserService>().currentUser,
                             );
 

@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 
 class JobService with ChangeNotifier {
   var jobs = <JobModel>[];
+  var selectedJobs = <JobModel>[];
 
   var _jsons = [];
 
