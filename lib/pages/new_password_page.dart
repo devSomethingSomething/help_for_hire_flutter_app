@@ -13,6 +13,8 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.da
 import 'package:help_for_hire_flutter_app/widgets/text/details_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 
 class NewPasswordPage extends StatelessWidget {
   final _newPasswordController = TextEditingController();
@@ -22,6 +24,10 @@ class NewPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _key = GlobalKey<FormState>();
+    TextEditingController newPasswordController = TextEditingController();
+    TextEditingController confirmNewPasswordController =
+        TextEditingController();
     return Scaffold(
       body: Stack(
         children: [
@@ -32,51 +38,59 @@ class NewPasswordPage extends StatelessWidget {
                 16.0,
               ),
               child: Center(
-                child: Column(
-                  children: [
-                    const HeaderWidget(
-                      data: 'New Password',
-                    ),
-                    const SmallSpacerWidget(),
-                    const DividerWidget(
-                      height: 4.0,
-                      width: 256.0,
-                    ),
-                    const SmallSpacerWidget(),
-                    const IconWidget(
-                      icon: Icons.password_rounded,
-                    ),
-                    const HeadingTextWidget(
-                      data: 'Enter your New Password',
-                    ),
-                    const SmallSpacerWidget(),
-                    const DetailsTextWidget(
-                      data:
-                          'Enter your new password below to\ncomplete the password reset process',
-                    ),
-                    const MediumSpacerWidget(),
-                    PasswordTextFieldWidget(
-                      data: 'New password',
-                      keyboardType: TextInputType.text,
-                      controller: _newPasswordController,
-                    ),
-                    const SmallSpacerWidget(),
-                    PasswordTextFieldWidget(
-                      data: 'Repeat new password',
-                      keyboardType: TextInputType.text,
-                      controller: _repeatNewPasswordController,
-                    ),
-                    const LargeSpacerWidget(),
-                    RoundedButtonWidget(
-                      data: 'SUBMIT',
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          RouteManager.resetPasswordSuccessPage,
-                        );
-                      },
-                    ),
-                  ],
+                child: Form(
+                  key: _key,
+                  child: Column(
+                    children: [
+                      const HeaderWidget(
+                        data: 'New Password',
+                      ),
+                      const SmallSpacerWidget(),
+                      const DividerWidget(
+                        height: 4.0,
+                        width: 256.0,
+                      ),
+                      const SmallSpacerWidget(),
+                      const IconWidget(
+                        icon: Icons.password_rounded,
+                      ),
+                      const HeadingTextWidget(
+                        data: 'Enter your New Password',
+                      ),
+                      const SmallSpacerWidget(),
+                      const DetailsTextWidget(
+                        data:
+                            'Enter your new password below to\ncomplete the password reset process',
+                      ),
+                      const MediumSpacerWidget(),
+                      TextFormField(
+                        decoration:
+                            InputDecoration(hintText: 'Enter new password'),
+                        keyboardType: TextInputType.text,
+                        controller: newPasswordController,
+                        validator: ValidationHelper.validatePassword,
+                      ),
+                      TextFormField(
+                        decoration:
+                            InputDecoration(hintText: 'Repeat new password'),
+                        keyboardType: TextInputType.text,
+                        controller: confirmNewPasswordController,
+                        validator: ValidationHelper.validatePassword,
+                      ),
+                      const LargeSpacerWidget(),
+                      RoundedButtonWidget(
+                        data: 'SUBMIT',
+                        onPressed: () {
+                          if (_key.currentState!.validate()) {
+                            Navigator.pushNamed(
+                              context,
+                              RouteManager.resetPasswordSuccessPage,
+                            );
+                          } else {}
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
