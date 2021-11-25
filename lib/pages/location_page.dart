@@ -74,6 +74,9 @@ class _LocationPageState extends State<LocationPage> {
                                     ),
                                   ),
                                   labelText: 'Province',
+                                  errorStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
                                 ),
                                 iconSize: 28.0,
                                 items: LocationConstants.provinces
@@ -93,6 +96,9 @@ class _LocationPageState extends State<LocationPage> {
                                         province: province.toString(),
                                       );
                                 },
+                                validator: (value) => value == null
+                                    ? 'Please select a province'
+                                    : null,
                               ),
                               decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.all(
@@ -122,6 +128,9 @@ class _LocationPageState extends State<LocationPage> {
                                               ),
                                             ),
                                             labelText: 'City',
+                                            errorStyle: TextStyle(
+                                              color: Colors.black,
+                                            ),
                                           ),
                                           iconSize: 28.0,
                                           items: service.locations
@@ -141,6 +150,9 @@ class _LocationPageState extends State<LocationPage> {
                                           // Just need to make sure that there is
                                           // now a city in each province
                                           value: service.locations.first.city,
+                                          validator: (value) => value == null
+                                              ? 'Please select a city'
+                                              : null,
                                         ),
                                         decoration: const BoxDecoration(
                                           borderRadius: BorderRadius.all(

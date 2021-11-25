@@ -49,8 +49,8 @@ class RouteManager {
   static const updateUserInfoPage = '/updateUserInfoPage';
   static const selectedWorkerProfilePage = '/selectedWorkerProfilePage';
   static const loginPage = '/loginPage';
-  static const workerProfile = '/workerProfile';
-  static const employerProfile = '/employerProfile';
+  static const workerProfilePage = '/workerProfilePage';
+  static const employerProfilePage = '/employerProfilePage';
 
   const RouteManager._();
 
@@ -150,13 +150,13 @@ class RouteManager {
         return MaterialPageRoute(
           builder: (_) => const LoginPage(),
         );
-      case workerProfile:
+      case workerProfilePage:
         return MaterialPageRoute(
-          builder: (_) => const WorkerProfile(),
+          builder: (_) => const WorkerProfilePage(),
         );
-      case employerProfile:
+      case employerProfilePage:
         return MaterialPageRoute(
-          builder: (_) => const EmployerProfile(),
+          builder: (_) => const EmployerProfilePage(),
         );
       default:
         throw Exception(

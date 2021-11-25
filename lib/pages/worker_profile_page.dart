@@ -7,8 +7,8 @@ import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:side_sheet/side_sheet.dart';
 
-class WorkerProfile extends StatelessWidget {
-  const WorkerProfile({Key? key}) : super(key: key);
+class WorkerProfilePage extends StatelessWidget {
+  const WorkerProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,6 @@ class WorkerProfile extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: CircleAvatar(
-                      
                       backgroundColor: Colors.grey,
                       backgroundImage: AssetImage(ImageConstants.placeholder),
                       radius: 80,
@@ -139,7 +138,6 @@ class WorkerProfile extends StatelessWidget {
             SizedBox(
               height: 30,
             )
-          
           ],
         ),
       ),
@@ -173,9 +171,6 @@ Text text(String txt) {
   return Text(
     txt,
     style: TextStyle(
-      color: Colors.black,
-      fontSize: 15,
-      fontWeight: FontWeight.bold
-    ),
+        color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
   );
 }

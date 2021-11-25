@@ -87,6 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               icon: Icons.person,
                               keyboardType: TextInputType.number,
                               maxLength: 13,
+                              validator: ValidationHelper.validateId,
                             ),
                             const SmallSpacerWidget(),
                             // Needs better validation
@@ -124,6 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               keyboardType: TextInputType.text,
                               maxLength: 24,
                               obscureText: true,
+                              validator: ValidationHelper.validatePassword,
                             ),
                           ],
                         ),
