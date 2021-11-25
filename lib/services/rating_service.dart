@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 import 'package:help_for_hire_flutter_app/data_transfer_objects/rating_dto.dart';
 import 'package:http/http.dart';
@@ -22,7 +23,7 @@ class RatingService with ChangeNotifier {
     required RatingDto rating,
   }) async {
     final response = await post(
-      Uri.parse('https://192.168.101.166:5001$_controllerRoute'),
+      Uri.parse('https://${DomainConstants.ip}:5001$_controllerRoute'),
       body: jsonEncode(rating),
       headers: {
         "Accept": "application/json",
@@ -47,7 +48,7 @@ class RatingService with ChangeNotifier {
   }) async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+        'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
       ),
     );
 
@@ -73,7 +74,7 @@ class RatingService with ChangeNotifier {
   Future<void> getRatings() async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001${_controllerRoute}all',
+        'https://${DomainConstants.ip}:5001${_controllerRoute}all',
       ),
     );
 
@@ -104,7 +105,7 @@ class RatingService with ChangeNotifier {
   }) async {
     final response = await put(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+        'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
       ),
       body: jsonEncode(rating),
       headers: {

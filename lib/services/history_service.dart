@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/history_model.dart';
 import 'package:http/http.dart';
 
@@ -20,7 +21,7 @@ class HistoryService with ChangeNotifier {
   }) async {
     final response = await post(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute',
+        'https://${DomainConstants.ip}:5001$_controllerRoute',
       ),
       body: jsonEncode(history),
       headers: {
@@ -49,7 +50,7 @@ class HistoryService with ChangeNotifier {
   }) async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+        'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
       ),
     );
 
@@ -75,7 +76,7 @@ class HistoryService with ChangeNotifier {
   Future<void> getHistories() async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001${_controllerRoute}all',
+        'https://${DomainConstants.ip}:5001${_controllerRoute}all',
       ),
     );
 
@@ -105,7 +106,7 @@ class HistoryService with ChangeNotifier {
   }) async {
     final response = await delete(
       Uri.parse(
-        'https://192.168.101.166:5001${_controllerRoute}all/?userid=$userId',
+        'https://${DomainConstants.ip}:5001${_controllerRoute}all/?userid=$userId',
       ),
     );
 
@@ -123,7 +124,7 @@ class HistoryService with ChangeNotifier {
   }) async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001${_controllerRoute}user/?userid=$id',
+        'https://${DomainConstants.ip}:5001${_controllerRoute}user/?userid=$id',
       ),
     );
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:http/http.dart';
 
@@ -44,7 +45,7 @@ class WorkerService with ChangeNotifier {
   }) async {
     final response = await post(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute',
+        'https://${DomainConstants.ip}:5001$_controllerRoute',
       ),
       body: jsonEncode(worker),
       headers: {
@@ -71,7 +72,7 @@ class WorkerService with ChangeNotifier {
   }) async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+        'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
       ),
     );
 
@@ -95,7 +96,7 @@ class WorkerService with ChangeNotifier {
   Future<void> getWorkers() async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001${_controllerRoute}all',
+        'https://${DomainConstants.ip}:5001${_controllerRoute}all',
       ),
     );
 
@@ -155,7 +156,7 @@ class WorkerService with ChangeNotifier {
   }) async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001${_controllerRoute}cities/?locationid=$locationId',
+        'https://${DomainConstants.ip}:5001${_controllerRoute}cities/?locationid=$locationId',
       ),
     );
 

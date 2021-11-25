@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:http/http.dart';
 
@@ -27,7 +28,7 @@ class EmployerService with ChangeNotifier {
   }) async {
     final response = await post(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute',
+        'https://${DomainConstants.ip}:5001$_controllerRoute',
       ),
       body: jsonEncode(employer),
       headers: {
@@ -54,7 +55,7 @@ class EmployerService with ChangeNotifier {
   }) async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+        'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
       ),
     );
 
@@ -78,7 +79,7 @@ class EmployerService with ChangeNotifier {
   Future<void> getEmployers() async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001${_controllerRoute}all',
+        'https://${DomainConstants.ip}:5001${_controllerRoute}all',
       ),
     );
 
@@ -109,7 +110,7 @@ class EmployerService with ChangeNotifier {
   }) async {
     final response = await put(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+        'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
       ),
       body: jsonEncode(employer),
       headers: {
