@@ -3,6 +3,7 @@ import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/services/history_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/cards/history_card_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/gradients/white_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
@@ -160,7 +161,7 @@ class HistoryPage extends StatelessWidget {
           ),
         ],
       ),
-      drawer: const Drawer(),
+      drawer: const DrawerWidget(),
       drawerEnableOpenDragGesture: false,
     );
   }

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:provider/provider.dart';
@@ -182,7 +183,7 @@ class ProfileDiscoveryPage extends StatelessWidget {
           },
         ),
       ),
-      drawer: const Drawer(),
+      drawer: const DrawerWidget(),
       drawerEnableOpenDragGesture: false,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue[900],

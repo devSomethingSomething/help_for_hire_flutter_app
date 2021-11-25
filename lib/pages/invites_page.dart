@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/services/invite_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/cards/invite_card_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:provider/provider.dart';
 
 class InvitesPage extends StatelessWidget {
@@ -55,7 +56,7 @@ class InvitesPage extends StatelessWidget {
         ),
       ),
       // Needs to be the same between pages
-      drawer: const Drawer(),
+      drawer: const DrawerWidget(),
       drawerEnableOpenDragGesture: false,
     );
   }
