@@ -1,35 +1,39 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 class AmountTimeCheckBox extends StatelessWidget {
+  final bool _time;
+
+  final String _data;
+
+  final void Function(bool?) _onChanged;
+
   const AmountTimeCheckBox({
-    Key? key,
     required bool time,
     required String data,
     required void Function(bool?) onChanged,
   })  : _time = time,
         _data = data,
-        _onChanged = onChanged,
-        super(key: key);
-
-  final bool _time;
-  final void Function(bool?) _onChanged;
-  final String _data;
+        _onChanged = onChanged;
 
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
-      controlAffinity: ListTileControlAffinity.leading,
-      activeColor: Colors.orange,
-      title: Text(
-        _data,
-        style: TextStyle(
-          color: Colors.white,
+    return Theme(
+      child: CheckboxListTile(
+        activeColor: Colors.white,
+        checkColor: Colors.blue[900],
+        controlAffinity: ListTileControlAffinity.leading,
+        title: Text(
+          _data,
+          style: const TextStyle(
+            color: Colors.white,
+          ),
         ),
+        onChanged: _onChanged,
+        value: _time,
       ),
-      value: _time,
-      onChanged: _onChanged,
+      data: Theme.of(context).copyWith(
+        unselectedWidgetColor: Colors.white,
+      ),
     );
   }
 }

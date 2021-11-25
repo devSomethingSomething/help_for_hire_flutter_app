@@ -100,6 +100,24 @@ class HistoryService with ChangeNotifier {
     }
   }
 
+  Future<void> deleteAllHistoryForUser({
+    required String userId,
+  }) async {
+    final response = await delete(
+      Uri.parse(
+        'https://192.168.101.166:5001${_controllerRoute}all/?userid=$userId',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.noContent) {
+      histories.clear();
+    } else {
+      // Handle other errors
+    }
+
+    notifyListeners();
+  }
+
   Future<void> getHistoryByUser({
     required String id,
   }) async {
@@ -111,14 +129,18 @@ class HistoryService with ChangeNotifier {
 
     if (response.statusCode == HttpStatus.ok) {
       try {
-        _json = jsonDecode(response.body);
+        _jsons = jsonDecode(response.body);
 
-        histories.add(
-          HistoryModel.fromJson(
-            json: _json,
-          ),
-        );
-      } catch (_) {
+        histories.clear();
+
+        for (var json in _jsons) {
+          histories.add(
+            HistoryModel.fromJson(
+              json: json,
+            ),
+          );
+        }
+      } catch (e) {
         // Handle fail
       }
     } else if (response.statusCode == HttpStatus.notFound) {
@@ -126,5 +148,7 @@ class HistoryService with ChangeNotifier {
     } else {
       // Handle other errors
     }
+
+    notifyListeners();
   }
 }

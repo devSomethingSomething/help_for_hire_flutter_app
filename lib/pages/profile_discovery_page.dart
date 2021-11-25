@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
@@ -6,6 +8,35 @@ import 'package:provider/provider.dart';
 
 class ProfileDiscoveryPage extends StatelessWidget {
   const ProfileDiscoveryPage();
+
+  // Remove this later, just for testing until we complete the rating side of
+  // the app
+  List<Icon> _getRandomRating() {
+    var randomLength = Random().nextInt(5) + 1;
+
+    var length = 5 - randomLength;
+
+    var filledStars = List.generate(
+      randomLength,
+      (_) => const Icon(
+        Icons.star,
+        color: Colors.orange,
+        size: 20.0,
+      ),
+    );
+
+    var unfilledStars = List.generate(
+      length,
+      (_) => const Icon(
+        Icons.star,
+        size: 20.0,
+      ),
+    );
+
+    filledStars.addAll(unfilledStars);
+
+    return filledStars;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +57,22 @@ class ProfileDiscoveryPage extends StatelessWidget {
                         context.read<UserService>().currentUser.locationId,
                   );
             },
+            splashRadius: 28.0,
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.filter_list,
+              size: 28.0,
+            ),
+            onPressed: () {},
+            splashRadius: 28.0,
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.sort,
+              size: 28.0,
+            ),
+            onPressed: () {},
             splashRadius: 28.0,
           ),
         ],
@@ -82,10 +129,10 @@ class ProfileDiscoveryPage extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Placeholder(
-                                color: Colors.black,
-                                fallbackHeight: 56.0,
-                                fallbackWidth: 56.0,
+                              // Will be a profile picture later on
+                              const Icon(
+                                Icons.person,
+                                size: 56.0,
                               ),
                               Column(
                                 children: [
@@ -105,33 +152,10 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                 ],
                               ),
                               // Needs to be dynamic
+                              // Needs to somehow get the average rating for
+                              // each user and return that here
                               Row(
-                                children: const [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 20.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 20.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 20.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.orange,
-                                    size: 20.0,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    size: 20.0,
-                                  ),
-                                ],
+                                children: _getRandomRating(),
                               ),
                               IconButton(
                                 icon: const Icon(
@@ -160,6 +184,43 @@ class ProfileDiscoveryPage extends StatelessWidget {
       ),
       drawer: const Drawer(),
       drawerEnableOpenDragGesture: false,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue[900],
+        child: const Icon(
+          Icons.history,
+          size: 28.0,
+        ),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                actions: [
+                  TextButton(
+                    child: Text(
+                      'Close',
+                      style: TextStyle(
+                        color: Colors.blue[900],
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+                // Viewed accounts will appear here
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [],
+                ),
+                title: const Text(
+                  'Viewed Accounts',
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

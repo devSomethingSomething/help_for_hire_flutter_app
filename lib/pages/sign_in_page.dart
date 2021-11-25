@@ -11,6 +11,7 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.d
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage();
@@ -64,7 +65,7 @@ class _SignInPageState extends State<SignInPage> {
           Navigator.pushNamedAndRemoveUntil(
             context,
             // Change this back to invites later
-            RouteManager.profileDiscoveryPage,
+            RouteManager.historyPage,
             (_) => false,
           );
         }
@@ -128,6 +129,7 @@ class _SignInPageState extends State<SignInPage> {
                               icon: Icons.person,
                               keyboardType: TextInputType.number,
                               maxLength: 13,
+                              validator: ValidationHelper.validateId,
                             ),
                             const MediumSpacerWidget(),
                             TextFormFieldWidget(
@@ -137,6 +139,7 @@ class _SignInPageState extends State<SignInPage> {
                               keyboardType: TextInputType.text,
                               maxLength: 24,
                               obscureText: true,
+                              validator: ValidationHelper.validatePassword,
                             ),
                           ],
                         ),

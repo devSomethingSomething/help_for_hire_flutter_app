@@ -8,13 +8,14 @@ class WorkerModel extends UserModel {
   bool fullTime;
   bool partTime;
 
-  // Need to store jobs or skills that a worker can do
+  List<String> jobIds;
 
   WorkerModel({
     required this.description,
     required this.minimumFee,
     required this.fullTime,
     required this.partTime,
+    required this.jobIds,
     required UserModel user,
   }) : super(
           userId: user.userId,
@@ -30,6 +31,7 @@ class WorkerModel extends UserModel {
         minimumFee = json['minimumFee'],
         fullTime = json['fullTime'],
         partTime = json['partTime'],
+        jobIds = json['jobIds'],
         super(
           userId: json['userId'],
           name: json['name'],
@@ -43,6 +45,7 @@ class WorkerModel extends UserModel {
         'minimumFee': minimumFee,
         'fullTime': fullTime,
         'partTime': partTime,
+        'jobIds': jobIds,
         'userId': userId,
         'name': name,
         'surname': surname,

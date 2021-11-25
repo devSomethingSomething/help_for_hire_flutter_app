@@ -1,5 +1,4 @@
-class RatingModel {
-  String ratingId;
+class RatingDto {
 
   int value;
 
@@ -7,27 +6,24 @@ class RatingModel {
   String employerId;
   String workerId;
 
-  RatingModel({
-    required this.ratingId,
+  RatingDto({
     required this.value,
     required this.description,
     required this.employerId,
     required this.workerId,
   });
 
-  RatingModel.fromJson({
+  RatingDto.fromJson({
     required Map<String, dynamic> json,
-  })  : ratingId = json['ratingId'],
-        value = json['value'],
+  })  : value = json['value'],
         description = json['description'],
         employerId = json['employerId'],
         workerId = json['workerId'];
 
   Map<String, dynamic> toJson() => {
-        'ratingId': ratingId,
-        'value': value,
-        'description': description,
-        'employerId': employerId,
-        'workerId': workerId,
-      };
+    'value': value,
+    'description': description,
+    'employerId': employerId,
+    'workerId': workerId,
+  };
 }
