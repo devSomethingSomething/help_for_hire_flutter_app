@@ -66,7 +66,7 @@ class _App extends StatelessWidget {
         builder: (_, value, __) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: RouteManager.splashPage,
+            initialRoute: RouteManager.changePasswordPage,
             onGenerateRoute: RouteManager.generateRoute,
             theme: value.darkTheme ? darkTheme : lightTheme,
           );
