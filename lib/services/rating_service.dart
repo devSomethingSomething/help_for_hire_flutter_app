@@ -16,6 +16,8 @@ class RatingService with ChangeNotifier {
 
   RatingService();
 
+  // Update back to rating model later
+  // Will work fine with a rating model
   Future<void> postRating({
     required RatingDto rating,
   }) async {

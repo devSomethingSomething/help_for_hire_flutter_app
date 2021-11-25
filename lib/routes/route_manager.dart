@@ -3,7 +3,6 @@ import 'package:help_for_hire_flutter_app/pages/account_type_page.dart';
 import 'package:help_for_hire_flutter_app/pages/change_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/employer_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/location_page.dart';
-import 'package:help_for_hire_flutter_app/pages/logged_in_user_profile_page.dart';
 import 'package:help_for_hire_flutter_app/pages/history_page.dart';
 import 'package:help_for_hire_flutter_app/pages/new_password_page.dart';
 import 'package:help_for_hire_flutter_app/pages/register_page.dart';
@@ -146,6 +145,7 @@ class RouteManager {
       case selectedWorkerProfilePage:
         return MaterialPageRoute(
           builder: (_) => SelectedWorkerProfilePage(),
+        );
       case loginPage:
         return MaterialPageRoute(
           builder: (_) => const LoginPage(),
