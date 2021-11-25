@@ -21,9 +21,9 @@ class ValidationHelper {
     String? text,
   ) {
     if (text == null || text.isEmpty) {
-      return 'Text is empty';
+      return 'Number is empty';
     } else if (text.contains('.') || text.contains(',')) {
-      return 'Text cannot contain decimal points';
+      return 'Number cannot contain decimal points';
     }
 
     return null;
