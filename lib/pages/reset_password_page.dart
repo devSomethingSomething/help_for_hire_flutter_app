@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/pages/employer_profile_page.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/white_text_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
@@ -13,6 +15,7 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.da
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text/white_heading_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:provider/provider.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage();
@@ -78,6 +81,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           // Just to make sure that it works perfectly for
                           // IDs while still allowing for foreign IDs
                           // validator: ,
+                          validator: ValidationHelper.validateId,
                         ),
                       ),
                       padding: const EdgeInsets.all(
@@ -90,13 +94,23 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       onPressed: () async {
                         if (_key.currentState!.validate()) {
                           if (await ConnectionHelper.hasConnection()) {
-                            final isExistingId =
-                                await FirebaseService.isExistingId(
+                            if (await FirebaseService.isExistingId(
                               id: _idNumberController.text,
-                            );
+                            )) {
+                              context.read<UserService>().currentUser.userId =
+                                  _idNumberController.text;
 
-                            if (isExistingId) {
-                              // Handle OTP
+                              await context.read<UserService>().loadUser(
+                                    context: context,
+                                  );
+
+                              await FirebaseService.handleOtp(
+                                context: context,
+                                phoneNumber: context
+                                    .read<UserService>()
+                                    .currentUser
+                                    .phoneNumber,
+                              );
                             } else {
                               SnackBarHelper.showSnackBar(
                                 context: context,

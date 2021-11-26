@@ -8,7 +8,7 @@ class WorkerModel extends UserModel {
   bool fullTime;
   bool partTime;
 
-  List<String> jobIds;
+  List<dynamic> jobIds;
 
   WorkerModel({
     required this.description,

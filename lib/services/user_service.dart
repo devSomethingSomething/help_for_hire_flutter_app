@@ -37,7 +37,6 @@ class UserService with ChangeNotifier {
   }
 
   // Loads the correct user information
-  // Could clean this up a bit
   Future<void> loadUser({
     required BuildContext context,
   }) async {

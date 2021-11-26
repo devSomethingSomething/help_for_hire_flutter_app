@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
+import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 
 class FirebaseService {
   const FirebaseService._();
@@ -129,14 +131,16 @@ class FirebaseService {
     }
   }
 
-  static void handleOtp({
+  static Future<void> handleOtp({
     required BuildContext context,
     required String phoneNumber,
   }) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber:
           '${DomainConstants.phoneNumberPrefix}${phoneNumber.substring(1)}',
-      codeSent: (_verificationId, _) async {
+      codeSent: (verificationId, _) async {
+        final _key = GlobalKey<FormState>();
+
         final _otpController = TextEditingController();
 
         showDialog(
@@ -145,28 +149,72 @@ class FirebaseService {
             actions: [
               TextButton(
                 child: const Text(
+                  'CANCEL',
+                ),
+                onPressed: () => Navigator.pop(context),
+              ),
+              TextButton(
+                child: const Text(
                   'SUBMIT',
                 ),
-                onPressed: () {
-                  final _smsCode = _otpController.text;
+                onPressed: () async {
+                  if (_key.currentState!.validate()) {
+                    if (await ConnectionHelper.hasConnection()) {
+                      final smsCode = _otpController.text;
 
-                  final credential = PhoneAuthProvider.credential(
-                    verificationId: _verificationId,
-                    smsCode: _smsCode,
-                  );
-
-                  FirebaseAuth.instance.signInWithCredential(credential).then(
-                        (_) => Navigator.popAndPushNamed(
-                          context,
-                          RouteManager.newPasswordPage,
-                        ),
+                      final credential = PhoneAuthProvider.credential(
+                        verificationId: verificationId,
+                        smsCode: smsCode,
                       );
+
+                      try {
+                        await FirebaseAuth.instance
+                            .signInWithCredential(credential)
+                            .then(
+                              (_) => Navigator.popAndPushNamed(
+                                context,
+                                RouteManager.newPasswordPage,
+                              ),
+                            );
+                      } catch (_) {
+                        SnackBarHelper.showSnackBar(
+                          context: context,
+                          data: 'OTP is incorrect, please try again',
+                        );
+
+                        Navigator.pop(context);
+                      }
+                    } else {
+                      SnackBarHelper.showSnackBar(
+                        context: context,
+                        data: 'No internet connection',
+                      );
+                    }
+                  } else {
+                    SnackBarHelper.showSnackBar(
+                      context: context,
+                      data: 'Invalid OTP entered',
+                    );
+                  }
                 },
               ),
             ],
-            content: TextField(
-              controller: _otpController,
-              keyboardType: TextInputType.number,
+            content: Padding(
+              child: Form(
+                key: _key,
+                child: TextFormFieldWidget(
+                  controller: _otpController,
+                  icon: Icons.pin,
+                  keyboardType: TextInputType.number,
+                  labelText: 'OTP',
+                  maxLength: 6,
+                  // Need to validate the OTP code
+                  // validator: ,
+                ),
+              ),
+              padding: const EdgeInsets.all(
+                16.0,
+              ),
             ),
             title: const Text(
               'Enter OTP',
