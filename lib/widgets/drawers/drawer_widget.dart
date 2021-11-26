@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/sign_in_page.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -15,7 +16,12 @@ class DrawerWidget extends StatelessWidget {
             leading: Icon(Icons.person),
             title: Text('Profile'),
             onTap: () {
-              Navigator.pushNamed(context, RouteManager.loggedInUserProfile);
+              if(UserService().isEmployer){
+                Navigator.pushNamed(context, RouteManager.workerProfilePage);
+              }else{
+                Navigator.pushNamed(context, RouteManager.employerProfilePage);
+              }
+
             },
           ),
           ListTile(
