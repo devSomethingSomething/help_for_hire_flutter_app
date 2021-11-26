@@ -49,7 +49,7 @@ class UserService with ChangeNotifier {
         );
 
     currentUser = context.read<EmployerService>().employer != null
-        ? context.read<EmployerService>().employer as EmployerModel
-        : context.read<WorkerService>().worker as WorkerModel;
+        ? context.read<EmployerService>().currentUser as EmployerModel
+        : context.read<WorkerService>().currentUser as WorkerModel;
   }
 }

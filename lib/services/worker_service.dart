@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/ip_address_constraints.dart';
 import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:http/http.dart';
 
@@ -31,6 +32,7 @@ class WorkerService with ChangeNotifier {
 
   var workers = <WorkerModel>[];
   WorkerModel? worker;
+  WorkerModel? currentUser;
 
   var _jsons = [];
   var _json = <String, dynamic>{};
@@ -44,7 +46,7 @@ class WorkerService with ChangeNotifier {
   }) async {
     final response = await post(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute',
+        'https://${IpAddressConstraints.ipv4Address}$_controllerRoute',
       ),
       body: jsonEncode(worker),
       headers: {
@@ -71,7 +73,7 @@ class WorkerService with ChangeNotifier {
   }) async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001$_controllerRoute?id=$id',
+        'https://${IpAddressConstraints.ipv4Address}$_controllerRoute?id=$id',
       ),
     );
 
@@ -95,7 +97,7 @@ class WorkerService with ChangeNotifier {
   Future<void> getWorkers() async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001${_controllerRoute}all',
+        'https://${IpAddressConstraints.ipv4Address}${_controllerRoute}all',
       ),
     );
 
@@ -155,7 +157,7 @@ class WorkerService with ChangeNotifier {
   }) async {
     final response = await get(
       Uri.parse(
-        'https://192.168.101.166:5001${_controllerRoute}cities/?locationid=$locationId',
+        'https://${IpAddressConstraints.ipv4Address}${_controllerRoute}cities/?locationid=$locationId',
       ),
     );
 

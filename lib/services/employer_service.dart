@@ -14,6 +14,7 @@ import 'package:http/http.dart';
 class EmployerService with ChangeNotifier {
   var employers = <EmployerModel>[];
   EmployerModel? employer;
+  EmployerModel? currentUser;
 
   var _jsons = <Map<String, dynamic>>[];
   var _json = <String, dynamic>{};
