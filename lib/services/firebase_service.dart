@@ -71,6 +71,24 @@ class FirebaseService {
     }
   }
 
+  static Future<bool> isExistingId({
+    required String id,
+  }) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: '$id${DomainConstants.emailSuffix}',
+        // Password does not matter here
+        password: '0123456789',
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password') {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   static Future<void> createUser({
     required BuildContext context,
     required String id,

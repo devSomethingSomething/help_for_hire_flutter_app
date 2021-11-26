@@ -1,26 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
+import 'package:help_for_hire_flutter_app/pages/employer_profile_page.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/white_text_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/icons/icon_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text/details_text_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_fields/text_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text/white_heading_text_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 
-class ResetPasswordPage extends StatelessWidget {
-  final _phoneNumberController = TextEditingController();
+class ResetPasswordPage extends StatefulWidget {
+  const ResetPasswordPage();
 
-  ResetPasswordPage();
+  @override
+  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
+}
+
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  final _key = GlobalKey<FormState>();
+
+  final _idNumberController = TextEditingController();
+
+  @override
+  void dispose() {
+    _idNumberController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           const BlueGradientWidget(),
@@ -40,32 +56,66 @@ class ResetPasswordPage extends StatelessWidget {
                       height: 4.0,
                       width: 256.0,
                     ),
-                    const SmallSpacerWidget(),
-                    const IconWidget(
-                      icon: Icons.lock_outline_rounded,
+                    const Icon(
+                      Icons.password_rounded,
+                      color: Colors.white,
+                      size: 128.0,
                     ),
-                    const HeadingTextWidget(
-                      data: 'Reset your Password',
+                    const WhiteHeadingTextWidget(
+                      data: 'Forgot your password?\nReset it here',
                     ),
-                    const SmallSpacerWidget(),
-                    const DetailsTextWidget(
-                      data:
-                          'Enter your phone number below to reset your password',
-                    ),
-                    const MediumSpacerWidget(),
-                    TextFieldWidget(
-                      data: 'Phone number',
-                      keyboardType: TextInputType.number,
-                      controller: _phoneNumberController,
+                    const LargeSpacerWidget(),
+                    Padding(
+                      child: Form(
+                        key: _key,
+                        child: TextFormFieldWidget(
+                          controller: _idNumberController,
+                          icon: Icons.person,
+                          keyboardType: TextInputType.number,
+                          labelText: 'ID Number',
+                          maxLength: 13,
+                          // Need to check the ID number validation method
+                          // Just to make sure that it works perfectly for
+                          // IDs while still allowing for foreign IDs
+                          // validator: ,
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(
+                        16.0,
+                      ),
                     ),
                     const LargeSpacerWidget(),
                     RoundedButtonWidget(
                       data: 'SUBMIT',
-                      onPressed: () {
-                        FirebaseService.handleOtp(
-                          context: context,
-                          phoneNumber: _phoneNumberController.text,
-                        );
+                      onPressed: () async {
+                        if (_key.currentState!.validate()) {
+                          if (await ConnectionHelper.hasConnection()) {
+                            final isExistingId =
+                                await FirebaseService.isExistingId(
+                              id: _idNumberController.text,
+                            );
+
+                            if (isExistingId) {
+                              // Handle OTP
+                            } else {
+                              SnackBarHelper.showSnackBar(
+                                context: context,
+                                data:
+                                    'User with ID: ${_idNumberController.text}, does not exist',
+                              );
+                            }
+                          } else {
+                            SnackBarHelper.showSnackBar(
+                              context: context,
+                              data: 'No internet connection',
+                            );
+                          }
+                        } else {
+                          SnackBarHelper.showSnackBar(
+                            context: context,
+                            data: 'Invalid ID number entered',
+                          );
+                        }
                       },
                     ),
                   ],
@@ -73,9 +123,29 @@ class ResetPasswordPage extends StatelessWidget {
               ),
             ),
           ),
+          Align(
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Text(
+                  'Don\'t have an account?',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                WhiteTextButtonWidget(
+                  data: 'Register',
+                  onPressed: () => Navigator.popAndPushNamed(
+                    context,
+                    RouteManager.registerPage,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 }
-
