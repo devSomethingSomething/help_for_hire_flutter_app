@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
+import 'package:help_for_hire_flutter_app/pages/worker_profile_page.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
@@ -59,13 +60,17 @@ class _SignInPageState extends State<SignInPage> {
               _idNumberController.text;
 
           // Load the user
-          await context.read<UserService>().loadUser(context: context);
+          await context.read<UserService>().loadUser(
+                context: context,
+              );
 
           // Go to first page
           Navigator.pushNamedAndRemoveUntil(
             context,
             // Change this back to invites later
-            RouteManager.historyPage,
+            context.read<UserService>().isEmployer
+                ? RouteManager.employerProfilePage
+                : RouteManager.workerProfilePage,
             (_) => false,
           );
         }

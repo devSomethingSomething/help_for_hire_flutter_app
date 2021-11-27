@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_fie
 class FirebaseService {
   const FirebaseService._();
 
+  @Deprecated('No longer needed as initialization is done in main')
   static Future<void> initialize() async {
     await Firebase.initializeApp();
   }
@@ -76,6 +79,9 @@ class FirebaseService {
   static Future<bool> isExistingId({
     required String id,
   }) async {
+    // --- 2021/11/26 - Seems like firebase blocks too many requests from one
+    // device, there is no solution around this in debug mode
+    // Waiting a few minutes seems to clear the block on the device
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: '$id${DomainConstants.emailSuffix}',
@@ -83,6 +89,14 @@ class FirebaseService {
         password: '0123456789',
       );
     } on FirebaseAuthException catch (e) {
+      if (e.toString().contains('blocked')) {
+        // Need to create a solution to this problem
+        // ignore: avoid_print
+        print('---------------------------'
+            '\nRate limit hit. Wait a few minutes before trying again'
+            '\n---------------------------');
+      }
+
       if (e.code == 'wrong-password') {
         return true;
       }
@@ -207,6 +221,7 @@ class FirebaseService {
                   icon: Icons.pin,
                   keyboardType: TextInputType.number,
                   labelText: 'OTP',
+                  lightMode: true,
                   maxLength: 6,
                   // Need to validate the OTP code
                   // validator: ,

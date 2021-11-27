@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/form_model.dart';
 import 'package:help_for_hire_flutter_app/pages/theme_data.dart';
@@ -12,12 +13,15 @@ import 'package:help_for_hire_flutter_app/services/location_service.dart';
 import 'package:help_for_hire_flutter_app/services/rating_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/services/worker_service.dart';
-import 'package:help_for_hire_flutter_app/services/employer_service.dart';
 
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   HttpOverrides.global = CustomHttpOverrides();
+
+  await Firebase.initializeApp();
 
   runApp(
     const _App(),

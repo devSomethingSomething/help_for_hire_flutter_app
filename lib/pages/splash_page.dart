@@ -18,7 +18,10 @@ class _SplashPageState extends State<SplashPage> {
     // This has to be above the super call according to the documentation
     // However, after doing some tests, it seems to work the same even if it is
     // after the super call
-    FirebaseService.initialize();
+    // --- 2021/11/26 - This call now happens before the app runs
+    // Should fix any issues we have had with firebase not initializing
+    // correctly
+    // FirebaseService.initialize();
 
     super.initState();
 

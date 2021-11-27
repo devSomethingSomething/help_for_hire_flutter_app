@@ -8,8 +8,7 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: ListView(
         children: [
           ListTile(
             leading: Icon(Icons.person),
@@ -66,6 +65,13 @@ class DrawerWidget extends StatelessWidget {
             title: Text('Change Password'),
             onTap: () {
               Navigator.pushNamed(context, RouteManager.changePasswordPage);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Profile Discovery'),
+            onTap: () {
+              Navigator.pushNamed(context, RouteManager.profileDiscoveryPage);
             },
           ),
           Divider(),

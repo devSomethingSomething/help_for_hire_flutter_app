@@ -18,6 +18,8 @@ class TextFormFieldWidget extends StatelessWidget {
 
   final String? Function(String?)? _validator;
 
+  final bool _lightMode;
+
   TextFormFieldWidget({
     required TextEditingController controller,
     required String labelText,
@@ -26,13 +28,15 @@ class TextFormFieldWidget extends StatelessWidget {
     int maxLength = 32,
     bool obscureText = false,
     String? Function(String?)? validator,
+    bool lightMode = false,
   })  : _controller = controller,
         _labelText = labelText,
         _icon = icon,
         _keyboardType = keyboardType,
         _maxLength = maxLength,
         _obscureText = obscureText,
-        _validator = validator {
+        _validator = validator,
+        _lightMode = lightMode {
     _showIcon = obscureText ? true : false;
   }
 
@@ -41,46 +45,46 @@ class TextFormFieldWidget extends StatelessWidget {
     return StatefulBuilder(
       builder: (_, setState) {
         return TextFormField(
-          cursorColor: Colors.white,
+          cursorColor: _lightMode ? Colors.blue[900] : Colors.white,
           controller: _controller,
           decoration: InputDecoration(
             counterText: '',
-            enabledBorder: const UnderlineInputBorder(
+            enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.white,
+                color: _lightMode ? Colors.blue.shade900 : Colors.white,
               ),
             ),
-            errorBorder: const UnderlineInputBorder(
+            errorBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.white,
+                color: _lightMode ? Colors.blue.shade900 : Colors.white,
               ),
             ),
-            errorStyle: const TextStyle(
-              color: Colors.white,
+            errorStyle: TextStyle(
+              color: _lightMode ? Colors.blue.shade900 : Colors.white,
             ),
-            focusedBorder: const UnderlineInputBorder(
+            focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.white,
+                color: _lightMode ? Colors.blue.shade900 : Colors.white,
               ),
             ),
-            focusedErrorBorder: const UnderlineInputBorder(
+            focusedErrorBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.white,
+                color: _lightMode ? Colors.blue.shade900 : Colors.white,
               ),
             ),
-            labelStyle: const TextStyle(
-              color: Colors.white,
+            labelStyle: TextStyle(
+              color: _lightMode ? Colors.blue.shade900 : Colors.white,
             ),
             labelText: _labelText,
             prefixIcon: Icon(
               _icon,
-              color: Colors.white,
+              color: _lightMode ? Colors.blue.shade900 : Colors.white,
             ),
             suffixIcon: _showIcon
                 ? IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility : Icons.visibility_off,
-                      color: Colors.white,
+                      color: _lightMode ? Colors.blue.shade900 : Colors.white,
                     ),
                     onPressed: () => setState(
                       () => _obscureText = !_obscureText,
@@ -91,8 +95,8 @@ class TextFormFieldWidget extends StatelessWidget {
           keyboardType: _keyboardType,
           maxLength: _maxLength,
           obscureText: _obscureText,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: _lightMode ? Colors.blue.shade900 : Colors.white,
           ),
           validator: _validator,
         );
