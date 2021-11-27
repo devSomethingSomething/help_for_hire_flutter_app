@@ -1,33 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
+import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
+import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/icons/icon_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text/details_text_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text/white_heading_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
-import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 
-class NewPasswordPage extends StatelessWidget {
+class NewPasswordPage extends StatefulWidget {
+  const NewPasswordPage();
+
+  @override
+  State<NewPasswordPage> createState() => _NewPasswordPageState();
+}
+
+class _NewPasswordPageState extends State<NewPasswordPage> {
+  final _key = GlobalKey<FormState>();
+
   final _newPasswordController = TextEditingController();
   final _repeatNewPasswordController = TextEditingController();
 
-  NewPasswordPage();
+  @override
+  void dispose() {
+    _newPasswordController.dispose();
+    _repeatNewPasswordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final _key = GlobalKey<FormState>();
-    TextEditingController newPasswordController = TextEditingController();
-    TextEditingController confirmNewPasswordController =
-        TextEditingController();
     return Scaffold(
       body: Stack(
         children: [
@@ -38,59 +45,80 @@ class NewPasswordPage extends StatelessWidget {
                 16.0,
               ),
               child: Center(
-                child: Form(
-                  key: _key,
-                  child: Column(
-                    children: [
-                      const HeaderWidget(
-                        data: 'New Password',
+                child: Column(
+                  children: [
+                    const HeaderWidget(
+                      data: 'New Password',
+                    ),
+                    const SmallSpacerWidget(),
+                    const DividerWidget(
+                      height: 4.0,
+                      width: 256.0,
+                    ),
+                    const Icon(
+                      Icons.password_rounded,
+                      color: Colors.white,
+                      size: 128.0,
+                    ),
+                    const WhiteHeadingTextWidget(
+                      data: 'Enter your new password',
+                    ),
+                    const LargeSpacerWidget(),
+                    Padding(
+                      child: Form(
+                        key: _key,
+                        child: Column(
+                          children: [
+                            TextFormFieldWidget(
+                              controller: _newPasswordController,
+                              icon: Icons.password_rounded,
+                              keyboardType: TextInputType.text,
+                              labelText: 'New Password',
+                              maxLength: 24,
+                              // Add password validation
+                              // validator: ,
+                            ),
+                            const MediumSpacerWidget(),
+                            TextFormFieldWidget(
+                              controller: _repeatNewPasswordController,
+                              icon: Icons.text_fields_rounded,
+                              keyboardType: TextInputType.text,
+                              labelText: 'Repeat New Password',
+                              maxLength: 24,
+                              // Add password validation
+                              // validator: ,
+                            ),
+                          ],
+                        ),
                       ),
-                      const SmallSpacerWidget(),
-                      const DividerWidget(
-                        height: 4.0,
-                        width: 256.0,
+                      padding: const EdgeInsets.all(
+                        16.0,
                       ),
-                      const SmallSpacerWidget(),
-                      const IconWidget(
-                        icon: Icons.password_rounded,
-                      ),
-                      const HeadingTextWidget(
-                        data: 'Enter your New Password',
-                      ),
-                      const SmallSpacerWidget(),
-                      const DetailsTextWidget(
-                        data:
-                            'Enter your new password below to\ncomplete the password reset process',
-                      ),
-                      const MediumSpacerWidget(),
-                      TextFormField(
-                        decoration:
-                            InputDecoration(hintText: 'Enter new password'),
-                        keyboardType: TextInputType.text,
-                        controller: newPasswordController,
-                        validator: ValidationHelper.validatePassword,
-                      ),
-                      TextFormField(
-                        decoration:
-                            InputDecoration(hintText: 'Repeat new password'),
-                        keyboardType: TextInputType.text,
-                        controller: confirmNewPasswordController,
-                        validator: ValidationHelper.validatePassword,
-                      ),
-                      const LargeSpacerWidget(),
-                      RoundedButtonWidget(
-                        data: 'SUBMIT',
-                        onPressed: () {
-                          if (_key.currentState!.validate()) {
-                            Navigator.pushNamed(
-                              context,
-                              RouteManager.resetPasswordSuccessPage,
+                    ),
+                    const LargeSpacerWidget(),
+                    RoundedButtonWidget(
+                      data: 'SUBMIT',
+                      onPressed: () async {
+                        if (_key.currentState!.validate()) {
+                          if (await ConnectionHelper.hasConnection()) {
+                            // Add code here
+                            // Will have to first delete the user
+                            // Then register them with the new password
+                          } else {
+                            SnackBarHelper.showSnackBar(
+                              context: context,
+                              data: 'No internet connection',
                             );
-                          } else {}
-                        },
-                      ),
-                    ],
-                  ),
+                          }
+                        } else {
+                          SnackBarHelper.showSnackBar(
+                            context: context,
+                            data: 'Invalid passwords entered',
+                          );
+                        }
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),
