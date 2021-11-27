@@ -17,9 +17,9 @@ class _Rating extends State<Rating> {
 
   Widget _buildRatingStar(int index) {
     if (index < _currentRate) {
-      return Icon(Icons.star, color: Colors.orange);
+      return Icon(Icons.star, color: Colors.orange,size: 65,);
     } else {
-      return Icon(Icons.star_border_outlined);
+      return Icon(Icons.star_border_outlined, color: Colors.grey[400],size: 65,);
     }
   }
 
@@ -37,16 +37,18 @@ class _Rating extends State<Rating> {
       );
     });
 
-    return Row(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: stars,
         ),
-        TextButton(
+        SizedBox(height: 10,),
+        /*TextButton(
           child: Text(
             'Clear',
-            style: TextStyle(color: Colors.blue),
+            style: TextStyle(color: Colors.blue,fontSize: 25),
           ),
           onPressed: () {
             setState(() {
@@ -54,7 +56,7 @@ class _Rating extends State<Rating> {
             });
             this.widget.onRateChosen(_currentRate);
           },
-        ),
+        ),*/
       ],
     );
   }
