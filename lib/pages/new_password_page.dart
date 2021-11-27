@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
@@ -11,6 +14,7 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.d
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text/white_heading_text_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:provider/provider.dart';
 
 class NewPasswordPage extends StatefulWidget {
   const NewPasswordPage();
@@ -75,8 +79,10 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                               keyboardType: TextInputType.text,
                               labelText: 'New Password',
                               maxLength: 24,
+                              obscureText: true,
                               // Add password validation
                               // validator: ,
+                              validator: ValidationHelper.validatePassword,
                             ),
                             const MediumSpacerWidget(),
                             TextFormFieldWidget(
@@ -85,8 +91,10 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                               keyboardType: TextInputType.text,
                               labelText: 'Repeat New Password',
                               maxLength: 24,
+                              obscureText: true,
                               // Add password validation
                               // validator: ,
+                              validator: ValidationHelper.validatePassword,
                             ),
                           ],
                         ),
@@ -99,11 +107,49 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                     RoundedButtonWidget(
                       data: 'SUBMIT',
                       onPressed: () async {
-                        if (_key.currentState!.validate()) {
+                        if (_key.currentState!.validate() &&
+                            _newPasswordController.text ==
+                                _repeatNewPasswordController.text) {
                           if (await ConnectionHelper.hasConnection()) {
-                            // Add code here
+                            showDialog(
+                              builder: (_) => const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              context: context,
+                            );
+
+                            // --- Note that this instead could use a custom
+                            // update method in the web api which uses the
+                            // firebase admin sdk. Should look into this instead
+                            // as it will be a better solution to our problem
                             // Will have to first delete the user
+                            await FirebaseService.deleteUser(
+                              id: context
+                                  .read<UserService>()
+                                  .currentUser
+                                  .userId,
+                            );
+
                             // Then register them with the new password
+                            await FirebaseService.createUser(
+                              context: context,
+                              id: context
+                                  .read<UserService>()
+                                  .currentUser
+                                  .userId,
+                              password: _newPasswordController.text,
+                            );
+
+                            // Pop the indicator
+                            Navigator.pop(context);
+
+                            // Go to next page
+                            Navigator.pushNamed(
+                              context,
+                              RouteManager.resetPasswordSuccessPage,
+                            );
                           } else {
                             SnackBarHelper.showSnackBar(
                               context: context,
@@ -113,7 +159,8 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                         } else {
                           SnackBarHelper.showSnackBar(
                             context: context,
-                            data: 'Invalid passwords entered',
+                            data:
+                                'Invalid passwords entered or the passwords do not match',
                           );
                         }
                       },

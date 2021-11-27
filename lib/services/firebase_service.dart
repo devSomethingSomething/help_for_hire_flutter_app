@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,7 @@ import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:http/http.dart';
 
 class FirebaseService {
   const FirebaseService._();
@@ -15,6 +14,16 @@ class FirebaseService {
   @Deprecated('No longer needed as initialization is done in main')
   static Future<void> initialize() async {
     await Firebase.initializeApp();
+  }
+
+  static Future<void> deleteUser({
+    required String id,
+  }) async {
+    await delete(
+      Uri.parse(
+        'https://${DomainConstants.ip}:5001/api/auth/?email=$id${DomainConstants.emailSuffix}',
+      ),
+    );
   }
 
   static Future<bool> isNotExistingUser({
