@@ -47,4 +47,3 @@ app.*.map.json
 
 # Hide the services file
 /android/app/google-services.json
-lib/constants/domain_constants.dart
