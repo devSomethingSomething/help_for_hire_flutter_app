@@ -21,6 +21,7 @@ class DelayHelper {
     required BuildContext context,
   }) {
     showDialog(
+      barrierDismissible: false,
       builder: (_) => const Center(
         child: CircularProgressIndicator(
           color: Colors.white,
