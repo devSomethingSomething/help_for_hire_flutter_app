@@ -1,19 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/headers/header_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text/white_heading_text_widget.dart';
+import 'package:provider/provider.dart';
 
 class TermsAndConditionsPage extends StatelessWidget {
+  final _termsAndConditions = const [
+    'THESE TERMS OF USE WERE UPDATED IN OCTOBER 2021.',
+    'THESE TERMS OF USE APPLY TO THE USE OF THE (HELP FOR HIRE) MOBILE APPLICATION.',
+    'AND THE (HELP FOR HIRE) SERVICES. '
+        'PLEASE READ THESE TERMS OF USE CAREFULLY. '
+        'BY USING THE (HELP FOR HIRE) MOBILE APPLICATION YOU INDICATE YOUR UNDERSTANDING AND ACCEPTANCE OF THESE TERMS OF USE. '
+        'IF YOU DO NOT AGREE TO THESE TERMS OF USE, YOU MUST NOT USE THE (HELP FOR HIRE) MOBILE APPLICATION.',
+    'PRIVACY POLICY',
+    'THE PRIVACY POLICY IS A PART OF THESE TERMS. '
+        'BY ACCEPTING THESE TERMS, YOU ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTAND THEM. '
+        'IF YOU DO NOT COMPLY WITH ANY OF THE PRIVACY POLICY, THAT WILL BE A BREACH OF THE TERMS. '
+        'UNDER THE PRIVACY POLICY AND THE TERMS, (HELP FOR HIRE) MAY HAVE CLAIMS AND OTHER RIGHTS AGAINST YOU. '
+        'THIS (HELP FOR HIRE) PRIVACY POLICY APPLIES TO HOW WE COLLECT, USE AND PROCESS YOUR PERSONAL INFORMATION WHEN YOU USE THE (HELP FOR HIRE) MOBILE APPLICATION OR THE SERVICES PROVIDED BY (HELP FOR HIRE). '
+        'PLEASE READ THIS PRIVACY POLICY CAREFULLY. '
+        'THIS PRIVACY POLICY FORMS PART OF THE (HELP FOR HIRE) TERMS OF USE. '
+        'BY ACCESSING OR USING THE (HELP FOR HIRE) MOBILE APPLICATION OR THE SERVICES PROVIDED BY (HELP FOR HIRE) YOU ARE AGREEING TO THIS PRIVACY POLICY AND THE TERMS OF USE. '
+        'IF YOU DO NOT COMPLY WITH THE PRIVACY POLICY, THAT WILL ALSO BE A BREACH OF THE TERMS OF USE. '
+        '(HELP FOR HIRE) AND OTHERS WILL HAVE CLAIMS AND OTHER RIGHTS AGAINST YOU UNDER THE PRIVACY POLICY AND THE TERMS OF USE. '
+        'THIS PRIVACY POLICY FORMS PART OF THE (HELP FOR HIRE) TERMS OF USE. '
+        'BY ACCESSING OR USING THE (HELP FOR HIRE) MOBILE APPLICATION OR THE SERVICES PROVIDED BY (HELP FOR HIRE) YOU ARE AGREEING TO THIS PRIVACY POLICY AND THE TERMS OF USE. '
+        'IF YOU DO NOT COMPLY WITH THE PRIVACY POLICY, THAT WILL ALSO BE A BREACH OF THE TERMS OF USE. '
+        '(HELP FOR HIRE) AND OTHERS WILL HAVE CLAIMS AND OTHER RIGHTS AGAINST YOU UNDER THE PRIVACY POLICY AND THE TERMS OF USE. '
+        'IF THIS PRIVACY POLICY IS GOVERNED BY THE CONSUMER PROTECTION ACT, 68 OF 2008 ("CPA"), THE ELECTRONIC COMMUNICATIONS AND TRANSACTIONS ACT, 25 OF 2002 ("ECTA"), OR THE PROTECTION OF PERSONAL INFORMATION ACT, 4 OF 2013, ("POPI"), NO PROVISION OF THIS PRIVACY POLICY IS INTENDED TO BE IN CONFLICT WITH ANY PROVISION OF THE CPA, ECTA, OR POPI. '
+        'AS A RESULT, ALL SECTIONS OF THIS PRIVACY POLICY MUST BE INTERPRETED WITH CAUTION, TO THE EXTENT NECESSARY, TO ENSURE THAT THE CPA, ECTA, AND POPI ARE FOLLOWED.',
+  ];
+
   const TermsAndConditionsPage();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[900],
       body: Stack(
         children: [
           const BlueGradientWidget(),
@@ -28,77 +58,33 @@ class TermsAndConditionsPage extends StatelessWidget {
                     const HeaderWidget(
                       data: 'T&Cs',
                     ),
+                    const SmallSpacerWidget(),
                     const DividerWidget(
                       height: 4.0,
                       width: 256.0,
                     ),
                     const SmallSpacerWidget(),
+                    const WhiteHeadingTextWidget(
+                      data: 'Please read the T&Cs carefully',
+                    ),
+                    const SmallSpacerWidget(),
                     Container(
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.65,
-                        child: ListView(
-                          children: const [
-                            // T&Cs need to be reviewed before they are added in
-                            // For now leave it as placeholder text until we are
-                            // sure that the T&Cs are correct
-                            Text(
-                              'THESE TERMS OF USE WERE UPDATED IN OCTOBER 2021',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.justify,
+                      child: ListView.separated(
+                        itemBuilder: (_, index) {
+                          return Text(
+                            _termsAndConditions[index],
+                            style: const TextStyle(
+                              color: Colors.white,
                             ),
-                            SmallSpacerWidget(),
-                            Text(
-                              'THESE TERMS OF USE APPLY TO THE USE OF THE (HELP FOR HIRE) MOBILE APPLICATION.',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.justify,
-                            ),
-                            SmallSpacerWidget(),
-                            Text(
-                              'AND THE (HELP FOR HIRE) SERVICES. '
-                              'PLEASE READ THESE TERMS OF USE CAREFULLY. '
-                              'BY USING THE (HELP FOR HIRE) MOBILE APPLICATION YOU INDICATE YOUR UNDERSTANDING AND ACCEPTANCE OF THESE TERMS OF USE. '
-                              'IF YOU DO NOT AGREE TO THESE TERMS OF USE, YOU MUST NOT USE THE (HELP FOR HIRE) MOBILE APPLICATION.\n',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.justify,
-                            ),
-                            SmallSpacerWidget(),
-                            Text(
-                              'PRIVACY POLICY\n',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.justify,
-                            ),
-                            SmallSpacerWidget(),
-                            Text(
-                              'THE PRIVACY POLICY IS A PART OF THESE TERMS. '
-                              'BY ACCEPTING THESE TERMS, YOU ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTAND THEM. '
-                              'IF YOU DO NOT COMPLY WITH ANY OF THE PRIVACY POLICY, THAT WILL BE A BREACH OF THE TERMS. '
-                              'UNDER THE PRIVACY POLICY AND THE TERMS, (HELP FOR HIRE) MAY HAVE CLAIMS AND OTHER RIGHTS AGAINST YOU. '
-                              'THIS (HELP FOR HIRE) PRIVACY POLICY APPLIES TO HOW WE COLLECT, USE AND PROCESS YOUR PERSONAL INFORMATION WHEN YOU USE THE (HELP FOR HIRE) MOBILE APPLICATION OR THE SERVICES PROVIDED BY (HELP FOR HIRE). '
-                              'PLEASE READ THIS PRIVACY POLICY CAREFULLY. '
-                              'THIS PRIVACY POLICY FORMS PART OF THE (HELP FOR HIRE) TERMS OF USE. '
-                              'BY ACCESSING OR USING THE (HELP FOR HIRE) MOBILE APPLICATION OR THE SERVICES PROVIDED BY (HELP FOR HIRE) YOU ARE AGREEING TO THIS PRIVACY POLICY AND THE TERMS OF USE. '
-                              'IF YOU DO NOT COMPLY WITH THE PRIVACY POLICY, THAT WILL ALSO BE A BREACH OF THE TERMS OF USE. '
-                              '(HELP FOR HIRE) AND OTHERS WILL HAVE CLAIMS AND OTHER RIGHTS AGAINST YOU UNDER THE PRIVACY POLICY AND THE TERMS OF USE. '
-                              'THIS PRIVACY POLICY FORMS PART OF THE (HELP FOR HIRE) TERMS OF USE. '
-                              'BY ACCESSING OR USING THE (HELP FOR HIRE) MOBILE APPLICATION OR THE SERVICES PROVIDED BY (HELP FOR HIRE) YOU ARE AGREEING TO THIS PRIVACY POLICY AND THE TERMS OF USE. '
-                              'IF YOU DO NOT COMPLY WITH THE PRIVACY POLICY, THAT WILL ALSO BE A BREACH OF THE TERMS OF USE. '
-                              '(HELP FOR HIRE) AND OTHERS WILL HAVE CLAIMS AND OTHER RIGHTS AGAINST YOU UNDER THE PRIVACY POLICY AND THE TERMS OF USE. '
-                              'IF THIS PRIVACY POLICY IS GOVERNED BY THE CONSUMER PROTECTION ACT, 68 OF 2008 ("CPA"), THE ELECTRONIC COMMUNICATIONS AND TRANSACTIONS ACT, 25 OF 2002 ("ECTA"), OR THE PROTECTION OF PERSONAL INFORMATION ACT, 4 OF 2013, ("POPI"), NO PROVISION OF THIS PRIVACY POLICY IS INTENDED TO BE IN CONFLICT WITH ANY PROVISION OF THE CPA, ECTA, OR POPI. '
-                              'AS A RESULT, ALL SECTIONS OF THIS PRIVACY POLICY MUST BE INTERPRETED WITH CAUTION, TO THE EXTENT NECESSARY, TO ENSURE THAT THE CPA, ECTA, AND POPI ARE FOLLOWED.\n',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.justify,
-                            ),
-                          ],
+                            textAlign: TextAlign.justify,
+                          );
+                        },
+                        separatorBuilder: (_, __) {
+                          return const SmallSpacerWidget();
+                        },
+                        itemCount: _termsAndConditions.length,
+                        padding: const EdgeInsets.all(
+                          16.0,
                         ),
                       ),
                       decoration: BoxDecoration(
@@ -107,9 +93,7 @@ class TermsAndConditionsPage extends StatelessWidget {
                           width: 2.0,
                         ),
                       ),
-                      padding: const EdgeInsets.all(
-                        16.0,
-                      ),
+                      height: MediaQuery.of(context).size.height * 0.60,
                     ),
                     const MediumSpacerWidget(),
                     Row(
@@ -117,50 +101,54 @@ class TermsAndConditionsPage extends StatelessWidget {
                       children: [
                         RoundedButtonWidget(
                           data: 'DECLINE',
-                          // There should be some kind of popup to ask the user if
-                          // they really wish to decline the T&Cs
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  actions: [
-                                    TextButton(
-                                      child: const Text(
-                                        'No',
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      onPressed: () => Navigator.pop(context),
+                          onPressed: () => showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                actions: [
+                                  TextButton(
+                                    child: const Text(
+                                      'NO',
                                     ),
-                                    TextButton(
-                                      child: const Text(
-                                        'Yes',
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      onPressed: () =>
-                                          Navigator.pushNamedAndRemoveUntil(
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                  TextButton(
+                                    child: const Text(
+                                      'YES',
+                                    ),
+                                    onPressed: () async {
+                                      DelayHelper.showLoadingIndicator(
+                                        context: context,
+                                      );
+
+                                      await FirebaseService.deleteUser(
+                                        id: context
+                                            .read<UserService>()
+                                            .currentUser
+                                            .userId,
+                                      );
+
+                                      DelayHelper.hideLoadingIndicator(
+                                        context: context,
+                                      );
+
+                                      Navigator.pushNamedAndRemoveUntil(
                                         context,
                                         RouteManager.signInRegisterPage,
                                         (_) => false,
-                                      ),
-                                    ),
-                                  ],
-                                  content: const Text(
-                                    'This will cancel your registration with Help for Hire',
+                                      );
+                                    },
                                   ),
-                                  title: const Text(
-                                    'Decline T&Cs',
-                                  ),
-                                );
-                              },
-                            );
-                          },
+                                ],
+                                content: const Text(
+                                  'This will cancel your registration with Help for Hire',
+                                ),
+                                title: const Text(
+                                  'Decline T&Cs?',
+                                ),
+                              );
+                            },
+                          ),
                           reduceSize: true,
                         ),
                         const SizedBox(
@@ -168,9 +156,7 @@ class TermsAndConditionsPage extends StatelessWidget {
                         ),
                         RoundedButtonWidget(
                           data: 'ACCEPT',
-                          // Should actually be the OTP page but since it does not
-                          // work on virtual devices, we have to leave it out for
-                          // now
+                          // Should go to OTP page
                           onPressed: () => Navigator.pushNamed(
                             context,
                             RouteManager.registrationSuccessPage,

@@ -16,4 +16,23 @@ class DelayHelper {
       ),
     );
   }
+
+  static void showLoadingIndicator({
+    required BuildContext context,
+  }) {
+    showDialog(
+      builder: (_) => const Center(
+        child: CircularProgressIndicator(
+          color: Colors.white,
+        ),
+      ),
+      context: context,
+    );
+  }
+
+  static void hideLoadingIndicator({
+    required BuildContext context,
+  }) {
+    Navigator.pop(context);
+  }
 }
