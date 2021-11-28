@@ -1,57 +1,102 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 
 class AccountTypeCardWidget extends StatelessWidget {
-  final String _data;
-
   final void Function() _onTap;
 
+  final IconData _leadingIcon;
+
+  final String _headingText;
+
+  final String _descriptionText;
+
+  final String _detailsHeadingText;
+
+  final String _detailsDescriptionText;
+
   const AccountTypeCardWidget({
-    required String data,
     required void Function() onTap,
-  })  : _data = data,
-        _onTap = onTap;
+    required IconData leadingIcon,
+    required String headingText,
+    required String descriptionText,
+    required String detailsHeadingText,
+    required String detailsDescriptionText,
+  })  : _onTap = onTap,
+        _leadingIcon = leadingIcon,
+        _headingText = headingText,
+        _descriptionText = descriptionText,
+        _detailsHeadingText = detailsHeadingText,
+        _detailsDescriptionText = detailsDescriptionText;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Container(
-        child: Row(
-          children: [
-            const Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(
-                  16.0,
-                ),
-                child: Placeholder(
-                  color: Colors.black,
-                  strokeWidth: 3.0,
-                ),
+      child: Card(
+        child: Padding(
+          child: Row(
+            children: [
+              Icon(
+                _leadingIcon,
+                color: Colors.blue[900],
+                size: 64.0,
               ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              const SizedBox(
+                width: 16.0,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _data,
+                    _headingText,
                     style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 28.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SmallSpacerWidget(),
+                  Text(
+                    _descriptionText,
+                  ),
                 ],
               ),
-            ),
-          ],
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(
+              const Spacer(),
+              IconButton(
+                icon: Icon(
+                  Icons.info_outline_rounded,
+                  color: Colors.blue[900],
+                  size: 32.0,
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        actions: [
+                          TextButton(
+                            child: const Text(
+                              'CLOSE',
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ],
+                        content: Text(
+                          _detailsDescriptionText,
+                        ),
+                        title: Text(
+                          _detailsHeadingText,
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.all(
             16.0,
           ),
-          color: Colors.white,
         ),
-        height: MediaQuery.of(context).size.height * 0.25,
+        elevation: 4.0,
       ),
       onTap: _onTap,
     );

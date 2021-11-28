@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
-import 'package:help_for_hire_flutter_app/pages/employer_profile_page.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
