@@ -15,9 +15,11 @@ class WorkerProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<WorkerService,LocationService>(builder: (context,workerService,locationService,child){
-      context.read<WorkerService>().getWorkersInCity(
-          locationId: workerService.worker!.locationId);
+    return Consumer2<WorkerService, LocationService>(
+        builder: (context, workerService, locationService, child) {
+      context
+          .read<WorkerService>()
+          .getWorkersInCity(locationId: workerService.worker!.locationId);
       return Scaffold(
         appBar: AppBar(
           title: Text('Profile'),
@@ -54,7 +56,6 @@ class WorkerProfilePage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: CircleAvatar(
-
                         backgroundColor: Colors.grey,
                         backgroundImage: AssetImage(ImageConstants.placeholder),
                         radius: 80,
@@ -116,14 +117,16 @@ class WorkerProfilePage extends StatelessWidget {
                       )),
                   'R ${workerService.worker!.minimumFee}'),
               textWidget(
-                  TextButton.icon(
-                      onPressed: () {},
-                      icon: Icon(Icons.edit),
-                      label: Text('Jobs'),
-                      style: TextButton.styleFrom(
-                        primary: Colors.black,
-                      )),
-                  '${Jobs().JobsToString(workerService.worker!.jobIds)}'),
+                TextButton.icon(
+                    onPressed: () {},
+                    icon: Icon(Icons.edit),
+                    label: Text('Jobs'),
+                    style: TextButton.styleFrom(
+                      primary: Colors.black,
+                    )),
+                '',
+                //'${Jobs().JobsToString(workerService.worker!.jobIds)}'
+              ),
               /*textWidget(
                   TextButton.icon(
                       onPressed: () {},
@@ -136,14 +139,11 @@ class WorkerProfilePage extends StatelessWidget {
               SizedBox(
                 height: 30,
               )
-
             ],
           ),
         ),
       );
     });
-
-
   }
 
   @override
@@ -156,7 +156,7 @@ Padding textWidget(TextButton txtBtn, String content) {
     child: Container(
       height: 55,
       decoration:
-      BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
+          BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -173,9 +173,6 @@ Text text(String txt) {
   return Text(
     txt,
     style: TextStyle(
-        color: Colors.black,
-        fontSize: 15,
-        fontWeight: FontWeight.bold
-    ),
+        color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
   );
 }
