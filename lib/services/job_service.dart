@@ -47,4 +47,36 @@ class JobService with ChangeNotifier {
 
     notifyListeners();
   }
+  Future<void> getSelectedJobs({required List<String> ids}) async {
+    final response = await get(
+      Uri.parse(
+        'https://${DomainConstants.ip}:5001${_controllerRoute}selected/?ids=$ids',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _jsons = jsonDecode(response.body);
+
+        jobs.clear();
+
+        for (var json in _jsons) {
+          jobs.add(
+            JobModel.fromJson(
+              json: json,
+            ),
+          );
+        }
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle not found
+    } else {
+      // Handle other errors
+    }
+
+
+    notifyListeners();
+  }
 }
