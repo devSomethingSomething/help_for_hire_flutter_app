@@ -47,7 +47,10 @@ class JobService with ChangeNotifier {
 
     notifyListeners();
   }
-  Future<void> getSelectedJobs({required List<String> ids}) async {
+
+  Future<void> getSelectedJobs({
+    required List<String> ids,
+  }) async {
     final response = await get(
       Uri.parse(
         'https://${DomainConstants.ip}:5001${_controllerRoute}selected/?ids=$ids',
@@ -75,7 +78,6 @@ class JobService with ChangeNotifier {
     } else {
       // Handle other errors
     }
-
 
     notifyListeners();
   }

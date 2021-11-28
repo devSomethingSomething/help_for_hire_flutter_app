@@ -11,10 +11,7 @@ class LocationService with ChangeNotifier {
   LocationModel? location;
 
   var _jsons = [];
-  var _json=<String, dynamic>{};
-
-  // LocationModel? location;
-  // var _json = <String, dynamic>{};
+  var _json = <String, dynamic>{};
 
   static const _controllerRoute = '/api/location/';
 
@@ -88,7 +85,9 @@ class LocationService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getLocation({required String id}) async {
+  Future<void> getLocation({
+    required String id,
+  }) async {
     final response = await get(
       Uri.parse(
         'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
@@ -98,10 +97,10 @@ class LocationService with ChangeNotifier {
     if (response.statusCode == HttpStatus.ok) {
       try {
         _json = jsonDecode(response.body);
+
         location = LocationModel.fromJson(
           json: _json,
         );
-
       } catch (_) {
         // Handle fail
       }

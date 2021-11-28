@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
-import 'package:help_for_hire_flutter_app/pages/worker_profile_page.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
@@ -43,11 +42,6 @@ class _SignInPageState extends State<SignInPage> {
   /// Includes things like checking the internet connection or making sure that
   /// text fields have valid values
   void _onPressed() async {
-
-    Navigator.pushNamed(
-        context,
-        RouteManager.reviewPage);
-
     if (_key.currentState!.validate()) {
       if (await ConnectionHelper.hasConnection()) {
         // This should work now, perhaps there is a better
