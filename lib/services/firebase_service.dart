@@ -157,6 +157,7 @@ class FirebaseService {
   static Future<void> handleOtp({
     required BuildContext context,
     required String phoneNumber,
+    String routeName = RouteManager.newPasswordPage,
   }) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber:
@@ -196,7 +197,7 @@ class FirebaseService {
                             .then(
                               (_) => Navigator.popAndPushNamed(
                                 context,
-                                RouteManager.newPasswordPage,
+                                routeName,
                               ),
                             );
                       } catch (_) {

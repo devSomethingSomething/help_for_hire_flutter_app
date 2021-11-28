@@ -156,11 +156,16 @@ class TermsAndConditionsPage extends StatelessWidget {
                         ),
                         RoundedButtonWidget(
                           data: 'ACCEPT',
-                          // Should go to OTP page
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            RouteManager.registrationSuccessPage,
-                          ),
+                          onPressed: () async {
+                            await FirebaseService.handleOtp(
+                              context: context,
+                              phoneNumber: context
+                                  .read<UserService>()
+                                  .currentUser
+                                  .phoneNumber,
+                              routeName: RouteManager.registrationSuccessPage,
+                            );
+                          },
                           reduceSize: true,
                         ),
                       ],
