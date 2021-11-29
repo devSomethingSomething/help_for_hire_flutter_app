@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/report_constants.dart';
+import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/info_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/services/report_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
@@ -16,6 +19,8 @@ class ReportPage extends StatefulWidget {
 }
 
 class _ReportPageState extends State<ReportPage> {
+  final _key = GlobalKey<FormState>();
+
   final _descriptionController = TextEditingController();
 
   @override
@@ -23,6 +28,22 @@ class _ReportPageState extends State<ReportPage> {
     _descriptionController.dispose();
 
     super.dispose();
+  }
+
+  /// Handles logic for this page
+  void _onPressed() async {
+    // Should check for duplicate reports
+    // Will require a change to the report model and controller
+    // Report service also needs work
+    // Should check the combo of reportedUserId and reporterUserId
+    ValidationHelper.validateForm(
+      context: context,
+      key: _key,
+      function: () => ValidationHelper.checkConnection(
+        context: context,
+        function: () {},
+      ),
+    );
   }
 
   @override
@@ -77,51 +98,53 @@ class _ReportPageState extends State<ReportPage> {
                 textAlign: TextAlign.center,
               ),
               const LargeSpacerWidget(),
-              // Requires validation
-              // Wrap with form
-              Consumer<ReportService>(
-                builder: (_, service, __) {
-                  return DropdownButtonFormField<String>(
-                    hint: Text(
-                      service.selectedReportType,
-                    ),
-                    iconSize: 32.0,
-                    isExpanded: true,
-                    items: ReportConstants.reportTypes
-                        .map(
-                          (item) => DropdownMenuItem(
-                            child: Text(
-                              item,
-                            ),
-                            value: item,
+              Form(
+                child: Column(
+                  children: [
+                    // Requires validation
+                    // Perhaps should display report types based on user type
+                    Consumer<ReportService>(
+                      builder: (_, service, __) {
+                        return DropdownButtonFormField<String>(
+                          hint: Text(
+                            service.selectedReportType,
                           ),
-                        )
-                        .toList(),
-                    onChanged: (item) =>
-                        service.selectedReportType = item.toString(),
-                  );
-                },
-              ),
-              const SmallSpacerWidget(),
-              TextFormFieldWidget(
-                controller: _descriptionController,
-                icon: Icons.description_rounded,
-                keyboardType: TextInputType.text,
-                labelText: 'Description',
-                lightMode: true,
-                maxLength: 256,
-                maxLines: 5,
+                          iconSize: 32.0,
+                          isExpanded: true,
+                          items: ReportConstants.reportTypes
+                              .map(
+                                (item) => DropdownMenuItem(
+                                  child: Text(
+                                    item,
+                                  ),
+                                  value: item,
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (item) =>
+                              service.selectedReportType = item.toString(),
+                        );
+                      },
+                    ),
+                    const SmallSpacerWidget(),
+                    TextFormFieldWidget(
+                      controller: _descriptionController,
+                      icon: Icons.description_rounded,
+                      keyboardType: TextInputType.text,
+                      labelText: 'Description',
+                      lightMode: true,
+                      maxLength: 256,
+                      maxLines: 5,
+                    ),
+                  ],
+                ),
+                key: _key,
               ),
               const LargeSpacerWidget(),
-              // Requires validation
-              // Should check for duplicate reports
-              // Will require a change to the report model and controller
-              // Report service also needs work
-              // Should check the combo of reportedUserId and reporterUserId
               RoundedButtonWidget(
                 data: 'SUBMIT',
                 invertColors: true,
-                onPressed: () {},
+                onPressed: _onPressed,
               ),
             ],
           ),

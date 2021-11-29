@@ -1,5 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
+
 class ValidationHelper {
   const ValidationHelper._();
+
+  static void validateForm({
+    required BuildContext context,
+    required GlobalKey<FormState> key,
+    required void Function() function,
+  }) {
+    if (key.currentState!.validate()) {
+      function();
+    } else {
+      SnackBarHelper.showSnackBar(
+        context: context,
+        data: 'Some fields are invalid',
+      );
+    }
+  }
+
+  static void checkConnection({
+    required BuildContext context,
+    required void Function() function,
+  }) async {
+    if (await ConnectionHelper.hasConnection()) {
+      function();
+    } else {
+      SnackBarHelper.showSnackBar(
+        context: context,
+        data: 'No internet connection',
+      );
+    }
+  }
 
   static String? validateText(
     String? text,
