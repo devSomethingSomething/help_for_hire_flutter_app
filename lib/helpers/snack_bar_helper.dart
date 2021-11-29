@@ -9,8 +9,19 @@ class SnackBarHelper {
   }) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          data,
+        content: Row(
+          children: [
+            const Icon(
+              Icons.warning,
+              color: Colors.white,
+            ),
+            const SizedBox(
+              width: 16.0,
+            ),
+            Text(
+              data,
+            ),
+          ],
         ),
       ),
     );

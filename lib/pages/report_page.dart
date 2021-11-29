@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/report_constants.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/info_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
+import 'package:help_for_hire_flutter_app/models/report_model.dart';
 import 'package:help_for_hire_flutter_app/services/report_service.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
@@ -32,16 +35,40 @@ class _ReportPageState extends State<ReportPage> {
 
   /// Handles logic for this page
   void _onPressed() async {
-    // Should check for duplicate reports
-    // Will require a change to the report model and controller
-    // Report service also needs work
-    // Should check the combo of reportedUserId and reporterUserId
     ValidationHelper.validateForm(
       context: context,
       key: _key,
       function: () => ValidationHelper.checkConnection(
         context: context,
-        function: () {},
+        function: () async {
+          DelayHelper.showLoadingIndicator(context: context);
+
+          await context.read<ReportService>().postReport(
+                report: ReportModel(
+                  reportId: '',
+                  reportType: context.read<ReportService>().selectedReportType,
+                  description: _descriptionController.text,
+                  // Need to figure out where we get the id from
+                  // Depends on the other pages for this
+                  reportedUserId: '1234567891234',
+                  reporterUserId: '9876543211234',
+                  // Put this back later after testing
+                  // context.read<UserService>().currentUser.userId,
+                ),
+              );
+
+          DelayHelper.hideLoadingIndicator(context: context);
+
+          if (!context.read<ReportService>().isDuplicate) {
+            // Go back a page
+            Navigator.pop(context);
+          } else {
+            SnackBarHelper.showSnackBar(
+              context: context,
+              data: 'Cannot report the same user twice',
+            );
+          }
+        },
       ),
     );
   }
