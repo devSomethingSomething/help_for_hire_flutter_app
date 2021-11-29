@@ -1,91 +1,197 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/info_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
-import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
+import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text_fields/password_text_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:provider/provider.dart';
 
-class ChangePasswordPage extends StatelessWidget {
+class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage();
 
   @override
-  Widget build(BuildContext context) {
-    final _key = GlobalKey<FormState>();
+  State<ChangePasswordPage> createState() => _ChangePasswordPageState();
+}
 
-    TextEditingController oldPasswordController = TextEditingController();
-    TextEditingController newPasswordController = TextEditingController();
-    TextEditingController confirmNewPasswordController =
-        TextEditingController();
-    return Scaffold(
-      // backgroundColor: Colors.white,
-      appBar: const AppBarWidget(
-        data: 'Change password',
+class _ChangePasswordPageState extends State<ChangePasswordPage> {
+  final _key = GlobalKey<FormState>();
+
+  final _oldPasswordController = TextEditingController();
+  final _newPasswordController = TextEditingController();
+  final _repeatNewPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _oldPasswordController.dispose();
+    _newPasswordController.dispose();
+    _repeatNewPasswordController.dispose();
+
+    super.dispose();
+  }
+
+  void _onPressed() async {
+    // Make sure form is valid
+    ValidationHelper.validateForm(
+      context: context,
+      key: _key,
+      // Make sure that there is a connection
+      function: () => ValidationHelper.checkConnection(
+        context: context,
+        function: () async {
+          // Check if passwords match
+          if (_newPasswordController.text ==
+              _repeatNewPasswordController.text) {
+            DelayHelper.showLoadingIndicator(context: context);
+
+            // Check if old password is correct
+            if (await FirebaseService.signInUser(
+              context: context,
+              // id: context.read<UserService>().currentUser.userId,
+              id: '1111111111111',
+              password: _oldPasswordController.text,
+            )) {
+              // Update user password
+              await FirebaseService.deleteUser(
+                // id: context.read<UserService>().currentUser.userId,
+                id: '1111111111111',
+              );
+
+              await FirebaseService.createUser(
+                context: context,
+                // id: context.read<UserService>().currentUser.userId,
+                id: '1111111111111',
+                password: _newPasswordController.text,
+              );
+
+              DelayHelper.hideLoadingIndicator(context: context);
+
+              Navigator.pop(context);
+            }
+
+            DelayHelper.hideLoadingIndicator(context: context);
+          } // If they do not, show an error
+          else {
+            SnackBarHelper.showSnackBar(
+              context: context,
+              data: 'New passwords do not match',
+            );
+          }
+        },
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Form(
-            key: _key,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                const Icon(
-                  Icons.lock_outline_rounded,
-                  size: 144.0,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const Text(
-                  'Change your Password',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: 'Enter old password'),
-                  keyboardType: TextInputType.visiblePassword,
-                  controller: oldPasswordController,
-                  validator: ValidationHelper.validatePassword,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: 'Enter new password'),
-                  keyboardType: TextInputType.text,
-                  controller: newPasswordController,
-                  validator: ValidationHelper.validatePassword,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: 'Repeat new password'),
-                  keyboardType: TextInputType.text,
-                  controller: confirmNewPasswordController,
-                  validator: ValidationHelper.validatePassword,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                RoundedButtonWidget(
-                  data: 'Submit',
-                  onPressed: () {
-                    if (_key.currentState!.validate()) {
-                      return;
-                    } else {
-                      //continue to next page
-                    }
-                  },
-                  invertColors: true,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-              ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.info_outline_rounded,
+            ),
+            onPressed: () => InfoHelper.showInfoDialog(
+              context: context,
+              content: 'This page allows you to change your password',
+              title: 'Change Password Details',
             ),
           ),
+        ],
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        title: const Text(
+          'Change Password',
         ),
+      ),
+      body: Stack(
+        children: [
+          const BlueGradientWidget(),
+          SingleChildScrollView(
+            child: Center(
+              child: Form(
+                child: Column(
+                  children: [
+                    const Icon(
+                      Icons.password_rounded,
+                      color: Colors.white,
+                      size: 128.0,
+                    ),
+                    const SmallSpacerWidget(),
+                    const Text(
+                      'Change Password',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const LargeSpacerWidget(),
+                    Card(
+                      child: Padding(
+                        child: Column(
+                          children: [
+                            TextFormFieldWidget(
+                              controller: _oldPasswordController,
+                              labelText: 'Old Password',
+                              keyboardType: TextInputType.text,
+                              icon: Icons.history,
+                              lightMode: true,
+                              obscureText: true,
+                              validator: ValidationHelper.validatePassword,
+                            ),
+                            const MediumSpacerWidget(),
+                            TextFormFieldWidget(
+                              controller: _newPasswordController,
+                              labelText: 'New Password',
+                              keyboardType: TextInputType.text,
+                              icon: Icons.fiber_new_rounded,
+                              lightMode: true,
+                              obscureText: true,
+                              validator: ValidationHelper.validatePassword,
+                            ),
+                            const MediumSpacerWidget(),
+                            TextFormFieldWidget(
+                              controller: _repeatNewPasswordController,
+                              labelText: 'Repeat New Password',
+                              keyboardType: TextInputType.text,
+                              icon: Icons.password_rounded,
+                              lightMode: true,
+                              obscureText: true,
+                              validator: ValidationHelper.validatePassword,
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24.0,
+                          vertical: 16.0,
+                        ),
+                      ),
+                      color: Colors.white,
+                      elevation: 8.0,
+                    ),
+                    const LargeSpacerWidget(),
+                    RoundedButtonWidget(
+                      data: 'SUBMIT',
+                      onPressed: _onPressed,
+                    ),
+                  ],
+                ),
+                key: _key,
+              ),
+            ),
+            padding: const EdgeInsets.all(
+              16.0,
+            ),
+          ),
+        ],
       ),
     );
   }
