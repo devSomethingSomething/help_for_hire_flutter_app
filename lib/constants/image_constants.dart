@@ -9,4 +9,5 @@ class ImageConstants {
   static const logoLight = 'assets/images/help_for_hire_logo_light.png';
   static const placeholder = 'assets/images/placeholder.jpg';
   static const worker = 'assets/images/worker.png';
+  static const bad = 'assets/images/bad.png';
 }
