@@ -6,7 +6,7 @@ class TextFormFieldWidget extends StatelessWidget {
 
   final String _labelText;
 
-  final IconData _icon;
+  final IconData? _icon;
 
   final TextInputType _keyboardType;
 
@@ -20,15 +20,18 @@ class TextFormFieldWidget extends StatelessWidget {
 
   final bool _lightMode;
 
+  final int _maxLines;
+
   TextFormFieldWidget({
     required TextEditingController controller,
     required String labelText,
-    required IconData icon,
+    IconData? icon,
     required TextInputType keyboardType,
     int maxLength = 32,
     bool obscureText = false,
     String? Function(String?)? validator,
     bool lightMode = false,
+    int maxLines = 1,
   })  : _controller = controller,
         _labelText = labelText,
         _icon = icon,
@@ -36,7 +39,8 @@ class TextFormFieldWidget extends StatelessWidget {
         _maxLength = maxLength,
         _obscureText = obscureText,
         _validator = validator,
-        _lightMode = lightMode {
+        _lightMode = lightMode,
+        _maxLines = maxLines {
     _showIcon = obscureText ? true : false;
   }
 
@@ -94,6 +98,7 @@ class TextFormFieldWidget extends StatelessWidget {
           ),
           keyboardType: _keyboardType,
           maxLength: _maxLength,
+          maxLines: _maxLines,
           obscureText: _obscureText,
           style: TextStyle(
             color: _lightMode ? Colors.blue.shade900 : Colors.white,

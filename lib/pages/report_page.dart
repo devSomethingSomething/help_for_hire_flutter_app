@@ -1,81 +1,133 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
-import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/drop_down_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
+import 'package:help_for_hire_flutter_app/constants/report_constants.dart';
+import 'package:help_for_hire_flutter_app/helpers/info_helper.dart';
+import 'package:help_for_hire_flutter_app/services/report_service.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:provider/provider.dart';
 
 class ReportPage extends StatefulWidget {
-  const ReportPage({Key? key}) : super(key: key);
+  const ReportPage();
 
   @override
   _ReportPageState createState() => _ReportPageState();
 }
 
 class _ReportPageState extends State<ReportPage> {
+  final _descriptionController = TextEditingController();
+
+  @override
+  void dispose() {
+    _descriptionController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text('Report'),
-          leading: IconButton(
+    // Set the report type back to the default value
+    context.read<ReportService>().defaultReportType();
+
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
             icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-              size: 24.0,
+              Icons.info_outline_rounded,
             ),
-            onPressed: () => Navigator.pop(context),
-            padding: EdgeInsets.zero,
+            onPressed: () => InfoHelper.showInfoDialog(
+              context: context,
+              content:
+                  'This page allows you to file a report against another user',
+              title: 'Report Details',
+            ),
           ),
-          backgroundColor: ColorConstants.blue,
+        ],
+        backgroundColor: Colors.blue[900],
+        title: const Text(
+          'Report',
         ),
-        body: Center(
+      ),
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              HeadingTextWidget(
-                data: 'Report',
+              const Icon(
+                Icons.report,
+                color: Colors.orange,
+                size: 128.0,
               ),
-              //want to retrieve reported account details
-              Text('reported account details'),
-              DropDownWidget(),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Other reasons',
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 20.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.lightBlueAccent, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.lightBlueAccent, width: 2.0),
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
-                      ),
-                      maxLines: 5,
-                    ),
-                  ],
+              const SmallSpacerWidget(),
+              const Text(
+                'Report User',
+                style: TextStyle(
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.center,
               ),
-              ButtonWidget(data: 'Submit Report', onPressed: () {}),
+              const SmallSpacerWidget(),
+              const Text(
+                'Please fill out the form below to file a report',
+                style: TextStyle(
+                  fontSize: 20.0,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const LargeSpacerWidget(),
+              // Requires validation
+              // Wrap with form
+              Consumer<ReportService>(
+                builder: (_, service, __) {
+                  return DropdownButtonFormField<String>(
+                    hint: Text(
+                      service.selectedReportType,
+                    ),
+                    iconSize: 32.0,
+                    isExpanded: true,
+                    items: ReportConstants.reportTypes
+                        .map(
+                          (item) => DropdownMenuItem(
+                            child: Text(
+                              item,
+                            ),
+                            value: item,
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (item) =>
+                        service.selectedReportType = item.toString(),
+                  );
+                },
+              ),
+              const SmallSpacerWidget(),
+              TextFormFieldWidget(
+                controller: _descriptionController,
+                icon: Icons.description_rounded,
+                keyboardType: TextInputType.text,
+                labelText: 'Description',
+                lightMode: true,
+                maxLength: 256,
+                maxLines: 5,
+              ),
+              const LargeSpacerWidget(),
+              // Requires validation
+              // Should check for duplicate reports
+              // Will require a change to the report model and controller
+              // Report service also needs work
+              // Should check the combo of reportedUserId and reporterUserId
+              RoundedButtonWidget(
+                data: 'SUBMIT',
+                invertColors: true,
+                onPressed: () {},
+              ),
             ],
           ),
+        ),
+        padding: const EdgeInsets.all(
+          32.0,
         ),
       ),
     );

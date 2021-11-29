@@ -1,45 +1,28 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
-import 'package:http/http.dart';
+import 'package:flutter/material.dart';
 
 class ReportService with ChangeNotifier {
-  bool _error = false;
+  /// For use in the report page
+  ///
+  /// Holds the selected report type
+  String _selectedReportType = 'Report Type';
 
-  String _errorMessage = '';
+  ReportService();
 
-  Map<String, dynamic> _mapReport = {};
+  String get selectedReportType => _selectedReportType;
 
-  Future<void> get fetchData async {
-    final Response response = await get(
-      Uri.parse(''),
-    );
-    if (response.statusCode == HttpStatus.ok) {
-      try {
-        _mapReport = jsonDecode(response.body);
-      } catch (e) {
-        _error = true;
-        _errorMessage = e.toString();
-        _mapReport = {};
-      }
-    } else {
-      _error = true;
-      _errorMessage = 'Error';
-      _mapReport = {};
-    }
+  set selectedReportType(
+    String selectedReportType,
+  ) {
+    _selectedReportType = selectedReportType;
+
     notifyListeners();
   }
 
-  void initialiseValues() {
-    _mapReport = {};
-    _error = false;
-    _errorMessage = '';
-    notifyListeners();
+  /// Sets the report type back to its default value
+  ///
+  /// Useful when the user navigates between pages. Prevents the old value
+  /// from being stored between different instances of a page
+  void defaultReportType() {
+    _selectedReportType = 'Report Type';
   }
-
-  Map<String, dynamic> get mapReport => _mapReport;
-
-  bool get error => _error;
-
-  String get errorMessage => _errorMessage;
 }

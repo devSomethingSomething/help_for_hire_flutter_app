@@ -11,6 +11,7 @@ import 'package:help_for_hire_flutter_app/services/invite_service.dart';
 import 'package:help_for_hire_flutter_app/services/job_service.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
 import 'package:help_for_hire_flutter_app/services/rating_service.dart';
+import 'package:help_for_hire_flutter_app/services/report_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 
@@ -55,6 +56,9 @@ class _App extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => RatingService(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ReportService(),
         ),
         ChangeNotifierProvider(
           create: (_) => UserService(),

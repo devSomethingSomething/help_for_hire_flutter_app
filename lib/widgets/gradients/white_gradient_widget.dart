@@ -11,8 +11,8 @@ class WhiteGradientWidget extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             colors: [
-              Colors.blue.shade50,
               Colors.white,
+              Colors.grey.shade200,
             ],
             end: Alignment.bottomCenter,
           ),
