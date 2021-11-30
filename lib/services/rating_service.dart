@@ -4,126 +4,40 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/rating_model.dart';
-import 'package:help_for_hire_flutter_app/data_transfer_objects/rating_dto.dart';
 import 'package:http/http.dart';
 
 class RatingService with ChangeNotifier {
-  var ratings = <RatingModel>[];
+  /// If a duplicate rating is found then this will become true
+  bool isDuplicate = false;
 
-  var _jsons = [];
-  var _json = <String, dynamic>{};
-
+  /// Route in the web api to reach the rating controller
   static const _controllerRoute = '/api/rating';
 
   RatingService();
 
-  // Update back to rating model later
-  // Will work fine with a rating model
+  /// Creates a new rating
   Future<void> postRating({
-    required RatingDto rating,
-  }) async {
-    final response = await post(
-      Uri.parse('https://${DomainConstants.ip}:5001$_controllerRoute'),
-      body: jsonEncode(rating),
-      headers: {
-        "Accept": "application/json",
-        "content-type": "application/json",
-      },
-    );
-    if (response.statusCode == HttpStatus.created) {
-      try {
-        // Request worked code
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.badRequest) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
-  }
-
-  Future<void> getRating({
-    required String id,
-  }) async {
-    final response = await get(
-      Uri.parse(
-        'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
-      ),
-    );
-
-    if (response.statusCode == HttpStatus.ok) {
-      try {
-        _json = jsonDecode(response.body);
-
-        ratings.add(
-          RatingModel.fromJson(
-            json: _json,
-          ),
-        );
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
-  }
-
-  Future<void> getRatings() async {
-    final response = await get(
-      Uri.parse(
-        'https://${DomainConstants.ip}:5001${_controllerRoute}all',
-      ),
-    );
-
-    if (response.statusCode == HttpStatus.ok) {
-      try {
-        _jsons = jsonDecode(response.body);
-
-        for (var json in _jsons) {
-          ratings.add(
-            RatingModel.fromJson(
-              json: json,
-            ),
-          );
-        }
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
-  }
-
-  Future<void> putRating({
-    required String id,
     required RatingModel rating,
   }) async {
-    final response = await put(
+    // Reset to false to make sure that previous calls do not break the code
+    isDuplicate = false;
+
+    final response = await post(
       Uri.parse(
-        'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
+        'https://${DomainConstants.ip}:5001$_controllerRoute',
       ),
       body: jsonEncode(rating),
       headers: {
-        "Accept": "application/json",
-        "content-type": "application/json",
+        'Accept': 'application/json',
+        'content-type': 'application/json',
       },
     );
 
-    if (response.statusCode == HttpStatus.noContent) {
-      try {
-        // Request worked code
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle bad request
-    } else {
-      // Handle other errors
+    // Indicates that a duplicate rating was found
+    if (response.statusCode == HttpStatus.badRequest) {
+      isDuplicate = true;
     }
+
+    notifyListeners();
   }
 }

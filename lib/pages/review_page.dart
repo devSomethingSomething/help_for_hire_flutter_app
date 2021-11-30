@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/info_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
+import 'package:help_for_hire_flutter_app/models/rating_model.dart';
+import 'package:help_for_hire_flutter_app/services/rating_service.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:provider/provider.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage();
@@ -20,6 +26,8 @@ class _ReviewPageState extends State<ReviewPage> {
   final _key = GlobalKey<FormState>();
 
   final _descriptionController = TextEditingController();
+
+  var _value = 1.0;
 
   @override
   void dispose() {
@@ -35,11 +43,44 @@ class _ReviewPageState extends State<ReviewPage> {
       // Make sure that there is a connection
       function: () => ValidationHelper.checkConnection(
         context: context,
-        function: () {
-          // Check for duplicate review
-          // Post new review if possible
-          // Display error if there is duplicate review
-          // Show loading indicator while processing occurs
+        function: () async {
+          DelayHelper.showLoadingIndicator(context: context);
+
+          await context.read<RatingService>().postRating(
+                rating: RatingModel(
+                  ratingId: '',
+                  value: _value.toInt(),
+                  description: _descriptionController.text,
+                  // This means that only employers can rate workers
+                  // This might change in the future
+                  // However, according to our initial specs, this is how we
+                  // planned it
+                  // employerId: context.read<UserService>().currentUser.userId,
+                  employerId: '1234554321127',
+                  // Depends on how we get the value
+                  // Will probably just read from the worker service to get
+                  // the id
+                  workerId: '7777711111222',
+                ),
+              );
+
+          if (!context.read<RatingService>().isDuplicate) {
+            DelayHelper.hideLoadingIndicator(context: context);
+
+            Navigator.pop(context);
+
+            SnackBarHelper.showSnackBar(
+              context: context,
+              data: 'Review posted',
+            );
+          } else {
+            DelayHelper.hideLoadingIndicator(context: context);
+
+            SnackBarHelper.showSnackBar(
+              context: context,
+              data: 'Cannot review the same user twice',
+            );
+          }
         },
       ),
       key: _key,
@@ -105,7 +146,7 @@ class _ReviewPageState extends State<ReviewPage> {
                             ),
                             const MediumSpacerWidget(),
                             RatingBar.builder(
-                              initialRating: 4,
+                              initialRating: 1,
                               itemBuilder: (_, __) => const Icon(
                                 Icons.star,
                                 color: Colors.orange,
@@ -115,7 +156,9 @@ class _ReviewPageState extends State<ReviewPage> {
                                 2.0,
                               ),
                               minRating: 1,
-                              onRatingUpdate: (rating) {},
+                              onRatingUpdate: (value) {
+                                _value = value;
+                              },
                               unratedColor: Colors.black,
                             ),
                             const MediumSpacerWidget(),
