@@ -7,6 +7,7 @@ import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 import 'package:help_for_hire_flutter_app/services/rating_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/widgets/rating_bars/star_rating_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
@@ -27,7 +28,7 @@ class _ReviewPageState extends State<ReviewPage> {
 
   final _descriptionController = TextEditingController();
 
-  var _value = 1.0;
+  var _value = 1;
 
   @override
   void dispose() {
@@ -49,7 +50,7 @@ class _ReviewPageState extends State<ReviewPage> {
           await context.read<RatingService>().postRating(
                 rating: RatingModel(
                   ratingId: '',
-                  value: _value.toInt(),
+                  value: _value,
                   description: _descriptionController.text,
                   // This means that only employers can rate workers
                   // This might change in the future
@@ -145,21 +146,11 @@ class _ReviewPageState extends State<ReviewPage> {
                               ),
                             ),
                             const MediumSpacerWidget(),
-                            RatingBar.builder(
-                              initialRating: 1,
-                              itemBuilder: (_, __) => const Icon(
-                                Icons.star,
-                                color: Colors.orange,
-                              ),
-                              itemCount: 5,
-                              itemPadding: const EdgeInsets.all(
-                                2.0,
-                              ),
-                              minRating: 1,
-                              onRatingUpdate: (value) {
+                            StarRatingWidget(
+                              numberOfStars: 5,
+                              onTap: (value) {
                                 _value = value;
                               },
-                              unratedColor: Colors.black,
                             ),
                             const MediumSpacerWidget(),
                             const Text(
