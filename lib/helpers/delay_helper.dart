@@ -12,7 +12,7 @@ class DelayHelper {
       ),
       () => Navigator.popAndPushNamed(
         context,
-        RouteManager.signInRegisterPage,
+        RouteManager.employerRegisterPage,
       ),
     );
   }
