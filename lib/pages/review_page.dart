@@ -1,191 +1,168 @@
-// ignore_for_file: unused_field, prefer_const_constructors, sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
-import 'package:help_for_hire_flutter_app/models/rating_model.dart';
-import 'package:help_for_hire_flutter_app/services/rating_service.dart';
-import 'package:help_for_hire_flutter_app/widget_controller/review_rating.dart';
-import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:help_for_hire_flutter_app/helpers/info_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/text/heading_text_widget.dart';
-import 'package:help_for_hire_flutter_app/services/employer_service.dart';
-import 'package:help_for_hire_flutter_app/services/worker_service.dart';
-import 'package:help_for_hire_flutter_app/data_transfer_objects/rating_dto.dart';
-import 'package:provider/provider.dart';
-import 'package:help_for_hire_flutter_app/constants/image_constants.dart';
+import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 
 class ReviewPage extends StatefulWidget {
-  const ReviewPage({Key? key}) : super(key: key);
+  const ReviewPage();
 
   @override
   _ReviewPageState createState() => _ReviewPageState();
 }
 
 class _ReviewPageState extends State<ReviewPage> {
-  TextEditingController descriptionController = TextEditingController();
-  RatingService _ratingService = RatingService();
-  int _rating = 0;
+  final _key = GlobalKey<FormState>();
+
+  final _descriptionController = TextEditingController();
+
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
-        child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: Consumer2<EmployerService, WorkerService>(
-                builder: (context, employerService, workerService, child) {
-              return Scaffold(
-                backgroundColor: Colors.grey.shade100,
-                appBar: AppBar(
-                  title: Text('Review'),
-                  leading: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: 24.0,
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                    padding: EdgeInsets.zero,
-                  ),
-                  backgroundColor: ColorConstants.blue,
-                ),
-                body: Padding(
-                  padding: const EdgeInsets.all(25),
-                  child: Center(
-                    child: ListView(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border(bottom: BorderSide(width: 1))),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 10,
-                              ),
-                              //HeadingTextWidget(data: 'Reviewed Worker Details'),
-                              Text(
-                                'REVIEWED WORKER',
-                                style: TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              //want to retrieve reviewed account details
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    left: 30, right: 30, top: 10, bottom: 10),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: CircleAvatar(
-                                        backgroundColor: Colors.grey,
-                                        backgroundImage: AssetImage(
-                                            ImageConstants.placeholder),
-                                        radius: 80,
-                                      ),
-                                    ),
-                                    TextRow('Name ', 'name surname'),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    TextRow('Job     ', 'job'),
-                                    SizedBox(
-                                      height: 5,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Rating((rating) {
-                          setState(() {
-                            _rating = rating;
-                          });
-                        }),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 30, bottom: 10, left: 10, right: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            // ignore: prefer_const_literals_to_create_immutables
-                            children: [
-                              TextField(
-                                decoration: InputDecoration(
-                                  hintText:
-                                      'Please leave a comment for the review',
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 20.0),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15)),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.lightBlueAccent,
-                                        width: 1.0),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.lightBlueAccent,
-                                        width: 2.0),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15)),
-                                  ),
-                                ),
-                                maxLines: 5,
-                                controller: descriptionController,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        RoundedButtonWidget(
-                          data: 'Submit Review',
-                          onPressed: () {
-                            _ratingService.postRating(
-                                rating: RatingDto(
-                                    value: _rating,
-                                    description: descriptionController.text,
-                                    employerId:
-                                        employerService.employer!.userId,
-                                    workerId: workerService.worker!.userId));
-                          },
-                          invertColors: true,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            })));
+  void dispose() {
+    _descriptionController.dispose();
+
+    super.dispose();
   }
 
-  Row TextRow(String title, String discription) {
-    return Row(
-      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title + ': ',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  void _onPressed() async {
+    // Make sure form is valid
+    ValidationHelper.validateForm(
+      context: context,
+      // Make sure that there is a connection
+      function: () => ValidationHelper.checkConnection(
+        context: context,
+        function: () {
+          // Check for duplicate review
+          // Post new review if possible
+          // Display error if there is duplicate review
+          // Show loading indicator while processing occurs
+        },
+      ),
+      key: _key,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.info_outline_rounded,
+            ),
+            onPressed: () => InfoHelper.showInfoDialog(
+              context: context,
+              content: 'This page allows you to review the selected account',
+              title: 'Review Details',
+            ),
+          ),
+        ],
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        title: const Text(
+          'Review',
         ),
-        Text(
-          discription,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-      ],
+      ),
+      body: Stack(
+        children: [
+          const BlueGradientWidget(),
+          SingleChildScrollView(
+            child: Center(
+              child: Form(
+                child: Column(
+                  children: [
+                    const Icon(
+                      Icons.reviews_rounded,
+                      color: Colors.white,
+                      size: 128.0,
+                    ),
+                    const SmallSpacerWidget(),
+                    const Text(
+                      'Review Selected User',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const LargeSpacerWidget(),
+                    Card(
+                      child: Padding(
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Please select a rating',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const MediumSpacerWidget(),
+                            RatingBar.builder(
+                              initialRating: 4,
+                              itemBuilder: (_, __) => const Icon(
+                                Icons.star,
+                                color: Colors.orange,
+                              ),
+                              itemCount: 5,
+                              itemPadding: const EdgeInsets.all(
+                                2.0,
+                              ),
+                              minRating: 1,
+                              onRatingUpdate: (rating) {},
+                              unratedColor: Colors.black,
+                            ),
+                            const MediumSpacerWidget(),
+                            const Text(
+                              'Please write a short review',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SmallSpacerWidget(),
+                            TextFormFieldWidget(
+                              controller: _descriptionController,
+                              icon: Icons.text_fields_rounded,
+                              keyboardType: TextInputType.text,
+                              labelText: 'Description',
+                              lightMode: true,
+                              maxLength: 256,
+                              maxLines: 3,
+                              // Need validation here
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24.0,
+                          vertical: 16.0,
+                        ),
+                      ),
+                      color: Colors.white,
+                      elevation: 8.0,
+                    ),
+                    const LargeSpacerWidget(),
+                    RoundedButtonWidget(
+                      data: 'SUBMIT',
+                      onPressed: _onPressed,
+                    ),
+                  ],
+                ),
+                key: _key,
+              ),
+            ),
+            padding: const EdgeInsets.all(
+              16.0,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
