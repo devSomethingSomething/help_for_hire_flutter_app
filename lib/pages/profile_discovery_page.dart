@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/services/job_service.dart';
 import 'package:help_for_hire_flutter_app/services/rating_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
@@ -15,13 +16,13 @@ class ProfileDiscoveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Read in the background, the list is listening for changes and will update
-    context.read<WorkerService>().getWorkersInCity(
-          // Add this line back later to get the workers based on the correct
-          // user location
-          // locationId: context.read<UserService>().currentUser.locationId,
-          // For testing, gets all the workers in Bloemfontein
-          locationId: 'Obj3eS6Dx2K7ZiNXraGX',
-        );
+    // context.read<WorkerService>().getWorkersInCity(
+    // Add this line back later to get the workers based on the correct
+    // user location
+    // locationId: context.read<UserService>().currentUser.locationId,
+    // For testing, gets all the workers in Bloemfontein
+    // locationId: 'Obj3eS6Dx2K7ZiNXraGX',
+    // );
 
     // This does not work quite how it should
     // Will move the method to the worker service, that way everything stays
@@ -68,7 +69,101 @@ class ProfileDiscoveryPage extends StatelessWidget {
             icon: const Icon(
               Icons.filter_alt,
             ),
-            onPressed: () {},
+            onPressed: () {
+              ValidationHelper.checkConnection(
+                context: context,
+                function: () async {
+                  showDialog(
+                    builder: (_) {
+                      // Load the list of jobs
+                      context.read<JobService>().getJobs();
+
+                      var selectedJobIds = <String>[];
+
+                      return AlertDialog(
+                        actions: [
+                          TextButton(
+                            child: const Text(
+                              'CLOSE',
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                          TextButton(
+                            child: const Text(
+                              'SUBMIT',
+                            ),
+                            onPressed: () async {
+                              DelayHelper.showLoadingIndicator(
+                                  context: context);
+
+                              await context
+                                  .read<WorkerService>()
+                                  .getWorkersWithSkills(
+                                    // This needs to be the current users id
+                                    // Change this later after testing
+                                    locationId: 'Obj3eS6Dx2K7ZiNXraGX',
+                                    jobIds: selectedJobIds,
+                                  );
+
+                              DelayHelper.hideLoadingIndicator(
+                                  context: context);
+
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                        content: Consumer<JobService>(
+                          builder: (_, service, __) {
+                            return service.jobs.isEmpty
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                      color: Colors.blue[900],
+                                    ),
+                                  )
+                                : Column(
+                                    children: service.jobs.map(
+                                      (job) {
+                                        var selected = false;
+
+                                        return StatefulBuilder(
+                                          builder: (_, setState) {
+                                            return CheckboxListTile(
+                                              onChanged: (value) {
+                                                setState(
+                                                  () {
+                                                    selected = value!;
+
+                                                    value
+                                                        ? selectedJobIds
+                                                            .add(job.jobId)
+                                                        : selectedJobIds
+                                                            .remove(job.jobId);
+                                                  },
+                                                );
+                                              },
+                                              title: Text(
+                                                job.title,
+                                              ),
+                                              value: selected,
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ).toList(),
+                                    mainAxisSize: MainAxisSize.min,
+                                  );
+                          },
+                        ),
+                        title: const Text(
+                          'Filter Jobs',
+                        ),
+                      );
+                    },
+                    context: context,
+                  );
+                },
+              );
+            },
           ),
           IconButton(
             icon: const Icon(

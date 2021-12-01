@@ -178,4 +178,50 @@ class WorkerService with ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future<void> getWorkersWithSkills({
+    required String locationId,
+    required List<String> jobIds,
+  }) async {
+    var jobIdParameters = StringBuffer();
+
+    for (var jobId in jobIds) {
+      jobIdParameters.write('&jobids=$jobId');
+    }
+
+    final response = await get(
+      Uri.parse(
+        'https://${DomainConstants.ip}:5001${_controllerRoute}skills/?locationid=$locationId${jobIdParameters.toString()}',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _jsons = jsonDecode(response.body);
+
+        workers.clear();
+
+        // Clear the ratings, allowing for a fresh calculation for new profiles
+        averageRatingsForWorkers.clear();
+
+        for (var json in _jsons) {
+          workers.add(
+            WorkerModel.fromJson(
+              json: json,
+            ),
+          );
+
+          // Putting it here lets the UI load one card at a time
+          await getAverageRatingForWorker(
+            workerId: json['userId'],
+          );
+        }
+      } catch (_) {}
+    } else {
+      // ignore: avoid_print
+      print(response.body);
+    }
+
+    notifyListeners();
+  }
 }
