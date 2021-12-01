@@ -6,36 +6,27 @@ import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:http/http.dart';
 
-// This service should be able to
-// - Post
-// - Get
-// - Get(All)
-// - Put
-// - Get(Query)
 class WorkerService with ChangeNotifier {
-  // WorkerModel currentUser = WorkerModel(
-  //     description: '',
-  //     minimumFee: 100,
-  //     fullTime: true,
-  //     partTime: true,
-  //     user: UserModel(
-  //       userId: '',
-  //       name: 'john',
-  //       surname: 'doe',
-  //       phoneNumber: '',
-  //       locationId: '4m5uZ9oQtmXLPgyEwXIM',
-  //     ));
-  // For filtering in search
-  // var locationID;
-  // For filtering in search
-  // var rating;
-
-  var workers = <WorkerModel>[];
+  /// Holds a reference to a worker
+  ///
+  /// Used in the registration process and also in pages like the profile
+  /// discovery page
   WorkerModel? worker;
 
+  /// Holds a list of workers
+  ///
+  /// Used for pages like the profile discovery page where it holds all
+  /// the query results for workers
+  var workers = <WorkerModel>[];
+
+  /// Raw list of JSON data received from the web API after sending a request
   var _jsons = [];
+
+  /// Holds JSON data from requests which return only a single result such as
+  /// the getWorker method
   var _json = <String, dynamic>{};
 
+  /// Route in the web API for the worker controller
   static const _controllerRoute = '/api/worker/';
 
   WorkerService();
@@ -125,32 +116,6 @@ class WorkerService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> putWorker({
-    required String id,
-    required WorkerModel worker,
-  }) async {
-    final response = await put(
-      Uri.parse(''), // Need to add the link
-      body: jsonEncode(worker),
-      headers: {
-        "Accept": "application/json",
-        "content-type": "application/json",
-      },
-    );
-
-    if (response.statusCode == HttpStatus.noContent) {
-      try {
-        // Request worked code
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
-  }
-
   Future<void> getWorkersInCity({
     required String locationId,
   }) async {
@@ -173,14 +138,8 @@ class WorkerService with ChangeNotifier {
             ),
           );
         }
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
 
     notifyListeners();
   }

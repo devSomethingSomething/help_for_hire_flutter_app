@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
+import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/services/worker_service.dart';
@@ -9,9 +13,15 @@ class ProfileDiscoveryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // context.read<WorkerService>().getWorkersInCity(
-    //       locationId: context.read<UserService>().currentUser.locationId,
-    //     );
+    // Read in the background, the list is listening for changes and will update
+    context.read<WorkerService>().getWorkersInCity(
+          // Add this line back later to get the workers based on the correct
+          // user location
+          // locationId: context.read<UserService>().currentUser.locationId,
+          // For testing, gets all the workers in Bloemfontein
+          locationId: 'Obj3eS6Dx2K7ZiNXraGX',
+        );
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -20,8 +30,30 @@ class ProfileDiscoveryPage extends StatelessWidget {
               Icons.refresh,
             ),
             onPressed: () {
-              // Need to just recall the worker service method to get the
-              // workers again
+              // Check the connection first to prevent infinite loading
+              // Also prevents the list of workers from being deleted, meaning
+              // that the user can still look at what has already loaded
+              ValidationHelper.checkConnection(
+                context: context,
+                function: () async {
+                  // Since this is an action that the user takes, they expect some
+                  // kind of feedback to see that they have done something
+                  // Here it is better to display a loading indicator, the call to
+                  // the service above does it in the background, but this one is
+                  // triggered by the user
+                  DelayHelper.showLoadingIndicator(context: context);
+
+                  await context.read<WorkerService>().getWorkersInCity(
+                        // Add this line back later to get the workers based on the correct
+                        // user location
+                        // locationId: context.read<UserService>().currentUser.locationId,
+                        // For testing, gets all the workers in Bloemfontein
+                        locationId: 'Obj3eS6Dx2K7ZiNXraGX',
+                      );
+
+                  DelayHelper.hideLoadingIndicator(context: context);
+                },
+              );
             },
           ),
           IconButton(
@@ -56,6 +88,7 @@ class ProfileDiscoveryPage extends StatelessWidget {
                             children: [
                               const Icon(
                                 Icons.person,
+                                size: 48.0,
                               ),
                               Text(
                                 '${service.workers[index].name} ${service.workers[index].surname}',
@@ -74,20 +107,28 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                   Icons.exit_to_app,
                                 ),
                                 onPressed: () {
-                                  // Navigate to selected profile page
+                                  // Set the selected worker in worker service
+                                  // This call is important later on for things
+                                  // like invites or reports
+                                  context.read<WorkerService>().worker =
+                                      service.workers[index];
 
-                                  // Set selected worker in worker service
-                                  // We have the index already which means
-                                  // we do not need to do another get request
-
-                                  // In page, read from service
+                                  // Navigate to the selected profile page
+                                  // Also allows the user to return to this page
+                                  // without having to scroll through the whole
+                                  // list again, keeps the place
+                                  Navigator.pushNamed(
+                                    context,
+                                    RouteManager.selectedWorkerProfilePage,
+                                  );
                                 },
                               ),
                             ],
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           ),
-                          padding: const EdgeInsets.all(
-                            8.0,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 16.0,
                           ),
                         ),
                         elevation: 4.0,
