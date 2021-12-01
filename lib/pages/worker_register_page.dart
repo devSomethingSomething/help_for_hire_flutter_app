@@ -106,6 +106,7 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                         child: Column(
                           children: [
                             DescriptionTextbox(
+                              color: Colors.white,
                               descriptionController: _descriptionController,
                               data: 'Description',
                               keyboardType: TextInputType.text,
@@ -140,6 +141,7 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                             AmountTimeCheckBox(
                               data: 'Full Time',
                               time: _fullTime,
+                              color: Colors.white,
                               onChanged: (value) {
                                 setState(() {
                                   _fullTime = value!;
@@ -148,6 +150,7 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                             ),
                             AmountTimeCheckBox(
                               data: 'Part Time',
+                              color: Colors.white,
                               time: _partTime,
                               onChanged: (value) {
                                 setState(() {
