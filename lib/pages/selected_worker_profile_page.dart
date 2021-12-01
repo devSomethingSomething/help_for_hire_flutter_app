@@ -10,7 +10,7 @@ import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/flat_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/text_button_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/selected_profile_widgets/card_profile.dart';
+import 'package:help_for_hire_flutter_app/widgets/selected_profile_widgets/card_profile_worker.dart';
 import 'package:help_for_hire_flutter_app/widgets/selected_profile_widgets/image_avatar_profile.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +42,7 @@ class SelectedWorkerProfilePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 100, left: 10, right: 10, bottom: 20),
-                    child: CardInformation(),
+                    child: CardInformationWorker(),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),

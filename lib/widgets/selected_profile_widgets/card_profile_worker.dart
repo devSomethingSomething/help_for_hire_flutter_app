@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 
-class CardInformation extends StatelessWidget {
+class CardInformationWorker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
