@@ -169,7 +169,15 @@ class ProfileDiscoveryPage extends StatelessWidget {
             icon: const Icon(
               Icons.sort,
             ),
-            onPressed: () {},
+            onPressed: () {
+              // Will require change to worker model in order to work better
+              // with ratings
+              // Store a property in the app with just a starting value of 0
+              // or something and just change that when the workers are
+              // retrieved
+              // Should be able to sort by name, surname, ratings
+              // ABC or CBA, whichever order
+            },
           ),
         ],
         backgroundColor: Colors.blue[900],
@@ -267,7 +275,19 @@ class ProfileDiscoveryPage extends StatelessWidget {
         child: const Icon(
           Icons.history,
         ),
-        onPressed: () {},
+        onPressed: () {
+          // This might require some changes to the history controller
+          // The post method will need to check for duplicates to prevent
+          // a user from showing up twice in the viewed list
+          // There will need to be another method which only retrieves
+          // viewed user ids
+          // Then the app will have to retrieve those workers and their details
+          // and list them in a column
+          // Be careful not to overwrite the workers list which is already in
+          // the worker service
+          // Would be better to create a new variable to hold the viewed
+          // accounts
+        },
       ),
     );
   }
