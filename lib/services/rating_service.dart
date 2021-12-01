@@ -11,7 +11,7 @@ class RatingService with ChangeNotifier {
   bool isDuplicate = false;
 
   /// Route in the web api to reach the rating controller
-  static const _controllerRoute = '/api/rating';
+  static const _controllerRoute = '/api/rating/';
 
   RatingService();
 

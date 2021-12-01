@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
+import 'package:help_for_hire_flutter_app/services/rating_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
@@ -21,6 +22,13 @@ class ProfileDiscoveryPage extends StatelessWidget {
           // For testing, gets all the workers in Bloemfontein
           locationId: 'Obj3eS6Dx2K7ZiNXraGX',
         );
+
+    // This does not work quite how it should
+    // Will move the method to the worker service, that way everything stays
+    // up to date properly
+    // context.read<RatingService>().getAverageRatingForWorker(
+    //       workerId: '9876543210123',
+    //     );
 
     return Scaffold(
       appBar: AppBar(
@@ -90,18 +98,38 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                 Icons.person,
                                 size: 48.0,
                               ),
+                              const SizedBox(
+                                width: 8.0,
+                              ),
                               Text(
                                 '${service.workers[index].name} ${service.workers[index].surname}',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              // Needs to be dynamic
-                              // Needs to somehow get the average rating for
-                              // each user and return that here
-                              // Row(
-                              //   children: _getRandomRating(),
-                              // ),
+                              const Spacer(),
+                              service.averageRatingsForWorkers.length > index
+                                  ? Row(
+                                      children: List.generate(
+                                        5,
+                                        (i) {
+                                          return i <
+                                                  service.averageRatingsForWorkers[
+                                                      index]
+                                              ? const Icon(
+                                                  Icons.star,
+                                                  color: Colors.orange,
+                                                )
+                                              : const Icon(
+                                                  Icons.star,
+                                                );
+                                        },
+                                      ),
+                                    )
+                                  : Container(),
+                              const SizedBox(
+                                width: 8.0,
+                              ),
                               IconButton(
                                 icon: const Icon(
                                   Icons.exit_to_app,
@@ -124,7 +152,6 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                 },
                               ),
                             ],
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           ),
                           padding: const EdgeInsets.symmetric(
                             horizontal: 8.0,

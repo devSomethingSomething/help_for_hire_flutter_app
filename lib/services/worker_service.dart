@@ -19,6 +19,11 @@ class WorkerService with ChangeNotifier {
   /// the query results for workers
   var workers = <WorkerModel>[];
 
+  /// Holds the average ratings for workers
+  /// Will probably move this to the worker service class, then it has more
+  /// control over this list and the query results
+  var averageRatingsForWorkers = <int>[];
+
   /// Raw list of JSON data received from the web API after sending a request
   var _jsons = [];
 
@@ -131,13 +136,43 @@ class WorkerService with ChangeNotifier {
 
         workers.clear();
 
+        // Clear the ratings, allowing for a fresh calculation for new profiles
+        averageRatingsForWorkers.clear();
+
         for (var json in _jsons) {
           workers.add(
             WorkerModel.fromJson(
               json: json,
             ),
           );
+
+          // Putting it here lets the UI load one card at a time
+          await getAverageRatingForWorker(
+            workerId: json['userId'],
+          );
         }
+      } catch (_) {}
+    } else {}
+
+    notifyListeners();
+  }
+
+  Future<void> getAverageRatingForWorker({
+    required String workerId,
+  }) async {
+    final response = await get(
+      Uri.parse(
+        'https://${DomainConstants.ip}:5001/api/rating/worker/?workerid=$workerId',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        averageRatingsForWorkers.add(
+          int.parse(
+            response.body,
+          ),
+        );
       } catch (_) {}
     } else {}
 
