@@ -49,6 +49,7 @@ class TextFormFieldWidget extends StatelessWidget {
     return StatefulBuilder(
       builder: (_, setState) {
         return TextFormField(
+          autovalidateMode: AutovalidateMode.always,
           cursorColor: _lightMode ? Colors.blue[900] : Colors.white,
           controller: _controller,
           decoration: InputDecoration(
