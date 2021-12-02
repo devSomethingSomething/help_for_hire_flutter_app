@@ -75,7 +75,7 @@ class EmployerProfilePage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'name surname',
+                    'Name Surname',
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -95,7 +95,7 @@ class EmployerProfilePage extends StatelessWidget {
               padding:
               EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),
               child: RoundedButtonWidget(
-                data: 'edit details',
+                data: 'Edit Details',
                 onPressed: () {
                   showMaterialModalBottomSheet(
                     context: context,
