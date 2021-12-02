@@ -211,25 +211,41 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                 ),
                               ),
                               const Spacer(),
-                              service.averageRatingsForWorkers.length > index
-                                  ? Row(
-                                      children: List.generate(
-                                        5,
-                                        (i) {
-                                          return i <
-                                                  service.averageRatingsForWorkers[
-                                                      index]
-                                              ? const Icon(
-                                                  Icons.star,
-                                                  color: Colors.orange,
-                                                )
-                                              : const Icon(
-                                                  Icons.star,
-                                                );
-                                        },
-                                      ),
-                                    )
-                                  : Container(),
+                              Row(
+                                children: List.generate(
+                                  5,
+                                  (i) {
+                                    return i <
+                                            service.workers[index].averageRating
+                                        ? const Icon(
+                                            Icons.star,
+                                            color: Colors.orange,
+                                          )
+                                        : const Icon(
+                                            Icons.star,
+                                          );
+                                  },
+                                ),
+                              ),
+                              // service.averageRatingsForWorkers.length > index
+                              //     ? Row(
+                              //         children: List.generate(
+                              //           5,
+                              //           (i) {
+                              //             return i <
+                              //                     service.averageRatingsForWorkers[
+                              //                         index]
+                              //                 ? const Icon(
+                              //                     Icons.star,
+                              //                     color: Colors.orange,
+                              //                   )
+                              //                 : const Icon(
+                              //                     Icons.star,
+                              //                   );
+                              //           },
+                              //         ),
+                              //       )
+                              //     : Container(),
                               const SizedBox(
                                 width: 8.0,
                               ),
@@ -270,25 +286,27 @@ class ProfileDiscoveryPage extends StatelessWidget {
       ),
       drawer: const DrawerWidget(),
       drawerEnableOpenDragGesture: false,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue[900],
-        child: const Icon(
-          Icons.history,
-        ),
-        onPressed: () {
-          // This might require some changes to the history controller
-          // The post method will need to check for duplicates to prevent
-          // a user from showing up twice in the viewed list
-          // There will need to be another method which only retrieves
-          // viewed user ids
-          // Then the app will have to retrieve those workers and their details
-          // and list them in a column
-          // Be careful not to overwrite the workers list which is already in
-          // the worker service
-          // Would be better to create a new variable to hold the viewed
-          // accounts
-        },
-      ),
+      // Will get back to this later on if there is time, but it is not a
+      // required feature, just something extra
+      // floatingActionButton: FloatingActionButton(
+      // backgroundColor: Colors.blue[900],
+      // child: const Icon(
+      // Icons.history,
+      // ),
+      // onPressed: () {
+      // This might require some changes to the history controller
+      // The post method will need to check for duplicates to prevent
+      // a user from showing up twice in the viewed list
+      // There will need to be another method which only retrieves
+      // viewed user ids
+      // Then the app will have to retrieve those workers and their details
+      // and list them in a column
+      // Be careful not to overwrite the workers list which is already in
+      // the worker service
+      // Would be better to create a new variable to hold the viewed
+      // accounts
+      // },
+      // ),
     );
   }
 }

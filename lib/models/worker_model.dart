@@ -10,6 +10,9 @@ class WorkerModel extends UserModel {
 
   List<dynamic> jobIds;
 
+  /// Stores the average rating for the worker
+  int averageRating;
+
   WorkerModel({
     required this.description,
     required this.minimumFee,
@@ -17,6 +20,9 @@ class WorkerModel extends UserModel {
     required this.partTime,
     required this.jobIds,
     required UserModel user,
+    // Should be zero as this property does not exist within the firestore DB
+    // Gets calculated later on
+    this.averageRating = 0,
   }) : super(
           userId: user.userId,
           name: user.name,
@@ -32,6 +38,8 @@ class WorkerModel extends UserModel {
         fullTime = json['fullTime'],
         partTime = json['partTime'],
         jobIds = json['jobIds'],
+        // Should be zero initially until the calculation happens
+        averageRating = 0,
         super(
           userId: json['userId'],
           name: json['name'],

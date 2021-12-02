@@ -139,18 +139,33 @@ class WorkerService with ChangeNotifier {
         // Clear the ratings, allowing for a fresh calculation for new profiles
         averageRatingsForWorkers.clear();
 
-        for (var json in _jsons) {
+        for (var i = 0; i < _jsons.length; i++) {
           workers.add(
             WorkerModel.fromJson(
-              json: json,
+              json: _jsons[i],
             ),
           );
 
           // Putting it here lets the UI load one card at a time
           await getAverageRatingForWorker(
-            workerId: json['userId'],
+            workerId: _jsons[i]['userId'],
           );
+
+          workers[i].averageRating = averageRatingsForWorkers[i];
         }
+
+        // for (var json in _jsons) {
+        //   workers.add(
+        //     WorkerModel.fromJson(
+        //       json: json,
+        //     ),
+        //   );
+
+        //   // Putting it here lets the UI load one card at a time
+        //   await getAverageRatingForWorker(
+        //     workerId: json['userId'],
+        //   );
+        // }
       } catch (_) {}
     } else {}
 
@@ -204,18 +219,33 @@ class WorkerService with ChangeNotifier {
         // Clear the ratings, allowing for a fresh calculation for new profiles
         averageRatingsForWorkers.clear();
 
-        for (var json in _jsons) {
+        for (var i = 0; i < _jsons.length; i++) {
           workers.add(
             WorkerModel.fromJson(
-              json: json,
+              json: _jsons[i],
             ),
           );
 
           // Putting it here lets the UI load one card at a time
           await getAverageRatingForWorker(
-            workerId: json['userId'],
+            workerId: _jsons[i]['userId'],
           );
+
+          workers[i].averageRating = averageRatingsForWorkers[i];
         }
+
+        // for (var json in _jsons) {
+        //   workers.add(
+        //     WorkerModel.fromJson(
+        //       json: json,
+        //     ),
+        //   );
+
+        //   // Putting it here lets the UI load one card at a time
+        //   await getAverageRatingForWorker(
+        //     workerId: json['userId'],
+        //   );
+        // }
       } catch (_) {}
     } else {
       // ignore: avoid_print
