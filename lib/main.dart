@@ -14,6 +14,7 @@ import 'package:help_for_hire_flutter_app/services/rating_service.dart';
 import 'package:help_for_hire_flutter_app/services/report_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/services/worker_service.dart';
+import 'package:help_for_hire_flutter_app/helpers/check_box_helper.dart';
 
 import 'package:provider/provider.dart';
 
@@ -68,6 +69,9 @@ class _App extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ThemeSettings(),
+        ),
+        ChangeNotifierProvider(//can be fixed if considered dirty (for worker profile page)
+          create: (_) => CheckBoxHelper(),
         ),
       ],
       child: Consumer<ThemeSettings>(

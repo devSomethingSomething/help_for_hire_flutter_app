@@ -6,12 +6,25 @@ import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:side_sheet/side_sheet.dart';
+import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
+
 
 class EmployerProfilePage extends StatelessWidget {
   const EmployerProfilePage();
 
   @override
   Widget build(BuildContext context) {
+
+    TextEditingController _nameController = TextEditingController();
+    TextEditingController _surnameController = TextEditingController();
+    TextEditingController _feeController = TextEditingController();
+    TextEditingController _phoneController = TextEditingController();
+    TextEditingController _companyNameController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -46,14 +59,15 @@ class EmployerProfilePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
+            Container(
               width: double.infinity,
               height: 250,
               child: Column(
-                children: const [
+                children: [
                   Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.only(top: 30, bottom: 10),
                     child: CircleAvatar(
                       backgroundColor: Colors.grey,
                       backgroundImage: AssetImage(ImageConstants.placeholder),
@@ -61,7 +75,7 @@ class EmployerProfilePage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Freye Archeron',
+                    'name surname',
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -70,63 +84,220 @@ class EmployerProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            textWidget(
-                TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Name'),
-                    style: TextButton.styleFrom(
-                      primary: Colors.black,
-                    )),
-                'Freye'),
-            textWidget(
-                TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Surname'),
-                    style: TextButton.styleFrom(
-                      primary: Colors.black,
-                    )),
-                'Archeron'),
-            textWidget(
-                TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Location'),
-                    style: TextButton.styleFrom(
-                      primary: Colors.black,
-                    )),
-                'Free State'),
-            textWidget(
-                TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Phone Number'),
-                    style: TextButton.styleFrom(
-                      primary: Colors.black,
-                    )),
-                '0833850667'),
-            textWidget(
-                TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit),
-                    label: const Text('ID Number'),
-                    style: TextButton.styleFrom(
-                      primary: Colors.black,
-                    )),
-                '9903310258001'),
-            textWidget(
-                TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Description'),
-                    style: TextButton.styleFrom(
-                      primary: Colors.black,
-                    )),
-                'I am 32 years old'),
-            const SizedBox(
-              height: 30,
-            )
+
+            textWidget('Company Name', 'name'),
+            textWidget('Province', 'province'),
+            textWidget('City', 'city'),
+            textWidget('Suburb', 'suburb'),
+            textWidget('Address', 'address'),
+            textWidget('Phone Number', '000 000 0000'),
+            Padding(
+              padding:
+              EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),
+              child: RoundedButtonWidget(
+                data: 'edit details',
+                onPressed: () {
+                  showMaterialModalBottomSheet(
+                    context: context,
+                    expand: true,
+                    builder: (context) => SingleChildScrollView(
+                      controller: ModalScrollController.of(context),
+                      child: Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Container(
+                                height: 100,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.vertical(
+                                      bottom: Radius.elliptical(300, 80),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black, blurRadius: 4),
+                                    ]),
+                                child: Center(
+                                  child: Text(
+                                    'Edit Profile Info',
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )),
+                            Padding(
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              child: Container(
+                                height: 650,
+                                child: ListView(
+                                  children: [
+                                    TextFormFieldWidget(
+                                        lightMode: true,
+                                        controller: _nameController,
+                                        labelText: 'name',
+                                        icon: Icons.text_format,
+                                        keyboardType: TextInputType.name),
+                                    const SmallSpacerWidget(),
+                                    TextFormFieldWidget(
+                                        lightMode: true,
+                                        controller: _surnameController,
+                                        labelText: 'surname',
+                                        icon: Icons.text_fields,
+                                        keyboardType: TextInputType.name),
+                                    const SmallSpacerWidget(),
+                                    TextFormFieldWidget(
+                                        lightMode: true,
+                                        controller: _phoneController,
+                                        labelText: 'phone NO',
+                                        icon: Icons.phone,
+                                        keyboardType: TextInputType.name),
+                                    const SmallSpacerWidget(),
+                                    TextFormFieldWidget(
+                                        lightMode: true,
+                                        controller: _feeController,
+                                        labelText: 'company name (optional)',
+                                        icon: Icons.business_sharp,
+                                        keyboardType: TextInputType.name),
+                                    const MediumSpacerWidget(),
+                                    Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ColorConstants.blue,
+                                            width: 1),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                            8.0,
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 16.0,
+                                      ),
+                                      child: DropdownButtonFormField<String>(
+                                        decoration: const InputDecoration(
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          labelText: 'Province',
+                                          errorStyle: TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        iconSize: 28.0,
+                                        items: [],
+                                        //LocationConstants.provinces
+                                        //     .map(
+                                        //       (value) => DropdownMenuItem(
+                                        //     value: value,
+                                        //     child: Text(
+                                        //       value,
+                                        //     ),
+                                        //   ),
+                                        // )
+                                        //     .toList(),
+                                        onChanged: (province) {
+                                          // context
+                                          //     .read<LocationService>()
+                                          //     .getCitiesInProvince(
+                                          //   province: province.toString(),
+                                          // );
+                                        },
+                                        validator: (value) => value == null
+                                            ? 'Please select a province'
+                                            : null,
+                                      ),
+                                    ),
+                                    const MediumSpacerWidget(),
+                                    Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ColorConstants.blue,
+                                            width: 1),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                            8.0,
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 16.0,
+                                      ),
+                                      child: DropdownButtonFormField<String>(
+                                        decoration: const InputDecoration(
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          labelText: 'City',
+                                          errorStyle: TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        iconSize: 28.0,
+                                        items: [],
+                                        //LocationConstants.provinces
+                                        //     .map(
+                                        //       (value) => DropdownMenuItem(
+                                        //     value: value,
+                                        //     child: Text(
+                                        //       value,
+                                        //     ),
+                                        //   ),
+                                        // )
+                                        //     .toList(),
+                                        onChanged: (province) {
+                                          // context
+                                          //     .read<LocationService>()
+                                          //     .getCitiesInProvince(
+                                          //   province: province.toString(),
+                                          // );
+                                        },
+                                        validator: (value) => value == null
+                                            ? 'Please select a province'
+                                            : null,
+                                      ),
+                                    ),
+                                    const SmallSpacerWidget(),
+                                    TextFormFieldWidget(
+                                        lightMode: true,
+                                        controller: _feeController,
+                                        labelText: 'address',
+                                        icon: Icons.home,
+                                        keyboardType: TextInputType.name),
+                                    const SmallSpacerWidget(),
+                                    TextFormFieldWidget(
+                                        lightMode: true,
+                                        controller: _feeController,
+                                        labelText: 'suburb',
+                                        icon: Icons.home,
+                                        keyboardType: TextInputType.name),
+                                    const SmallSpacerWidget(),
+                                    RoundedButtonWidget(
+                                      invertColors: true,
+                                      data: 'Submit',
+                                      onPressed: () {},
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                invertColors: true,
+              ),
+            ),
           ],
         ),
       ),
@@ -136,19 +307,19 @@ class EmployerProfilePage extends StatelessWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-Padding textWidget(TextButton txtBtn, String content) {
+Padding textWidget(String title, String content) {
   return Padding(
-    padding: const EdgeInsets.only(left: 20, right: 20),
+    padding: EdgeInsets.only(left: 20, right: 20),
     child: Container(
       height: 55,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.grey))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          txtBtn,
-          text(content),
+          text(title),
+          text('$content'),
         ],
       ),
     ),
@@ -158,7 +329,7 @@ Padding textWidget(TextButton txtBtn, String content) {
 Text text(String txt) {
   return Text(
     txt,
-    style: const TextStyle(
-        color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+    style: TextStyle(
+        color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
   );
 }
