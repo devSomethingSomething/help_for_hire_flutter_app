@@ -36,6 +36,53 @@ class WorkerService with ChangeNotifier {
 
   WorkerService();
 
+  /// Sorts the list of workers
+  ///
+  /// Can be in ascending or descending order
+  void sortByRatings({
+    bool ascending = true,
+  }) {
+    workers.sort(
+      (a, b) => a.averageRating.compareTo(b.averageRating),
+    );
+
+    if (!ascending) {
+      workers = workers.reversed.toList();
+    }
+
+    notifyListeners();
+  }
+
+  /// Sorts the list of workers by name
+  void sortByName({
+    bool alphabetical = true,
+  }) {
+    workers.sort(
+      (a, b) => a.name.compareTo(b.name),
+    );
+
+    if (!alphabetical) {
+      workers = workers.reversed.toList();
+    }
+
+    notifyListeners();
+  }
+
+  /// Sorts the list of workers by surname
+  void sortBySurname({
+    bool alphabetical = true,
+  }) {
+    workers.sort(
+      (a, b) => a.surname.compareTo(b.surname),
+    );
+
+    if (!alphabetical) {
+      workers = workers.reversed.toList();
+    }
+
+    notifyListeners();
+  }
+
   Future<void> postWorker({
     required WorkerModel worker,
   }) async {

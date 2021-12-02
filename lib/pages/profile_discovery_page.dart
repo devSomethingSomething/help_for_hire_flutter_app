@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/job_service.dart';
@@ -93,20 +96,22 @@ class ProfileDiscoveryPage extends StatelessWidget {
                               'SUBMIT',
                             ),
                             onPressed: () async {
-                              DelayHelper.showLoadingIndicator(
-                                  context: context);
+                              if (selectedJobIds.isNotEmpty) {
+                                DelayHelper.showLoadingIndicator(
+                                    context: context);
 
-                              await context
-                                  .read<WorkerService>()
-                                  .getWorkersWithSkills(
-                                    // This needs to be the current users id
-                                    // Change this later after testing
-                                    locationId: 'Obj3eS6Dx2K7ZiNXraGX',
-                                    jobIds: selectedJobIds,
-                                  );
+                                await context
+                                    .read<WorkerService>()
+                                    .getWorkersWithSkills(
+                                      // This needs to be the current users id
+                                      // Change this later after testing
+                                      locationId: 'Obj3eS6Dx2K7ZiNXraGX',
+                                      jobIds: selectedJobIds,
+                                    );
 
-                              DelayHelper.hideLoadingIndicator(
-                                  context: context);
+                                DelayHelper.hideLoadingIndicator(
+                                    context: context);
+                              }
 
                               Navigator.pop(context);
                             },
@@ -170,13 +175,119 @@ class ProfileDiscoveryPage extends StatelessWidget {
               Icons.sort,
             ),
             onPressed: () {
-              // Will require change to worker model in order to work better
-              // with ratings
-              // Store a property in the app with just a starting value of 0
-              // or something and just change that when the workers are
-              // retrieved
               // Should be able to sort by name, surname, ratings
               // ABC or CBA, whichever order
+              // context.read<WorkerService>().sortByName(alphabetical: false);
+
+              var groupValue1 = 'Name';
+
+              var groupValue2 = true;
+
+              showDialog(
+                builder: (_) {
+                  return AlertDialog(
+                    actions: [
+                      TextButton(
+                        child: const Text(
+                          'CLOSE',
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      TextButton(
+                        child: const Text(
+                          'SUBMIT',
+                        ),
+                        onPressed: () async {
+                          groupValue1 == 'Name'
+                              ? context.read<WorkerService>().sortByName(
+                                    alphabetical: groupValue2,
+                                  )
+                              : groupValue1 == 'Surname'
+                                  ? context.read<WorkerService>().sortBySurname(
+                                        alphabetical: groupValue2,
+                                      )
+                                  : context.read<WorkerService>().sortByRatings(
+                                        ascending: groupValue2,
+                                      );
+
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                    content: StatefulBuilder(
+                      builder: (_, setState) {
+                        return Column(
+                          children: [
+                            const Text(
+                              'Sort By',
+                            ),
+                            const SmallSpacerWidget(),
+                            RadioListTile<String>(
+                              groupValue: groupValue1,
+                              onChanged: (value) => setState(
+                                () => groupValue1 = value.toString(),
+                              ),
+                              title: const Text(
+                                'Name',
+                              ),
+                              value: 'Name',
+                            ),
+                            RadioListTile<String>(
+                              groupValue: groupValue1,
+                              onChanged: (value) => setState(
+                                () => groupValue1 = value.toString(),
+                              ),
+                              title: const Text(
+                                'Surname',
+                              ),
+                              value: 'Surname',
+                            ),
+                            RadioListTile<String>(
+                              groupValue: groupValue1,
+                              onChanged: (value) => setState(
+                                () => groupValue1 = value.toString(),
+                              ),
+                              title: const Text(
+                                'Rating',
+                              ),
+                              value: 'Rating',
+                            ),
+                            const SmallSpacerWidget(),
+                            const Text('Sort Order'),
+                            const SmallSpacerWidget(),
+                            RadioListTile<bool>(
+                              groupValue: groupValue2,
+                              onChanged: (value) => setState(
+                                () => groupValue2 = value!,
+                              ),
+                              title: const Text(
+                                'Ascending',
+                              ),
+                              value: true,
+                            ),
+                            RadioListTile<bool>(
+                              groupValue: groupValue2,
+                              onChanged: (value) => setState(
+                                () => groupValue2 = value!,
+                              ),
+                              title: const Text(
+                                'Descending',
+                              ),
+                              value: false,
+                            ),
+                          ],
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                        );
+                      },
+                    ),
+                    title: const Text(
+                      'Sort Profiles',
+                    ),
+                  );
+                },
+                context: context,
+              );
             },
           ),
         ],
@@ -197,8 +308,11 @@ class ProfileDiscoveryPage extends StatelessWidget {
                         child: Padding(
                           child: Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.person,
+                                color: Colors.primaries[Random().nextInt(
+                                  Colors.primaries.length,
+                                )],
                                 size: 48.0,
                               ),
                               const SizedBox(
