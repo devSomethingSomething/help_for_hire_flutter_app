@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/info_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
@@ -104,15 +105,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             ),
           ),
         ],
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: ColorConstants.blue,
+        foregroundColor: Colors.white,
         title: const Text(
           'Change Password',
         ),
       ),
       body: Stack(
         children: [
-          const BlueGradientWidget(),
           SingleChildScrollView(
             child: Center(
               child: Form(
@@ -120,14 +120,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   children: [
                     const Icon(
                       Icons.password_rounded,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 128.0,
                     ),
                     const SmallSpacerWidget(),
                     const Text(
                       'Change Password',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 28.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -175,12 +175,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         ),
                       ),
                       color: Colors.white,
-                      elevation: 8.0,
+                      elevation: 2,
+                      shadowColor: Colors.black,
                     ),
                     const LargeSpacerWidget(),
                     RoundedButtonWidget(
                       data: 'SUBMIT',
                       onPressed: _onPressed,
+                      invertColors: true,
                     ),
                   ],
                 ),
