@@ -45,7 +45,7 @@ class _EmployerRegisterPageState extends State<EmployerRegisterPage> {
                     ),
                     const SmallSpacerWidget(),
                     const Text(
-                      'Register a employer account',
+                      'Register an employer account',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
