@@ -42,6 +42,10 @@ class _SignInPageState extends State<SignInPage> {
   /// Includes things like checking the internet connection or making sure that
   /// text fields have valid values
   void _onPressed() async {
+    Navigator.pushNamed(
+      context,
+      RouteManager.workerProfilePage,
+    );
     if (_key.currentState!.validate()) {
       if (await ConnectionHelper.hasConnection()) {
         // This should work now, perhaps there is a better

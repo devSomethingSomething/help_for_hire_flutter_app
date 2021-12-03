@@ -25,8 +25,7 @@ class WorkerProfilePage extends StatefulWidget {
 }
 
 class _WorkerProfilePageState extends State<WorkerProfilePage> {
-  bool _fullTime = false;
-  bool _partTime = false;
+
   @override
   Widget build(BuildContext context) {
     TextEditingController _nameController = TextEditingController();
@@ -34,6 +33,18 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
     TextEditingController _feeController = TextEditingController();
     TextEditingController _phoneController = TextEditingController();
     TextEditingController _descriptionController = TextEditingController();
+
+    //setting default values for edit profile
+    _nameController.text='current name';
+    _surnameController.text='current surname';
+    _feeController.text='current min fee';
+    _phoneController.text='current cell NO';
+    _descriptionController.text='current description';
+
+    //the logic for the checkbox can be added on the check box widget.
+
+    //the logic for default location must be added
+
 
     return Scaffold(
       appBar: AppBar(
@@ -230,7 +241,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                                           AmountTimeCheckBox(
                                             color: ColorConstants.blue,
                                             data: 'Full Time',
-                                            time: currentState.fullTime,
+                                            time: currentState.fullTime,//current state for Part Time
                                             onChanged: (value) {
                                               currentState.fullTime = value!;
                                             },
@@ -238,7 +249,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                                           AmountTimeCheckBox(
                                             color: ColorConstants.blue,
                                             data: 'Part Time',
-                                            time: currentState.partTime,
+                                            time: currentState.partTime,//current state for Part Time
                                             onChanged: (value) {
                                               currentState.partTime = value!;
                                             },

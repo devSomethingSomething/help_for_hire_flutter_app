@@ -12,18 +12,28 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.d
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 
-
 class EmployerProfilePage extends StatelessWidget {
   const EmployerProfilePage();
 
   @override
   Widget build(BuildContext context) {
-
     TextEditingController _nameController = TextEditingController();
     TextEditingController _surnameController = TextEditingController();
-    TextEditingController _feeController = TextEditingController();
     TextEditingController _phoneController = TextEditingController();
     TextEditingController _companyNameController = TextEditingController();
+    TextEditingController _addressController = TextEditingController();
+    TextEditingController _suburbController = TextEditingController();
+
+    //setting default values for edit profile
+
+    _nameController.text = 'current name';
+    _surnameController.text = 'current surname';
+    _phoneController.text = 'current cell NO';
+    _companyNameController.text = 'current company name';
+    _addressController.text = 'current address';
+    _suburbController.text = 'current suburb';
+
+    //the logic for default location must be added
 
     return Scaffold(
       appBar: AppBar(
@@ -84,7 +94,6 @@ class EmployerProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-
             textWidget('Company Name', 'name'),
             textWidget('Province', 'province'),
             textWidget('City', 'city'),
@@ -93,7 +102,7 @@ class EmployerProfilePage extends StatelessWidget {
             textWidget('Phone Number', '000 000 0000'),
             Padding(
               padding:
-              EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),
+                  EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),
               child: RoundedButtonWidget(
                 data: 'Edit Details',
                 onPressed: () {
@@ -155,7 +164,7 @@ class EmployerProfilePage extends StatelessWidget {
                                     const SmallSpacerWidget(),
                                     TextFormFieldWidget(
                                         lightMode: true,
-                                        controller: _feeController,
+                                        controller: _companyNameController,
                                         labelText: 'company name (optional)',
                                         icon: Icons.business_sharp,
                                         keyboardType: TextInputType.name),
@@ -261,21 +270,21 @@ class EmployerProfilePage extends StatelessWidget {
                                           // );
                                         },
                                         validator: (value) => value == null
-                                            ? 'Please select a province'
+                                            ? 'Please select a City'
                                             : null,
                                       ),
                                     ),
                                     const SmallSpacerWidget(),
                                     TextFormFieldWidget(
                                         lightMode: true,
-                                        controller: _feeController,
+                                        controller: _addressController,
                                         labelText: 'address',
                                         icon: Icons.home,
                                         keyboardType: TextInputType.name),
                                     const SmallSpacerWidget(),
                                     TextFormFieldWidget(
                                         lightMode: true,
-                                        controller: _feeController,
+                                        controller: _suburbController,
                                         labelText: 'suburb',
                                         icon: Icons.home,
                                         keyboardType: TextInputType.name),
@@ -312,8 +321,8 @@ Padding textWidget(String title, String content) {
     padding: EdgeInsets.only(left: 20, right: 20),
     child: Container(
       height: 55,
-      decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.grey))),
+      decoration:
+          BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
