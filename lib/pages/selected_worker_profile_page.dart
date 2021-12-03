@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/enums/status.dart';
@@ -28,16 +30,16 @@ class SelectedWorkerProfilePage extends StatelessWidget {
       fullTime: false,
       partTime: true,
       jobIds: [
-        '123',
-        '321',
-        '456',
+        'Gardener',
+        'Cleaner',
+        'Tiling',
       ],
       user: UserModel(
         userId: '1234567890123',
         name: 'Freye',
         surname: 'Archeron',
         phoneNumber: '1234567890',
-        locationId: '123',
+        locationId: 'Bloemfontein',
       ),
       averageRating: 4,
     );
@@ -76,9 +78,10 @@ class SelectedWorkerProfilePage extends StatelessWidget {
                   Padding(
                     child: CardInformationWorker(),
                     padding: const EdgeInsets.only(
-                      left: 8.0,
-                      right: 8.0,
+                      left: 10.0,
+                      right: 10.0,
                       top: 100.0,
+                      bottom: 20.0,
                     ),
                   ),
                   Padding(
@@ -89,84 +92,101 @@ class SelectedWorkerProfilePage extends StatelessWidget {
                   ),
                 ],
               ),
-              Card(
-                child: Container(
-                  height: 350.0,
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: <Widget>[
-                      const Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text(
-                          'User Information',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      const Divider(
-                        color: Colors.black,
-                        thickness: 2.0,
-                      ),
-                      Padding(
-                        child: Container(
-                          child: ListView(
-                            children: [
-                              Padding(
-                                child: Text(
-                                  '${context.read<WorkerService>().worker?.description}',
-                                ),
-                                padding: const EdgeInsets.all(
-                                  8.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1.0,
-                            ),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(
-                                4.0,
-                              ),
-                            ),
-                          ),
-                          height: 120.0,
-                        ),
-                        padding: const EdgeInsets.only(
-                          left: 20.0,
-                          right: 20.0,
-                          top: 10.0,
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          textWidget(
-                            'Full Time:',
-                            context.read<WorkerService>().worker!.fullTime
-                                ? 'Yes'
-                                : 'No',
-                          ),
-                          textWidget(
-                            'Part Time:',
-                            context.read<WorkerService>().worker!.partTime
-                                ? 'Yes'
-                                : 'No',
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                  bottom: 20,
                 ),
-                elevation: 8.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    8.0,
+                child: Card(
+                  child: Container(
+                    height: 450.0,
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: <Widget>[
+                        const Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text(
+                            'User Information',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        const Divider(
+                          color: Colors.black,
+                          thickness: 1.0,
+                        ),
+                        Padding(
+                          child: Container(
+                            child: ListView(
+                              children: [
+                                Padding(
+                                  child: Text(
+                                    '${context.read<WorkerService>().worker?.description}',
+                                  ),
+                                  padding: const EdgeInsets.all(
+                                    8.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1.0,
+                              ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(
+                                  4.0,
+                                ),
+                              ),
+                            ),
+                            height: 120.0,
+                          ),
+                          padding: const EdgeInsets.only(
+                            left: 20.0,
+                            right: 20.0,
+                            top: 10.0,
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            textWidget(
+                              'Full Time:',
+                              context.read<WorkerService>().worker!.fullTime
+                                  ? 'Yes'
+                                  : 'No',
+                            ),
+                            textWidget(
+                              'Part Time:',
+                              context.read<WorkerService>().worker!.partTime
+                                  ? 'Yes'
+                                  : 'No',
+                            ),
+                            textWidget(
+                                'Location',
+                                context
+                                    .read<WorkerService>()
+                                    .worker!
+                                    .locationId),
+                            textWidget('Jobs', 'List jobs here'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  color: Colors.white,
+                  shadowColor: Colors.black,
+                  elevation: 10.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      10.0,
+                    ),
                   ),
                 ),
               ),
