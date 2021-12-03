@@ -173,7 +173,6 @@ class SelectedWorkerProfilePage extends StatelessWidget {
                                     .read<WorkerService>()
                                     .worker!
                                     .locationId),
-                            textWidget('Jobs', 'List jobs here'),
                           ],
                         ),
                       ],
