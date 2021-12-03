@@ -25,9 +25,7 @@ class FlatButtonWidget extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         elevation: 0.0,
         primary: _primary,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
-        ),
+        shape: const StadiumBorder(),
       ),
     );
   }

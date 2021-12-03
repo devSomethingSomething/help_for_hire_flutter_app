@@ -6,13 +6,19 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   /// Title of the app bar
   final String _data;
 
+  /// List of optional actions
+  final List<Widget> _actions;
+
   const AppBarWidget({
     required String data,
-  }) : _data = data;
+    List<Widget> actions = const [],
+  })  : _data = data,
+        _actions = actions;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      actions: _actions,
       backgroundColor: ColorConstants.blue,
       title: Text(
         _data,
