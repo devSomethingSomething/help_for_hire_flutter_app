@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/form_model.dart';
-import 'package:help_for_hire_flutter_app/pages/theme_data.dart';
+import 'package:help_for_hire_flutter_app/models/settings_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/employer_service.dart';
 import 'package:help_for_hire_flutter_app/services/history_service.dart';
@@ -38,6 +38,9 @@ class _App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (_) => CheckBoxHelper(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => EmployerService(),
         ),
         ChangeNotifierProvider(
@@ -62,25 +65,22 @@ class _App extends StatelessWidget {
           create: (_) => ReportService(),
         ),
         ChangeNotifierProvider(
+          create: (_) => SettingsModel(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => UserService(),
         ),
         ChangeNotifierProvider(
           create: (_) => WorkerService(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => ThemeSettings(),
-        ),
-        ChangeNotifierProvider(//can be fixed if considered dirty (for worker profile page)
-          create: (_) => CheckBoxHelper(),
-        ),
       ],
-      child: Consumer<ThemeSettings>(
-        builder: (_, value, __) {
+      child: Consumer<SettingsModel>(
+        builder: (_, model, __) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             initialRoute: RouteManager.splashPage,
             onGenerateRoute: RouteManager.generateRoute,
-            theme: value.darkTheme ? darkTheme : lightTheme,
+            theme: model.darkTheme ? darkTheme : lightTheme,
           );
         },
       ),

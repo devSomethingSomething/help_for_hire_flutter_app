@@ -1,55 +1,67 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/pages/theme_data.dart';
+import 'package:help_for_hire_flutter_app/models/settings_model.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
+/// This page handles the settings within the app
 class SettingsPage extends StatelessWidget {
-  SettingsPage();
-  bool isSwitched = false;
+  const SettingsPage();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(
+      appBar: const AppBarWidget(
         data: 'Settings',
       ),
-      body: Consumer<ThemeSettings>(
-        builder: (context, value, child) {
+      // The consumer ensures that our page rebuilds when the settings model
+      // updates
+      body: Consumer<SettingsModel>(
+        builder: (_, model, __) {
           return SettingsList(
             sections: [
               SettingsSection(
-                titlePadding: EdgeInsets.all(20),
-                title: 'Section 1',
                 tiles: [
+                  // Allows the user to set their language
                   SettingsTile(
-                    title: 'Language',
+                    leading: const Icon(
+                      Icons.language,
+                    ),
+                    onPressed: (_) {},
                     subtitle: 'English',
-                    leading: Icon(Icons.language),
-                    onPressed: (BuildContext context) {},
+                    title: 'Language',
                   ),
+                  // Allows the user to switch themes
                   SettingsTile.switchTile(
+                    leading: const Icon(
+                      Icons.dark_mode,
+                    ),
+                    onToggle: (_) => model.toggleTheme(),
+                    switchValue: model.darkTheme,
                     title: 'Dark Theme',
-                    leading: Icon(Icons.dark_mode),
-                    switchValue: value.darkTheme,
-                    onToggle: (newValue) {
-                      value.toggleTheme();
-                    },
                   ),
                 ],
+                title: 'App',
+                titlePadding: const EdgeInsets.all(
+                  16.0,
+                ),
               ),
               SettingsSection(
-                titlePadding: EdgeInsets.all(20),
-                title: 'Section 2',
                 tiles: [
+                  // Should display more info about the app
                   SettingsTile(
-                    title: 'About',
+                    leading: const Icon(
+                      Icons.info,
+                    ),
+                    onPressed: (_) {},
                     subtitle: 'Read information about this app',
-                    leading: Icon(Icons.info),
-                    onPressed: (BuildContext context) {},
+                    title: 'About',
                   ),
                 ],
+                title: 'Other',
+                titlePadding: const EdgeInsets.all(
+                  16.0,
+                ),
               ),
             ],
           );
