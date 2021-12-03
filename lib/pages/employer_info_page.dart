@@ -8,7 +8,7 @@ class EmployerInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(data: 'Worker Info'),
+      appBar: AppBarWidget(data: 'Employer Info'),
       body: Padding(
         padding: EdgeInsets.only(left: 10, right: 10),
         child: Column(
