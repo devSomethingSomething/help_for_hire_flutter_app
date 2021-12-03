@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
@@ -16,25 +18,28 @@ class SelectedEmployerProfilePage extends StatelessWidget {
   //final EmployerModel employer;
   // const SelectedEmployerProfilePage({Key? key, required this.employer})
   //     : super(key: key);
-  
 
   @override
   Widget build(BuildContext context) {
-  context.read<EmployerService>().getEmployers();
-  return Scaffold(
-     appBar: AppBarWidget(
+    context.read<EmployerService>().getEmployers();
+    return Scaffold(
+      appBar: AppBarWidget(
         actions: [
           IconButton(
             icon: const Icon(
               Icons.reviews,
             ),
-            onPressed: () {Navigator.pushNamed(context, RouteManager.reviewPage);},
+            onPressed: () {
+              Navigator.pushNamed(context, RouteManager.reviewPage);
+            },
           ),
           IconButton(
             icon: const Icon(
               Icons.report,
             ),
-            onPressed: () {Navigator.pushNamed(context, RouteManager.reportPage);},
+            onPressed: () {
+              Navigator.pushNamed(context, RouteManager.reportPage);
+            },
           ),
         ],
         data: '${context.read<EmployerService>().employer?.name} '
@@ -68,7 +73,7 @@ class SelectedEmployerProfilePage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 10),
                               child: Text(
-                                'Company Information',
+                                'User Information',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -78,13 +83,19 @@ class SelectedEmployerProfilePage extends StatelessWidget {
                             ),
                             Divider(
                               color: Colors.black,
+                              thickness: 1.0,
                             ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                textWidget('Location: ', '${context.read<EmployerService>().employer?.locationId}'),
-                                textWidget('Contact Number: ', '${context.read<EmployerService>().employer?.phoneNumber}'),
+                                textWidget('Location: ',
+                                    '${context.read<EmployerService>().employer?.locationId}'),
+                                // This will be added ones the Employer model is updated
+                                // textWidget('Address', ''),
+                                // textWidget('Suburb', ''),
+                                textWidget('Contact Number: ',
+                                    '${context.read<EmployerService>().employer?.phoneNumber}'),
                               ],
                             ),
                           ],
@@ -100,12 +111,12 @@ class SelectedEmployerProfilePage extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),           
+              ),
             ],
           ),
         ),
       ),
-   floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         backgroundColor: ColorConstants.blue,
         child: const Icon(
           Icons.post_add,
@@ -127,7 +138,7 @@ class SelectedEmployerProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             text(title),
-            text('$content'),
+            text(content),
           ],
         ),
       ),
@@ -142,4 +153,3 @@ class SelectedEmployerProfilePage extends StatelessWidget {
     );
   }
 }
-

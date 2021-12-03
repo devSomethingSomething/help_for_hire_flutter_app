@@ -20,7 +20,7 @@ class CardInformationWorker extends StatelessWidget {
                 '${context.read<WorkerService>().worker?.name} '
                 '${context.read<WorkerService>().worker?.surname}',
                 style: const TextStyle(
-                  fontSize: 28.0,
+                  fontSize: 30.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -51,11 +51,13 @@ class CardInformationWorker extends StatelessWidget {
           ),
         ),
       ),
+      clipBehavior: Clip.antiAlias,
       color: Colors.white,
-      elevation: 8.0,
+      shadowColor: Colors.black,
+      elevation: 10.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-          8.0,
+          10.0,
         ),
       ),
     );
