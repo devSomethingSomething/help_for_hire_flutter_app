@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/info_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
@@ -103,15 +104,14 @@ class _ReviewPageState extends State<ReviewPage> {
             ),
           ),
         ],
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: ColorConstants.blue,
+        foregroundColor: Colors.white,
         title: const Text(
           'Review',
         ),
       ),
       body: Stack(
         children: [
-          const BlueGradientWidget(),
           SingleChildScrollView(
             child: Center(
               child: Form(
@@ -119,14 +119,14 @@ class _ReviewPageState extends State<ReviewPage> {
                   children: [
                     const Icon(
                       Icons.reviews_rounded,
-                      color: Colors.white,
+                      color: Colors.black,
                       size: 128.0,
                     ),
                     const SmallSpacerWidget(),
                     const Text(
                       'Review Selected User',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 28.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -178,12 +178,14 @@ class _ReviewPageState extends State<ReviewPage> {
                         ),
                       ),
                       color: Colors.white,
-                      elevation: 8.0,
+                      elevation: 2,
+                      shadowColor: Colors.black,
                     ),
                     const LargeSpacerWidget(),
                     RoundedButtonWidget(
                       data: 'SUBMIT',
                       onPressed: _onPressed,
+                      invertColors: true,
                     ),
                   ],
                 ),
