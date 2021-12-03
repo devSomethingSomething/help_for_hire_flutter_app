@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
+import 'package:help_for_hire_flutter_app/services/employer_service.dart';
+import 'package:provider/src/provider.dart';
 
 class CardInformationEmployer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+  context.read<EmployerService>().getEmployers();
     return Card(
       child: Container(
         height: 200,
@@ -13,7 +16,10 @@ class CardInformationEmployer extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Text(
-                'Nesta Archeron',
+                '${context.read<EmployerService>().employer?.name} '
+                '${context.read<EmployerService>().employer?.surname}',
+                // '''${EmployerService().getEmployer(id: context.read<EmployerService>().employer!.name)} 
+                // ${EmployerService().getEmployer(id: context.read<EmployerService>().employer!surname)}''',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 30,
@@ -59,7 +65,8 @@ class RowName extends StatelessWidget {
       children: [
         Text(
           //Replace with company name
-          'Company: ',
+          //'${context.read<EmployerService>().employer?.companyName}',
+          'Company Name',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.normal,
