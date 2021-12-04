@@ -40,7 +40,7 @@ class EmployerProfilePage extends StatelessWidget {
         title: const Text(
           'Profile',
         ),
-        backgroundColor: ColorConstants.blue,
+        backgroundColor: ColorConstants.darkBlue,
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -173,7 +173,7 @@ class EmployerProfilePage extends StatelessWidget {
                                       height: 50,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: ColorConstants.blue,
+                                            color: ColorConstants.darkBlue,
                                             width: 1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(
@@ -226,7 +226,7 @@ class EmployerProfilePage extends StatelessWidget {
                                       height: 50,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: ColorConstants.blue,
+                                            color: ColorConstants.darkBlue,
                                             width: 1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(

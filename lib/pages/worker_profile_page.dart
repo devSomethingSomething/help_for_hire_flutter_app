@@ -25,7 +25,6 @@ class WorkerProfilePage extends StatefulWidget {
 }
 
 class _WorkerProfilePageState extends State<WorkerProfilePage> {
-
   @override
   Widget build(BuildContext context) {
     TextEditingController _nameController = TextEditingController();
@@ -35,21 +34,20 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
     TextEditingController _descriptionController = TextEditingController();
 
     //setting default values for edit profile
-    _nameController.text='current name';
-    _surnameController.text='current surname';
-    _feeController.text='current min fee';
-    _phoneController.text='current cell NO';
-    _descriptionController.text='current description';
+    _nameController.text = 'current name';
+    _surnameController.text = 'current surname';
+    _feeController.text = 'current min fee';
+    _phoneController.text = 'current cell NO';
+    _descriptionController.text = 'current description';
 
     //the logic for the checkbox can be added on the check box widget.
 
     //the logic for default location must be added
 
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
-        backgroundColor: ColorConstants.blue,
+        backgroundColor: ColorConstants.darkBlue,
         actions: [
           new IconButton(
             icon: new Icon(Icons.search),
@@ -199,7 +197,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                                     SizedBox(
                                       height: 100,
                                       child: DescriptionTextbox(
-                                        color: ColorConstants.blue,
+                                        color: ColorConstants.darkBlue,
                                         descriptionController:
                                             _descriptionController,
                                         data: 'Description',
@@ -239,17 +237,19 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                                       return Column(
                                         children: [
                                           AmountTimeCheckBox(
-                                            color: ColorConstants.blue,
+                                            color: ColorConstants.darkBlue,
                                             data: 'Full Time',
-                                            time: currentState.fullTime,//current state for Part Time
+                                            time: currentState
+                                                .fullTime, //current state for Part Time
                                             onChanged: (value) {
                                               currentState.fullTime = value!;
                                             },
                                           ),
                                           AmountTimeCheckBox(
-                                            color: ColorConstants.blue,
+                                            color: ColorConstants.darkBlue,
                                             data: 'Part Time',
-                                            time: currentState.partTime,//current state for Part Time
+                                            time: currentState
+                                                .partTime, //current state for Part Time
                                             onChanged: (value) {
                                               currentState.partTime = value!;
                                             },
@@ -261,7 +261,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                                       height: 50,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: ColorConstants.blue,
+                                            color: ColorConstants.darkBlue,
                                             width: 1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(
@@ -314,7 +314,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                                       height: 50,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: ColorConstants.blue,
+                                            color: ColorConstants.darkBlue,
                                             width: 1),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(

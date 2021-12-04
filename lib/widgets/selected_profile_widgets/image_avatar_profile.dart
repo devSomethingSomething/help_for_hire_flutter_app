@@ -8,7 +8,7 @@ class ImageAvatar extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: CircleAvatar(
-        backgroundColor: ColorConstants.blue,
+        backgroundColor: ColorConstants.darkBlue,
         child: const CircleAvatar(
           backgroundImage: AssetImage(
             ImageConstants.placeholder,

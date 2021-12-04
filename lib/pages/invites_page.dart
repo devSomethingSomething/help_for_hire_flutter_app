@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/enums/status.dart';
 import 'package:help_for_hire_flutter_app/extensions/string_extension.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/info_helper.dart';
 import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
@@ -13,6 +13,7 @@ import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/flat_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/placeholders/empty_placeholder_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -37,15 +38,15 @@ class InvitesPage extends StatelessWidget {
     // Remove later
     // Add test data for the current user here
     // ---------------------------
-    context.read<UserService>().currentUser = EmployerModel(
-      user: UserModel(
-        userId: '1234567890123',
-        name: 'Kaden',
-        surname: 'Shaw',
-        phoneNumber: '1234567890',
-        locationId: '123',
-      ),
-    );
+    // context.read<UserService>().currentUser = EmployerModel(
+    //   user: UserModel(
+    //     userId: '1234567890123',
+    //     name: 'Kaden',
+    //     surname: 'Shaw',
+    //     phoneNumber: '1234567890',
+    //     locationId: '123',
+    //   ),
+    // );
     // ---------------------------
 
     // Gets the invites for the current user
@@ -70,15 +71,23 @@ class InvitesPage extends StatelessWidget {
               DelayHelper.hideLoadingIndicator(context: context);
             },
           ),
+          IconButton(
+            icon: const Icon(
+              Icons.info_outline_rounded,
+            ),
+            onPressed: () => InfoHelper.showInfoDialog(
+              context: context,
+              content: 'This page allows you to view invites',
+              title: 'Invites Details',
+            ),
+          ),
         ],
         data: 'Invites',
       ),
       body: Consumer<InviteService>(
         builder: (_, service, __) => service.invites.isEmpty
-            ? Center(
-                child: CircularProgressIndicator(
-                  color: ColorConstants.blue,
-                ),
+            ? const EmptyPlaceholderWidget(
+                data: 'No invites to display',
               )
             : Center(
                 child: ListView.builder(

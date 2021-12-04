@@ -3,9 +3,10 @@ import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 
 class BottomNavigation extends StatefulWidget {
-  final int pageID;//0=profile,1=invites,2=history
+  final int pageID; //0=profile,1=invites,2=history
   final userIsEmployer;
-  const BottomNavigation({Key? key, required this.userIsEmployer,required this.pageID})
+  const BottomNavigation(
+      {Key? key, required this.userIsEmployer, required this.pageID})
       : super(key: key);
 
   @override
@@ -13,13 +14,13 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  var selectedIndex ;
+  var selectedIndex;
   @override
   Widget build(BuildContext context) {
     selectedIndex = widget.pageID;
 
     return BottomNavigationBar(
-      backgroundColor: ColorConstants.blue,
+      backgroundColor: ColorConstants.darkBlue,
       selectedItemColor: Colors.lightGreenAccent,
       unselectedItemColor: Colors.white,
       showUnselectedLabels: true,

@@ -30,14 +30,14 @@ class PasswordTextFieldWidget extends StatelessWidget {
         builder: (_, obscureText, __) {
           return TextField(
             controller: _controller,
-            cursorColor: ColorConstants.blue,
+            cursorColor: ColorConstants.darkBlue,
             decoration: InputDecoration(
               floatingLabelStyle: TextStyle(
-                color: ColorConstants.blue,
+                color: ColorConstants.darkBlue,
               ),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
-                  color: ColorConstants.blue,
+                  color: ColorConstants.darkBlue,
                 ),
               ),
               label: Text(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/pages/sign_in_page.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:provider/provider.dart';
 
 class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({Key? key}) : super(key: key);
+  const DrawerWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -12,82 +12,98 @@ class DrawerWidget extends StatelessWidget {
       child: ListView(
         children: [
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Profile'),
+            leading: const Icon(
+              Icons.person,
+            ),
+            title: const Text(
+              'Profile',
+            ),
             onTap: () {
-              if(UserService().isEmployer){
-                Navigator.pushNamed(context, RouteManager.workerProfilePage);
-              }else{
-                Navigator.pushNamed(context, RouteManager.employerProfilePage);
+              if (context.read<UserService>().isEmployer) {
+                Navigator.popAndPushNamed(
+                  context,
+                  RouteManager.employerProfilePage,
+                );
+              } else {
+                Navigator.popAndPushNamed(
+                  context,
+                  RouteManager.workerProfilePage,
+                );
               }
-
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            leading: const Icon(
+              Icons.email,
+            ),
+            title: const Text(
+              'Invites',
+            ),
             onTap: () {
-              Navigator.pushNamed(context, RouteManager.settingsPage);
+              Navigator.popAndPushNamed(
+                context,
+                RouteManager.invitesPage,
+              );
+            },
+          ),
+          context.read<UserService>().isEmployer
+              ? ListTile(
+                  leading: const Icon(
+                    Icons.list,
+                  ),
+                  title: const Text(
+                    'Profile Discovery',
+                  ),
+                  onTap: () {
+                    Navigator.popAndPushNamed(
+                      context,
+                      RouteManager.profileDiscoveryPage,
+                    );
+                  },
+                )
+              : Container(),
+          ListTile(
+            leading: const Icon(
+              Icons.history,
+            ),
+            title: const Text(
+              'History',
+            ),
+            onTap: () {
+              Navigator.popAndPushNamed(
+                context,
+                RouteManager.historyPage,
+              );
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(
+              Icons.settings,
+            ),
+            title: const Text(
+              'Settings',
+            ),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                RouteManager.settingsPage,
+              );
             },
           ),
           ListTile(
-            leading: Icon(Icons.system_update),
-            title: Text('Update Profile'),
+            leading: const Icon(
+              Icons.logout,
+            ),
+            title: const Text(
+              'Logout',
+            ),
             onTap: () {
-              //needs to be set to current user of profile
-              // Navigator.pushNamed(context, RouteManager.loggedInUserProfile);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.reviews),
-            title: Text('Review'),
-            onTap: () {
-              Navigator.pushNamed(context, RouteManager.reviewPage);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.report),
-            title: Text('Report'),
-            onTap: () {
-              Navigator.pushNamed(context, RouteManager.reportPage);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.email),
-            title: Text('Invites'),
-            onTap: () {
-              Navigator.pushNamed(context, RouteManager.invitesPage);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.history),
-            title: Text('History'),
-            onTap: () {
-              Navigator.pushNamed(context, RouteManager.historyPage);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.password),
-            title: Text('Change Password'),
-            onTap: () {
-              Navigator.pushNamed(context, RouteManager.changePasswordPage);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.list),
-            title: Text('Profile Discovery'),
-            onTap: () {
-              Navigator.pushNamed(context, RouteManager.profileDiscoveryPage);
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Logout'),
-            onTap: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => SignInPage()),
-                  (route) => false);
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                RouteManager.signInPage,
+                (_) => false,
+              );
             },
           ),
         ],

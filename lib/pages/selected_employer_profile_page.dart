@@ -117,7 +117,7 @@ class SelectedEmployerProfilePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorConstants.blue,
+        backgroundColor: ColorConstants.darkBlue,
         child: const Icon(
           Icons.post_add,
         ),
