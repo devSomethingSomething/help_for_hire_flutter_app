@@ -1,11 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
+import 'package:help_for_hire_flutter_app/helpers/color_helper.dart';
 import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
+import 'package:help_for_hire_flutter_app/services/employer_service.dart';
 import 'package:help_for_hire_flutter_app/services/invite_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/cards/invite_card_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/buttons/flat_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -68,8 +73,74 @@ class InvitesPage extends StatelessWidget {
               )
             : Center(
                 child: ListView.builder(
-                  itemBuilder: (_, index) => InviteCardWidget(
-                    invite: service.invites[index],
+                  // Card should be clickable, should be able to go to the
+                  // profile of the user
+                  itemBuilder: (_, index) => Card(
+                    child: Padding(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.person,
+                            // Perhaps the color should change depending on the
+                            // invite status
+                            color: ColorHelper.getRandomColor(),
+                            size: 48.0,
+                          ),
+                          const SizedBox(
+                            width: 8.0,
+                          ),
+                          // Will have to change
+                          context.read<UserService>().isEmployer
+                              ? ChangeNotifierProvider<WorkerService>(
+                                  create: (_) => WorkerService(),
+                                  builder: (_, __) => Consumer<WorkerService>(
+                                    builder: (_, workerService, __) {
+                                      workerService.getWorker(
+                                        id: service.invites[index].workerId,
+                                      );
+
+                                      return Text(
+                                        '${workerService.worker?.name ?? 'John'} '
+                                        '${workerService.worker?.surname ?? 'Doe'}',
+                                      );
+                                    },
+                                  ),
+                                )
+                              : ChangeNotifierProvider<EmployerService>(
+                                  create: (_) => EmployerService(),
+                                  builder: (_, __) => Consumer<EmployerService>(
+                                    builder: (_, employerService, __) {
+                                      employerService.getEmployer(
+                                        id: service.invites[index].employerId,
+                                      );
+
+                                      return Text(
+                                        '${employerService.employer?.name ?? 'John'} '
+                                        '${employerService.employer?.surname ?? 'Doe'}',
+                                      );
+                                    },
+                                  ),
+                                ),
+                          const Spacer(),
+                          Text(
+                            service.invites[index].status,
+                          ),
+                          const Spacer(),
+                          // Will have to change
+                          FlatButtonWidget(
+                            data: 'DELETE',
+                            onPressed: () => service.deleteInvite(
+                              id: service.invites[index].inviteId,
+                            ),
+                            primary: Colors.red,
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(
+                        8.0,
+                      ),
+                    ),
+                    elevation: 4.0,
                   ),
                   itemCount: service.invites.length,
                 ),

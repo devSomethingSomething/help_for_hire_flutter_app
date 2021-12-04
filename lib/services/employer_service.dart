@@ -63,15 +63,11 @@ class EmployerService with ChangeNotifier {
       try {
         _json = jsonDecode(response.body);
 
-        employer = EmployerModel.fromJson(json: _json);
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+        employer = EmployerModel.fromJson(
+          json: _json,
+        );
+      } catch (_) {}
+    } else {}
 
     notifyListeners();
   }

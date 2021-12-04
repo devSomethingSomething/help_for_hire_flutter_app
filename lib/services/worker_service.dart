@@ -123,15 +123,11 @@ class WorkerService with ChangeNotifier {
       try {
         _json = jsonDecode(response.body);
 
-        worker = WorkerModel.fromJson(json: _json);
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+        worker = WorkerModel.fromJson(
+          json: _json,
+        );
+      } catch (_) {}
+    } else {}
 
     notifyListeners();
   }

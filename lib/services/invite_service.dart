@@ -137,15 +137,10 @@ class InviteService with ChangeNotifier {
     );
 
     if (response.statusCode == HttpStatus.noContent) {
-      // Request worked
       invites.removeWhere(
         (invite) => invite.inviteId == id,
       );
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
+    } else {}
 
     notifyListeners();
   }
