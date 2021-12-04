@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/dividers/divider_widget.dart';
@@ -64,33 +65,37 @@ class _EmployerRegisterPageState extends State<EmployerRegisterPage> {
                               keyboardType: TextInputType.text,
                               controller: _companyNameController,
                               icon: Icons.business,
+
                               // if company name is empty assign N/A to it
                             ),
                             const MediumSpacerWidget(),
                             TextFormFieldWidget(
-                              labelText: 'Address',
-                              keyboardType: TextInputType.text,
-                              controller: _addressController,
-                              icon: Icons.house,
-                              // need validation
-                            ),
+                                labelText: 'Address',
+                                keyboardType: TextInputType.text,
+                                controller: _addressController,
+                                icon: Icons.house,
+                                validator:
+                                    ValidationHelper.validateDescription),
                             const MediumSpacerWidget(),
                             TextFormFieldWidget(
                                 labelText: 'Suburb',
                                 keyboardType: TextInputType.text,
                                 controller: _suburbController,
-                                icon: Icons.home_work
-                                // need validation
-                                ),
+                                icon: Icons.home_work,
+                                validator:
+                                    ValidationHelper.validateDescription),
                             const MediumSpacerWidget(),
                             RoundedButtonWidget(
                               data: 'SUBMIT',
                               onPressed: () {
-                                // need validation
-                                Navigator.pushNamed(
-                                  context,
-                                  RouteManager.termsAndConditionsPage,
-                                );
+                                if (_key.currentState!.validate()) {
+                                  return;
+                                } else {
+                                  Navigator.pushNamed(
+                                    context,
+                                    RouteManager.termsAndConditionsPage,
+                                  );
+                                }
                               },
                             )
                           ],
