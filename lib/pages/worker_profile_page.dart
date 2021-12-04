@@ -297,8 +297,8 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                                             },
                                           ),
                                         ],
-                                      );
-                                    }),
+                                      ),
+
                                     Container(
                                       height: 50,
                                       decoration: BoxDecoration(
@@ -315,7 +315,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                                       padding: EdgeInsets.symmetric(
                                         horizontal: 16.0,
                                       ),
-
+                                    ),
                                       Container(
                                         height: 50,
                                         decoration: BoxDecoration(
