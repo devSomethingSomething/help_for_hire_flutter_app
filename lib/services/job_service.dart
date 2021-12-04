@@ -49,7 +49,7 @@ class JobService with ChangeNotifier {
   }
 
   Future<void> getSelectedJobs({
-    required List<String> ids,
+    required List<dynamic> ids,
   }) async {
     final response = await get(
       Uri.parse(
