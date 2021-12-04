@@ -151,11 +151,11 @@ class InviteService with ChangeNotifier {
   }
 
   Future<void> getInvitesForEmployer({
-    required String id,
+    required String employerId,
   }) async {
     final response = await get(
       Uri.parse(
-        'https://${DomainConstants.ip}:5001${_controllerRoute}employer/?employerid=$id',
+        'https://${DomainConstants.ip}:5001${_controllerRoute}employer/?employerid=$employerId',
       ),
     );
 
@@ -172,14 +172,8 @@ class InviteService with ChangeNotifier {
             ),
           );
         }
-      } catch (e) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
 
     notifyListeners();
   }

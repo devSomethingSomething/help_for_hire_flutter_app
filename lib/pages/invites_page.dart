@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
+import 'package:help_for_hire_flutter_app/models/employer_model.dart';
+import 'package:help_for_hire_flutter_app/models/user_model.dart';
 import 'package:help_for_hire_flutter_app/services/invite_service.dart';
+import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/cards/invite_card_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:provider/provider.dart';
@@ -7,55 +12,69 @@ import 'package:provider/provider.dart';
 class InvitesPage extends StatelessWidget {
   const InvitesPage();
 
+  /// Get the invites for the current user based on their account type
+  void _getInvitesForUser({
+    required BuildContext context,
+  }) =>
+      context.read<UserService>().isEmployer
+          ? context.read<InviteService>().getInvitesForEmployer(
+                employerId: context.read<UserService>().currentUser.userId,
+              )
+          : context.read<InviteService>().getInvitesForWorker(
+                id: context.read<UserService>().currentUser.userId,
+              );
+
   @override
   Widget build(BuildContext context) {
-    // Need to call the correct method based on the type of the current user
-    // who is signed in
-    // Update here
-    context.read<InviteService>().getInvitesForEmployer(
-          id: '0002245275082',
-        );
+    // ---------------------------
+    // Remove later
+    // Add test data for the current user here
+    // ---------------------------
+    context.read<UserService>().currentUser = EmployerModel(
+      user: UserModel(
+        userId: '1234567890123',
+        name: 'Kaden',
+        surname: 'Shaw',
+        phoneNumber: '1234567890',
+        locationId: '123',
+      ),
+    );
+
+    // Gets the invites for the current user
+    _getInvitesForUser(
+      context: context,
+    );
+
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBarWidget(
         actions: [
           IconButton(
             icon: const Icon(
               Icons.refresh,
-              size: 28.0,
             ),
-            // Needs to get the invites again when clicked
-            onPressed: () =>
-                // Need to call the correct method based on user type
-                context.read<InviteService>().getInvitesForEmployer(
-                      id: '0002245275082',
-                    ),
-            splashRadius: 28.0,
+            onPressed: () => _getInvitesForUser(
+              context: context,
+            ),
           ),
         ],
-        backgroundColor: Colors.blue[900],
-        title: const Text(
-          'Invites',
-        ),
+        data: 'Invites',
       ),
-      body: Center(
-        child: Consumer<InviteService>(
-          builder: (_, inviteService, __) {
-            return inviteService.invites.isEmpty
-                ? CircularProgressIndicator(
-                    color: Colors.blue[900],
-                  )
-                : ListView.builder(
-                    itemCount: inviteService.invites.length,
-                    itemBuilder: (_, index) {
-                      return InviteCardWidget(
-                        invite: inviteService.invites[index],
-                      );
-                    },
-                  );
-          },
-        ),
+      body: Consumer<InviteService>(
+        builder: (_, service, __) => service.invites.isEmpty
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: ColorConstants.blue,
+                ),
+              )
+            : Center(
+                child: ListView.builder(
+                  itemBuilder: (_, index) => InviteCardWidget(
+                    invite: service.invites[index],
+                  ),
+                  itemCount: service.invites.length,
+                ),
+              ),
       ),
-      // Needs to be the same between pages
       drawer: const DrawerWidget(),
       drawerEnableOpenDragGesture: false,
     );
