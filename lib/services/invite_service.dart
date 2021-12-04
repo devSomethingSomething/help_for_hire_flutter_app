@@ -109,22 +109,16 @@ class InviteService with ChangeNotifier {
       ),
       body: jsonEncode(invite),
       headers: {
-        "Accept": "application/json",
-        "content-type": "application/json",
+        'Accept': 'application/json',
+        'content-type': 'application/json',
       },
     );
 
     if (response.statusCode == HttpStatus.noContent) {
-      try {
-        // Request worked code
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
+      try {} catch (_) {}
+    } else {}
+
+    notifyListeners();
   }
 
   Future<void> deleteInvite({

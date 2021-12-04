@@ -1,7 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
+import 'package:help_for_hire_flutter_app/enums/status.dart';
+import 'package:help_for_hire_flutter_app/extensions/string_extension.dart';
 import 'package:help_for_hire_flutter_app/helpers/color_helper.dart';
 import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
@@ -13,6 +13,7 @@ import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/flat_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InvitesPage extends StatelessWidget {
   const InvitesPage();
@@ -99,6 +100,16 @@ class InvitesPage extends StatelessWidget {
                                         id: service.invites[index].workerId,
                                       );
 
+                                      context.read<UserService>().selectedUser =
+                                          workerService.worker ??
+                                              UserModel(
+                                                userId: '',
+                                                name: '',
+                                                surname: '',
+                                                phoneNumber: '',
+                                                locationId: '',
+                                              );
+
                                       return Text(
                                         '${workerService.worker?.name ?? 'John'} '
                                         '${workerService.worker?.surname ?? 'Doe'}',
@@ -114,6 +125,16 @@ class InvitesPage extends StatelessWidget {
                                         id: service.invites[index].employerId,
                                       );
 
+                                      context.read<UserService>().selectedUser =
+                                          employerService.employer ??
+                                              UserModel(
+                                                userId: '',
+                                                name: '',
+                                                surname: '',
+                                                phoneNumber: '',
+                                                locationId: '',
+                                              );
+
                                       return Text(
                                         '${employerService.employer?.name ?? 'John'} '
                                         '${employerService.employer?.surname ?? 'Doe'}',
@@ -122,11 +143,49 @@ class InvitesPage extends StatelessWidget {
                                   ),
                                 ),
                           const Spacer(),
-                          Text(
-                            service.invites[index].status,
+                          context.read<UserService>().isEmployer
+                              ? service.invites[index].status ==
+                                      Status.accepted
+                                          .toString()
+                                          .replaceAll('Status.', '')
+                                          .capitalize()
+                                  ? FlatButtonWidget(
+                                      data: 'CONTACT',
+                                      onPressed: () => launch(
+                                        'tel://${context.read<UserService>().selectedUser.phoneNumber}',
+                                      ),
+                                      primary: Colors.green,
+                                    )
+                                  : Text(
+                                      service.invites[index].status,
+                                    )
+                              : service.invites[index].status ==
+                                      Status.accepted
+                                          .toString()
+                                          .replaceAll('Status.', '')
+                                          .capitalize()
+                                  ? Text(
+                                      service.invites[index].status,
+                                    )
+                                  : FlatButtonWidget(
+                                      data: 'ACCEPT',
+                                      onPressed: () {
+                                        service.invites[index].status = Status
+                                            .accepted
+                                            .toString()
+                                            .replaceAll('Status.', '')
+                                            .capitalize();
+
+                                        service.putInvite(
+                                          id: service.invites[index].inviteId,
+                                          invite: service.invites[index],
+                                        );
+                                      },
+                                      primary: Colors.green,
+                                    ),
+                          const SizedBox(
+                            width: 8.0,
                           ),
-                          const Spacer(),
-                          // Will have to change
                           FlatButtonWidget(
                             data: 'DELETE',
                             onPressed: () => service.deleteInvite(
