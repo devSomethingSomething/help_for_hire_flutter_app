@@ -14,7 +14,6 @@ import 'package:help_for_hire_flutter_app/services/rating_service.dart';
 import 'package:help_for_hire_flutter_app/services/report_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/services/worker_service.dart';
-import 'package:help_for_hire_flutter_app/helpers/check_box_helper.dart';
 
 import 'package:provider/provider.dart';
 
@@ -37,9 +36,6 @@ class _App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => CheckBoxHelper(),
-        ),
         ChangeNotifierProvider(
           create: (_) => EmployerService(),
         ),

@@ -301,4 +301,35 @@ class WorkerService with ChangeNotifier {
 
     notifyListeners();
   }
+
+
+
+  //needs to be checked
+  Future<void> putWorker({
+    required String id,
+    required WorkerModel worker,
+  }) async {
+    final response = await put(
+      Uri.parse(
+        'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
+      ),
+      body: jsonEncode(worker),
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json",
+      },
+    );
+
+    if (response.statusCode == HttpStatus.noContent) {
+      try {
+        // Request worked code
+      } catch (_) {
+        // Handle fail
+      }
+    } else if (response.statusCode == HttpStatus.notFound) {
+      // Handle bad request
+    } else {
+      // Handle other errors
+    }
+  }
 }
