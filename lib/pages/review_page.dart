@@ -104,7 +104,7 @@ class _ReviewPageState extends State<ReviewPage> {
             ),
           ),
         ],
-        backgroundColor: ColorConstants.blue,
+        backgroundColor: ColorConstants.darkBlue,
         foregroundColor: Colors.white,
         title: const Text(
           'Review',

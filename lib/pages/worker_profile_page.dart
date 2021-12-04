@@ -48,6 +48,14 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
     String _jobs = '';
     bool _fullTime = false;
     bool _partTime = false;
+    //setting default values for edit profile
+    _nameController.text = 'current name';
+    _surnameController.text = 'current surname';
+    _feeController.text = 'current min fee';
+    _phoneController.text = 'current cell NO';
+    _descriptionController.text = 'current description';
+
+    //the logic for the checkbox can be added on the check box widget.
 
     return Consumer3<UserService, LocationService, JobService>(
         builder: (context, user, location, job, child) {
@@ -57,7 +65,6 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
       context
           .read<JobService>()
           .getSelectedJobs(ids: (user.currentUser as WorkerModel).jobIds);
-
       _jobs = job.selectedJobs.length < 2
           ? job.selectedJobs[0].title
           : job.selectedJobs.length > 2
@@ -271,22 +278,42 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                                       Column(
                                         children: [
                                           AmountTimeCheckBox(
-                                            color: ColorConstants.blue,
+                                            color: ColorConstants.darkBlue,
                                             data: 'Full Time',
+
                                             time: _fullTime,
+
                                             onChanged: (value) {
                                               _fullTime = value!;
                                             },
                                           ),
                                           AmountTimeCheckBox(
-                                            color: ColorConstants.blue,
+                                            color: ColorConstants.darkBlue,
                                             data: 'Part Time',
                                             time: _partTime,
+
                                             onChanged: (value) {
                                               _partTime = value!;
                                             },
                                           ),
                                         ],
+                                      );
+                                    }),
+                                    Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ColorConstants.darkBlue,
+                                            width: 1),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                            8.0,
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 16.0,
                                       ),
 
                                       Container(

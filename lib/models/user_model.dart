@@ -12,4 +12,12 @@ class UserModel {
     required this.phoneNumber,
     required this.locationId,
   });
+
+  UserModel.empty({
+    this.userId = '',
+    this.name = '',
+    this.surname = '',
+    this.phoneNumber = '',
+    this.locationId = '',
+  });
 }

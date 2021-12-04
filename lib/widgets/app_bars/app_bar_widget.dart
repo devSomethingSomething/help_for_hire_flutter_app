@@ -19,7 +19,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       actions: _actions,
-      backgroundColor: ColorConstants.blue,
+      backgroundColor: ColorConstants.darkBlue,
       title: Text(
         _data,
       ),

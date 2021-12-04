@@ -25,11 +25,11 @@ class AmountTimeCheckBox extends StatelessWidget {
     return Theme(
       child: CheckboxListTile(
         activeColor: Colors.white,
-        checkColor: ColorConstants.blue,
+        checkColor: ColorConstants.darkBlue,
         controlAffinity: ListTileControlAffinity.leading,
         title: Text(
           _data,
-          style:  TextStyle(
+          style: TextStyle(
             color: _color,
           ),
         ),

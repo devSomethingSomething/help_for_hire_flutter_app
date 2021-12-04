@@ -105,7 +105,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             ),
           ),
         ],
-        backgroundColor: ColorConstants.blue,
+        backgroundColor: ColorConstants.darkBlue,
         foregroundColor: Colors.white,
         title: const Text(
           'Change Password',

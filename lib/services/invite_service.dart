@@ -109,22 +109,16 @@ class InviteService with ChangeNotifier {
       ),
       body: jsonEncode(invite),
       headers: {
-        "Accept": "application/json",
-        "content-type": "application/json",
+        'Accept': 'application/json',
+        'content-type': 'application/json',
       },
     );
 
     if (response.statusCode == HttpStatus.noContent) {
-      try {
-        // Request worked code
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
+      try {} catch (_) {}
+    } else {}
+
+    notifyListeners();
   }
 
   Future<void> deleteInvite({
@@ -137,25 +131,20 @@ class InviteService with ChangeNotifier {
     );
 
     if (response.statusCode == HttpStatus.noContent) {
-      // Request worked
       invites.removeWhere(
         (invite) => invite.inviteId == id,
       );
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
+    } else {}
 
     notifyListeners();
   }
 
   Future<void> getInvitesForEmployer({
-    required String id,
+    required String employerId,
   }) async {
     final response = await get(
       Uri.parse(
-        'https://${DomainConstants.ip}:5001${_controllerRoute}employer/?employerid=$id',
+        'https://${DomainConstants.ip}:5001${_controllerRoute}employer/?employerid=$employerId',
       ),
     );
 
@@ -172,14 +161,8 @@ class InviteService with ChangeNotifier {
             ),
           );
         }
-      } catch (e) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
 
     notifyListeners();
   }

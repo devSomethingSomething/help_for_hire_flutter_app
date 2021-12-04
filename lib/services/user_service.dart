@@ -16,6 +16,14 @@ class UserService with ChangeNotifier {
     locationId: '',
   );
 
+  UserModel selectedUser = UserModel(
+    userId: '',
+    name: '',
+    surname: '',
+    phoneNumber: '',
+    locationId: '',
+  );
+
   bool get isEmployer => currentUser is EmployerModel;
 
   UserService();

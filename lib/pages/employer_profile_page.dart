@@ -46,7 +46,6 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
           context
               .read<LocationService>()
               .getLocation(id: user.currentUser.locationId);
-
           return Scaffold(
             appBar: AppBar(
               title: const Text(

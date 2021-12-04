@@ -17,6 +17,28 @@ class LocationService with ChangeNotifier {
 
   LocationService();
 
+  Future<void> getLocation({
+    required String id,
+  }) async {
+    final response = await get(
+      Uri.parse(
+        'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
+      ),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      try {
+        _json = jsonDecode(response.body);
+
+        location = LocationModel.fromJson(
+          json: _json,
+        );
+      } catch (_) {}
+    } else {}
+
+    notifyListeners();
+  }
+
   Future<void> getLocations() async {
     final response = await get(
       Uri.parse(
@@ -83,31 +105,5 @@ class LocationService with ChangeNotifier {
     }
 
     notifyListeners();
-  }
-
-  Future<void> getLocation({
-    required String id,
-  }) async {
-    final response = await get(
-      Uri.parse(
-        'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
-      ),
-    );
-
-    if (response.statusCode == HttpStatus.ok) {
-      try {
-        _json = jsonDecode(response.body);
-
-        location = LocationModel.fromJson(
-          json: _json,
-        );
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
   }
 }
