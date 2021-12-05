@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
-import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text/white_heading_text_widget.dart';
-import 'package:provider/provider.dart';
 
 class RegistrationSuccessPage extends StatelessWidget {
   const RegistrationSuccessPage();
 
   @override
   Widget build(BuildContext context) {
-    // Register the new user
-    context.read<UserService>().registerUser(
-          context: context,
-        );
-
     return Scaffold(
       body: Stack(
         children: [

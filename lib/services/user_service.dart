@@ -30,15 +30,15 @@ class UserService with ChangeNotifier {
 
   // This method will need work as the services are completed
   // Will handle the registration of the new user
-  void registerUser({
+  Future<void> registerUser({
     required BuildContext context,
-  }) {
+  }) async {
     if (isEmployer) {
-      context.read<EmployerService>().postEmployer(
+      await context.read<EmployerService>().postEmployer(
             employer: currentUser as EmployerModel,
           );
     } else {
-      context.read<WorkerService>().postWorker(
+      await context.read<WorkerService>().postWorker(
             worker: currentUser as WorkerModel,
           );
     }

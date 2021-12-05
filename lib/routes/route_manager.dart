@@ -24,7 +24,9 @@ import 'package:help_for_hire_flutter_app/pages/worker_register_page.dart';
 import 'package:help_for_hire_flutter_app/pages/profile_discovery_page.dart';
 import 'package:help_for_hire_flutter_app/pages/invites_page.dart';
 
+/// This class handles routing within the app
 class RouteManager {
+  // Page routes below
   static const splashPage = '/';
   static const signInRegisterPage = '/signInRegisterPage';
   static const signInPage = '/signInPage';
@@ -38,6 +40,7 @@ class RouteManager {
   static const employerRegisterPage = '/employerRegisterPage';
   static const termsAndConditionsPage = '/termsAndConditionsPage';
   static const registrationSuccessPage = '/registrationSuccessPage';
+  // This needs to be removed
   static const loggedInUserProfile = '/loggedInUserProfile';
   static const changePasswordPage = '/changePasswordPage';
   static const reportPage = '/reportPage';
@@ -46,14 +49,15 @@ class RouteManager {
   static const historyPage = '/historyPage';
   static const settingsPage = '/settingsPage';
   static const profileDiscoveryPage = '/profileDiscoveryPage';
-  static const updateUserInfoPage = '/updateUserInfoPage';
   static const selectedWorkerProfilePage = '/selectedWorkerProfilePage';
   static const selectedEmployerProfilePage = '/selectedEmployerProfilePage';
   static const workerProfilePage = '/workerProfilePage';
   static const employerProfilePage = '/employerProfilePage';
 
+  /// Constructor for this class
   const RouteManager._();
 
+  /// Generates the routes used within the app for each page
   static Route<MaterialPageRoute> generateRoute(
     RouteSettings settings,
   ) {
@@ -132,7 +136,7 @@ class RouteManager {
         );
       case settingsPage:
         return MaterialPageRoute(
-          builder: (_) => SettingsPage(),
+          builder: (_) => const SettingsPage(),
         );
       case profileDiscoveryPage:
         return MaterialPageRoute(
@@ -140,11 +144,11 @@ class RouteManager {
         );
       case selectedWorkerProfilePage:
         return MaterialPageRoute(
-          builder: (_) => SelectedWorkerProfilePage(),
+          builder: (_) => const SelectedWorkerProfilePage(),
         );
-        case selectedEmployerProfilePage:
+      case selectedEmployerProfilePage:
         return MaterialPageRoute(
-          builder: (_) => SelectedEmployerProfilePage(),
+          builder: (_) => const SelectedEmployerProfilePage(),
         );
       case workerProfilePage:
         return MaterialPageRoute(

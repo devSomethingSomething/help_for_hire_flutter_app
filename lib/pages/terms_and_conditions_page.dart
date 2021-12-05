@@ -156,18 +156,30 @@ class TermsAndConditionsPage extends StatelessWidget {
                         ),
                         RoundedButtonWidget(
                           data: 'ACCEPT',
-                          onPressed: () {
-                            Navigator.pushNamed(context, RouteManager.registrationSuccessPage);},
-                          // async {
-                          //   await FirebaseService.handleOtp(
-                          //     context: context,
-                          //     phoneNumber: context
-                          //         .read<UserService>()
-                          //         .currentUser
-                          //         .phoneNumber,
-                          //     routeName: RouteManager.registrationSuccessPage,
-                          //   );
-                          // },
+                          onPressed: () async {
+                            DelayHelper.showLoadingIndicator(context: context);
+
+                            // Register the new user
+                            await context.read<UserService>().registerUser(
+                                  context: context,
+                                );
+
+                            DelayHelper.hideLoadingIndicator(context: context);
+
+                            Navigator.pushNamed(
+                              context,
+                              RouteManager.registrationSuccessPage,
+                            );
+
+                            // await FirebaseService.handleOtp(
+                            //   context: context,
+                            //   phoneNumber: context
+                            //       .read<UserService>()
+                            //       .currentUser
+                            //       .phoneNumber,
+                            //   routeName: RouteManager.registrationSuccessPage,
+                            // );
+                          },
                           reduceSize: true,
                         ),
                       ],

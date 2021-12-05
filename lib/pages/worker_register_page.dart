@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/classes/job.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';

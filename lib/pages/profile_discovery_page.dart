@@ -7,6 +7,7 @@ import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/job_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/placeholders/empty_placeholder_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:provider/provider.dart';
@@ -18,19 +19,8 @@ class ProfileDiscoveryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // Read in the background, the list is listening for changes and will update
     context.read<WorkerService>().getWorkersInCity(
-          // Add this line back later to get the workers based on the correct
-          // user location
           locationId: context.read<UserService>().currentUser.locationId,
-          // For testing, gets all the workers in Bloemfontein
-          // locationId: 'Obj3eS6Dx2K7ZiNXraGX',
         );
-
-    // This does not work quite how it should
-    // Will move the method to the worker service, that way everything stays
-    // up to date properly
-    // context.read<RatingService>().getAverageRatingForWorker(
-    //       workerId: '9876543210123',
-    //     );
 
     return Scaffold(
       appBar: AppBar(
@@ -54,12 +44,8 @@ class ProfileDiscoveryPage extends StatelessWidget {
                   DelayHelper.showLoadingIndicator(context: context);
 
                   await context.read<WorkerService>().getWorkersInCity(
-                        // Add this line back later to get the workers based on the correct
-                        // user location
                         locationId:
                             context.read<UserService>().currentUser.locationId,
-                        // For testing, gets all the workers in Bloemfontein
-                        // locationId: 'Obj3eS6Dx2K7ZiNXraGX',
                       );
 
                   DelayHelper.hideLoadingIndicator(context: context);
@@ -102,9 +88,6 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                 await context
                                     .read<WorkerService>()
                                     .getWorkersWithSkills(
-                                      // This needs to be the current users id
-                                      // Change this later after testing
-                                      // locationId: 'Obj3eS6Dx2K7ZiNXraGX',
                                       locationId: context
                                           .read<UserService>()
                                           .currentUser
@@ -178,10 +161,6 @@ class ProfileDiscoveryPage extends StatelessWidget {
               Icons.sort,
             ),
             onPressed: () {
-              // Should be able to sort by name, surname, ratings
-              // ABC or CBA, whichever order
-              // context.read<WorkerService>().sortByName(alphabetical: false);
-
               var groupValue1 = 'Name';
 
               var groupValue2 = true;
@@ -303,7 +282,9 @@ class ProfileDiscoveryPage extends StatelessWidget {
         child: Consumer<WorkerService>(
           builder: (_, service, __) {
             return service.workers.isEmpty
-                ? const _ProfileDiscoveryPagePlaceholderWidget()
+                ? const EmptyPlaceholderWidget(
+                    data: 'No profiles to display',
+                  )
                 : ListView.builder(
                     itemCount: service.workers.length,
                     itemBuilder: (_, index) {
@@ -344,25 +325,6 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              // service.averageRatingsForWorkers.length > index
-                              //     ? Row(
-                              //         children: List.generate(
-                              //           5,
-                              //           (i) {
-                              //             return i <
-                              //                     service.averageRatingsForWorkers[
-                              //                         index]
-                              //                 ? const Icon(
-                              //                     Icons.star,
-                              //                     color: Colors.orange,
-                              //                   )
-                              //                 : const Icon(
-                              //                     Icons.star,
-                              //                   );
-                              //           },
-                              //         ),
-                              //       )
-                              //     : Container(),
                               const SizedBox(
                                 width: 8.0,
                               ),
@@ -403,67 +365,6 @@ class ProfileDiscoveryPage extends StatelessWidget {
       ),
       drawer: const DrawerWidget(),
       drawerEnableOpenDragGesture: false,
-      // Will get back to this later on if there is time, but it is not a
-      // required feature, just something extra
-      // floatingActionButton: FloatingActionButton(
-      // backgroundColor: Colors.blue[900],
-      // child: const Icon(
-      // Icons.history,
-      // ),
-      // onPressed: () {
-      // This might require some changes to the history controller
-      // The post method will need to check for duplicates to prevent
-      // a user from showing up twice in the viewed list
-      // There will need to be another method which only retrieves
-      // viewed user ids
-      // Then the app will have to retrieve those workers and their details
-      // and list them in a column
-      // Be careful not to overwrite the workers list which is already in
-      // the worker service
-      // Would be better to create a new variable to hold the viewed
-      // accounts
-      // },
-      // ),
-    );
-  }
-}
-
-class _ProfileDiscoveryPagePlaceholderWidget extends StatelessWidget {
-  const _ProfileDiscoveryPagePlaceholderWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        Icon(
-          Icons.warning,
-          color: Colors.grey,
-          size: 128.0,
-        ),
-        SmallSpacerWidget(),
-        Text(
-          'No profiles to display',
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: 28.0,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        SmallSpacerWidget(),
-        Text(
-          'Possible causes\n'
-          '\u2022 No profiles in your area\n'
-          '\u2022 No internet connection\n'
-          '\u2022 Slow network speed',
-          style: TextStyle(
-            color: Colors.grey,
-            fontSize: 20.0,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ],
-      mainAxisAlignment: MainAxisAlignment.center,
     );
   }
 }
