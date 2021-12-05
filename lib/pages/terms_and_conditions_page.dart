@@ -156,16 +156,18 @@ class TermsAndConditionsPage extends StatelessWidget {
                         ),
                         RoundedButtonWidget(
                           data: 'ACCEPT',
-                          onPressed: () async {
-                            await FirebaseService.handleOtp(
-                              context: context,
-                              phoneNumber: context
-                                  .read<UserService>()
-                                  .currentUser
-                                  .phoneNumber,
-                              routeName: RouteManager.registrationSuccessPage,
-                            );
-                          },
+                          onPressed: () {
+                            Navigator.pushNamed(context, RouteManager.registrationSuccessPage);},
+                          // async {
+                          //   await FirebaseService.handleOtp(
+                          //     context: context,
+                          //     phoneNumber: context
+                          //         .read<UserService>()
+                          //         .currentUser
+                          //         .phoneNumber,
+                          //     routeName: RouteManager.registrationSuccessPage,
+                          //   );
+                          // },
                           reduceSize: true,
                         ),
                       ],
