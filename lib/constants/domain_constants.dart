@@ -1,7 +1,7 @@
 class DomainConstants {
   const DomainConstants._();
 
-  static const ip = '192.168.2.20';
+  static const ip = 'Paste IP here';
 
   static const emailSuffix = '@helpforhire.com';
 
