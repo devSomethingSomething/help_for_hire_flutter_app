@@ -74,7 +74,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
       return Scaffold(
         appBar: AppBar(
           title: Text('Profile'),
-          backgroundColor: ColorConstants.blue,
+          backgroundColor: ColorConstants.darkBlue,
           actions: [
             IconButton(
               icon: Icon(Icons.search),
@@ -165,7 +165,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                 padding: const EdgeInsets.only(
                     top: 30, bottom: 20, left: 20, right: 20),
                 child: RoundedButtonWidget(
-                  data: 'edit details',
+                  data: 'Edit Details',
                   onPressed: () {
                     _nameController.text = user.currentUser.name;
                     _surnameController.text = user.currentUser.surname;
@@ -222,21 +222,21 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                                       TextFormFieldWidget(
                                           lightMode: true,
                                           controller: _nameController,
-                                          labelText: 'name',
+                                          labelText: 'Name',
                                           icon: Icons.text_format,
                                           keyboardType: TextInputType.name),
                                       const SmallSpacerWidget(),
                                       TextFormFieldWidget(
                                           lightMode: true,
                                           controller: _surnameController,
-                                          labelText: 'surname',
+                                          labelText: 'Surname',
                                           icon: Icons.text_fields,
                                           keyboardType: TextInputType.name),
                                       const SmallSpacerWidget(),
                                       TextFormFieldWidget(
                                           lightMode: true,
                                           controller: _phoneController,
-                                          labelText: 'phone NO',
+                                          labelText: 'Phone Number',
                                           icon: Icons.phone,
                                           keyboardType: TextInputType.name),
                                       const SmallSpacerWidget(),
@@ -270,7 +270,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                                       TextFormFieldWidget(
                                           lightMode: true,
                                           controller: _feeController,
-                                          labelText: 'min fee',
+                                          labelText: 'Min Fee',
                                           icon: Icons.attach_money,
                                           keyboardType: TextInputType.name),
                                       const SmallSpacerWidget(),
