@@ -131,7 +131,7 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                             ),
                             const MediumSpacerWidget(),
                             TextFormFieldWidget(
-                              labelText: 'Minimum Fee',
+                              labelText: 'Minimum Fee per day',
                               keyboardType: TextInputType.number,
                               controller: _minimumFeeController,
                               icon: Icons.attach_money,

@@ -74,7 +74,7 @@ class _LocationPageState extends State<LocationPage> {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  labelText: 'Province',
+                                  labelText: 'Select Province',
                                   errorStyle: TextStyle(
                                     color: Colors.black,
                                   ),
@@ -134,7 +134,7 @@ class _LocationPageState extends State<LocationPage> {
                                                 color: Colors.white,
                                               ),
                                             ),
-                                            labelText: 'City',
+                                            labelText: 'Select City',
                                             errorStyle: TextStyle(
                                               color: Colors.black,
                                             ),
