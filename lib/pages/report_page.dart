@@ -8,10 +8,12 @@ import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/models/report_model.dart';
 import 'package:help_for_hire_flutter_app/services/report_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/user_list_card_widget.dart';
 import 'package:provider/provider.dart';
 
 class ReportPage extends StatefulWidget {
@@ -50,8 +52,11 @@ class _ReportPageState extends State<ReportPage> {
                   description: _descriptionController.text,
                   // Need to figure out where we get the id from
                   // Depends on the other pages for this
-                  reportedUserId: '1234567891234',
-                  reporterUserId: '9876543211234',
+                  // reportedUserId: '1234567891234',
+                  reportedUserId:
+                      context.read<WorkerService>().worker?.userId ?? '',
+                  reporterUserId:
+                      context.read<UserService>().currentUser.userId,
                   // Put this back later after testing
                   // context.read<UserService>().currentUser.userId,
                 ),

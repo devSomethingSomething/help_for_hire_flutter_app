@@ -2,11 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
-import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/job_service.dart';
-import 'package:help_for_hire_flutter_app/services/rating_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
@@ -19,13 +17,13 @@ class ProfileDiscoveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Read in the background, the list is listening for changes and will update
-    // context.read<WorkerService>().getWorkersInCity(
-    // Add this line back later to get the workers based on the correct
-    // user location
-    // locationId: context.read<UserService>().currentUser.locationId,
-    // For testing, gets all the workers in Bloemfontein
-    // locationId: 'Obj3eS6Dx2K7ZiNXraGX',
-    // );
+    context.read<WorkerService>().getWorkersInCity(
+          // Add this line back later to get the workers based on the correct
+          // user location
+          locationId: context.read<UserService>().currentUser.locationId,
+          // For testing, gets all the workers in Bloemfontein
+          // locationId: 'Obj3eS6Dx2K7ZiNXraGX',
+        );
 
     // This does not work quite how it should
     // Will move the method to the worker service, that way everything stays
@@ -58,9 +56,10 @@ class ProfileDiscoveryPage extends StatelessWidget {
                   await context.read<WorkerService>().getWorkersInCity(
                         // Add this line back later to get the workers based on the correct
                         // user location
-                        // locationId: context.read<UserService>().currentUser.locationId,
+                        locationId:
+                            context.read<UserService>().currentUser.locationId,
                         // For testing, gets all the workers in Bloemfontein
-                        locationId: 'Obj3eS6Dx2K7ZiNXraGX',
+                        // locationId: 'Obj3eS6Dx2K7ZiNXraGX',
                       );
 
                   DelayHelper.hideLoadingIndicator(context: context);
@@ -105,7 +104,11 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                     .getWorkersWithSkills(
                                       // This needs to be the current users id
                                       // Change this later after testing
-                                      locationId: 'Obj3eS6Dx2K7ZiNXraGX',
+                                      // locationId: 'Obj3eS6Dx2K7ZiNXraGX',
+                                      locationId: context
+                                          .read<UserService>()
+                                          .currentUser
+                                          .locationId,
                                       jobIds: selectedJobIds,
                                     );
 

@@ -7,7 +7,6 @@ import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
@@ -54,20 +53,17 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             // Check if old password is correct
             if (await FirebaseService.signInUser(
               context: context,
-              // id: context.read<UserService>().currentUser.userId,
-              id: '1111111111111',
+              id: context.read<UserService>().currentUser.userId,
               password: _oldPasswordController.text,
             )) {
               // Update user password
               await FirebaseService.deleteUser(
-                // id: context.read<UserService>().currentUser.userId,
-                id: '1111111111111',
+                id: context.read<UserService>().currentUser.userId,
               );
 
               await FirebaseService.createUser(
                 context: context,
-                // id: context.read<UserService>().currentUser.userId,
-                id: '1111111111111',
+                id: context.read<UserService>().currentUser.userId,
                 password: _newPasswordController.text,
               );
 

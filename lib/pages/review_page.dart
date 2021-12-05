@@ -7,6 +7,7 @@ import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 import 'package:help_for_hire_flutter_app/services/rating_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
+import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/rating_bars/star_rating_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
@@ -56,12 +57,13 @@ class _ReviewPageState extends State<ReviewPage> {
                   // This might change in the future
                   // However, according to our initial specs, this is how we
                   // planned it
-                  // employerId: context.read<UserService>().currentUser.userId,
-                  employerId: '1234554321127',
+                  employerId: context.read<UserService>().currentUser.userId,
+                  // employerId: '1234554321127',
                   // Depends on how we get the value
                   // Will probably just read from the worker service to get
                   // the id
-                  workerId: '7777711111222',
+                  // workerId: '7777711111222',
+                  workerId: context.read<WorkerService>().worker?.userId ?? '',
                 ),
               );
 

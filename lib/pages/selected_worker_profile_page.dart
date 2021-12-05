@@ -24,25 +24,25 @@ class SelectedWorkerProfilePage extends StatelessWidget {
     // Remove this later
     // The referenced worker will already have details when they get to this
     // page
-    context.read<WorkerService>().worker = WorkerModel(
-      description: 'Test description',
-      minimumFee: 250,
-      fullTime: false,
-      partTime: true,
-      jobIds: [
-        'Gardener',
-        'Cleaner',
-        'Tiling',
-      ],
-      user: UserModel(
-        userId: '1234567890123',
-        name: 'Freye',
-        surname: 'Archeron',
-        phoneNumber: '1234567890',
-        locationId: 'Bloemfontein',
-      ),
-      averageRating: 4,
-    );
+    // context.read<WorkerService>().worker = WorkerModel(
+    //   description: 'Test description',
+    //   minimumFee: 250,
+    //   fullTime: false,
+    //   partTime: true,
+    //   jobIds: [
+    //     'Gardener',
+    //     'Cleaner',
+    //     'Tiling',
+    //   ],
+    //   user: UserModel(
+    //     userId: '1234567890123',
+    //     name: 'Freye',
+    //     surname: 'Archeron',
+    //     phoneNumber: '1234567890',
+    //     locationId: 'Bloemfontein',
+    //   ),
+    //   averageRating: 4,
+    // );
 
     return Scaffold(
       appBar: AppBarWidget(

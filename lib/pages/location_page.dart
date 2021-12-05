@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/location_constants.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
+import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
@@ -89,12 +90,18 @@ class _LocationPageState extends State<LocationPage> {
                                       ),
                                     )
                                     .toList(),
-                                onChanged: (province) {
-                                  context
+                                onChanged: (province) async {
+                                  DelayHelper.showLoadingIndicator(
+                                      context: context);
+
+                                  await context
                                       .read<LocationService>()
                                       .getCitiesInProvince(
                                         province: province.toString(),
                                       );
+
+                                  DelayHelper.hideLoadingIndicator(
+                                      context: context);
                                 },
                                 validator: (value) => value == null
                                     ? 'Please select a province'

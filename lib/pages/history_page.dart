@@ -4,9 +4,8 @@ import 'package:help_for_hire_flutter_app/services/history_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/cards/history_card_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/gradients/white_gradient_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
+import 'package:help_for_hire_flutter_app/widgets/placeholders/empty_placeholder_widget.dart';
 import 'package:provider/provider.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -114,36 +113,8 @@ class HistoryPage extends StatelessWidget {
             child: Consumer<HistoryService>(
               builder: (_, service, __) {
                 return service.histories.isEmpty
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.warning,
-                            color: Colors.grey,
-                            size: 128.0,
-                          ),
-                          SmallSpacerWidget(),
-                          Text(
-                            'No history to display',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SmallSpacerWidget(),
-                          Text(
-                            'Possible causes\n'
-                            '\u2022 No internet connection\n'
-                            '\u2022 Slow network speed\n'
-                            '\u2022 No in app activity',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 20.0,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                    ? const EmptyPlaceholderWidget(
+                        data: 'No history to display',
                       )
                     : ListView.builder(
                         padding: const EdgeInsets.all(
