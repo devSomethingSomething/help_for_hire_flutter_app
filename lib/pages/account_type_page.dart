@@ -67,16 +67,10 @@ class AccountTypePage extends StatelessWidget {
                           'Maecenas vel placerat magna. '
                           'Aliquam vestibulum porta arcu, vel efficitur dolor dictum ultricies. '
                           'Vestibulum efficitur imperdiet purus vel efficitur.',
-                      onTap: () {
-                        context.read<UserService>().currentUser = EmployerModel(
-                          user: context.read<UserService>().currentUser,
-                        );
-
-                        Navigator.pushNamed(
-                          context,
-                          RouteManager.termsAndConditionsPage,
-                        );
-                      },
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        RouteManager.employerRegisterPage,
+                      ),
                     ),
                     const SmallSpacerWidget(),
                     AccountTypeCardWidget(

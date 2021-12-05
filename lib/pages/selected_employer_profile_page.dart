@@ -18,6 +18,9 @@ class SelectedEmployerProfilePage extends StatelessWidget {
     // Remove this testing code later
     // ------------------------------------
     context.read<EmployerService>().employer = EmployerModel(
+      companyName: 'Shaw Inc.',
+      address: 'Somewhere in the Andromeda Galaxy',
+      suburb: 'Sulaco',
       user: UserModel(
         userId: '1234567890123',
         name: 'Kaden',

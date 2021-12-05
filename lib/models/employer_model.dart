@@ -1,14 +1,14 @@
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
 
 class EmployerModel extends UserModel {
-//String companyName;
-//String address;
-//String suburb;
+  String companyName;
+  String address;
+  String suburb;
 
   EmployerModel({
-    //required this.companyName,
-    //required this.address,
-    //required this.suburb,
+    required this.companyName,
+    required this.address,
+    required this.suburb,
     required UserModel user,
   }) : super(
           userId: user.userId,
@@ -20,9 +20,9 @@ class EmployerModel extends UserModel {
 
   EmployerModel.fromJson({
     required Map<String, dynamic> json,
-  }) : //companyName = json['companyName'],
-        //address = json['address'],
-        //suburb = json['suburb'],
+  })  : companyName = json['companyName'],
+        address = json['address'],
+        suburb = json['suburb'],
         super(
           userId: json['userId'],
           name: json['name'],
@@ -32,9 +32,9 @@ class EmployerModel extends UserModel {
         );
 
   Map<String, dynamic> toJson() => {
-        //'companyName' = companyName,
-        //'address' = address,
-        //'suburb' = suburb,
+        'companyName': companyName,
+        'address': address,
+        'suburb': suburb,
         'userId': userId,
         'name': name,
         'surname': surname,
