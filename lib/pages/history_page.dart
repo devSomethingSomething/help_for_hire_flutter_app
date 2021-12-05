@@ -108,7 +108,6 @@ class HistoryPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          const WhiteGradientWidget(),
           Center(
             child: Consumer<HistoryService>(
               builder: (_, service, __) {

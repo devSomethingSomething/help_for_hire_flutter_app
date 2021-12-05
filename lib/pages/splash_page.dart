@@ -40,6 +40,7 @@ class _SplashPageState extends State<SplashPage> {
             Text(
               'Please be patient while loading occurs...',
               style: GoogleFonts.lobster(
+                color: Colors.black,
                 fontSize: 18.0,
               ),
             ),
