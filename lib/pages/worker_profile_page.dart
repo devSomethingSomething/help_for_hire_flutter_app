@@ -215,7 +215,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                   ),
                 ),
                 const SmallSpacerWidget(),
-                textWidget('Jobs', ''),
+               // textWidget('Jobs', ''),
                 _underlinedTextWidget(leftData: 'Jobs', rightData: ''),
                 const SmallSpacerWidget(),
                 _editMode
