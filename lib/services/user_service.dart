@@ -48,6 +48,9 @@ class UserService with ChangeNotifier {
   Future<void> loadUser({
     required BuildContext context,
   }) async {
+    context.read<EmployerService>().employer = null;
+    context.read<WorkerService>().worker = null;
+
     await context.read<EmployerService>().getEmployer(
           id: currentUser.userId,
         );
