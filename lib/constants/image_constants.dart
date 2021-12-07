@@ -1,6 +1,9 @@
+/// This Image Constant class represents all the images we are using
 class ImageConstants {
+  /// Image Constant constructor
   const ImageConstants._();
 
+  /// Image Constant static variables
   static const decoDown = 'assets/images/deco_down.png';
   static const decoUp = 'assets/images/deco_up.png';
   static const employer = 'assets/images/employer.png';
