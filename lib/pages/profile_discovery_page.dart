@@ -111,7 +111,7 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                       color: Colors.blue[900],
                                     ),
                                   )
-                                : Column(
+                                : ListView(
                                     children: service.jobs.map(
                                       (job) {
                                         var selected = false;
@@ -141,7 +141,7 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                         );
                                       },
                                     ).toList(),
-                                    mainAxisSize: MainAxisSize.min,
+                                    shrinkWrap: true,
                                   );
                           },
                         ),

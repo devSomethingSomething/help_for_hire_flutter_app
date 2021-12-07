@@ -9,6 +9,7 @@ import 'package:http/http.dart';
 class LocationService with ChangeNotifier {
   var locations = <LocationModel>[];
   LocationModel? location;
+  bool? locationUpdated;
 
   var _jsons = [];
   var _json = <String, dynamic>{};
@@ -20,6 +21,7 @@ class LocationService with ChangeNotifier {
   Future<void> getLocation({
     required String id,
   }) async {
+    locationUpdated=false;
     final response = await get(
       Uri.parse(
         'https://${DomainConstants.ip}:5001$_controllerRoute?id=$id',
@@ -35,6 +37,7 @@ class LocationService with ChangeNotifier {
         );
       } catch (_) {}
     } else {}
+    locationUpdated=true;
 
     notifyListeners();
   }

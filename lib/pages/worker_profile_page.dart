@@ -88,233 +88,243 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
               ? '${job.selectedJobs[0].title}, ${job.selectedJobs[1].title}'
               : '${job.selectedJobs[0].title}, ${job.selectedJobs[1].title}, ect...';
 
-      return Scaffold(
-        appBar: AppBarWidget(
-          actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.password,
-              ),
-              onPressed: () => Navigator.pushNamed(
-                context,
-                RouteManager.changePasswordPage,
-              ),
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.info_outline_rounded,
-              ),
-              onPressed: () => InfoHelper.showInfoDialog(
-                context: context,
-                content: 'This page shows your details',
-                title: 'Profile Details',
-              ),
-            ),
-          ],
-          data: 'Profile',
-        ),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                CircleAvatar(
-                  backgroundColor: ColorConstants.darkBlue,
-                  child: CircleAvatar(
-                    backgroundColor: ColorConstants.white,
-                    child: Icon(
-                      Icons.person,
-                      color: ColorConstants.darkBlue,
-                      size: 128.0,
+      return location.locationUpdated == null ||
+              location.locationUpdated == false
+          ? Center(child: CircularProgressIndicator())
+          : Scaffold(
+              appBar: AppBarWidget(
+                actions: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.password,
                     ),
-                    radius: 70.0,
+                    onPressed: () => Navigator.pushNamed(
+                      context,
+                      RouteManager.changePasswordPage,
+                    ),
                   ),
-                  radius: 75.0,
-                ),
-                const SmallSpacerWidget(),
-                Text(
-                  '${context.read<UserService>().currentUser.name} '
-                  '${context.read<UserService>().currentUser.surname}',
-                  style: const TextStyle(
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.bold,
+                  IconButton(
+                    icon: const Icon(
+                      Icons.info_outline_rounded,
+                    ),
+                    onPressed: () => InfoHelper.showInfoDialog(
+                      context: context,
+                      content: 'This page shows your details',
+                      title: 'Profile Details',
+                    ),
                   ),
-                ),
-                const MediumSpacerWidget(),
-                const Text(
-                  'Common',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 100,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
+                ],
+                data: 'Profile',
+              ),
+              body: SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: ColorConstants.darkBlue,
+                        child: CircleAvatar(
+                          backgroundColor: ColorConstants.white,
+                          child: Icon(
+                            Icons.person,
+                            color: ColorConstants.darkBlue,
+                            size: 128.0,
+                          ),
+                          radius: 70.0,
+                        ),
+                        radius: 75.0,
                       ),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text((user.currentUser as WorkerModel).description),
-                          ],
+                      const SmallSpacerWidget(),
+                      Text(
+                        '${context.read<UserService>().currentUser.name} '
+                        '${context.read<UserService>().currentUser.surname}',
+                        style: const TextStyle(
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                const SmallSpacerWidget(),
-                _editMode
-                    ? TextFormFieldWidget(
-                        controller: _phoneController,
-                        labelText: 'Phone Number',
-                        keyboardType: TextInputType.text,
-                        lightMode: true,
-                        icon: Icons.phone,
-                      )
-                    : _underlinedTextWidget(
-                        leftData: 'Phone Number',
-                        rightData: context
-                            .read<UserService>()
-                            .currentUser
-                            .phoneNumber),
-                const MediumSpacerWidget(),
-                const Text(
-                  'Location',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SmallSpacerWidget(),
-                _underlinedTextWidget(
-                  leftData: 'Province:',
-                  rightData:
-                      context.read<LocationService>().location?.province ?? '',
-                ),
-                const SmallSpacerWidget(),
-                _underlinedTextWidget(
-                  leftData: 'City:',
-                  rightData:
-                      context.read<LocationService>().location?.city ?? '',
-                ),
-                const MediumSpacerWidget(),
-                const Text(
-                  'Worker',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SmallSpacerWidget(),
-                textWidget('Jobs', ''),
-                _underlinedTextWidget(leftData: 'Jobs', rightData: ''),
-                const SmallSpacerWidget(),
-                _editMode
-                    ? TextFormFieldWidget(
-                        controller: _feeController,
-                        labelText: 'Min Fee',
-                        keyboardType: TextInputType.text,
-                        lightMode: true,
-                        icon: Icons.money,
-                      )
-                    : _underlinedTextWidget(
-                        leftData: 'Min Fee',
-                        rightData:
-                            '${(context.read<UserService>().currentUser as WorkerModel).minimumFee}'),
-                const SmallSpacerWidget(),
-                _editMode
-                    ? TextFormFieldWidget(
-                        controller: _fullController,
-                        labelText: 'Full Time',
-                        keyboardType: TextInputType.text,
-                        lightMode: true,
-                        icon: Icons.work,
-                      )
-                    : _underlinedTextWidget(
-                        leftData: 'Full Time',
-                        rightData:
-                            '${(context.read<UserService>().currentUser as WorkerModel).fullTime}'),
-                const SmallSpacerWidget(),
-                _editMode
-                    ? TextFormFieldWidget(
-                        controller: _partController,
-                        labelText: 'Part Time',
-                        keyboardType: TextInputType.text,
-                        lightMode: true,
-                        icon: Icons.work,
-                      )
-                    : _underlinedTextWidget(
-                        leftData: 'Part Time',
-                        rightData:
-                            '${(context.read<UserService>().currentUser as WorkerModel).partTime}'),
-              ],
-            ),
-          ),
-          padding: const EdgeInsets.all(
-            32.0,
-          ),
-        ),
-        drawer: const DrawerWidget(),
-        drawerEnableOpenDragGesture: false,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: ColorConstants.darkBlue,
-          child: const Icon(
-            Icons.edit,
-          ),
-          // Clean up here
-          onPressed: () async {
-            if (_editMode) {
-              DelayHelper.showLoadingIndicator(context: context);
-
-              await context.read<WorkerService>().putWorker(
-                    id: context.read<UserService>().currentUser.userId,
-                    worker: WorkerModel(
-                        description: _descriptionController.text,
-                        minimumFee: int.parse(_feeController.text),
-                        fullTime: _fullTime,
-                        partTime: _partTime,
-                        jobIds: context
-                            .read<JobService>()
-                            .selectedJobs
-                            .map(
-                              (job) => job.jobId,
+                      const MediumSpacerWidget(),
+                      const Text(
+                        'Common',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Container(
+                          height: 100,
+                          width: 350,
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                          child: SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text((user.currentUser as WorkerModel)
+                                      .description),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SmallSpacerWidget(),
+                      _editMode
+                          ? TextFormFieldWidget(
+                              controller: _phoneController,
+                              labelText: 'Phone Number',
+                              keyboardType: TextInputType.text,
+                              lightMode: true,
+                              icon: Icons.phone,
                             )
-                            .toList(),
-                        user: UserModel(
-                          userId: user.currentUser.userId,
-                          locationId: context
-                              .read<LocationService>()
-                              .locations
-                              .firstWhere(
-                                (location) => location.city == _city,
-                              )
-                              .locationId,
-                          name: _nameController.text,
-                          surname: _surnameController.text,
-                          phoneNumber: _phoneController.text,
-                        )),
+                          : _underlinedTextWidget(
+                              leftData: 'Phone Number',
+                              rightData: context
+                                  .read<UserService>()
+                                  .currentUser
+                                  .phoneNumber),
+                      const MediumSpacerWidget(),
+                      const Text(
+                        'Location',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SmallSpacerWidget(),
+                      _underlinedTextWidget(
+                        leftData: 'Province:',
+                        rightData: context
+                                .read<LocationService>()
+                                .location
+                                ?.province ??
+                            '',
+                      ),
+                      const SmallSpacerWidget(),
+                      _underlinedTextWidget(
+                        leftData: 'City:',
+                        rightData:
+                            context.read<LocationService>().location?.city ??
+                                '',
+                      ),
+                      const MediumSpacerWidget(),
+                      const Text(
+                        'Worker',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SmallSpacerWidget(),
+                      textWidget('Jobs', ''),
+                      _underlinedTextWidget(leftData: 'Jobs', rightData: ''),
+                      const SmallSpacerWidget(),
+                      _editMode
+                          ? TextFormFieldWidget(
+                              controller: _feeController,
+                              labelText: 'Min Fee',
+                              keyboardType: TextInputType.text,
+                              lightMode: true,
+                              icon: Icons.money,
+                            )
+                          : _underlinedTextWidget(
+                              leftData: 'Min Fee',
+                              rightData:
+                                  '${(context.read<UserService>().currentUser as WorkerModel).minimumFee}'),
+                      const SmallSpacerWidget(),
+                      _editMode
+                          ? TextFormFieldWidget(
+                              controller: _fullController,
+                              labelText: 'Full Time',
+                              keyboardType: TextInputType.text,
+                              lightMode: true,
+                              icon: Icons.work,
+                            )
+                          : _underlinedTextWidget(
+                              leftData: 'Full Time',
+                              rightData:
+                                  '${(context.read<UserService>().currentUser as WorkerModel).fullTime}'),
+                      const SmallSpacerWidget(),
+                      _editMode
+                          ? TextFormFieldWidget(
+                              controller: _partController,
+                              labelText: 'Part Time',
+                              keyboardType: TextInputType.text,
+                              lightMode: true,
+                              icon: Icons.work,
+                            )
+                          : _underlinedTextWidget(
+                              leftData: 'Part Time',
+                              rightData:
+                                  '${(context.read<UserService>().currentUser as WorkerModel).partTime}'),
+                    ],
+                  ),
+                ),
+                padding: const EdgeInsets.all(
+                  32.0,
+                ),
+              ),
+              drawer: const DrawerWidget(),
+              drawerEnableOpenDragGesture: false,
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: ColorConstants.darkBlue,
+                child: const Icon(
+                  Icons.edit,
+                ),
+                // Clean up here
+                onPressed: () async {
+                  if (_editMode) {
+                    DelayHelper.showLoadingIndicator(context: context);
+
+                    await context.read<WorkerService>().putWorker(
+                          id: context.read<UserService>().currentUser.userId,
+                          worker: WorkerModel(
+                              description: _descriptionController.text,
+                              minimumFee: int.parse(_feeController.text),
+                              fullTime: _fullTime,
+                              partTime: _partTime,
+                              jobIds: context
+                                  .read<JobService>()
+                                  .selectedJobs
+                                  .map(
+                                    (job) => job.jobId,
+                                  )
+                                  .toList(),
+                              user: UserModel(
+                                userId: user.currentUser.userId,
+                                locationId: context
+                                    .read<LocationService>()
+                                    .locations
+                                    .firstWhere(
+                                      (location) => location.city == _city,
+                                    )
+                                    .locationId,
+                                name: _nameController.text,
+                                surname: _surnameController.text,
+                                phoneNumber: _phoneController.text,
+                              )),
+                        );
+
+                    await context
+                        .read<UserService>()
+                        .loadUser(context: context);
+
+                    DelayHelper.hideLoadingIndicator(context: context);
+                  }
+
+                  setState(
+                    () => _editMode = !_editMode,
                   );
-
-              await context.read<UserService>().loadUser(context: context);
-
-              DelayHelper.hideLoadingIndicator(context: context);
-            }
-
-            setState(
-              () => _editMode = !_editMode,
+                },
+              ),
             );
-          },
-        ),
-      );
     });
   }
 

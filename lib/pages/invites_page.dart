@@ -16,6 +16,7 @@ import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/placeholders/empty_placeholder_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:enum_to_string/enum_to_string.dart';
 
 class InvitesPage extends StatelessWidget {
   const InvitesPage();
@@ -159,7 +160,7 @@ class InvitesPage extends StatelessWidget {
                                 ? service.invites[index].status ==
                                         Status.accepted
                                             .toString()
-                                            .replaceAll('Status.', '')
+                                            .replaceAll('Status.', '')////////////////////////////////////////////////////////////////////////////////////////
                                             .capitalize()
                                     ? FlatButtonWidget(
                                         data: 'CONTACT',
@@ -169,7 +170,7 @@ class InvitesPage extends StatelessWidget {
                                         primary: Colors.green,
                                       )
                                     : Text(
-                                        service.invites[index].status,
+                              EnumToString.convertToString(service.invites[index].status),
                                       )
                                 : service.invites[index].status ==
                                         Status.accepted
@@ -177,7 +178,7 @@ class InvitesPage extends StatelessWidget {
                                             .replaceAll('Status.', '')
                                             .capitalize()
                                     ? Text(
-                                        service.invites[index].status,
+                              EnumToString.convertToString(service.invites[index].status),
                                       )
                                     : FlatButtonWidget(
                                         data: 'ACCEPT',

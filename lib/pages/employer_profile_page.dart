@@ -6,6 +6,7 @@ import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/employer_service.dart';
+import 'package:help_for_hire_flutter_app/services/job_service.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
@@ -45,211 +46,212 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<LocationService>().getLocation(
-          id: context.read<UserService>().currentUser.locationId,
-        );
-
-    _phoneNumberController.text =
-        context.read<UserService>().currentUser.phoneNumber;
-    _companyNameController.text =
-        (context.read<UserService>().currentUser as EmployerModel).companyName;
-    _addressController.text =
-        (context.read<UserService>().currentUser as EmployerModel).address;
-    _suburbController.text =
-        (context.read<UserService>().currentUser as EmployerModel).suburb;
-
-    return Scaffold(
-      appBar: AppBarWidget(
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.password,
-            ),
-            onPressed: () => Navigator.pushNamed(
-              context,
-              RouteManager.changePasswordPage,
-            ),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.info_outline_rounded,
-            ),
-            onPressed: () => InfoHelper.showInfoDialog(
-              context: context,
-              content: 'This page shows your details',
-              title: 'Profile Details',
-            ),
-          ),
-        ],
-        data: 'Profile',
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              CircleAvatar(
-                backgroundColor: ColorConstants.darkBlue,
-                child: CircleAvatar(
-                  backgroundColor: ColorConstants.white,
-                  child: Icon(
-                    Icons.person,
-                    color: ColorConstants.darkBlue,
-                    size: 128.0,
-                  ),
-                  radius: 70.0,
-                ),
-                radius: 75.0,
-              ),
-              const SmallSpacerWidget(),
-              Text(
-                '${context.read<UserService>().currentUser.name} '
-                '${context.read<UserService>().currentUser.surname}',
-                style: const TextStyle(
-                  fontSize: 28.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const MediumSpacerWidget(),
-              const Text(
-                'Common',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SmallSpacerWidget(),
-              _editMode
-                  ? TextFormFieldWidget(
-                      controller: _phoneNumberController,
-                      labelText: 'Phone Number',
-                      keyboardType: TextInputType.text,
-                      lightMode: true,
-                      icon: Icons.phone,
-                    )
-                  : _underlinedTextWidget(
-                      leftData: 'Phone Number:',
-                      rightData:
-                          context.read<UserService>().currentUser.phoneNumber,
-                    ),
-              const MediumSpacerWidget(),
-              const Text(
-                'Location',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SmallSpacerWidget(),
-              _underlinedTextWidget(
-                leftData: 'Province:',
-                rightData:
-                    context.read<LocationService>().location?.province ?? '',
-              ),
-              const SmallSpacerWidget(),
-              _underlinedTextWidget(
-                leftData: 'City:',
-                rightData: context.read<LocationService>().location?.city ?? '',
-              ),
-              const MediumSpacerWidget(),
-              const Text(
-                'Employer',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SmallSpacerWidget(),
-              _editMode
-                  ? TextFormFieldWidget(
-                      controller: _companyNameController,
-                      labelText: 'Company Name',
-                      keyboardType: TextInputType.text,
-                      lightMode: true,
-                      icon: Icons.location_city,
-                    )
-                  : _underlinedTextWidget(
-                      leftData: 'Company Name:',
-                      rightData: (context.read<UserService>().currentUser
-                              as EmployerModel)
-                          .companyName,
-                    ),
-              const SmallSpacerWidget(),
-              _editMode
-                  ? TextFormFieldWidget(
-                      controller: _addressController,
-                      labelText: 'Address',
-                      keyboardType: TextInputType.text,
-                      lightMode: true,
-                      icon: Icons.home,
-                    )
-                  : _underlinedTextWidget(
-                      leftData: 'Address:',
-                      rightData: (context.read<UserService>().currentUser
-                              as EmployerModel)
-                          .address,
-                    ),
-              const SmallSpacerWidget(),
-              _editMode
-                  ? TextFormFieldWidget(
-                      controller: _suburbController,
-                      labelText: 'Suburb',
-                      keyboardType: TextInputType.text,
-                      lightMode: true,
-                      icon: Icons.streetview,
-                    )
-                  : _underlinedTextWidget(
-                      leftData: 'Suburb:',
-                      rightData: (context.read<UserService>().currentUser
-                              as EmployerModel)
-                          .suburb,
-                    ),
-            ],
-          ),
-        ),
-        padding: const EdgeInsets.all(
-          32.0,
-        ),
-      ),
-      drawer: const DrawerWidget(),
-      drawerEnableOpenDragGesture: false,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: ColorConstants.darkBlue,
-        child: const Icon(
-          Icons.edit,
-        ),
-        // Clean up here
-        onPressed: () async {
-          if (_editMode) {
-            DelayHelper.showLoadingIndicator(context: context);
-
-            await context.read<EmployerService>().putEmployer(
-                  id: context.read<UserService>().currentUser.userId,
-                  employer: EmployerModel(
-                    companyName: _companyNameController.text,
-                    address: _addressController.text,
-                    suburb: _suburbController.text,
-                    user: UserModel(
-                      userId: context.read<UserService>().currentUser.userId,
-                      name: context.read<UserService>().currentUser.name,
-                      surname: context.read<UserService>().currentUser.surname,
-                      phoneNumber: _phoneNumberController.text,
-                      locationId:
-                          context.read<UserService>().currentUser.locationId,
-                    ),
-                  ),
-                );
-
-            await context.read<UserService>().loadUser(context: context);
-
-            DelayHelper.hideLoadingIndicator(context: context);
-          }
-
-          setState(
-            () => _editMode = !_editMode,
+    return Consumer2<UserService, LocationService>(
+        builder: (context, user, location, child) {
+      context.read<LocationService>().getLocation(
+            id: context.read<UserService>().currentUser.locationId,
           );
-        },
-      ),
-    );
+
+      _phoneNumberController.text = user.currentUser.phoneNumber;
+      _companyNameController.text =
+          (user.currentUser as EmployerModel).companyName;
+      _addressController.text = (user.currentUser as EmployerModel).address;
+      _suburbController.text = (user.currentUser as EmployerModel).suburb;
+
+      return location.locationUpdated == null ||
+              location.locationUpdated == false
+          ? Center(child: CircularProgressIndicator())
+          : Scaffold(
+              appBar: AppBarWidget(
+                actions: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.password,
+                    ),
+                    onPressed: () => Navigator.pushNamed(
+                      context,
+                      RouteManager.changePasswordPage,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.info_outline_rounded,
+                    ),
+                    onPressed: () => InfoHelper.showInfoDialog(
+                      context: context,
+                      content: 'This page shows your details',
+                      title: 'Profile Details',
+                    ),
+                  ),
+                ],
+                data: 'Profile',
+              ),
+              body: SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: ColorConstants.darkBlue,
+                        child: CircleAvatar(
+                          backgroundColor: ColorConstants.white,
+                          child: Icon(
+                            Icons.person,
+                            color: ColorConstants.darkBlue,
+                            size: 128.0,
+                          ),
+                          radius: 70.0,
+                        ),
+                        radius: 75.0,
+                      ),
+                      const SmallSpacerWidget(),
+                      Text(
+                        '${user.currentUser.name} '
+                        '${user.currentUser.surname}',
+                        style: const TextStyle(
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const MediumSpacerWidget(),
+                      const Text(
+                        'Common',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SmallSpacerWidget(),
+                      _editMode
+                          ? TextFormFieldWidget(
+                              controller: _phoneNumberController,
+                              labelText: 'Phone Number',
+                              keyboardType: TextInputType.text,
+                              lightMode: true,
+                              icon: Icons.phone,
+                            )
+                          : _underlinedTextWidget(
+                              leftData: 'Phone Number:',
+                              rightData: user
+                                  .currentUser
+                                  .phoneNumber,
+                            ),
+                      const MediumSpacerWidget(),
+                      const Text(
+                        'Location',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SmallSpacerWidget(),
+                      _underlinedTextWidget(
+                        leftData: 'Province:',
+                        rightData: location.location?.province ?? '',
+                      ),
+                      const SmallSpacerWidget(),
+                      _underlinedTextWidget(
+                        leftData: 'City:',
+                        rightData: location.location?.city ?? '',
+                      ),
+                      const MediumSpacerWidget(),
+                      const Text(
+                        'Employer',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SmallSpacerWidget(),
+                      _editMode
+                          ? TextFormFieldWidget(
+                              controller: _companyNameController,
+                              labelText: 'Company Name',
+                              keyboardType: TextInputType.text,
+                              lightMode: true,
+                              icon: Icons.location_city,
+                            )
+                          : _underlinedTextWidget(
+                              leftData: 'Company Name:',
+                              rightData: (user.currentUser as EmployerModel)
+                                  .companyName,
+                            ),
+                      const SmallSpacerWidget(),
+                      _editMode
+                          ? TextFormFieldWidget(
+                              controller: _addressController,
+                              labelText: 'Address',
+                              keyboardType: TextInputType.text,
+                              lightMode: true,
+                              icon: Icons.home,
+                            )
+                          : _underlinedTextWidget(
+                              leftData: 'Address:',
+                              rightData:
+                                  (user.currentUser as EmployerModel).address,
+                            ),
+                      const SmallSpacerWidget(),
+                      _editMode
+                          ? TextFormFieldWidget(
+                              controller: _suburbController,
+                              labelText: 'Suburb',
+                              keyboardType: TextInputType.text,
+                              lightMode: true,
+                              icon: Icons.streetview,
+                            )
+                          : _underlinedTextWidget(
+                              leftData: 'Suburb:',
+                              rightData:
+                                  (user.currentUser as EmployerModel).suburb,
+                            ),
+                    ],
+                  ),
+                ),
+                padding: const EdgeInsets.all(
+                  32.0,
+                ),
+              ),
+              drawer: const DrawerWidget(),
+              drawerEnableOpenDragGesture: false,
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: ColorConstants.darkBlue,
+                child: const Icon(
+                  Icons.edit,
+                ),
+                // Clean up here
+                onPressed: () async {
+                  if (_editMode) {
+                    DelayHelper.showLoadingIndicator(context: context);
+
+                    await context.read<EmployerService>().putEmployer(
+                          id: context.read<UserService>().currentUser.userId,
+                          employer: EmployerModel(
+                            companyName: _companyNameController.text,
+                            address: _addressController.text,
+                            suburb: _suburbController.text,
+                            user: UserModel(
+                              userId: user.currentUser.userId,
+                              name: user.currentUser.name,
+                              surname: user.currentUser.surname,
+                              phoneNumber: _phoneNumberController.text,
+                              locationId: user.currentUser.locationId,
+                            ),
+                          ),
+                        );
+
+                    await context
+                        .read<UserService>()
+                        .loadUser(context: context);
+
+                    DelayHelper.hideLoadingIndicator(context: context);
+                  }
+
+                  setState(
+                    () => _editMode = !_editMode,
+                  );
+                },
+              ),
+            );
+    });
   }
 
   Widget _underlinedTextWidget({
