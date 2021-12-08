@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 
 /// This class allows us to easily display a snack bar to the user
@@ -6,7 +7,8 @@ class SnackBarHelper {
   const SnackBarHelper._();
 
   /// This method shows a snack bar to the user when invalid
-  /// data is entered into a text field
+  /// data is entered into a text field or a warning message needs to be displayed
+  /// to the user
   static void showSnackBar({
     required BuildContext context,
     required String data,

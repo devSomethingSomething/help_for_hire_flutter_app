@@ -1,10 +1,12 @@
-/// This Loaction Constant class represents the location dropdown
+/// Represents the location dropdown
 /// button with the provinces
 class LocationConstants {
-  /// Location Constant constructor
+  /// Constructor
   const LocationConstants._();
 
-  /// Location Constant static list variable containing the 9 provinces
+  /// Static list variable containing the nine provinces in South Africa
+  /// Since these provinces don't change, it is easier to store them within
+  /// the app instead of having to constantly read them from the web API
   static const provinces = [
     'Eastern Cape',
     'Free State',

@@ -1,3 +1,4 @@
+/// Imports
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -17,23 +18,33 @@ import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 
 import 'package:provider/provider.dart';
 
+/// Entry point of the program
 void main() async {
+  // Initializes a widget binding
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Uses custom HTTP overrides which allow us to connect to the web API hosted
+  // locally
   HttpOverrides.global = CustomHttpOverrides();
 
+  // Initialize the Firebase instance
   await Firebase.initializeApp();
 
+  // Start running our app
   runApp(
     const _App(),
   );
 }
 
+/// The main app in the application
 class _App extends StatelessWidget {
+  /// Constructor
   const _App();
 
+  /// Builds our widget
   @override
   Widget build(BuildContext context) {
+    // Setup the models and services used throughout the app
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -70,12 +81,18 @@ class _App extends StatelessWidget {
           create: (_) => WorkerService(),
         ),
       ],
+      // Listen for changes to settings, allowing the theme to change throughout
+      // the app
       child: Consumer<SettingsModel>(
         builder: (_, model, __) {
           return MaterialApp(
+            // Hide the debug banner
             debugShowCheckedModeBanner: false,
+            // Start our app at the splash page
             initialRoute: RouteManager.splashPage,
+            // Generate the routes for our pages
             onGenerateRoute: RouteManager.generateRoute,
+            // Use the appropriate theme based on the shared preferences
             theme: model.darkTheme ? darkTheme : lightTheme,
           );
         },

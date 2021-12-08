@@ -1,11 +1,11 @@
-/// This Report Constant class represents the Report type button
+/// Holds constant data related to reports
 class ReportConstants {
-  /// Report Constant constructor
+  /// Constructor
   const ReportConstants._();
 
-  /// Report Constant list variable containg the different report types
+  /// Constant list variable containing the different report types
   ///
-  /// More report types can be added if neccassary
+  /// More report types can be added if needed
   static const reportTypes = [
     'Inappropriate account details',
     'Non compliant',

@@ -1,3 +1,4 @@
+/// Imports
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
@@ -8,7 +9,7 @@ class DelayHelper {
   const DelayHelper._();
 
   /// This delayTimer method will be used by the splash page and will
-  /// show it for 5 seconds and navigate to the next page
+  /// show it for 5 seconds before navigating to the next page
   static void delayTimer(BuildContext context) {
     Timer(
       const Duration(
@@ -39,7 +40,7 @@ class DelayHelper {
   }
 
   /// This hideLoadingIndicator method will hide the
-  /// Circular Progress Indicator ones the data has been loaded in
+  /// Circular Progress Indicator once the data has been loaded in
   static void hideLoadingIndicator({
     required BuildContext context,
   }) {

@@ -1,8 +1,9 @@
+/// Imports
 import 'dart:io';
 
-/// Connection Helper class
+/// Holds helper methods related to internet connections
 class ConnectionHelper {
-  /// Connection Helper constructor
+  /// Constructor
   const ConnectionHelper._();
 
   /// This method is used to check if there is a connection to the internet

@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
@@ -13,7 +14,7 @@ class ValidationHelper {
   /// text form fields have data in it
   ///
   /// If some data is missing it will show a snackbar
-  /// containing a error message
+  /// containing an error message
   static void validateForm({
     required BuildContext context,
     required GlobalKey<FormState> key,
@@ -30,10 +31,10 @@ class ValidationHelper {
   }
 
   /// This checkConnection method will check if there is
-  /// connection to the Connection Helper class
+  /// connection to the internet
   ///
   /// If there is no connection it will show a snackbar
-  /// containing a error message
+  /// containing an error message
   static void checkConnection({
     required BuildContext context,
     required void Function() function,
@@ -49,10 +50,10 @@ class ValidationHelper {
   }
 
   /// This validateText method will check if there is valid
-  /// data in the text from field
+  /// data in the text form field
   ///
-  /// It will return a error message if the text form field is empty or
-  /// to long
+  /// It will return an error message if the text form field is empty or
+  /// too long
   static String? validateText(
     String? text,
   ) {
@@ -70,10 +71,10 @@ class ValidationHelper {
   }
 
   /// This validatePhoneNumber method will check if there is valid
-  /// data in the text from field
+  /// data in the text form field
   ///
-  /// It will return a error message if the text form field is empty or
-  /// if it conatains . or , in it
+  /// It will return an error message if the text form field is empty or
+  /// if it conatains a . or , in it
   static String? validatePhoneNumber(
     String? text,
   ) {
@@ -87,10 +88,10 @@ class ValidationHelper {
   }
 
   /// This validateOtp method will check if there is valid
-  /// data in the text from fields
+  /// data in the text form fields
   ///
   /// It will return a error message if the text form field is empty or
-  /// if it conatains . or , or if it is 6 characters long
+  /// if it conatains a . or , or if it is 6 characters long
   static String? validateOtp(
     String? text,
   ) {
@@ -106,10 +107,10 @@ class ValidationHelper {
   }
 
   /// This validatePassword method will check if there is valid
-  /// data in the text from field
+  /// data in the text form field
   ///
   /// It will return a error message if the text form field is empty,
-  /// if it is 8 characters long, less than 24 character and check if it contains
+  /// if it is 8 characters long, less than 24 character and checks if it contains
   /// an upper case, lower case, number and special character
   static String? validatePassword(
     String? text,
@@ -131,9 +132,9 @@ class ValidationHelper {
   }
 
   /// This validateDescription method will check if there is valid
-  /// data in the text from field
+  /// data in the text form field
   ///
-  /// It will return a error message if the text form field is empty
+  /// It will return an error message if the text form field is empty
   static String? validateDescription(
     String? text,
   ) {
@@ -145,7 +146,7 @@ class ValidationHelper {
   }
 
   /// This validateIdmethod will check if there is valid
-  /// data in the text from field
+  /// data in the text form field
   ///
   /// It will return a error message if the text form field is empty,
   /// if it is 13 characters long, and does not contain . or ,

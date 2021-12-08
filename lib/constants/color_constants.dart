@@ -1,10 +1,13 @@
+/// Imports
 import 'package:flutter/material.dart';
 
 /// Holds various color constants used within the app
 class ColorConstants {
-  /// Color Constant constructor
+  /// Constructor
   const ColorConstants._();
 
+  /// Colors used within the app, try to use these if possible to maintain a
+  /// consistent color scheme
   /// Getter for orange
   static Color get orange => Colors.orange;
 
