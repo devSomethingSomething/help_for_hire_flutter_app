@@ -1,18 +1,22 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
 import 'package:help_for_hire_flutter_app/services/history_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/cards/history_card_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/drawers/drawer_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/gradients/white_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/placeholders/empty_placeholder_widget.dart';
 import 'package:provider/provider.dart';
 
+/// This page will show the users history
 class HistoryPage extends StatelessWidget {
+  /// Constructor
   const HistoryPage();
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
+    /// Read in the background, this is listening for changes and will update
     context.read<HistoryService>().getHistoryByUser(
           id: context.read<UserService>().currentUser.userId,
         );
@@ -24,6 +28,9 @@ class HistoryPage extends StatelessWidget {
               Icons.refresh,
               size: 28.0,
             ),
+
+            /// When this button is pressed it will reload the page and
+            /// listen if their is any updates to the history
             onPressed: () => context.read<HistoryService>().getHistoryByUser(
                   id: context.read<UserService>().currentUser.userId,
                 ),
@@ -111,10 +118,14 @@ class HistoryPage extends StatelessWidget {
           Center(
             child: Consumer<HistoryService>(
               builder: (_, service, __) {
+                // First check if the map length is zero and there is no error
                 return service.histories.isEmpty
                     ? const EmptyPlaceholderWidget(
+                        /// Return text if their is no data
                         data: 'No history to display',
                       )
+
+                    /// Show the history when the data has been loaded
                     : ListView.builder(
                         padding: const EdgeInsets.all(
                           8.0,

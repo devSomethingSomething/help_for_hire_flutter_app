@@ -1,6 +1,6 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/report_constants.dart';
-import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/info_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
@@ -13,10 +13,11 @@ import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/user_list_card_widget.dart';
 import 'package:provider/provider.dart';
 
+/// This page allows a user to report another user
 class ReportPage extends StatefulWidget {
+  /// Constructor
   const ReportPage();
 
   @override
@@ -24,10 +25,13 @@ class ReportPage extends StatefulWidget {
 }
 
 class _ReportPageState extends State<ReportPage> {
+  /// The _key variable is used to validate form fields
   final _key = GlobalKey<FormState>();
 
+  /// Variables for the Text editing controllers
   final _descriptionController = TextEditingController();
 
+  /// Method dispose is used to clear any controllers when the page is built
   @override
   void dispose() {
     _descriptionController.dispose();
@@ -78,6 +82,7 @@ class _ReportPageState extends State<ReportPage> {
     );
   }
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     // Set the report type back to the default value
@@ -90,6 +95,8 @@ class _ReportPageState extends State<ReportPage> {
             icon: const Icon(
               Icons.info_outline_rounded,
             ),
+
+            /// Dialog that displays what the page is for
             onPressed: () => InfoHelper.showInfoDialog(
               context: context,
               content:
@@ -143,6 +150,8 @@ class _ReportPageState extends State<ReportPage> {
                           ),
                           iconSize: 32.0,
                           isExpanded: true,
+
+                          /// Displays the different report types in a drop down
                           items: ReportConstants.reportTypes
                               .map(
                                 (item) => DropdownMenuItem(
@@ -159,6 +168,11 @@ class _ReportPageState extends State<ReportPage> {
                       },
                     ),
                     const SmallSpacerWidget(),
+
+                    /// Text form field
+                    ///
+                    /// The description text form field does not need validation
+                    /// because it is optional
                     TextFormFieldWidget(
                       controller: _descriptionController,
                       icon: Icons.description_rounded,

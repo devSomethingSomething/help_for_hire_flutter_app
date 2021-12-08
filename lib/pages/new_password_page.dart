@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
@@ -16,7 +17,9 @@ import 'package:help_for_hire_flutter_app/widgets/text/white_heading_text_widget
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
+/// This page allows a user to create a new password
 class NewPasswordPage extends StatefulWidget {
+  /// Constructor
   const NewPasswordPage();
 
   @override
@@ -24,11 +27,14 @@ class NewPasswordPage extends StatefulWidget {
 }
 
 class _NewPasswordPageState extends State<NewPasswordPage> {
+  /// The _key variable is used to validate form fields
   final _key = GlobalKey<FormState>();
 
+  /// Variables for the Text editing controllers
   final _newPasswordController = TextEditingController();
   final _repeatNewPasswordController = TextEditingController();
 
+  /// Method dispose is used to clear any controllers when the page is built
   @override
   void dispose() {
     _newPasswordController.dispose();
@@ -37,6 +43,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
     super.dispose();
   }
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +51,8 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
         children: [
           const BlueGradientWidget(),
           SafeArea(
+            /// Single child scroll view is used to prevent overflow and makes
+            /// the page scrollable
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(
                 16.0,
@@ -73,6 +82,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                         key: _key,
                         child: Column(
                           children: [
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               controller: _newPasswordController,
                               icon: Icons.password_rounded,
@@ -80,11 +90,11 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                               labelText: 'New Password',
                               maxLength: 24,
                               obscureText: true,
-                              // Add password validation
-                              // validator: ,
                               validator: ValidationHelper.validatePassword,
                             ),
                             const MediumSpacerWidget(),
+
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               controller: _repeatNewPasswordController,
                               icon: Icons.text_fields_rounded,
@@ -92,8 +102,6 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                               labelText: 'Repeat New Password',
                               maxLength: 24,
                               obscureText: true,
-                              // Add password validation
-                              // validator: ,
                               validator: ValidationHelper.validatePassword,
                             ),
                           ],
@@ -106,6 +114,8 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                     const LargeSpacerWidget(),
                     RoundedButtonWidget(
                       data: 'SUBMIT',
+
+                      /// Validate if all the information is entered
                       onPressed: () async {
                         if (_key.currentState!.validate() &&
                             _newPasswordController.text ==
@@ -145,7 +155,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                             // Pop the indicator
                             Navigator.pop(context);
 
-                            // Go to next page
+                            /// Navigates to the Reset Password Successful Page
                             Navigator.pushNamed(
                               context,
                               RouteManager.resetPasswordSuccessPage,

@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
@@ -15,7 +16,10 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.da
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
+/// This page will display an employers details
+/// They will also be able to edit their details
 class EmployerProfilePage extends StatefulWidget {
+  /// Constructor
   const EmployerProfilePage();
 
   @override
@@ -23,9 +27,10 @@ class EmployerProfilePage extends StatefulWidget {
 }
 
 class _EmployerProfilePageState extends State<EmployerProfilePage> {
-  // Should add validation to the text fields
+  /// The _key variable is used to validate form fields
   final _key = GlobalKey<FormState>();
 
+  /// Variables for the Text editing controllers
   final _phoneNumberController = TextEditingController();
   final _companyNameController = TextEditingController();
   final _addressController = TextEditingController();
@@ -33,6 +38,7 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
 
   var _editMode = false;
 
+  /// Method dispose is used to clear any controllers when the page is built
   @override
   void dispose() {
     _phoneNumberController.dispose();
@@ -43,12 +49,15 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
     super.dispose();
   }
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
+    /// Read in the background, this is listening for changes and will update
     context.read<LocationService>().getLocation(
           id: context.read<UserService>().currentUser.locationId,
         );
 
+    /// Initialize the controllers
     _phoneNumberController.text =
         context.read<UserService>().currentUser.phoneNumber;
     _companyNameController.text =
@@ -65,6 +74,8 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
             icon: const Icon(
               Icons.password,
             ),
+
+            /// Navigate to the Change Password Page
             onPressed: () => Navigator.pushNamed(
               context,
               RouteManager.changePasswordPage,
@@ -74,6 +85,8 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
             icon: const Icon(
               Icons.info_outline_rounded,
             ),
+
+            /// Dialog that displays what the page is for
             onPressed: () => InfoHelper.showInfoDialog(
               context: context,
               content: 'This page shows your details',
@@ -83,6 +96,9 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
         ],
         data: 'Profile',
       ),
+
+      /// Single child scroll view is used to prevent overflow and makes
+      /// the page scrollable
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -101,6 +117,9 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
                 radius: 75.0,
               ),
               const SmallSpacerWidget(),
+
+              /// Get the name and surname from the User Service class which is
+              /// connected to the database
               Text(
                 '${context.read<UserService>().currentUser.name} '
                 '${context.read<UserService>().currentUser.surname}',
@@ -118,6 +137,11 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
                 ),
               ),
               const SmallSpacerWidget(),
+
+              /// _editMode variable will check if the user clicked
+              /// the edit details button and then if it is true they can
+              /// edit their Phone Number and Location
+              /// _editMode will be initialized to false by default
               _editMode
                   ? TextFormFieldWidget(
                       controller: _phoneNumberController,
@@ -159,6 +183,11 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
                 ),
               ),
               const SmallSpacerWidget(),
+
+              /// _editMode variable will check if the user clicked
+              /// the edit details button and then if it is true they can
+              /// edit their Company name
+              /// _editMode will be initialized to false by default
               _editMode
                   ? TextFormFieldWidget(
                       controller: _companyNameController,
@@ -174,6 +203,11 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
                           .companyName,
                     ),
               const SmallSpacerWidget(),
+
+              /// _editMode variable will check if the user clicked
+              /// the edit details button and then if it is true they can
+              /// edit their Address
+              /// _editMode will be initialized to false by default
               _editMode
                   ? TextFormFieldWidget(
                       controller: _addressController,
@@ -189,6 +223,11 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
                           .address,
                     ),
               const SmallSpacerWidget(),
+
+              /// _editMode variable will check if the user clicked
+              /// the edit details button and then if it is true they can
+              /// edit their Suburb
+              /// _editMode will be initialized to false by default
               _editMode
                   ? TextFormFieldWidget(
                       controller: _suburbController,
@@ -218,10 +257,13 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
           Icons.edit,
         ),
         // Clean up here
+        /// onPressed function for when a user is done editing their details
         onPressed: () async {
+          /// Checks if _editMode variable is true or false
           if (_editMode) {
             DelayHelper.showLoadingIndicator(context: context);
 
+            /// Saves any changes the user made to their profile
             await context.read<EmployerService>().putEmployer(
                   id: context.read<UserService>().currentUser.userId,
                   employer: EmployerModel(
@@ -252,7 +294,10 @@ class _EmployerProfilePageState extends State<EmployerProfilePage> {
     );
   }
 
+  /// _underLinedTextWidget will be used when the user wants
+  /// to edit their details
   Widget _underlinedTextWidget({
+    ///required variables
     required String leftData,
     required String rightData,
   }) {

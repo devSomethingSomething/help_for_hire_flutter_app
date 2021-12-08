@@ -1,5 +1,5 @@
+/// Imports
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
@@ -12,7 +12,9 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.da
 import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:provider/provider.dart';
 
+/// This page is used by the Employers to view potential workers
 class ProfileDiscoveryPage extends StatelessWidget {
+  /// Constructor
   const ProfileDiscoveryPage();
 
   @override
@@ -105,6 +107,7 @@ class ProfileDiscoveryPage extends StatelessWidget {
                         ],
                         content: Consumer<JobService>(
                           builder: (_, service, __) {
+                            // First check if the map length is zero and there is no error
                             return service.jobs.isEmpty
                                 ? Center(
                                     child: CircularProgressIndicator(
@@ -112,6 +115,8 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                     ),
                                   )
                                 : Column(
+                                    /// This will be used to sort the workers
+                                    /// by different selected jobs
                                     children: service.jobs.map(
                                       (job) {
                                         var selected = false;
@@ -165,6 +170,8 @@ class ProfileDiscoveryPage extends StatelessWidget {
 
               var groupValue2 = true;
 
+              /// This showDialog will allow the Employer to sort the workers by
+              /// Name, Surname or Rating
               showDialog(
                 builder: (_) {
                   return AlertDialog(
@@ -237,6 +244,9 @@ class ProfileDiscoveryPage extends StatelessWidget {
                             const SmallSpacerWidget(),
                             const Text('Sort Order'),
                             const SmallSpacerWidget(),
+
+                            /// With the Radio List Tile the Employer can sort
+                            /// the workers by ascending or descending order
                             RadioListTile<bool>(
                               groupValue: groupValue2,
                               onChanged: (value) => setState(
@@ -281,11 +291,16 @@ class ProfileDiscoveryPage extends StatelessWidget {
       body: Center(
         child: Consumer<WorkerService>(
           builder: (_, service, __) {
+            // First check if the map length is zero and there is no error
             return service.workers.isEmpty
                 ? const EmptyPlaceholderWidget(
+                    /// Return text if their is no data
                     data: 'No profiles to display',
                   )
+
+                /// Show the history when the data has been loaded
                 : ListView.builder(
+                    /// List view will lenght of the number of workers
                     itemCount: service.workers.length,
                     itemBuilder: (_, index) {
                       return Card(
@@ -302,6 +317,8 @@ class ProfileDiscoveryPage extends StatelessWidget {
                               const SizedBox(
                                 width: 8.0,
                               ),
+
+                              /// Display the Workers name and surname
                               Text(
                                 '${service.workers[index].name} ${service.workers[index].surname}',
                                 style: const TextStyle(
@@ -313,6 +330,7 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                 children: List.generate(
                                   5,
                                   (i) {
+                                    /// Display the workers average star rating
                                     return i <
                                             service.workers[index].averageRating
                                         ? const Icon(
