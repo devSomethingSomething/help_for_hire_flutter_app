@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors
-
+// ignore_for_file: prefer_const_constructors, implementation_imports, unused_import, prefer_const_literals_to_create_immutables
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/services/employer_service.dart';
 import 'package:provider/src/provider.dart';
 
+/// Custom Card information employer widget
 class CardInformationEmployer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -17,11 +18,10 @@ class CardInformationEmployer extends StatelessWidget {
           padding: const EdgeInsets.only(top: 80),
           child: Column(
             children: <Widget>[
+              /// Display the employer name and surname
               Text(
                 '${context.read<EmployerService>().employer?.name} '
                 '${context.read<EmployerService>().employer?.surname}',
-                // '''${EmployerService().getEmployer(id: context.read<EmployerService>().employer!.name)}
-                // ${EmployerService().getEmployer(id: context.read<EmployerService>().employer!surname)}''',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 30,
@@ -56,7 +56,9 @@ class CardInformationEmployer extends StatelessWidget {
   }
 }
 
+/// Custom Row name widget
 class RowName extends StatelessWidget {
+  /// Build the widget
   @override
   Widget build(BuildContext context) {
     return Row(

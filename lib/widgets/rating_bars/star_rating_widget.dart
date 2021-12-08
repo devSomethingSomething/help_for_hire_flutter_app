@@ -1,10 +1,15 @@
+/// Imports
 import 'package:flutter/material.dart';
 
+/// Custom Star rating widget
 class StarRatingWidget extends StatefulWidget {
+  /// Variables
   final int _numberOfStars;
-
   final void Function(int) _onTap;
 
+  /// Constructor with required fields
+  /// It also initializes the local variables with the required variables
+  /// so that it can be used in the Widget build
   const StarRatingWidget({
     required int numberOfStars,
     required void Function(int) onTap,
@@ -16,8 +21,10 @@ class StarRatingWidget extends StatefulWidget {
 }
 
 class _StarRatingWidgetState extends State<StarRatingWidget> {
+  /// Varaibles
   int _selectedNumberOfStars = 0;
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(

@@ -1,14 +1,22 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/history_model.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/flat_button_widget.dart';
 
+/// Custom History card widget
 class HistoryCard extends StatelessWidget {
+  /// Variables
   final HistoryModel _history;
 
+  /// Constructor with required fields
+  /// It also initializes the local variables with the required variables
+  /// so that it can be used in the Widget build
   const HistoryCard({
     required HistoryModel history,
   }) : _history = history;
 
+  /// Method _getIconFrom Description will display a specific
+  /// icon depending on the option
   // Should add viewed
   // In the future should store by date
   // Allows us to sort by data then
@@ -30,6 +38,8 @@ class HistoryCard extends StatelessWidget {
     return Icons.grid_view_sharp;
   }
 
+  /// Method _getButtonFromDescription will display a specific
+  /// buttons depending on the option
   Widget _getButtonFromDescription() {
     final options = {
       'invited': FlatButtonWidget(
@@ -60,6 +70,7 @@ class HistoryCard extends StatelessWidget {
     return Container();
   }
 
+  /// Build the widget
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -70,6 +81,7 @@ class HistoryCard extends StatelessWidget {
         ),
         child: ListTile(
           leading: Icon(
+            /// Call _getIconFromDescription() method
             _getIconFromDescription(),
             color: Colors.blue[900],
             size: 32.0,
@@ -83,6 +95,7 @@ class HistoryCard extends StatelessWidget {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
+              /// Call _getButtonFromDescription() method
               _getButtonFromDescription(),
             ],
           ),

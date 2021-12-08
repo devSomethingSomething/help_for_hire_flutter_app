@@ -1,11 +1,15 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:provider/provider.dart';
 
+/// Custom Drawer widget
 class DrawerWidget extends StatelessWidget {
+  /// Constructor
   const DrawerWidget();
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -20,11 +24,13 @@ class DrawerWidget extends StatelessWidget {
             ),
             onTap: () {
               if (context.read<UserService>().isEmployer) {
+                /// Navigates to the Employer Profile Page
                 Navigator.popAndPushNamed(
                   context,
                   RouteManager.employerProfilePage,
                 );
               } else {
+                /// Navigates to the Worker Profile Page
                 Navigator.popAndPushNamed(
                   context,
                   RouteManager.workerProfilePage,
@@ -40,6 +46,7 @@ class DrawerWidget extends StatelessWidget {
               'Invites',
             ),
             onTap: () {
+              /// Navigates to the Invites Page
               Navigator.popAndPushNamed(
                 context,
                 RouteManager.invitesPage,
@@ -55,6 +62,7 @@ class DrawerWidget extends StatelessWidget {
                     'Profile Discovery',
                   ),
                   onTap: () {
+                    /// Navigates to the Profile Discovery Page
                     Navigator.popAndPushNamed(
                       context,
                       RouteManager.profileDiscoveryPage,
@@ -70,6 +78,7 @@ class DrawerWidget extends StatelessWidget {
               'History',
             ),
             onTap: () {
+              /// Navigates to the History Page
               Navigator.popAndPushNamed(
                 context,
                 RouteManager.historyPage,
@@ -85,6 +94,7 @@ class DrawerWidget extends StatelessWidget {
               'Settings',
             ),
             onTap: () {
+              /// Navigates to the Settings Page
               Navigator.pushNamed(
                 context,
                 RouteManager.settingsPage,
@@ -99,6 +109,7 @@ class DrawerWidget extends StatelessWidget {
               'Logout',
             ),
             onTap: () {
+              /// Navigates to the Sign in Page
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 RouteManager.signInPage,
