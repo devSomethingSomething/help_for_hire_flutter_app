@@ -1,18 +1,17 @@
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
 
 class WorkerModel extends UserModel {
+  /// Worker Model variables
   String description;
-
   int minimumFee;
-
   bool fullTime;
   bool partTime;
-
   List<dynamic> jobIds;
 
   /// Stores the average rating for the worker
   int averageRating;
 
+  /// Worker Model constructor with the required fields of the model variables
   WorkerModel({
     required this.description,
     required this.minimumFee,
@@ -31,6 +30,7 @@ class WorkerModel extends UserModel {
           locationId: user.locationId,
         );
 
+  /// This constructor initializes the worker Model variables and the the super class User Model
   WorkerModel.fromJson({
     required Map<String, dynamic> json,
   })  : description = json['description'],
@@ -48,6 +48,7 @@ class WorkerModel extends UserModel {
           locationId: json['locationId'],
         );
 
+  /// This method will convert the model data back into a map
   Map<String, dynamic> toJson() => {
         'description': description,
         'minimumFee': minimumFee,
