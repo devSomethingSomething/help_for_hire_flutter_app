@@ -167,12 +167,12 @@ class SelectedWorkerProfilePage extends StatelessWidget {
                                   ? 'Yes'
                                   : 'No',
                             ),
-                            textWidget(
-                                'Location',
-                                context
-                                    .read<WorkerService>()
-                                    .worker!
-                                    .locationId),
+                            // textWidget(
+                            //     'Location',
+                            //     context
+                            //         .read<WorkerService>()
+                            //         .worker!
+                            //         .locationId),
                           ],
                         ),
                       ],

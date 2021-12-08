@@ -103,13 +103,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                     context: context,
                                   );
 
-                              await FirebaseService.handleOtp(
-                                context: context,
-                                phoneNumber: context
-                                    .read<UserService>()
-                                    .currentUser
-                                    .phoneNumber,
-                              );
+                              // await FirebaseService.handleOtp(
+                              //   context: context,
+                              //   phoneNumber: context
+                              //       .read<UserService>()
+                              //       .currentUser
+                              //       .phoneNumber,
+                              // );
+                              
+                              Navigator.pushNamed(context, RouteManager.newPasswordPage);
                             } else {
                               SnackBarHelper.showSnackBar(
                                 context: context,

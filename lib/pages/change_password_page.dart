@@ -48,7 +48,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           // Check if passwords match
           if (_newPasswordController.text ==
               _repeatNewPasswordController.text) {
-            DelayHelper.showLoadingIndicator(context: context);
+           
 
             // Check if old password is correct
             if (await FirebaseService.signInUser(
@@ -56,6 +56,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               id: context.read<UserService>().currentUser.userId,
               password: _oldPasswordController.text,
             )) {
+               DelayHelper.showLoadingIndicator(context: context);
               // Update user password
               await FirebaseService.deleteUser(
                 id: context.read<UserService>().currentUser.userId,
@@ -72,7 +73,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               Navigator.pop(context);
             }
 
-            DelayHelper.hideLoadingIndicator(context: context);
+            //DelayHelper.hideLoadingIndicator(context: context);
           } // If they do not, show an error
           else {
             SnackBarHelper.showSnackBar(
