@@ -47,3 +47,4 @@ app.*.map.json
 
 # Hide the services file
 /android/app/google-services.json
+/android/app/google-services-test.json
