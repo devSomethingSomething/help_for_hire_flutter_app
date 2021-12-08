@@ -1,5 +1,7 @@
+/// Imports
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
 
+/// Holds data related to employers
 class EmployerModel extends UserModel {
   /// Employer Model variables
   String companyName;

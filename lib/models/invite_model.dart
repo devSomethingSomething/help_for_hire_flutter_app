@@ -1,3 +1,4 @@
+/// Holds invite related data
 class InviteModel {
   /// Invite Model variables
   String inviteId;

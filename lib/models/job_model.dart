@@ -1,3 +1,4 @@
+/// Holds job related data
 class JobModel {
   /// Job Model variables
   String jobId;

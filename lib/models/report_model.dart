@@ -1,3 +1,4 @@
+/// Holds report related data
 class ReportModel {
   /// Report Model variables
   String reportId;

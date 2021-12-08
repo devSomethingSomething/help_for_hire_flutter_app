@@ -1,10 +1,13 @@
+/// Imports
 import 'package:flutter/material.dart';
 
+/// Holds data used by forms throughout the app
+/// Most likely not need anymore
 class FormModel with ChangeNotifier {
-  /// From Model variables
+  /// Form Model variables
   static bool _obscureText = true;
 
-  /// Empty From Model constructor
+  /// Empty Form Model constructor
   FormModel();
 
   /// Getter for the obscure text

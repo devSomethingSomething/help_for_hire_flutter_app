@@ -16,7 +16,8 @@ class UserModel {
     required this.locationId,
   });
 
-  /// This constructor initializes the User Model variables
+  /// This constructor initializes the User Model variables with empty data, used
+  /// for testing certain parts of the program
   UserModel.empty({
     this.userId = '',
     this.name = '',

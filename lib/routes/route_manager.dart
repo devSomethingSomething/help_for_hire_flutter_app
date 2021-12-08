@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/pages/account_type_page.dart';
 import 'package:help_for_hire_flutter_app/pages/change_password_page.dart';
@@ -40,7 +41,7 @@ class RouteManager {
   static const employerRegisterPage = '/employerRegisterPage';
   static const termsAndConditionsPage = '/termsAndConditionsPage';
   static const registrationSuccessPage = '/registrationSuccessPage';
-  // This needs to be removed
+  // This needs to be removed sometime
   static const loggedInUserProfile = '/loggedInUserProfile';
   static const changePasswordPage = '/changePasswordPage';
   static const reportPage = '/reportPage';

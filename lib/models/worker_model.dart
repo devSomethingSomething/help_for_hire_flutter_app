@@ -1,5 +1,7 @@
+/// Imports
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
 
+/// Holds worker related data
 class WorkerModel extends UserModel {
   /// Worker Model variables
   String description;

@@ -1,3 +1,4 @@
+/// Holds location related data
 class LocationModel {
   /// Location Model variables
   String locationId;

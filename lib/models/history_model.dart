@@ -1,3 +1,4 @@
+/// Holds history related data
 class HistoryModel {
   /// History Model variables
   String historyId;

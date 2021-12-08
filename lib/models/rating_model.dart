@@ -1,3 +1,4 @@
+/// Rating related data
 class RatingModel {
   /// Rating Model variables
   String ratingId;
