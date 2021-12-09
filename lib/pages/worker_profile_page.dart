@@ -209,7 +209,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                     context
                         .read<JobService>()
                         .jobs
-                        .forEach((job) => jobList += '${job.title} ');
+                        .forEach((job) => jobList += '${job.title} \n');
 
                     return _underlinedTextWidget(
                       leftData: 'Jobs',
