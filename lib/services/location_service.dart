@@ -1,6 +1,7 @@
 /// Imports
 import 'dart:convert';
 import 'dart:io';
+import 'dart:js_util';
 
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
@@ -46,7 +47,6 @@ class LocationService with ChangeNotifier {
         );
       } catch (_) {}
     } else {}
-
     notifyListeners();
   }
 
