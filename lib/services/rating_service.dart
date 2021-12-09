@@ -1,3 +1,4 @@
+/// Imports
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,6 +7,7 @@ import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/rating_model.dart';
 import 'package:http/http.dart';
 
+/// Handles calls to the rating controller in the web API
 class RatingService with ChangeNotifier {
   /// If a duplicate rating is found then this will become true
   bool isDuplicate = false;
@@ -13,6 +15,7 @@ class RatingService with ChangeNotifier {
   /// Route in the web api to reach the rating controller
   static const _controllerRoute = '/api/rating/';
 
+  /// Constructor
   RatingService();
 
   /// Creates a new rating

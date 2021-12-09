@@ -1,3 +1,4 @@
+/// Imports
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,17 +7,27 @@ import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/location_model.dart';
 import 'package:http/http.dart';
 
+/// Handles calls to the location controller in the web API
 class LocationService with ChangeNotifier {
+  /// Locations retrieved from the database
   var locations = <LocationModel>[];
+
+  /// Single location retrieved
   LocationModel? location;
 
+  /// List of JSON data retrieved from the database
   var _jsons = [];
+
+  /// JSON data retrieved for a single entry
   var _json = <String, dynamic>{};
 
+  /// Forms part of the address
   static const _controllerRoute = '/api/location/';
 
+  /// Constructor
   LocationService();
 
+  /// Gets a single location
   Future<void> getLocation({
     required String id,
   }) async {
@@ -39,6 +50,7 @@ class LocationService with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Gets all the locations from the database
   Future<void> getLocations() async {
     final response = await get(
       Uri.parse(
@@ -59,19 +71,15 @@ class LocationService with ChangeNotifier {
             ),
           );
         }
-      } catch (_) {
-        // Handle fail
-      }
+      } catch (_) {}
     } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
       locations.clear();
-    } else {
-      // Handle other errors
-    }
+    } else {}
 
     notifyListeners();
   }
 
+  /// Gets all the locations in a certain province
   Future<void> getCitiesInProvince({
     required String province,
   }) async {
@@ -94,15 +102,10 @@ class LocationService with ChangeNotifier {
             ),
           );
         }
-      } catch (_) {
-        // Handle fail
-      }
+      } catch (_) {}
     } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
       locations.clear();
-    } else {
-      // Handle other errors
-    }
+    } else {}
 
     notifyListeners();
   }
