@@ -1,18 +1,23 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
-import 'package:help_for_hire_flutter_app/services/firebase_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/logos/logo_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 
+/// Displays the splash page to the user
 class SplashPage extends StatefulWidget {
+  /// Constructor
   const SplashPage();
 
+  /// Creates the state for this page
   @override
   _SplashPageState createState() => _SplashPageState();
 }
 
+/// State class for the splash page
 class _SplashPageState extends State<SplashPage> {
+  /// Gets called when the page is created
   @override
   void initState() {
     // This has to be above the super call according to the documentation
@@ -25,9 +30,12 @@ class _SplashPageState extends State<SplashPage> {
 
     super.initState();
 
+    // Allow the page to load for a few seconds while things like shared preferences
+    // load
     DelayHelper.delayTimer(context);
   }
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(

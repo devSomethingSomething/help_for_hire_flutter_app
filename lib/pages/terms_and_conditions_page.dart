@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
@@ -12,7 +13,12 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.da
 import 'package:help_for_hire_flutter_app/widgets/text/white_heading_text_widget.dart';
 import 'package:provider/provider.dart';
 
+/// Handles the terms and conditions which the user has to agree to before they
+/// can complete their account registration
 class TermsAndConditionsPage extends StatelessWidget {
+  /// The list of terms and conditions
+  ///
+  /// Should be moved elswhere later on
   final _termsAndConditions = const [
     'THESE TERMS OF USE WERE UPDATED IN OCTOBER 2021.',
     'THESE TERMS OF USE APPLY TO THE USE OF THE (HELP FOR HIRE) MOBILE APPLICATION.',
@@ -39,8 +45,10 @@ class TermsAndConditionsPage extends StatelessWidget {
         'AS A RESULT, ALL SECTIONS OF THIS PRIVACY POLICY MUST BE INTERPRETED WITH CAUTION, TO THE EXTENT NECESSARY, TO ENSURE THAT THE CPA, ECTA, AND POPI ARE FOLLOWED.',
   ];
 
+  /// Constructor
   const TermsAndConditionsPage();
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +77,8 @@ class TermsAndConditionsPage extends StatelessWidget {
                     ),
                     const SmallSpacerWidget(),
                     Container(
+                      // Builds a list containing all the terms and conditions
+                      // Also separates the list nicely
                       child: ListView.separated(
                         itemBuilder: (_, index) {
                           return Text(
@@ -110,12 +120,17 @@ class TermsAndConditionsPage extends StatelessWidget {
                                     child: const Text(
                                       'NO',
                                     ),
+                                    // Gets rid of the alert dialog
                                     onPressed: () => Navigator.pop(context),
                                   ),
                                   TextButton(
                                     child: const Text(
                                       'YES',
                                     ),
+                                    // If the user chooses to cancel their
+                                    // registration, this deletes their AUTH
+                                    // details and takes them back to the start
+                                    // of the program
                                     onPressed: () async {
                                       DelayHelper.showLoadingIndicator(
                                         context: context,
@@ -156,6 +171,7 @@ class TermsAndConditionsPage extends StatelessWidget {
                         ),
                         RoundedButtonWidget(
                           data: 'ACCEPT',
+                          // Register the user and go to the success page
                           onPressed: () async {
                             DelayHelper.showLoadingIndicator(context: context);
 

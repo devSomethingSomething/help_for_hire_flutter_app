@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
@@ -13,23 +14,26 @@ import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_fie
 import 'package:provider/provider.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
 
+/// Handles the sign in process for a user
 class SignInPage extends StatefulWidget {
+  /// Constructor
   const SignInPage();
 
+  /// Creates the state for this page
   @override
   State<SignInPage> createState() => _SignInPageState();
 }
 
+/// The state class used for sign in
 class _SignInPageState extends State<SignInPage> {
+  /// Key used for form validation
   final _key = GlobalKey<FormState>();
 
-  // This page requires validation logic for the text fields
-  // ID validation
-  // Password validation
-  // Put these methods in the validation helper class
+  /// Controllers
   final _idNumberController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  /// Cleans up unused objects or resources
   @override
   void dispose() {
     _idNumberController.dispose();
@@ -66,7 +70,7 @@ class _SignInPageState extends State<SignInPage> {
           // Go to first page
           Navigator.pushNamedAndRemoveUntil(
             context,
-            // Change this back to invites later
+            // Change this later if needed
             context.read<UserService>().isEmployer
                 ? RouteManager.employerProfilePage
                 : RouteManager.workerProfilePage,
@@ -87,6 +91,7 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,6 +175,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ),
                       ),
+                      // Go to the reset password page
                       onPressed: () => Navigator.popAndPushNamed(
                         context,
                         RouteManager.resetPasswordPage,
@@ -196,6 +202,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
               ),
+              // Go to the register page
               onPressed: () => Navigator.popAndPushNamed(
                 context,
                 RouteManager.registerPage,

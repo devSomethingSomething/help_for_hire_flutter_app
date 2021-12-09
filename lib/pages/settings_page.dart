@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/settings_model.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
@@ -6,8 +7,10 @@ import 'package:settings_ui/settings_ui.dart';
 
 /// This page handles the settings within the app
 class SettingsPage extends StatelessWidget {
+  /// Constructor
   const SettingsPage();
 
+  /// Builds our widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(

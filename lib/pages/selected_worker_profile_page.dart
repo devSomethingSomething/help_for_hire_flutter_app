@@ -1,11 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/enums/status.dart';
 import 'package:help_for_hire_flutter_app/models/invite_model.dart';
-import 'package:help_for_hire_flutter_app/models/user_model.dart';
-import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/invite_service.dart';
 import 'package:help_for_hire_flutter_app/services/user_service.dart';
@@ -15,35 +12,14 @@ import 'package:help_for_hire_flutter_app/widgets/selected_profile_widgets/card_
 import 'package:help_for_hire_flutter_app/widgets/selected_profile_widgets/image_avatar_profile.dart';
 import 'package:provider/provider.dart';
 
+/// Displays the details of the selected worker account
 class SelectedWorkerProfilePage extends StatelessWidget {
+  /// Constructor
   const SelectedWorkerProfilePage();
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
-    // This is just for testing that the page works
-    // Remove this later
-    // The referenced worker will already have details when they get to this
-    // page
-    // context.read<WorkerService>().worker = WorkerModel(
-    //   description: 'Test description',
-    //   minimumFee: 250,
-    //   fullTime: false,
-    //   partTime: true,
-    //   jobIds: [
-    //     'Gardener',
-    //     'Cleaner',
-    //     'Tiling',
-    //   ],
-    //   user: UserModel(
-    //     userId: '1234567890123',
-    //     name: 'Freye',
-    //     surname: 'Archeron',
-    //     phoneNumber: '1234567890',
-    //     locationId: 'Bloemfontein',
-    //   ),
-    //   averageRating: 4,
-    // );
-
     return Scaffold(
       appBar: AppBarWidget(
         actions: [
@@ -51,6 +27,7 @@ class SelectedWorkerProfilePage extends StatelessWidget {
             icon: const Icon(
               Icons.reviews,
             ),
+            // Goes to the review page
             onPressed: () => Navigator.pushNamed(
               context,
               RouteManager.reviewPage,
@@ -60,6 +37,7 @@ class SelectedWorkerProfilePage extends StatelessWidget {
             icon: const Icon(
               Icons.report,
             ),
+            // Goes to the report page
             onPressed: () => Navigator.pushNamed(
               context,
               RouteManager.reportPage,
@@ -167,12 +145,6 @@ class SelectedWorkerProfilePage extends StatelessWidget {
                                   ? 'Yes'
                                   : 'No',
                             ),
-                            // textWidget(
-                            //     'Location',
-                            //     context
-                            //         .read<WorkerService>()
-                            //         .worker!
-                            //         .locationId),
                           ],
                         ),
                       ],
@@ -198,8 +170,6 @@ class SelectedWorkerProfilePage extends StatelessWidget {
         child: const Icon(
           Icons.post_add,
         ),
-        // This should check for duplicates first
-        // Will require change to web api
         // Should also show a box to let the user know what they are doing
         onPressed: () => context.read<InviteService>().postInvite(
               invite: InviteModel(
@@ -218,6 +188,7 @@ class SelectedWorkerProfilePage extends StatelessWidget {
     );
   }
 
+  /// Custom text row widget used for this page
   Padding textWidget(String title, String content) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20),
@@ -237,6 +208,7 @@ class SelectedWorkerProfilePage extends StatelessWidget {
     );
   }
 
+  /// Custom text widget used by the above widget
   Text text(String txt) {
     return Text(
       txt,

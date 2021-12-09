@@ -1,36 +1,21 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
-import 'package:help_for_hire_flutter_app/models/employer_model.dart';
-import 'package:help_for_hire_flutter_app/models/location_model.dart';
-import 'package:help_for_hire_flutter_app/models/user_model.dart';
 import 'package:help_for_hire_flutter_app/services/employer_service.dart';
 import 'package:help_for_hire_flutter_app/services/location_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:provider/provider.dart';
 
+/// This page displays the selected employer account along with their details
 class SelectedEmployerProfilePage extends StatelessWidget {
+  /// Constructor
   const SelectedEmployerProfilePage();
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
-    // ------------------------------------
-    // Remove this testing code later
-    // ------------------------------------
-    // context.read<EmployerService>().employer = EmployerModel(
-    //   companyName: 'Shaw Inc.',
-    //   address: 'Somewhere in the Andromeda Galaxy',
-    //   suburb: 'Sulaco',
-    //   user: UserModel(
-    //     userId: '1234567890123',
-    //     name: 'Kaden',
-    //     surname: 'Shaw',
-    //     phoneNumber: '1234567890',
-    //     locationId: '123',
-    //   ),
-    // );
-    // ------------------------------------
-
+    // Get the employers location
     context.read<LocationService>().getLocation(
           id: context.read<EmployerService>().employer?.locationId ?? '',
         );

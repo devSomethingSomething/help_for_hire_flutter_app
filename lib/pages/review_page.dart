@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
@@ -10,27 +11,34 @@ import 'package:help_for_hire_flutter_app/services/user_service.dart';
 import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/rating_bars/star_rating_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/rounded_button_widget.dart';
-import 'package:help_for_hire_flutter_app/widgets/gradients/blue_gradient_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
+/// Handles users reviewing each other
 class ReviewPage extends StatefulWidget {
+  /// Constructor
   const ReviewPage();
 
+  /// Creates the state for this page
   @override
   _ReviewPageState createState() => _ReviewPageState();
 }
 
+/// The state class for this page
 class _ReviewPageState extends State<ReviewPage> {
+  /// The key used for form validation
   final _key = GlobalKey<FormState>();
 
+  /// Controllers
   final _descriptionController = TextEditingController();
 
+  /// The rating value selected during the review
   var _value = 1;
 
+  /// Cleans up any unused objects or resources
   @override
   void dispose() {
     _descriptionController.dispose();
@@ -67,6 +75,7 @@ class _ReviewPageState extends State<ReviewPage> {
                 ),
               );
 
+          // Prevent duplicates from being posted
           if (!context.read<RatingService>().isDuplicate) {
             DelayHelper.hideLoadingIndicator(context: context);
 
@@ -90,6 +99,7 @@ class _ReviewPageState extends State<ReviewPage> {
     );
   }
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,6 +109,7 @@ class _ReviewPageState extends State<ReviewPage> {
             icon: const Icon(
               Icons.info_outline_rounded,
             ),
+            // Show an info box with details on the current page
             onPressed: () => InfoHelper.showInfoDialog(
               context: context,
               content: 'This page allows you to review the selected account',
@@ -170,7 +181,6 @@ class _ReviewPageState extends State<ReviewPage> {
                               lightMode: true,
                               maxLength: 256,
                               maxLines: 3,
-                              // Need validation here
                             ),
                           ],
                         ),

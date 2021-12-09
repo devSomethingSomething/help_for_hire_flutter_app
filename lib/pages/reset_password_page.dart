@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
@@ -16,18 +17,27 @@ import 'package:help_for_hire_flutter_app/widgets/text/white_heading_text_widget
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
+/// This page handles the reset password system, asking the user to enter their
+/// ID number which gets checked against the online database to determine if
+/// the user exists
 class ResetPasswordPage extends StatefulWidget {
+  /// Constructor
   const ResetPasswordPage();
 
+  /// Create the state for this widget
   @override
   State<ResetPasswordPage> createState() => _ResetPasswordPageState();
 }
 
+/// The state class for the reset password page
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  /// Key used for form validation
   final _key = GlobalKey<FormState>();
 
+  /// Text controllers
   final _idNumberController = TextEditingController();
 
+  /// Cleans up any unneeded objects or resources
   @override
   void dispose() {
     _idNumberController.dispose();
@@ -76,10 +86,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           keyboardType: TextInputType.number,
                           labelText: 'ID Number',
                           maxLength: 13,
-                          // Need to check the ID number validation method
-                          // Just to make sure that it works perfectly for
-                          // IDs while still allowing for foreign IDs
-                          // validator: ,
                           validator: ValidationHelper.validateId,
                         ),
                       ),
@@ -91,14 +97,18 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     RoundedButtonWidget(
                       data: 'SUBMIT',
                       onPressed: () async {
+                        // Validate form first
                         if (_key.currentState!.validate()) {
+                          // Check the connection
                           if (await ConnectionHelper.hasConnection()) {
+                            // Check if the user exists
                             if (await FirebaseService.isExistingId(
                               id: _idNumberController.text,
                             )) {
                               context.read<UserService>().currentUser.userId =
                                   _idNumberController.text;
 
+                              // Load the user
                               await context.read<UserService>().loadUser(
                                     context: context,
                                   );
@@ -110,8 +120,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               //       .currentUser
                               //       .phoneNumber,
                               // );
-                              
-                              Navigator.pushNamed(context, RouteManager.newPasswordPage);
+
+                              // Go to the next page in the reset password process
+                              Navigator.pushNamed(
+                                context,
+                                RouteManager.newPasswordPage,
+                              );
                             } else {
                               SnackBarHelper.showSnackBar(
                                 context: context,
@@ -151,6 +165,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 ),
                 WhiteTextButtonWidget(
                   data: 'Register',
+                  // Go back to the register page
                   onPressed: () => Navigator.popAndPushNamed(
                     context,
                     RouteManager.registerPage,

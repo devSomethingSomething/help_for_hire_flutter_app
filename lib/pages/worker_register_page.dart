@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
@@ -20,40 +21,31 @@ import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_fie
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 
+/// This page handles worker registration
 class WorkerRegisterPage extends StatefulWidget {
+  /// Constructor
   const WorkerRegisterPage();
 
+  /// Creates the state for this page
   @override
   _WorkerRegisterPageState createState() => _WorkerRegisterPageState();
 }
 
+/// The state class for the worker register page
 class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
+  /// Used for form validation
   final _key = GlobalKey<FormState>();
 
+  /// Used for storing the selected value for the kind of work the user is looking
+  /// to take on
   bool _fullTime = false;
   bool _partTime = false;
 
+  /// Controllers
   final _minimumFeeController = TextEditingController();
   final _descriptionController = TextEditingController();
 
-  // final _jobsList = [
-  //   Job(id: 1, jobName: 'Gardener'),
-  //   Job(id: 2, jobName: 'House Cleaner'),
-  //   Job(id: 3, jobName: 'Painter'),
-  //   Job(id: 4, jobName: 'Brick Mason'),
-  //   Job(id: 5, jobName: 'Tiling'),
-  //   Job(id: 6, jobName: 'Tree Felling'),
-  //   Job(id: 7, jobName: 'Plumber'),
-  //   Job(id: 8, jobName: 'Electrician'),
-  //   Job(id: 9, jobName: 'Window Cleaner'),
-  //   Job(id: 10, jobName: 'Grocery Clerk'),
-  //   Job(id: 11, jobName: 'Janitor'),
-  //   Job(id: 12, jobName: 'Parking lot attendant'),
-  //   Job(id: 13, jobName: 'Construction Worker'),
-  //   Job(id: 14, jobName: 'Welder'),
-  //   Job(id: 15, jobName: 'Scaffolder'),
-  // ].map((job) => MultiSelectItem<Job>(job, job.jobName)).toList();
-
+  /// Cleans up any unused objects or resources
   @override
   void dispose() {
     _minimumFeeController.dispose();
@@ -62,10 +54,12 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
     super.dispose();
   }
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     // Get the list of jobs
     context.read<JobService>().getJobs();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -113,7 +107,6 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                               validator: ValidationHelper.validateDescription,
                             ),
                             const MediumSpacerWidget(),
-                            // Need to somehow get the jobs from the dropdown here
                             Consumer<JobService>(
                               builder: (_, service, __) {
                                 return JobsDropdownWidget(
@@ -165,8 +158,12 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                     RoundedButtonWidget(
                       data: 'SUBMIT',
                       onPressed: () async {
+                        // Validate the form
                         if (_key.currentState!.validate()) {
+                          // Check the connection
                           if (await ConnectionHelper.hasConnection()) {
+                            // Setup the current user, used for registering
+                            // the user later
                             context.read<UserService>().currentUser =
                                 WorkerModel(
                               description: _descriptionController.text,
@@ -185,7 +182,7 @@ class _WorkerRegisterPageState extends State<WorkerRegisterPage> {
                               user: context.read<UserService>().currentUser,
                             );
 
-                            // Go to next page
+                            // Go to the next page
                             Navigator.pushNamed(
                               context,
                               RouteManager.termsAndConditionsPage,
