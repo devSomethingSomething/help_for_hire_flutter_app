@@ -68,14 +68,13 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
           jobIds:
               (context.read<UserService>().currentUser as WorkerModel).jobIds,
         );
-    
-    context
-          .read<LocationService>()
-          .getLocation(id: user.currentUser.locationId);
+
+    context.read<LocationService>().getLocation(
+          id: context.read<UserService>().currentUser.locationId,
+        );
 
     return Consumer2<UserService, LocationService>(
         builder: (context, user, location, child) {
-
       return Scaffold(
         appBar: AppBarWidget(
           actions: [
@@ -170,9 +169,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                       )
                     : _underlinedTextWidget(
                         leftData: 'Phone Number',
-                        rightData:user
-                            .currentUser
-                            .phoneNumber),
+                        rightData: user.currentUser.phoneNumber),
                 const MediumSpacerWidget(),
                 const Text(
                   'Location',
@@ -184,14 +181,12 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                 const SmallSpacerWidget(),
                 _underlinedTextWidget(
                   leftData: 'Province:',
-                  rightData:
-                      location.location?.province ?? '',
+                  rightData: location.location?.province ?? '',
                 ),
                 const SmallSpacerWidget(),
                 _underlinedTextWidget(
                   leftData: 'City:',
-                  rightData:
-                      location.location?.city ?? '',
+                  rightData: location.location?.city ?? '',
                 ),
                 const MediumSpacerWidget(),
                 const Text(
@@ -275,13 +270,14 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
               DelayHelper.showLoadingIndicator(context: context);
 
               await context.read<WorkerService>().putWorker(
-                    id:user.currentUser.userId,
+                    id: user.currentUser.userId,
                     worker: WorkerModel(
                         description: _descriptionController.text,
                         minimumFee: int.parse(_feeController.text),
                         fullTime: _fullTime,
                         partTime: _partTime,
-                        jobIds: job
+                        jobIds: context
+                            .read<JobService>()
                             .selectedJobs
                             .map(
                               (job) => job.jobId,
@@ -289,8 +285,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                             .toList(),
                         user: UserModel(
                           userId: user.currentUser.userId,
-                          locationId: location
-                              .locations
+                          locationId: location.locations
                               .firstWhere(
                                 (location) => location.city == _city,
                               )
