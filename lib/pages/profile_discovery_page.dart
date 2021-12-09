@@ -114,39 +114,42 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                       color: Colors.blue[900],
                                     ),
                                   )
-                                : ListView(
-                                    /// This will be used to sort the workers
-                                    /// by different selected jobs
-                                    children: service.jobs.map(
-                                      (job) {
-                                        var selected = false;
+                                : SingleChildScrollView(
+                                    child: Column(
+                                      /// This will be used to sort the workers
+                                      /// by different selected jobs
+                                      children: service.jobs.map(
+                                        (job) {
+                                          var selected = false;
 
-                                        return StatefulBuilder(
-                                          builder: (_, setState) {
-                                            return CheckboxListTile(
-                                              onChanged: (value) {
-                                                setState(
-                                                  () {
-                                                    selected = value!;
+                                          return StatefulBuilder(
+                                            builder: (_, setState) {
+                                              return CheckboxListTile(
+                                                onChanged: (value) {
+                                                  setState(
+                                                    () {
+                                                      selected = value!;
 
-                                                    value
-                                                        ? selectedJobIds
-                                                            .add(job.jobId)
-                                                        : selectedJobIds
-                                                            .remove(job.jobId);
-                                                  },
-                                                );
-                                              },
-                                              title: Text(
-                                                job.title,
-                                              ),
-                                              value: selected,
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ).toList(),
-                                    shrinkWrap: true,
+                                                      value
+                                                          ? selectedJobIds
+                                                              .add(job.jobId)
+                                                          : selectedJobIds
+                                                              .remove(
+                                                                  job.jobId);
+                                                    },
+                                                  );
+                                                },
+                                                title: Text(
+                                                  job.title,
+                                                ),
+                                                value: selected,
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ).toList(),
+                                      mainAxisSize: MainAxisSize.min,
+                                    ),
                                   );
                           },
                         ),
