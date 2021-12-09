@@ -57,7 +57,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
     String? _city;
     bool _fullTime = false;
     bool _partTime = false;
-    String jobList = '';
+
     _nameController.text = 'current name';
     _surnameController.text = 'current surname';
     _feeController.text = 'current min fee';
@@ -69,15 +69,12 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
               (context.read<UserService>().currentUser as WorkerModel).jobIds,
         );
 
-    return Consumer3<UserService, LocationService, JobService>(
-        builder: (context, user, location, job, child) {
+    return Consumer2<UserService, LocationService>(
+        builder: (context, user, location, child) {
       context
           .read<LocationService>()
           .getLocation(id: user.currentUser.locationId);
-      context
-          .read<JobService>()
-          .jobs
-          .forEach((job) => jobList += '${job.title} ');
+
       return Scaffold(
         appBar: AppBarWidget(
           actions: [
@@ -205,9 +202,20 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                   ),
                 ),
                 const SmallSpacerWidget(),
-                _underlinedTextWidget(
-                  leftData: 'Jobs',
-                  rightData: jobList,
+                Consumer<JobService>(
+                  builder: (context, value, child) {
+                    String jobList = '';
+
+                    context
+                        .read<JobService>()
+                        .jobs
+                        .forEach((job) => jobList += '${job.title} ');
+
+                    return _underlinedTextWidget(
+                      leftData: 'Jobs',
+                      rightData: jobList,
+                    );
+                  },
                 ),
                 const SmallSpacerWidget(),
                 _editMode
