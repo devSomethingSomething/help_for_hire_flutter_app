@@ -57,6 +57,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
     String? _city;
     bool _fullTime = false;
     bool _partTime = false;
+    String jobList = '';
     _nameController.text = 'current name';
     _surnameController.text = 'current surname';
     _feeController.text = 'current min fee';
@@ -71,7 +72,10 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
       context
           .read<JobService>()
           .getSelectedJobs(jobIds: (user.currentUser as WorkerModel).jobIds);
-
+      context
+          .read<JobService>()
+          .jobs
+          .forEach((job) => jobList += '${job.title} ');
       return Scaffold(
         appBar: AppBarWidget(
           actions: [
@@ -199,7 +203,10 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                   ),
                 ),
                 const SmallSpacerWidget(),
-                _underlinedTextWidget(leftData: 'Jobs', rightData: ''),
+                _underlinedTextWidget(
+                  leftData: 'Jobs',
+                  rightData: jobList,
+                ),
                 const SmallSpacerWidget(),
                 _editMode
                     ? TextFormFieldWidget(
