@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/enums/status.dart';
 import 'package:help_for_hire_flutter_app/models/invite_model.dart';
+import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/invite_service.dart';
 import 'package:help_for_hire_flutter_app/services/job_service.dart';
@@ -23,6 +24,10 @@ class SelectedWorkerProfilePage extends StatelessWidget {
   /// Builds the widget
   @override
   Widget build(BuildContext context) {
+    context.read<JobService>().getSelectedJobs(
+          jobIds: (context.read<WorkerService>().worker as WorkerModel).jobIds,
+        );
+    
     return Consumer3<WorkerService, LocationService, JobService>(
         builder: (context, worker, location, job, child) {
           return Scaffold(
@@ -155,6 +160,39 @@ class SelectedWorkerProfilePage extends StatelessWidget {
                             ],
                           ),
                         ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            textWidget(
+                              'Full Time:',
+                              context.read<WorkerService>().worker!.fullTime
+                                  ? 'Yes'
+                                  : 'No',
+                            ),
+                            textWidget(
+                              'Part Time:',
+                              context.read<WorkerService>().worker!.partTime
+                                  ? 'Yes'
+                                  : 'No',
+                            ),
+                            Consumer<JobService>(
+                              builder: (context, value, child) {
+                                String jobList = '';
+
+                                context.read<JobService>().jobs.forEach(
+                                    (job) => jobList += '${job.title} \n');
+
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: textWidget(
+                                    'Jobs',
+                                    jobList,
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         clipBehavior: Clip.antiAlias,
                         color: Colors.white,
                         shadowColor: Colors.black,

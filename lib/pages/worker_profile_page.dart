@@ -57,23 +57,24 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
     String? _city;
     bool _fullTime = false;
     bool _partTime = false;
+
     _nameController.text = 'current name';
     _surnameController.text = 'current surname';
     _feeController.text = 'current min fee';
     _phoneController.text = 'current cell NO';
     _descriptionController.text = 'current description';
 
-    var user=context.read<UserService>();
-
+    context.read<JobService>().getSelectedJobs(
+          jobIds:
+              (context.read<UserService>().currentUser as WorkerModel).jobIds,
+        );
+    
     context
-        .read<LocationService>()
-        .getLocation(id: user.currentUser.locationId);
-    context
-        .read<JobService>()
-        .getSelectedJobs(ids: (user.currentUser as WorkerModel).jobIds);
-    return Consumer3<UserService, LocationService, JobService>(
-        builder: (context, user, location, job, child) {
+          .read<LocationService>()
+          .getLocation(id: user.currentUser.locationId);
 
+    return Consumer2<UserService, LocationService>(
+        builder: (context, user, location, child) {
 
       return Scaffold(
         appBar: AppBarWidget(
@@ -201,7 +202,21 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                   ),
                 ),
                 const SmallSpacerWidget(),
-                _underlinedTextWidget(leftData: 'Jobs', rightData: ''),
+                Consumer<JobService>(
+                  builder: (context, value, child) {
+                    String jobList = '';
+
+                    context
+                        .read<JobService>()
+                        .jobs
+                        .forEach((job) => jobList += '${job.title} \n');
+
+                    return _underlinedTextWidget(
+                      leftData: 'Jobs',
+                      rightData: jobList,
+                    );
+                  },
+                ),
                 const SmallSpacerWidget(),
                 _editMode
                     ? TextFormFieldWidget(
