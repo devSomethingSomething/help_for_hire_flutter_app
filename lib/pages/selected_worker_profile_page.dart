@@ -13,6 +13,7 @@ import 'package:help_for_hire_flutter_app/widgets/app_bars/app_bar_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/selected_profile_widgets/card_profile_worker.dart';
 import 'package:help_for_hire_flutter_app/widgets/selected_profile_widgets/image_avatar_profile.dart';
 import 'package:provider/provider.dart';
+import 'package:help_for_hire_flutter_app/extensions/string_extension.dart';
 
 /// Displays the details of the selected worker account
 class SelectedWorkerProfilePage extends StatelessWidget {
@@ -180,7 +181,7 @@ class SelectedWorkerProfilePage extends StatelessWidget {
                   // Gets generated, no need to pass anything
                   inviteId: '',
                   // Should start out as pending
-                  status: Status.pending.toString(),
+                  status: Status.pending.toString().replaceAll('Status.', '').capitalize(),
                   // Get the id of the current user, only an employer can access
                   // this page, meaning that the current user must be an employer
                   employerId: context.read<UserService>().currentUser.userId,

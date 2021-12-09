@@ -114,7 +114,7 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                       color: Colors.blue[900],
                                     ),
                                   )
-                                : Column(
+                                : ListView(
                                     /// This will be used to sort the workers
                                     /// by different selected jobs
                                     children: service.jobs.map(
@@ -146,7 +146,7 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                         );
                                       },
                                     ).toList(),
-                                    mainAxisSize: MainAxisSize.min,
+                                    shrinkWrap: true,
                                   );
                           },
                         ),
