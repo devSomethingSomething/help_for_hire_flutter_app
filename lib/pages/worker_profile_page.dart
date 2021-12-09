@@ -64,14 +64,16 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
     _phoneController.text = 'current cell NO';
     _descriptionController.text = 'current description';
 
+    context.read<JobService>().getSelectedJobs(
+          jobIds:
+              (context.read<UserService>().currentUser as WorkerModel).jobIds,
+        );
+
     return Consumer3<UserService, LocationService, JobService>(
         builder: (context, user, location, job, child) {
       context
           .read<LocationService>()
           .getLocation(id: user.currentUser.locationId);
-      context
-          .read<JobService>()
-          .getSelectedJobs(jobIds: (user.currentUser as WorkerModel).jobIds);
       context
           .read<JobService>()
           .jobs
