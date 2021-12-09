@@ -1,9 +1,9 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/enums/status.dart';
 import 'package:help_for_hire_flutter_app/extensions/string_extension.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/info_helper.dart';
-import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/services/employer_service.dart';
@@ -17,7 +17,11 @@ import 'package:help_for_hire_flutter_app/widgets/placeholders/empty_placeholder
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// This pages shows all the invites for the user
+/// An employer can view any active invites they sent.
+/// A worker can view any job invites sent from employers
 class InvitesPage extends StatelessWidget {
+  /// Constructor
   const InvitesPage();
 
   /// Get the invites for the current user based on their account type
@@ -32,6 +36,7 @@ class InvitesPage extends StatelessWidget {
                 id: context.read<UserService>().currentUser.userId,
               );
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     // ---------------------------
@@ -61,6 +66,9 @@ class InvitesPage extends StatelessWidget {
             icon: const Icon(
               Icons.refresh,
             ),
+
+            /// When this button is pressed it will reload the page and
+            /// listen if their is any updates to the history
             onPressed: () async {
               DelayHelper.showLoadingIndicator(context: context);
 
@@ -75,6 +83,8 @@ class InvitesPage extends StatelessWidget {
             icon: const Icon(
               Icons.info_outline_rounded,
             ),
+
+            /// Dialog that displays what the page is for
             onPressed: () => InfoHelper.showInfoDialog(
               context: context,
               content: 'This page allows you to view invites',
@@ -85,11 +95,14 @@ class InvitesPage extends StatelessWidget {
         data: 'Invites',
       ),
       body: Consumer<InviteService>(
+        // First check if the map length is zero and there is no error
         builder: (_, service, __) => service.invites.isEmpty
             ? const EmptyPlaceholderWidget(
+                /// Return text if their is no data
                 data: 'No invites to display',
               )
             : Center(
+                /// Show the Invites when the data has been loaded
                 child: ListView.builder(
                   itemBuilder: (_, index) => GestureDetector(
                     child: Card(
@@ -98,6 +111,8 @@ class InvitesPage extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.person,
+
+                              /// Displays the status of the invite
                               color: service.invites[index].status ==
                                       Status.pending
                                           .toString()
@@ -163,6 +178,10 @@ class InvitesPage extends StatelessWidget {
                                             .capitalize()
                                     ? FlatButtonWidget(
                                         data: 'CONTACT',
+
+                                        /// If the invite was accepted the user
+                                        /// can choose to contact and the phone
+                                        /// with the number will be displayed
                                         onPressed: () => launch(
                                           'tel://${context.read<UserService>().selectedUser.phoneNumber}',
                                         ),

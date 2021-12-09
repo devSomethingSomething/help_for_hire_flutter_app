@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
@@ -13,7 +14,9 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.da
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
+/// This page allows a user to change their password
 class ChangePasswordPage extends StatefulWidget {
+  /// Constructor
   const ChangePasswordPage();
 
   @override
@@ -21,12 +24,15 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
+  /// The _key variable is used to validate form fields
   final _key = GlobalKey<FormState>();
 
+  /// Variables for the Text editing controllers
   final _oldPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
   final _repeatNewPasswordController = TextEditingController();
 
+  /// Method dispose is used to clear any controllers when the page is built
   @override
   void dispose() {
     _oldPasswordController.dispose();
@@ -36,6 +42,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     super.dispose();
   }
 
+  /// Handles the logic for this page
   void _onPressed() async {
     // Make sure form is valid
     ValidationHelper.validateForm(
@@ -84,6 +91,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     );
   }
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,6 +101,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             icon: const Icon(
               Icons.info_outline_rounded,
             ),
+
+            /// Dialog that displays what the page is for
             onPressed: () => InfoHelper.showInfoDialog(
               context: context,
               content: 'This page allows you to change your password',
@@ -108,6 +118,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       ),
       body: Stack(
         children: [
+          /// Single child scroll view is used to prevent overflow and makes
+          /// the page scrollable
           SingleChildScrollView(
             child: Center(
               child: Form(
@@ -133,6 +145,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       child: Padding(
                         child: Column(
                           children: [
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               controller: _oldPasswordController,
                               labelText: 'Old Password',
@@ -143,6 +156,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                               validator: ValidationHelper.validatePassword,
                             ),
                             const MediumSpacerWidget(),
+
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               controller: _newPasswordController,
                               labelText: 'New Password',
@@ -153,6 +168,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                               validator: ValidationHelper.validatePassword,
                             ),
                             const MediumSpacerWidget(),
+
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               controller: _repeatNewPasswordController,
                               labelText: 'Repeat New Password',

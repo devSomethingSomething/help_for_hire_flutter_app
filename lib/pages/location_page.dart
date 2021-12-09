@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/location_constants.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
@@ -14,7 +15,10 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/medium_spacer_widget.d
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:provider/provider.dart';
 
+/// This page allows a user to choose their location
+/// They need to choose the Province and City
 class LocationPage extends StatefulWidget {
+  /// Constructor
   const LocationPage();
 
   @override
@@ -22,10 +26,13 @@ class LocationPage extends StatefulWidget {
 }
 
 class _LocationPageState extends State<LocationPage> {
+  /// The _key variable is used to validate form fields
   final _key = GlobalKey<FormState>();
 
+  /// Variables
   String? _city;
 
+  /// Build the widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +40,8 @@ class _LocationPageState extends State<LocationPage> {
         children: [
           const BlueGradientWidget(),
           SafeArea(
+            /// Single child scroll view is used to prevent overflow and makes
+            /// the page scrollable
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(
                 16.0,
@@ -80,6 +89,9 @@ class _LocationPageState extends State<LocationPage> {
                                   ),
                                 ),
                                 iconSize: 28.0,
+
+                                /// Get the locations from the class LocationConstants
+                                /// and convert it into a drop down menu item
                                 items: LocationConstants.provinces
                                     .map(
                                       (value) => DropdownMenuItem(
@@ -94,6 +106,9 @@ class _LocationPageState extends State<LocationPage> {
                                   DelayHelper.showLoadingIndicator(
                                       context: context);
 
+                                  /// Ones a location has been selected the
+                                  /// City drop down will display and get all the cities
+                                  /// that is in the selected province
                                   await context
                                       .read<LocationService>()
                                       .getCitiesInProvince(
@@ -127,6 +142,7 @@ class _LocationPageState extends State<LocationPage> {
                                 return service.locations.isEmpty
                                     ? Container()
                                     : Container(
+                                        /// Select City drop down
                                         child: DropdownButtonFormField(
                                           decoration: const InputDecoration(
                                             enabledBorder: UnderlineInputBorder(
@@ -195,7 +211,7 @@ class _LocationPageState extends State<LocationPage> {
                                     )
                                     .locationId;
 
-                            // Add navigation logic
+                            /// Navigate to the Account Type Page
                             Navigator.pushNamed(
                               context,
                               RouteManager.accountTypePage,

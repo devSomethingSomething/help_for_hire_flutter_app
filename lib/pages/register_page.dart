@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/connection_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/snack_bar_helper.dart';
@@ -14,7 +15,9 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.da
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
+/// This page allows a new user to register for the application
 class RegisterPage extends StatefulWidget {
+  /// Constructor
   const RegisterPage();
 
   @override
@@ -22,14 +25,17 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  /// The _key variable is used to validate form fields
   final _key = GlobalKey<FormState>();
 
+  /// Variables for the Text editing controllers
   final _idNumberController = TextEditingController();
   final _nameController = TextEditingController();
   final _surnameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  /// Method dispose is used to clear any controllers when the page is built
   @override
   void dispose() {
     _idNumberController.dispose();
@@ -41,6 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +55,8 @@ class _RegisterPageState extends State<RegisterPage> {
         children: [
           const BlueGradientWidget(),
           SafeArea(
+            /// Single child scroll view is used to prevent overflow and makes
+            /// the page scrollable
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(
                 16.0,
@@ -80,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         key: _key,
                         child: Column(
                           children: [
-                            // This field requires validation
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               controller: _idNumberController,
                               labelText: 'ID Number',
@@ -90,7 +99,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               validator: ValidationHelper.validateId,
                             ),
                             const SmallSpacerWidget(),
-                            // Needs better validation
+
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               controller: _nameController,
                               labelText: 'Name',
@@ -99,7 +109,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               validator: ValidationHelper.validateText,
                             ),
                             const SmallSpacerWidget(),
-                            // Needs better validation
+
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               controller: _surnameController,
                               labelText: 'Surname',
@@ -108,6 +119,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               validator: ValidationHelper.validateText,
                             ),
                             const SmallSpacerWidget(),
+
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               controller: _phoneNumberController,
                               labelText: 'Phone Number',
@@ -117,7 +130,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               validator: ValidationHelper.validatePhoneNumber,
                             ),
                             const SmallSpacerWidget(),
-                            // This field requires validation
+
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               controller: _passwordController,
                               labelText: 'Password',
@@ -136,6 +150,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       data: 'SUBMIT',
                       onPressed: () async {
                         // This needs to be cleaned up later on
+                        /// Check is all fields are valid, has a connection to
+                        /// the database and is not a existing user
                         if (_key.currentState!.validate()) {
                           if (await ConnectionHelper.hasConnection()) {
                             if (await FirebaseService.isNotExistingUser(
@@ -152,7 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 locationId: '',
                               );
 
-                              // Go to next page
+                              /// Navigates to the Loaction Page
                               Navigator.pushNamed(
                                 context,
                                 RouteManager.locationPage,
@@ -185,6 +201,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         color: Colors.white,
                       ),
                     ),
+
+                    /// If the user already has an account they can sign in
+                    /// with the text button
                     TextButton(
                       child: const Text(
                         'Sign in',
@@ -193,6 +212,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+
+                      /// Navigates to the Sign in Page
                       onPressed: () => Navigator.popAndPushNamed(
                         context,
                         RouteManager.signInPage,

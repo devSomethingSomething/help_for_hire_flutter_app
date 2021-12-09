@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/helpers/delay_helper.dart';
 import 'package:help_for_hire_flutter_app/helpers/validation_helper.dart';
@@ -13,7 +14,11 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.da
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
+/// This page allows a user to register as an employer
+/// They can only get to this page if they chose the Employer account
+/// at the Account Type Page
 class EmployerRegisterPage extends StatefulWidget {
+  /// Constructor
   const EmployerRegisterPage();
 
   @override
@@ -21,12 +26,15 @@ class EmployerRegisterPage extends StatefulWidget {
 }
 
 class _EmployerRegisterPageState extends State<EmployerRegisterPage> {
+  /// The _key variable is used to validate form fields
   final _key = GlobalKey<FormState>();
 
+  /// Variables for the Text editing controllers
   final _companyNameController = TextEditingController();
   final _addressController = TextEditingController();
   final _suburbController = TextEditingController();
 
+  /// Method dispose is used to clear any controllers when the page is built
   @override
   void dispose() {
     _companyNameController.dispose();
@@ -36,6 +44,7 @@ class _EmployerRegisterPageState extends State<EmployerRegisterPage> {
     super.dispose();
   }
 
+  /// Handles the logic for this page
   void _onPressed() {
     ValidationHelper.validateForm(
       context: context,
@@ -45,6 +54,10 @@ class _EmployerRegisterPageState extends State<EmployerRegisterPage> {
         function: () {
           DelayHelper.showLoadingIndicator(context: context);
 
+          /// Read in the background, this is listening for changes and will update
+          ///
+          /// The Company name is a optional field and if nothing is entered
+          /// it will display N/A on their profile
           context.read<UserService>().currentUser = EmployerModel(
             companyName: _companyNameController.text.isEmpty
                 ? 'N/A'
@@ -56,6 +69,7 @@ class _EmployerRegisterPageState extends State<EmployerRegisterPage> {
 
           DelayHelper.hideLoadingIndicator(context: context);
 
+          /// Navigates to the Terms and Conditions Page
           Navigator.pushNamed(
             context,
             RouteManager.termsAndConditionsPage,
@@ -65,6 +79,7 @@ class _EmployerRegisterPageState extends State<EmployerRegisterPage> {
     );
   }
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +87,8 @@ class _EmployerRegisterPageState extends State<EmployerRegisterPage> {
         children: [
           const BlueGradientWidget(),
           SafeArea(
+            /// Single child scroll view is used to prevent overflow and makes
+            /// the page scrollable
             child: SingleChildScrollView(
               child: Center(
                 child: Column(
@@ -102,6 +119,9 @@ class _EmployerRegisterPageState extends State<EmployerRegisterPage> {
                         key: _key,
                         child: Column(
                           children: [
+                            /// Text form field
+                            /// Does not need validation because it is
+                            /// a optional field
                             TextFormFieldWidget(
                               labelText: 'Company Name (Optional)',
                               keyboardType: TextInputType.text,
@@ -109,6 +129,8 @@ class _EmployerRegisterPageState extends State<EmployerRegisterPage> {
                               icon: Icons.business,
                             ),
                             const MediumSpacerWidget(),
+
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               labelText: 'Address',
                               keyboardType: TextInputType.text,
@@ -117,6 +139,8 @@ class _EmployerRegisterPageState extends State<EmployerRegisterPage> {
                               validator: ValidationHelper.validateDescription,
                             ),
                             const MediumSpacerWidget(),
+
+                            /// Text form field with validation
                             TextFormFieldWidget(
                               labelText: 'Suburb',
                               keyboardType: TextInputType.text,

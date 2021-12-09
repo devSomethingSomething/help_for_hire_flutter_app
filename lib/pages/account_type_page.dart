@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/cards/account_type_card_widget.dart';
@@ -8,9 +9,13 @@ import 'package:help_for_hire_flutter_app/widgets/spacers/large_spacer_widget.da
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 import 'package:help_for_hire_flutter_app/widgets/text/white_heading_text_widget.dart';
 
+/// This page allows a user to select between a worker account
+/// or a employer account
 class AccountTypePage extends StatelessWidget {
+  /// Constructor
   const AccountTypePage();
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +23,8 @@ class AccountTypePage extends StatelessWidget {
         children: [
           const BlueGradientWidget(),
           SafeArea(
+            /// Single child scroll view is used to prevent overflow and makes
+            /// the page scrollable
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(
                 16.0,
@@ -44,6 +51,8 @@ class AccountTypePage extends StatelessWidget {
                       data: 'Select an account type',
                     ),
                     const LargeSpacerWidget(),
+
+                    /// Employer card with relevant details
                     AccountTypeCardWidget(
                       leadingIcon: Icons.hail_rounded,
                       headingText: 'Employer',
@@ -52,12 +61,16 @@ class AccountTypePage extends StatelessWidget {
                       detailsDescriptionText: 'Employers may browse and select '
                           'profiles. They may also choose to invite worker account '
                           'types to jobs',
+
+                      /// Navigate to the Employer Register Page
                       onTap: () => Navigator.pushNamed(
                         context,
                         RouteManager.employerRegisterPage,
                       ),
                     ),
                     const SmallSpacerWidget(),
+
+                    /// Worker card with relevant details
                     AccountTypeCardWidget(
                       leadingIcon: Icons.emoji_people_rounded,
                       headingText: 'Worker',
@@ -66,6 +79,8 @@ class AccountTypePage extends StatelessWidget {
                       detailsDescriptionText: 'Workers may take on jobs from '
                           'employer account types. Workers can accept or decline '
                           'invites',
+
+                      /// Navigate to the Worker Register Page
                       onTap: () => Navigator.pushNamed(
                         context,
                         RouteManager.workerRegisterPage,
