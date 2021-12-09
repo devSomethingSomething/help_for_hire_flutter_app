@@ -63,16 +63,19 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
     _phoneController.text = 'current cell NO';
     _descriptionController.text = 'current description';
 
+    var user=context.read<UserService>();
+
+    context
+        .read<LocationService>()
+        .getLocation(id: user.currentUser.locationId);
+    context
+        .read<JobService>()
+        .getSelectedJobs(ids: (user.currentUser as WorkerModel).jobIds);
     return Consumer3<UserService, LocationService, JobService>(
         builder: (context, user, location, job, child) {
-      context
-          .read<LocationService>()
-          .getLocation(id: user.currentUser.locationId);
-      context
-          .read<JobService>()
-          .getSelectedJobs(ids: (user.currentUser as WorkerModel).jobIds);
 
-      return Scaffold(
+
+      return location.locationRefreshed==false? CircularProgressIndicator() : Scaffold(
         appBar: AppBarWidget(
           actions: [
             IconButton(

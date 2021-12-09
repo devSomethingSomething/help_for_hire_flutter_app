@@ -1,6 +1,7 @@
 /// Imports
 import 'dart:convert';
 import 'dart:io';
+import 'dart:js_util';
 
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
@@ -14,6 +15,8 @@ class LocationService with ChangeNotifier {
 
   /// Single location retrieved
   LocationModel? location;
+
+  bool locationRefreshed = false;
 
   /// List of JSON data retrieved from the database
   var _jsons = [];
@@ -46,8 +49,11 @@ class LocationService with ChangeNotifier {
         );
       } catch (_) {}
     } else {}
-
+    locationRefreshed = true;
     notifyListeners();
+    Future.delayed(Duration(seconds: 3),(){
+      locationRefreshed = false;
+    });
   }
 
   /// Gets all the locations from the database
