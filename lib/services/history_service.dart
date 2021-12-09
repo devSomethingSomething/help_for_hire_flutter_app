@@ -1,3 +1,4 @@
+/// Imports
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,16 +7,24 @@ import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/history_model.dart';
 import 'package:http/http.dart';
 
+/// Handles calls to the history controller in the web API
 class HistoryService with ChangeNotifier {
+  /// History entries retrieved from the database
   var histories = <HistoryModel>[];
 
+  /// List of JSON data retrieved from the database
   var _jsons = [];
+
+  /// JSON data retrieved for a single entry
   var _json = <String, dynamic>{};
 
+  /// Forms part of the address
   static const _controllerRoute = '/api/history/';
 
+  /// Constructor
   HistoryService();
 
+  /// Creates a new history entry in the database
   Future<void> postHistory({
     required HistoryModel history,
   }) async {
@@ -33,18 +42,13 @@ class HistoryService with ChangeNotifier {
     if (response.statusCode == HttpStatus.created) {
       try {
         histories.add(history);
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.badRequest) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
 
     notifyListeners();
   }
 
+  /// Gets a single history entry
   Future<void> getHistory({
     required String id,
   }) async {
@@ -63,16 +67,11 @@ class HistoryService with ChangeNotifier {
             json: _json,
           ),
         );
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
   }
 
+  /// Gets all the history from the database
   Future<void> getHistories() async {
     final response = await get(
       Uri.parse(
@@ -91,16 +90,11 @@ class HistoryService with ChangeNotifier {
             ),
           );
         }
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
   }
 
+  /// Deletes all the history for a user
   Future<void> deleteAllHistoryForUser({
     required String userId,
   }) async {
@@ -112,13 +106,12 @@ class HistoryService with ChangeNotifier {
 
     if (response.statusCode == HttpStatus.noContent) {
       histories.clear();
-    } else {
-      // Handle other errors
-    }
+    } else {}
 
     notifyListeners();
   }
 
+  /// Gets all the history for a specific user
   Future<void> getHistoryByUser({
     required String id,
   }) async {
@@ -141,14 +134,8 @@ class HistoryService with ChangeNotifier {
             ),
           );
         }
-      } catch (e) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
 
     notifyListeners();
   }

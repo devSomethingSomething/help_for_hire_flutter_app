@@ -1,3 +1,4 @@
+/// Imports
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +9,18 @@ import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 import 'package:help_for_hire_flutter_app/widgets/text_form_fields/text_form_field_widget.dart';
 import 'package:http/http.dart';
 
+/// Handles operations related to Firebase such as authentication or OTPs
 class FirebaseService {
+  /// Constructor
   const FirebaseService._();
 
+  /// Initializes the Firebase app
   @Deprecated('No longer needed as initialization is done in main')
   static Future<void> initialize() async {
     await Firebase.initializeApp();
   }
 
+  /// Deletes a user from Firebase auth
   static Future<void> deleteUser({
     required String id,
   }) async {
@@ -26,6 +31,7 @@ class FirebaseService {
     );
   }
 
+  /// Checks if a user exists in Firebase auth
   static Future<bool> isNotExistingUser({
     required BuildContext context,
     required String id,
@@ -45,6 +51,7 @@ class FirebaseService {
     }
   }
 
+  /// Attempts to sign a user into Firebase auth
   static Future<bool> signInUser({
     required BuildContext context,
     required String id,
@@ -85,6 +92,7 @@ class FirebaseService {
     }
   }
 
+  /// Checks if a user exists in Firebase auth
   static Future<bool> isExistingId({
     required String id,
   }) async {
@@ -114,6 +122,7 @@ class FirebaseService {
     return false;
   }
 
+  /// Creates a new user in Firebase auth
   static Future<void> createUser({
     required BuildContext context,
     required String id,
@@ -154,6 +163,11 @@ class FirebaseService {
     }
   }
 
+  /// Handles OTPs sent to a users phone
+  ///
+  /// Can also navigate to another page after the OTP is verified
+  /// Currently does not work on emulators, this seems to be a security measure
+  /// in Firebase to prevent misuse of the system
   static Future<void> handleOtp({
     required BuildContext context,
     required String phoneNumber,
@@ -233,8 +247,6 @@ class FirebaseService {
                   labelText: 'OTP',
                   lightMode: true,
                   maxLength: 6,
-                  // Need to validate the OTP code
-                  // validator: ,
                 ),
               ),
               padding: const EdgeInsets.all(

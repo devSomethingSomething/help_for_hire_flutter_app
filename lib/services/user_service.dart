@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:help_for_hire_flutter_app/models/user_model.dart';
@@ -7,7 +8,11 @@ import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:provider/provider.dart';
 import 'worker_service.dart';
 
+/// Handles calls to the user controller in the web API
 class UserService with ChangeNotifier {
+  /// Sets up the current user and their details in the app
+  ///
+  /// This will be set in the sign in page
   UserModel currentUser = UserModel(
     userId: '',
     name: '',
@@ -16,6 +21,7 @@ class UserService with ChangeNotifier {
     locationId: '',
   );
 
+  /// This holds details of a selected user, used for specific operations
   UserModel selectedUser = UserModel(
     userId: '',
     name: '',
@@ -24,12 +30,13 @@ class UserService with ChangeNotifier {
     locationId: '',
   );
 
+  /// Checks if the current user is an employer, used for many checks in the app
   bool get isEmployer => currentUser is EmployerModel;
 
+  /// Constructor
   UserService();
 
-  // This method will need work as the services are completed
-  // Will handle the registration of the new user
+  /// Handles the registration of the new user
   Future<void> registerUser({
     required BuildContext context,
   }) async {
@@ -44,7 +51,7 @@ class UserService with ChangeNotifier {
     }
   }
 
-  // Loads the correct user information
+  /// Loads the correct user information
   Future<void> loadUser({
     required BuildContext context,
   }) async {

@@ -1,20 +1,31 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/routes/route_manager.dart';
 
+/// Custom Bottom navigation
 class BottomNavigation extends StatefulWidget {
-  final int pageID; //0=profile,1=invites,2=history
+  /// Variables
+  final int pageID;
   final userIsEmployer;
-  const BottomNavigation(
-      {Key? key, required this.userIsEmployer, required this.pageID})
-      : super(key: key);
+
+  /// Constructor with required fields
+  const BottomNavigation({
+    Key? key,
+    required this.userIsEmployer,
+    required this.pageID,
+  }) : super(key: key);
 
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
+  /// Variables
   var selectedIndex;
+
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     selectedIndex = widget.pageID;
@@ -27,7 +38,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
       showSelectedLabels: true,
       currentIndex: selectedIndex,
       onTap: _onItemTaped,
-      items: [
+      items: const [
         BottomNavigationBarItem(
           //backgroundColor: ColorConstants.blue,
           icon: Icon(Icons.account_circle_rounded),
@@ -45,6 +56,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     );
   }
 
+  /// Method _onItemTap will navigate to the corresponding page of the index
   void _onItemTaped(int index) {
     setState(() {
       selectedIndex = index;
@@ -52,12 +64,18 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
     switch (index) {
       case 0:
+
+        /// Navigates to the Logged in user profile Page
         Navigator.pushNamed(context, RouteManager.loggedInUserProfile);
         break;
       case 1:
+
+        /// Navigates to the Invites Page
         //Navigator.pushNamed(context, RouteManager.invitesPage);
         break;
       case 2:
+
+        /// Navigates to the History Page
         Navigator.pushNamed(context, RouteManager.historyPage);
         break;
     }

@@ -1,3 +1,4 @@
+/// Imports
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,16 +7,24 @@ import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/invite_model.dart';
 import 'package:http/http.dart';
 
+/// Handles calls to the invite controller in the web API
 class InviteService with ChangeNotifier {
+  /// Invites retrieved from the database
   var invites = <InviteModel>[];
 
+  /// List of JSON data retrieved from the database
   var _jsons = [];
+
+  /// JSON data retrieved for a single entry
   var _json = <String, dynamic>{};
 
+  /// Forms part of the address
   static const _controllerRoute = '/api/invite/';
 
+  /// Constructor
   InviteService();
 
+  /// Creates a new invite in the database
   Future<void> postInvite({
     required InviteModel invite,
   }) async {
@@ -33,16 +42,11 @@ class InviteService with ChangeNotifier {
     if (response.statusCode == HttpStatus.created) {
       try {
         invites.add(invite);
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.badRequest) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
   }
 
+  /// Gets a single invite from the database
   Future<void> getInvite({
     required String id,
   }) async {
@@ -61,16 +65,11 @@ class InviteService with ChangeNotifier {
             json: _json,
           ),
         );
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
   }
 
+  /// Gets all the invites from the database
   Future<void> getInvites() async {
     final response = await get(
       Uri.parse(
@@ -89,16 +88,11 @@ class InviteService with ChangeNotifier {
             ),
           );
         }
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
   }
 
+  /// Updates an invite
   Future<void> putInvite({
     required String id,
     required InviteModel invite,
@@ -121,6 +115,7 @@ class InviteService with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Deletes an invite
   Future<void> deleteInvite({
     required String id,
   }) async {
@@ -139,6 +134,7 @@ class InviteService with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Gets all the invites for a specific employer
   Future<void> getInvitesForEmployer({
     required String employerId,
   }) async {
@@ -167,7 +163,7 @@ class InviteService with ChangeNotifier {
     notifyListeners();
   }
 
-  // Needs to match the employer method above
+  /// Gets all the invites for a specific worker
   Future<void> getInvitesForWorker({
     required String id,
   }) async {
@@ -186,13 +182,7 @@ class InviteService with ChangeNotifier {
             json: _json,
           ),
         );
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
   }
 }

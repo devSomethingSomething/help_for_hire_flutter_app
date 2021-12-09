@@ -1,3 +1,4 @@
+/// Imports
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,23 +7,27 @@ import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/employer_model.dart';
 import 'package:http/http.dart';
 
-// This service should be able to
-// - Post
-// - Get
-// - Get(All)
-// - Put
-// - Get(Query)
+/// Handles calls to the employer controller in the web API
 class EmployerService with ChangeNotifier {
+  /// Employers retrieved from the database
   var employers = <EmployerModel>[];
+
+  /// Single employer retrieved
   EmployerModel? employer;
 
+  /// List of JSON data retrieved from the database
   var _jsons = <Map<String, dynamic>>[];
+
+  /// JSON data retrieved for a single entry
   var _json = <String, dynamic>{};
 
+  /// Forms part of the address
   static const _controllerRoute = '/api/employer/';
 
+  /// Constructor
   EmployerService();
 
+  /// Creates a new employer in the database
   Future<void> postEmployer({
     required EmployerModel employer,
   }) async {
@@ -40,16 +45,11 @@ class EmployerService with ChangeNotifier {
     if (response.statusCode == HttpStatus.created) {
       try {
         employers.add(employer);
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.badRequest) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
   }
 
+  /// Gets a single employer back from the database
   Future<void> getEmployer({
     required String id,
   }) async {
@@ -72,6 +72,7 @@ class EmployerService with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Gets all the employers from the database
   Future<void> getEmployers() async {
     final response = await get(
       Uri.parse(
@@ -90,16 +91,11 @@ class EmployerService with ChangeNotifier {
             ),
           );
         }
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
   }
 
+  /// Updates a single employer in the database
   Future<void> putEmployer({
     required String id,
     required EmployerModel employer,
@@ -116,15 +112,7 @@ class EmployerService with ChangeNotifier {
     );
 
     if (response.statusCode == HttpStatus.noContent) {
-      try {
-        // Request worked code
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
+      try {} catch (_) {}
+    } else {}
   }
 }

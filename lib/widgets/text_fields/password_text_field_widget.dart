@@ -1,15 +1,19 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 import 'package:help_for_hire_flutter_app/models/form_model.dart';
 import 'package:provider/provider.dart';
 
+/// Custom Text field for the password field
 class PasswordTextFieldWidget extends StatelessWidget {
+  /// Variables
   final String _data;
-
   final TextInputType _keyboardType;
-
   final TextEditingController _controller;
 
+  /// Constructor with required fields
+  /// It also initializes the local variables with the required variables
+  /// so that it can be used in the Widget build
   const PasswordTextFieldWidget({
     required String data,
     required TextInputType keyboardType,
@@ -18,6 +22,7 @@ class PasswordTextFieldWidget extends StatelessWidget {
         _keyboardType = keyboardType,
         _controller = controller;
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Padding(

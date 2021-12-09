@@ -1,14 +1,17 @@
 // ignore_for_file: prefer_const_constructors
-
+/// Imports
 import 'package:flutter/material.dart';
 
+/// Custom Drop down widget for the report page
 class DropDownWidget extends StatefulWidget {
+  /// Constructor
   const DropDownWidget({Key? key}) : super(key: key);
 
   @override
   _DropDownWidgetState createState() => _DropDownWidgetState();
 }
 
+/// Getter for the drop down menu items
 List<DropdownMenuItem<String>> get dropdownItems {
   List<DropdownMenuItem<String>> menuItems = [
     DropdownMenuItem(child: Text("Select Reason"), value: "Select"),
@@ -22,7 +25,10 @@ List<DropdownMenuItem<String>> get dropdownItems {
 }
 
 class _DropDownWidgetState extends State<DropDownWidget> {
+  /// Variables
   String selectedValue = "Select";
+
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return DropdownButton(

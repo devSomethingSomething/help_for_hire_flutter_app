@@ -1,3 +1,4 @@
+/// Imports
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,6 +7,7 @@ import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/worker_model.dart';
 import 'package:http/http.dart';
 
+/// Handles calls to the worker controller in the web API
 class WorkerService with ChangeNotifier {
   /// Holds a reference to a worker
   ///
@@ -34,6 +36,7 @@ class WorkerService with ChangeNotifier {
   /// Route in the web API for the worker controller
   static const _controllerRoute = '/api/worker/';
 
+  /// Constructor
   WorkerService();
 
   /// Sorts the list of workers
@@ -83,6 +86,7 @@ class WorkerService with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Creates a new worker in the database
   Future<void> postWorker({
     required WorkerModel worker,
   }) async {
@@ -100,16 +104,11 @@ class WorkerService with ChangeNotifier {
     if (response.statusCode == HttpStatus.created) {
       try {
         workers.add(worker);
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.badRequest) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
   }
 
+  /// Gets back a single worker from the database
   Future<void> getWorker({
     required String id,
   }) async {
@@ -132,6 +131,7 @@ class WorkerService with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Gets back all the workers from the database
   Future<void> getWorkers() async {
     final response = await get(
       Uri.parse(
@@ -152,18 +152,13 @@ class WorkerService with ChangeNotifier {
             ),
           );
         }
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
 
     notifyListeners();
   }
 
+  /// Gets all the workers in a specific city
   Future<void> getWorkersInCity({
     required String locationId,
   }) async {
@@ -215,6 +210,7 @@ class WorkerService with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Gets the average rating for a single worker
   Future<void> getAverageRatingForWorker({
     required String workerId,
   }) async {
@@ -237,6 +233,7 @@ class WorkerService with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Gets all the workers with certain skills or jobs
   Future<void> getWorkersWithSkills({
     required String locationId,
     required List<String> jobIds,
@@ -298,9 +295,7 @@ class WorkerService with ChangeNotifier {
     notifyListeners();
   }
 
-
-
-  //needs to be checked
+  /// Updates a single worker with new data
   Future<void> putWorker({
     required String id,
     required WorkerModel worker,
@@ -317,15 +312,7 @@ class WorkerService with ChangeNotifier {
     );
 
     if (response.statusCode == HttpStatus.noContent) {
-      try {
-        // Request worked code
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle bad request
-    } else {
-      // Handle other errors
-    }
+      try {} catch (_) {}
+    } else {}
   }
 }

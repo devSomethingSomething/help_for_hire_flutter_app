@@ -1,13 +1,17 @@
+// ignore_for_file: prefer_const_constructors
+/// Imports
 import 'package:flutter/material.dart';
-import 'package:help_for_hire_flutter_app/constants/color_constants.dart';
 
+/// Custom Text field widget
 class TextFieldWidget extends StatelessWidget {
+  /// Variables
   final String _data;
-
   final TextInputType _keyboardType;
-
   final TextEditingController _controller;
 
+  /// Constructor with required fields
+  /// It also initializes the local variables with the required variables
+  /// so that it can be used in the Widget build
   const TextFieldWidget({
     required String data,
     required TextInputType keyboardType,
@@ -16,6 +20,7 @@ class TextFieldWidget extends StatelessWidget {
         _keyboardType = keyboardType,
         _controller = controller;
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,14 +30,14 @@ class TextFieldWidget extends StatelessWidget {
       ),
       child: TextField(
         controller: _controller,
-        cursorColor: Colors.white, //ColorConstants.blue,
+        cursorColor: Colors.white,
         decoration: InputDecoration(
           floatingLabelStyle: TextStyle(
-            color: Colors.white, //ColorConstants.blue,
+            color: Colors.white,
           ),
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.white, //ColorConstants.blue,
+              color: Colors.white,
             ),
           ),
           labelStyle: TextStyle(

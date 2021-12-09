@@ -1,3 +1,4 @@
+/// Imports
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,6 +7,7 @@ import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/report_model.dart';
 import 'package:http/http.dart';
 
+/// Handles calls to the report controller in the web API
 class ReportService with ChangeNotifier {
   /// For use in the report page
   ///
@@ -18,6 +20,7 @@ class ReportService with ChangeNotifier {
   /// Route in the web api to reach the report controller
   static const _controllerRoute = '/api/report/';
 
+  /// Constructor
   ReportService();
 
   String get selectedReportType => _selectedReportType;

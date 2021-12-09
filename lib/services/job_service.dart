@@ -1,3 +1,4 @@
+/// Imports
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,16 +7,24 @@ import 'package:help_for_hire_flutter_app/constants/domain_constants.dart';
 import 'package:help_for_hire_flutter_app/models/job_model.dart';
 import 'package:http/http.dart';
 
+/// Handles calls to the job controller in the web API
 class JobService with ChangeNotifier {
+  /// Jobs retrieved from the database
   var jobs = <JobModel>[];
+
+  /// Selected jobs retrieved from the database
   var selectedJobs = <JobModel>[];
 
+  /// List of JSON data retrieved from the database
   var _jsons = [];
 
+  /// Forms part of the address
   static const _controllerRoute = '/api/job/';
 
+  /// Constructor
   JobService();
 
+  /// Gets all the jobs from the database
   Future<void> getJobs() async {
     final response = await get(
       Uri.parse(
@@ -36,18 +45,13 @@ class JobService with ChangeNotifier {
             ),
           );
         }
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
 
     notifyListeners();
   }
 
+  /// Gets selected jobs from the database
   Future<void> getSelectedJobs({
     required List<dynamic> jobIds,
   }) async {
