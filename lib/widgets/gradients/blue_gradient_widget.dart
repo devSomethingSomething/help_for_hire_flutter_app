@@ -1,8 +1,12 @@
+/// Imports
 import 'package:flutter/material.dart';
 
+/// Custom Blue gradient widget for the registrations background
 class BlueGradientWidget extends StatelessWidget {
+  /// Constructor
   const BlueGradientWidget();
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(

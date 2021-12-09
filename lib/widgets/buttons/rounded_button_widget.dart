@@ -1,16 +1,18 @@
+/// Imports
 import 'package:flutter/material.dart';
 
+/// Custom Rounded button widget
 class RoundedButtonWidget extends StatelessWidget {
+  /// Variables
   final String _data;
-
   final void Function() _onPressed;
-
   final bool _invertColors;
-
   final bool _reduceSize;
-
   final double _horizontal;
 
+  /// Constructor with required fields
+  /// It also initializes the local variables with the required variables
+  /// so that it can be used in the Widget build
   const RoundedButtonWidget({
     required String data,
     required void Function() onPressed,
@@ -23,6 +25,7 @@ class RoundedButtonWidget extends StatelessWidget {
         _reduceSize = reduceSize,
         _horizontal = horizontal;
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(

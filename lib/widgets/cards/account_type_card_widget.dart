@@ -1,19 +1,20 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/widgets/spacers/small_spacer_widget.dart';
 
+/// Custom Account type card widget
 class AccountTypeCardWidget extends StatelessWidget {
+  /// Variables
   final void Function() _onTap;
-
   final IconData _leadingIcon;
-
   final String _headingText;
-
   final String _descriptionText;
-
   final String _detailsHeadingText;
-
   final String _detailsDescriptionText;
 
+  /// Constructor with required fields
+  /// It also initializes the local variables with the required variables
+  /// so that it can be used in the Widget build
   const AccountTypeCardWidget({
     required void Function() onTap,
     required IconData leadingIcon,
@@ -28,6 +29,7 @@ class AccountTypeCardWidget extends StatelessWidget {
         _detailsHeadingText = detailsHeadingText,
         _detailsDescriptionText = detailsDescriptionText;
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -67,6 +69,7 @@ class AccountTypeCardWidget extends StatelessWidget {
                   size: 32.0,
                 ),
                 onPressed: () {
+                  /// Displays what each account is used for
                   showDialog(
                     context: context,
                     builder: (context) {

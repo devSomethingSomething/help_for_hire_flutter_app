@@ -1,3 +1,4 @@
+/// Imports
 import 'package:flutter/material.dart';
 import 'package:help_for_hire_flutter_app/enums/status.dart';
 import 'package:help_for_hire_flutter_app/models/invite_model.dart';
@@ -6,13 +7,19 @@ import 'package:help_for_hire_flutter_app/services/worker_service.dart';
 import 'package:help_for_hire_flutter_app/widgets/buttons/flat_button_widget.dart';
 import 'package:provider/provider.dart';
 
+/// Custom Invite card widget
 class InviteCardWidget extends StatelessWidget {
+  /// Variables
   final InviteModel _invite;
 
+  /// Constructor with required fields
+  /// It also initializes the local variables with the required variables
+  /// so that it can be used in the Widget build
   const InviteCardWidget({
     required InviteModel invite,
   }) : _invite = invite;
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     // Will need to do a check here to get the correct info from the correct
@@ -22,8 +29,9 @@ class InviteCardWidget extends StatelessWidget {
         );
     return Consumer<WorkerService>(
       builder: (context, value, child) {
+        // First check if the map length is zero and there is no error
         return value.workers.isEmpty
-            ? CircularProgressIndicator()
+            ? const CircularProgressIndicator()
             : Card(
                 child: ListTile(
                   tileColor: Colors.grey[100],

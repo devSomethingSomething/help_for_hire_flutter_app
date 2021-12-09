@@ -1,12 +1,19 @@
+/// Imports
 import 'package:flutter/material.dart';
 
+/// Custom Header widget for all the pages except the registration pages
 class HeaderWidget extends StatelessWidget {
+  /// Variables
   final String _data;
 
+  /// Constructor with required fields
+  /// It also initializes the local variables with the required variables
+  /// so that it can be used in the Widget build
   const HeaderWidget({
     required String data,
   }) : _data = data;
 
+  /// Builds the widget
   @override
   Widget build(BuildContext context) {
     return Row(
