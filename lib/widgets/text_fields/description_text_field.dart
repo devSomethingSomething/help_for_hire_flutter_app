@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors
-
+/// Imports
 import 'package:flutter/material.dart';
 
+/// Custom Text box for the description text field
 class DescriptionTextbox extends StatelessWidget {
+  /// Constructor with required fields
+  /// It also initializes the local variables with the required variables
+  /// so that it can be used in the Widget build
   const DescriptionTextbox({
     Key? key,
     required TextEditingController descriptionController,
@@ -16,9 +20,10 @@ class DescriptionTextbox extends StatelessWidget {
         _keyboardType = keyboardType,
         _maxLines = maxLines,
         _validator = validator,
-  _color=color,
+        _color = color,
         super(key: key);
 
+  /// Variables
   final TextEditingController _descriptionController;
   final String _data;
   final TextInputType _keyboardType;
@@ -26,6 +31,7 @@ class DescriptionTextbox extends StatelessWidget {
   final String? Function(String?)? _validator;
   final Color _color;
 
+  /// Builds the Widget
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(
