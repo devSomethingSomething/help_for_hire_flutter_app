@@ -70,7 +70,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
           .getLocation(id: user.currentUser.locationId);
       context
           .read<JobService>()
-          .getSelectedJobs(ids: (user.currentUser as WorkerModel).jobIds);
+          .getSelectedJobs(jobIds: (user.currentUser as WorkerModel).jobIds);
 
       return Scaffold(
         appBar: AppBarWidget(

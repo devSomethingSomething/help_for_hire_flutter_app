@@ -49,11 +49,17 @@ class JobService with ChangeNotifier {
   }
 
   Future<void> getSelectedJobs({
-    required List<dynamic> ids,
+    required List<dynamic> jobIds,
   }) async {
+    var jobIdParameters = StringBuffer();
+
+    for (var jobId in jobIds) {
+      jobIdParameters.write('&jobids=$jobId');
+    }
+
     final response = await get(
       Uri.parse(
-        'https://${DomainConstants.ip}:5001${_controllerRoute}selected/?ids=$ids',
+        'https://${DomainConstants.ip}:5001${_controllerRoute}selected/?${jobIdParameters.toString()}',
       ),
     );
 
@@ -70,14 +76,8 @@ class JobService with ChangeNotifier {
             ),
           );
         }
-      } catch (_) {
-        // Handle fail
-      }
-    } else if (response.statusCode == HttpStatus.notFound) {
-      // Handle not found
-    } else {
-      // Handle other errors
-    }
+      } catch (_) {}
+    } else {}
 
     notifyListeners();
   }
