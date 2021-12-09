@@ -114,39 +114,43 @@ class ProfileDiscoveryPage extends StatelessWidget {
                                       color: Colors.blue[900],
                                     ),
                                   )
-                                : ListView(
-                                    /// This will be used to sort the workers
-                                    /// by different selected jobs
-                                    children: service.jobs.map(
-                                      (job) {
-                                        var selected = false;
+                                : SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
 
-                                        return StatefulBuilder(
-                                          builder: (_, setState) {
-                                            return CheckboxListTile(
-                                              onChanged: (value) {
-                                                setState(
-                                                  () {
-                                                    selected = value!;
+                                      /// This will be used to sort the workers
+                                      /// by different selected jobs
+                                      children: service.jobs.map(
+                                        (job) {
+                                          var selected = false;
 
-                                                    value
-                                                        ? selectedJobIds
-                                                            .add(job.jobId)
-                                                        : selectedJobIds
-                                                            .remove(job.jobId);
-                                                  },
-                                                );
-                                              },
-                                              title: Text(
-                                                job.title,
-                                              ),
-                                              value: selected,
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ).toList(),
-                                    shrinkWrap: true,
+                                          return StatefulBuilder(
+                                            builder: (_, setState) {
+                                              return CheckboxListTile(
+                                                onChanged: (value) {
+                                                  setState(
+                                                    () {
+                                                      selected = value!;
+
+                                                      value
+                                                          ? selectedJobIds
+                                                              .add(job.jobId)
+                                                          : selectedJobIds
+                                                              .remove(
+                                                                  job.jobId);
+                                                    },
+                                                  );
+                                                },
+                                                title: Text(
+                                                  job.title,
+                                                ),
+                                                value: selected,
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ).toList(),
+                                    ),
                                   );
                           },
                         ),
